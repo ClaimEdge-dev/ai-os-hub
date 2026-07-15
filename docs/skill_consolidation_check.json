@@ -1,0 +1,102 @@
+{
+  "total_reviewed": 6,
+  "verdicts": {"KEEP": 3, "MERGE": 1, "ARCHIVE": 1, "NEEDS_UPDATE": 1},
+  "review_date": "2026-07-16",
+  "reviewer": "Kimi K2.6 Agent Swarm",
+  "skills": [
+    {
+      "name": "wind-hail-property-claims",
+      "size_kb": 12,
+      "description": "Residential property insurance claims investigation for wind and hail damage to roofing, siding, and exterior envelopes",
+      "triggers": ["wind damage", "hail damage", "roof replacement claims", "siding damage", "Liberty Mutual/Safeco policies"],
+      "verdict": "KEEP",
+      "confidence": "High",
+      "reasoning": "This is a core ClaimEdge revenue function. Wind and hail are the most common peril types in Illinois residential claims. The skill covers the full inspection-to-supplement workflow with Haag Engineering standards, IRC/IBC code citations, and carrier-specific rebuttal templates. No overlap with other skills in the reviewed set. It directly activates on the Golden Path at the Inspection and Exterior Damage Assessment pillars.",
+      "action": "No action needed. Keep active and maintain. Consider adding wood shake / cedar roof as a conditional branch rather than building a separate skill.",
+      "overlaps_with": [],
+      "priority": "P0",
+      "estimated_effort_hours": 0
+    },
+    {
+      "name": "municipal-code-compliance-toolkit",
+      "size_kb": 9,
+      "description": "Municipal building code compliance toolkit for property insurance claims",
+      "triggers": ["building department contacts", "adopted codes", "permit requirements", "code compliance letters"],
+      "verdict": "KEEP",
+      "confidence": "High",
+      "reasoning": "Code compliance is a high-leverage pillar for ClaimEdge. This skill provides verified building department contacts, adopted codes, local amendments, and permit requirements for Illinois municipalities. Code upgrade arguments are the #1 driver of successful supplements. The skill integrates with the IRC/IBC/IECC framework and produces carrier-ready code compliance letters. Essential for the Golden Path at the Code & Compliance pillar.",
+      "action": "No action needed. Keep active. Consider adding more municipalities beyond the current Chicago/Cook County focus.",
+      "overlaps_with": [],
+      "priority": "P0",
+      "estimated_effort_hours": 0
+    },
+    {
+      "name": "chicago-xactimate-pricing",
+      "size_kb": 7,
+      "description": "Access current Chicago-area Xactimate building material and labor pricing for insurance claims supplement preparation",
+      "triggers": ["Xactimate pricing", "line item costs", "supplement line items", "Chicago/Cook County pricing"],
+      "verdict": "KEEP",
+      "confidence": "High",
+      "reasoning": "Location-specific pricing data is a competitive advantage. This skill provides 2026 Chicago-area Xactimate pricing with the 1.18x cost index applied. It includes the 25 most commonly missed supplement line items with justification language and carrier pushback responses. The pricing data directly feeds the Estimate & Supplement Support pillar. No other skill provides this data.",
+      "action": "No action needed. Keep active. Schedule quarterly pricing updates. Consider expanding to additional Illinois metro areas (Rockford, Peoria, Springfield).",
+      "overlaps_with": [],
+      "priority": "P1",
+      "estimated_effort_hours": 0
+    },
+    {
+      "name": "claimedge-roof-valley-claims",
+      "size_kb": 8,
+      "description": "Insurance claim documentation and adjuster meeting support for hail-damaged wood/cedar shake roofs with metal valleys",
+      "triggers": ["wood shake roof claims", "metal valley damage", "adjuster reinspection meetings"],
+      "verdict": "MERGE",
+      "confidence": "Medium",
+      "reasoning": "This skill addresses a legitimate but narrow specialization — wood shake roofs with metal valleys. However, its functions (code-focused meeting scripts, property intel JSON bundles, inspection photo documentation) are 80% identical to wind-hail-property-claims. Maintaining it as a separate skill creates fragmentation and duplicate maintenance. The wood shake / metal valley content should be absorbed as a conditional branch or specialized template within wind-hail-property-claims rather than a standalone skill.",
+      "action": "Merge into wind-hail-property-claims: Extract the wood shake / metal valley specific content (meeting scripts, material specs, Haag criteria for wood shakes) and add as a conditional branch triggered by roof type = wood/cedar shake OR valley type = metal. Archive the standalone skill after merge verification.",
+      "overlaps_with": ["wind-hail-property-claims"],
+      "priority": "P2",
+      "estimated_effort_hours": 4
+    },
+    {
+      "name": "content-repurposer",
+      "size_kb": 5,
+      "description": "One input, multiple outputs — adapts a single piece of content for TikTok, Instagram, email, blog, and presentation formats",
+      "triggers": ["reuse content across platforms", "post everywhere", "adapt for Instagram", "make TikTok"],
+      "verdict": "ARCHIVE",
+      "confidence": "High",
+      "reasoning": "This is a generic marketing tool with zero claims-domain specificity. Its functions (social media adaptation, format conversion) are not relevant to the ClaimEdge core business of public adjusting. It does not activate on any Golden Path pillar. While it could theoretically be used for marketing ClaimEdge services, it is better served by dedicated marketing tools (e.g., Canva, Buffer) than by a custom AI skill. Archiving it reduces skill sprawl and maintenance burden.",
+      "action": "Move to /archive/ folder. Remove from active triggers. If marketing needs arise in the future, evaluate dedicated marketing tools before reactivating.",
+      "overlaps_with": [],
+      "priority": "P3",
+      "estimated_effort_hours": 1
+    },
+    {
+      "name": "huuso-operations-suite",
+      "size_kb": 17,
+      "description": "Extension pack for ClaimEdge Master Workflow. Covers non-PA inspection reports, 40-skill operations catalog, property/policy intelligence, multi-AI orchestration",
+      "triggers": ["non-insurance inspection reports", "40-skill Huuso catalog", "property intelligence research"],
+      "verdict": "NEEDS_UPDATE",
+      "confidence": "High",
+      "reasoning": "This skill contains the largest skill catalog (40 skills) but references the deprecated Huuso brand throughout. It likely contains valuable operational components (multi-AI orchestration recipes, property intelligence frameworks) that should be salvaged for ClaimEdge. However, it cannot be used as-is due to Huuso branding, outdated triggers, and potential references to deprecated services. A full audit of the 40-skill catalog is needed to identify which components are worth migrating vs. archiving.",
+      "action": "1. Audit all 40 skills in the catalog for ClaimEdge relevance. 2. Rebrand references from Huuso to ClaimEdge. 3. Update triggers to match ClaimEdge naming convention. 4. Salvage viable components into new ClaimEdge-native skills. 5. Archive components that don't fit the 12-pillar architecture. Estimated effort: 8-12 hours of review + rebuild.",
+      "overlaps_with": ["robert-master-os", "bobby-autopilot-system"],
+      "priority": "P1",
+      "estimated_effort_hours": 12
+    }
+  ],
+  "consolidation_opportunities": [
+    "Merge claimedge-roof-valley-claims into wind-hail-property-claims as a wood-shake conditional branch",
+    "Salvage huuso-operations-suite multi-AI orchestration recipes for the AI OS Infrastructure pillar",
+    "Extract huuso-operations-suite property intelligence framework for the Inspections & Field Evidence pillar",
+    "Consider combining chicago-xactimate-pricing with a future national pricing skill if expanding beyond Illinois"
+  ],
+  "files_to_archive": [
+    "content-repurposer/",
+    "huuso-operations-suite/ (after component salvage)"
+  ],
+  "final_projected_catalog": {
+    "active_skills": 4,
+    "skills_to_merge": 1,
+    "skills_to_archive": 2,
+    "net_active_after_consolidation": 4
+  }
+}
