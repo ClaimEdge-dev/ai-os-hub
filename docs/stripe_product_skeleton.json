@@ -1,0 +1,139 @@
+{
+  "account": "acct_1TtVKqBE34z06b4U",
+  "account_name": "Claim Edge Inspections & Consultanting sandbox",
+  "status": "draft",
+  "note": "All products and prices are in draft mode. Activate after Robert approves pricing.",
+  "tiers": [
+    {
+      "name": "Core",
+      "description": "Free tier for individual public adjusters — basic claim intake, SOL tracking, and document templates",
+      "monthly_price": 0,
+      "features": [
+        "Client intake questionnaire",
+        "Fee agreement generator (basic)",
+        "SOL calculator",
+        "Letter of representation (template)",
+        "5 active claims",
+        "Email support",
+        "Basic document templates"
+      ],
+      "stripe_product": {
+        "name": "ClaimEdge Core",
+        "description": "Free tier for individual public adjusters",
+        "mode": "draft",
+        "product_id": null
+      },
+      "stripe_price": {
+        "unit_amount": 0,
+        "currency": "usd",
+        "recurring": {"interval": "month"},
+        "mode": "draft",
+        "price_id": null
+      }
+    },
+    {
+      "name": "PA Pro",
+      "description": "Professional tier for active public adjusters — unlimited claims, advanced templates, carrier dispute tools",
+      "monthly_price": 29900,
+      "display_price": "$299/month",
+      "features": [
+        "Everything in Core",
+        "Unlimited claims",
+        "Advanced fee agreements (contingency, hybrid, flat)",
+        "Carrier dispute letter generator",
+        "Illinois statute auto-citation (215 ILCS 5/155, etc.)",
+        "Xactimate supplement line item library",
+        "Code compliance letter templates",
+        "CompanyCam report integration",
+        "Priority support",
+        "Custom document branding"
+      ],
+      "stripe_product": {
+        "name": "ClaimEdge PA Pro",
+        "description": "Professional tier for active public adjusters",
+        "mode": "draft",
+        "product_id": null
+      },
+      "stripe_price": {
+        "unit_amount": 29900,
+        "currency": "usd",
+        "recurring": {"interval": "month"},
+        "mode": "draft",
+        "price_id": null
+      }
+    },
+    {
+      "name": "Enterprise",
+      "description": "Firm tier for multi-adjuster practices — team management, analytics, API access, white-label",
+      "monthly_price": 149900,
+      "display_price": "$1,499/month",
+      "features": [
+        "Everything in PA Pro",
+        "Up to 10 team members",
+        "Team claim assignment and tracking",
+        "Advanced analytics dashboard",
+        "API access (Neon database, Notion sync)",
+        "White-label document generation",
+        "Custom skill development",
+        "Dedicated onboarding",
+        "Quarterly strategy reviews",
+        "SSO / SAML authentication"
+      ],
+      "stripe_product": {
+        "name": "ClaimEdge Enterprise",
+        "description": "Firm tier for multi-adjuster practices",
+        "mode": "draft",
+        "product_id": null
+      },
+      "stripe_price": {
+        "unit_amount": 149900,
+        "currency": "usd",
+        "recurring": {"interval": "month"},
+        "mode": "draft",
+        "price_id": null
+      }
+    },
+    {
+      "name": "Pay-Per-Claim",
+      "description": "Usage-based tier for occasional users — pay only when you need full features for a specific claim",
+      "per_claim_price": 4900,
+      "display_price": "$49/claim",
+      "features": [
+        "Full PA Pro features for one claim",
+        "30-day access per claim",
+        "All document templates",
+        "Carrier dispute tools",
+        "Code compliance letters",
+        "Priority support for active claim"
+      ],
+      "stripe_product": {
+        "name": "ClaimEdge Pay-Per-Claim",
+        "description": "Usage-based tier for occasional users",
+        "mode": "draft",
+        "product_id": null
+      },
+      "stripe_price": {
+        "unit_amount": 4900,
+        "currency": "usd",
+        "mode": "draft",
+        "price_id": null
+      }
+    }
+  ],
+  "activation_checklist": [
+    "Robert approves pricing tiers",
+    "ClaimEdge business email configured",
+    "Stripe dashboard branding updated",
+    "Terms of service drafted",
+    "Privacy policy drafted",
+    "Refund policy defined",
+    "Webhook endpoints configured (if needed)",
+    "Test purchases completed in sandbox"
+  ],
+  "api_calls_needed": [
+    "POST /v1/products — Create 4 products",
+    "POST /v1/prices — Create 4 prices (3 recurring, 1 one-time)",
+    "GET /v1/products — Verify creation",
+    "POST /v1/checkout/sessions — Test checkout flow"
+  ]
+}
