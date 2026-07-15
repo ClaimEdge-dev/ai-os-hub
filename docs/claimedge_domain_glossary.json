@@ -1,0 +1,257 @@
+{
+  "meta": {
+    "domain": "ClaimEdge LLC — Public Adjusting & Insurance Claims",
+    "version": "1.0.0",
+    "last_updated": "2026-07-16",
+    "total_terms": 87,
+    "total_subdomains": 12,
+    "resolved_ambiguities": 5,
+    "editorial_policy": "Canonical terms are law. Aliases listed under 'avoid' are prohibited in all ClaimEdge AI OS outputs."
+  },
+  "subdomains": [
+    {
+      "id": "SD-01",
+      "name": "Claim Intake & Triage",
+      "pillar": 1,
+      "description": "Initial client contact, information gathering, and claim viability assessment",
+      "terms": [
+        {"canonical": "Insured", "part_of_speech": "noun", "definition": "The policyholder who experienced the property damage and is entitled to coverage benefits", "aliases": ["policyholder"], "avoid": ["client", "customer", "claimant"], "related_terms": ["Policy", "Carrier", "Deductible"]},
+        {"canonical": "Claim", "part_of_speech": "noun", "definition": "A formal request by the Insured to the Carrier for payment under a policy due to covered damage", "aliases": [], "avoid": ["case", "matter", "file"], "related_terms": ["Policy", "Carrier", "Proof of Loss"]},
+        {"canonical": "Intake", "part_of_speech": "noun", "definition": "The process of receiving and documenting initial information from a prospective Insured", "aliases": ["onboarding"], "avoid": ["signup", "registration"], "related_terms": ["Insured", "Fee Agreement", "LOR"]},
+        {"canonical": "Fee Agreement", "part_of_speech": "noun", "definition": "The legally binding contract between ClaimEdge (the Public Adjuster) and the Insured establishing representation terms and compensation", "aliases": [], "avoid": ["contract", "service agreement"], "related_terms": ["LOR", "AOB", "Public Adjuster"]},
+        {"canonical": "LOR", "part_of_speech": "noun", "definition": "Letter of Representation — formal notice sent to the Carrier identifying ClaimEdge as the Insured's representative", "aliases": ["Letter of Representation"], "avoid": ["authorization letter"], "related_terms": ["Fee Agreement", "AOB", "Carrier"]},
+        {"canonical": "AOB", "part_of_speech": "noun", "definition": "Assignment of Benefits — legal transfer of the Insured's policy rights to ClaimEdge for claim processing", "aliases": ["Assignment of Benefits"], "avoid": ["transfer", "handoff"], "related_terms": ["Fee Agreement", "LOR", "Insured"]},
+        {"canonical": "SOL", "part_of_speech": "noun", "definition": "Statute of Limitations — the legal deadline for filing a claim lawsuit, varies by state and policy type", "aliases": ["Statute of Limitations"], "avoid": ["deadline", "time limit"], "related_terms": ["Claim", "Jurisdiction", "Bad Faith"]}
+      ]
+    },
+    {
+      "id": "SD-02",
+      "name": "Policy & Coverage Review",
+      "pillar": 2,
+      "description": "Policy interpretation, coverage analysis, and exclusion identification",
+      "terms": [
+        {"canonical": "Policy", "part_of_speech": "noun", "definition": "The insurance contract between the Insured and Carrier that defines covered perils, limits, and exclusions", "aliases": [], "avoid": ["plan", "agreement"], "related_terms": ["Insured", "Carrier", "Coverage", "Exclusion"]},
+        {"canonical": "Coverage", "part_of_speech": "noun", "definition": "The scope of protection provided by the Policy for specific perils and damage types", "aliases": [], "avoid": ["protection", "benefits"], "related_terms": ["Policy", "Exclusion", "Limit", "Deductible"]},
+        {"canonical": "Exclusion", "part_of_speech": "noun", "definition": "A provision in the Policy that specifically denies coverage for certain perils, conditions, or property types", "aliases": [], "avoid": ["exception", "limitation"], "related_terms": ["Policy", "Coverage", "Endorsement"]},
+        {"canonical": "Endorsement", "part_of_speech": "noun", "definition": "A formal modification or addition to the Policy that alters coverage terms", "aliases": ["rider"], "avoid": ["addendum", "amendment"], "related_terms": ["Policy", "Coverage"]},
+        {"canonical": "Limit", "part_of_speech": "noun", "definition": "The maximum dollar amount the Carrier will pay for a covered loss under the Policy", "aliases": ["Policy Limit", "Coverage Limit"], "avoid": ["cap", "ceiling"], "related_terms": ["Policy", "Coverage", "RCV", "ACV"]},
+        {"canonical": "Deductible", "part_of_speech": "noun", "definition": "The amount the Insured must pay out-of-pocket before the Carrier's coverage obligation begins", "aliases": [], "avoid": ["retention", "co-pay"], "related_terms": ["Policy", "Coverage", "ACV", "RCV"]},
+        {"canonical": "RCV", "part_of_speech": "noun", "definition": "Replacement Cost Value — the cost to repair or replace damaged property with materials of like kind and quality, without depreciation deduction", "aliases": ["Replacement Cost Value"], "avoid": ["new value", "full value"], "related_terms": ["ACV", "Depreciation", "Scope of Work"]},
+        {"canonical": "ACV", "part_of_speech": "noun", "definition": "Actual Cash Value — the RCV minus applicable depreciation, representing the property's value at the time of loss", "aliases": ["Actual Cash Value"], "avoid": ["fair market value", "depreciated value"], "related_terms": ["RCV", "Depreciation", "Deductible"]},
+        {"canonical": "Depreciation", "part_of_speech": "noun", "definition": "The reduction in property value due to age, wear, and obsolescence; can be recoverable (holdback) or non-recoverable", "aliases": [], "avoid": ["wear and tear"], "related_terms": ["RCV", "ACV", "Holdback"]},
+        {"canonical": "Holdback", "part_of_speech": "noun", "definition": "The depreciated amount the Carrier withholds pending proof that repairs were completed, after which it may be recoverable", "aliases": ["Recoverable Depreciation"], "avoid": ["reserve", "retention"], "related_terms": ["Depreciation", "RCV", "ACV"]}
+      ]
+    },
+    {
+      "id": "SD-03",
+      "name": "Inspections & Field Evidence",
+      "pillar": 3,
+      "description": "On-site property inspection, damage documentation, and evidence collection",
+      "terms": [
+        {"canonical": "Inspection", "part_of_speech": "noun", "definition": "The on-site examination of damaged property to identify, document, and assess the scope of loss", "aliases": [], "avoid": ["walkthrough", "survey"], "related_terms": ["Field Evidence", "Scope of Work", "Photos"]},
+        {"canonical": "Field Evidence", "part_of_speech": "noun", "definition": "Photographs, measurements, material samples, and observations collected during the Inspection", "aliases": [], "avoid": ["documentation", "proof"], "related_terms": ["Inspection", "Photos", "Exhibit"]},
+        {"canonical": "Exhibit", "part_of_speech": "noun", "definition": "A numbered piece of Field Evidence attached to a formal claim submission or report", "aliases": [], "avoid": ["attachment", "appendix"], "related_terms": ["Field Evidence", "Document Assembly", "Proof of Loss"]},
+        {"canonical": "Photos", "part_of_speech": "noun", "definition": "Date-stamped photographs of all damaged areas, showing both close-up detail and wide context", "aliases": ["Photographs"], "avoid": ["pictures", "images"], "related_terms": ["Field Evidence", "Inspection", "Exhibit"]},
+        {"canonical": "CompanyCam", "part_of_speech": "proper noun", "definition": "The photo documentation platform used by ClaimEdge to organize, geotag, and share Inspection photos", "aliases": [], "avoid": [], "related_terms": ["Photos", "Field Evidence", "Document Assembly"]},
+        {"canonical": "Scope of Work", "part_of_speech": "noun phrase", "definition": "The detailed description of what work is required to restore the property to pre-loss condition, independent of pricing", "aliases": [], "avoid": ["scope", "work order"], "related_terms": ["Estimate", "Inspection", "Xactimate"]},
+        {"canonical": "Pre-Loss Condition", "part_of_speech": "noun phrase", "definition": "The state of the property immediately before the damaging event occurred", "aliases": [], "avoid": ["original condition", "prior state"], "related_terms": ["Scope of Work", "RCV", "Damage"]},
+        {"canonical": "Damage", "part_of_speech": "noun", "definition": "Physical harm or destruction to insured property caused by a covered peril", "aliases": [], "avoid": ["loss", "destruction"], "related_terms": ["Inspection", "Scope of Work", "Field Evidence"]}
+      ]
+    },
+    {
+      "id": "SD-04",
+      "name": "Exterior Damage Assessment",
+      "pillar": 4,
+      "description": "Specialized evaluation of roofing, siding, gutter, and exterior envelope damage",
+      "terms": [
+        {"canonical": "Roofing System", "part_of_speech": "noun", "definition": "The complete roof assembly including shingles/tiles, underlayment, decking, flashing, and ventilation", "aliases": [], "avoid": ["roof"], "related_terms": ["Decking", "Shingles", "Flashing", "Underlayment"]},
+        {"canonical": "Decking", "part_of_speech": "noun", "definition": "The structural substrate/sheathing beneath the roof covering that provides the nailing surface; also called roof sheathing or roof deck", "aliases": ["Roof Sheathing", "Roof Deck"], "avoid": ["plywood", "boards"], "related_terms": ["Roofing System", "Shingles", "Hail Damage"]},
+        {"canonical": "Shingles", "part_of_speech": "noun", "definition": "The outermost weather-resistant layer of the Roofing System, typically asphalt, wood, or composite", "aliases": [], "avoid": ["tiles", "roofing"], "related_terms": ["Roofing System", "Decking", "Hail Damage"]},
+        {"canonical": "Flashing", "part_of_speech": "noun", "definition": "Thin metal strips installed at joints, valleys, and penetrations to direct water away from the building envelope", "aliases": [], "avoid": ["sealant", "caulking"], "related_terms": ["Roofing System", "Valley", "Waterproofing"]},
+        {"canonical": "Valley", "part_of_speech": "noun", "definition": "The internal angle formed where two roof planes meet, requiring specialized flashing and water management", "aliases": [], "avoid": ["trough", "channel"], "related_terms": ["Flashing", "Roofing System", "Water Damage"]},
+        {"canonical": "WRB", "part_of_speech": "noun", "definition": "Weather Resistant Barrier — the protective layer beneath exterior cladding (siding/stucco) that prevents moisture intrusion", "aliases": ["Weather Resistant Barrier", "Housewrap", "Underlayment"], "avoid": ["wrap", "paper"], "related_terms": ["Siding", "Waterproofing", "Code Upgrade"]},
+        {"canonical": "Siding", "part_of_speech": "noun", "definition": "The exterior cladding material (vinyl, fiber cement, wood, etc.) that protects the building envelope from weather", "aliases": ["Cladding"], "avoid": ["exterior"], "related_terms": ["WRB", "Exterior Envelope", "Wind Damage"]},
+        {"canonical": "Exterior Envelope", "part_of_speech": "noun phrase", "definition": "The complete barrier separating the interior conditioned space from the exterior environment, including roof, walls, windows, doors, and foundation", "aliases": ["Building Envelope"], "avoid": ["exterior shell", "outer layer"], "related_terms": ["Siding", "Roofing System", "WRB"]},
+        {"canonical": "Hail Damage", "part_of_speech": "noun", "definition": "Impact damage to roofing, siding, or exterior surfaces caused by hailstones, characterized by bruising, cracking, or displacement", "aliases": [], "avoid": ["storm damage"], "related_terms": ["Shingles", "Decking", "Haag Engineering"]},
+        {"canonical": "Wind Damage", "part_of_speech": "noun", "definition": "Damage caused by high winds including lifted shingles, torn flashing, displaced siding, or structural movement", "aliases": [], "avoid": ["storm damage"], "related_terms": ["Siding", "Flashing", "Roofing System"]},
+        {"canonical": "Water Damage", "part_of_speech": "noun", "definition": "Damage resulting from water intrusion through compromised roofing, siding, or flashing, including rot, mold, and staining", "aliases": [], "avoid": ["moisture damage", "leak damage"], "related_terms": ["Flashing", "Valley", "WRB"]}
+      ]
+    },
+    {
+      "id": "SD-05",
+      "name": "Code & Compliance",
+      "pillar": 5,
+      "description": "Building code compliance, permit requirements, and regulatory adherence",
+      "terms": [
+        {"canonical": "Code Upgrade", "part_of_speech": "noun", "definition": "The requirement to bring repaired or replaced components up to current adopted building code standards, often triggered by Ordinance or Law coverage", "aliases": ["Code Compliance Upgrade"], "avoid": ["code compliance", "upgrade"], "related_terms": ["ORD", "Building Code", "Permit"]},
+        {"canonical": "ORD", "part_of_speech": "noun", "definition": "Ordinance or Law coverage — the policy provision that pays for additional costs to comply with building codes during repairs", "aliases": ["Ordinance or Law"], "avoid": ["code coverage", "compliance coverage"], "related_terms": ["Code Upgrade", "Building Code", "Policy"]},
+        {"canonical": "Building Code", "part_of_speech": "noun", "definition": "The legally adopted set of construction standards (IRC, IBC, IECC) governing design, materials, and methods for the jurisdiction", "aliases": ["Adopted Code"], "avoid": ["code", "construction standard"], "related_terms": ["Code Upgrade", "Permit", "IRC", "IBC"]},
+        {"canonical": "IRC", "part_of_speech": "noun", "definition": "International Residential Code — the building code governing one- and two-family dwellings and townhouses", "aliases": [], "avoid": ["residential code"], "related_terms": ["Building Code", "IBC", "Code Upgrade"]},
+        {"canonical": "IBC", "part_of_speech": "noun", "definition": "International Building Code — the building code governing commercial and multi-family construction", "aliases": [], "avoid": ["commercial code"], "related_terms": ["Building Code", "IRC", "Code Upgrade"]},
+        {"canonical": "Permit", "part_of_speech": "noun", "definition": "Official governmental authorization required before commencing construction, repair, or replacement work", "aliases": ["Building Permit"], "avoid": ["license", "approval"], "related_terms": ["Building Code", "Code Upgrade", "Municipality"]},
+        {"canonical": "Municipality", "part_of_speech": "noun", "definition": "The local governmental jurisdiction (city, village, or county) responsible for enforcing building codes and issuing permits", "aliases": ["Jurisdiction"], "avoid": ["city", "town"], "related_terms": ["Building Code", "Permit", "Code Upgrade"]}
+      ]
+    },
+    {
+      "id": "SD-06",
+      "name": "Estimate & Supplement Support",
+      "pillar": 6,
+      "description": "Xactimate estimating, supplement preparation, and scope expansion",
+      "terms": [
+        {"canonical": "Xactimate", "part_of_speech": "proper noun", "definition": "The industry-standard insurance estimating software used to calculate repair and replacement costs", "aliases": [], "avoid": ["estimate software"], "related_terms": ["Estimate", "Line Item", "Scope of Work"]},
+        {"canonical": "Estimate", "part_of_speech": "noun", "definition": "The priced document produced in Xactimate that lists all materials, labor, and overhead required to complete the Scope of Work", "aliases": [], "avoid": ["quote", "bid", "proposal"], "related_terms": ["Xactimate", "Line Item", "Scope of Work", "Valuation"]},
+        {"canonical": "Line Item", "part_of_speech": "noun", "definition": "An individual component entry in the Estimate specifying a material, labor operation, or service with unit price and quantity", "aliases": [], "avoid": ["item", "entry"], "related_terms": ["Estimate", "Xactimate", "Scope of Work"]},
+        {"canonical": "Supplement", "part_of_speech": "noun", "definition": "A demand for additional claim payment beyond the Carrier's initial Estimate, supported by documentation of omitted or under-scoped items", "aliases": [], "avoid": ["addendum", "revision"], "related_terms": ["Estimate", "Carrier", "Scope of Work"]},
+        {"canonical": "O&L", "part_of_speech": "noun", "definition": "Overhead and Profit — the contractor markup (typically 10% + 10%) applied to trades requiring supervision and coordination", "aliases": ["Overhead and Profit", "O&P"], "avoid": ["markup", "margin"], "related_terms": ["Estimate", "Line Item", "Xactimate"]},
+        {"canonical": "Valuation", "part_of_speech": "noun", "definition": "The total dollar amount of the claim as calculated through Estimate review, independent of the Scope of Work description", "aliases": [], "avoid": ["value", "amount", "price"], "related_terms": ["Estimate", "RCV", "ACV", "Supplement"]},
+        {"canonical": "Xactimate Pricing", "part_of_speech": "noun", "definition": "The geographically adjusted unit costs for materials and labor maintained by Xactware and used within Xactimate", "aliases": [], "avoid": ["price list", "cost data"], "related_terms": ["Xactimate", "Line Item", "Estimate"]},
+        {"canonical": "Scope Dispute", "part_of_speech": "noun", "definition": "A disagreement between the Carrier's adjuster and ClaimEdge regarding what work is necessary to restore the property", "aliases": [], "avoid": ["disagreement", "conflict"], "related_terms": ["Supplement", "Carrier", "Scope of Work"]},
+        {"canonical": "Proof of Loss", "part_of_speech": "noun", "definition": "A formal sworn statement submitted to the Carrier documenting the nature and amount of the loss claimed", "aliases": [], "avoid": ["claim form", "loss statement"], "related_terms": ["Claim", "Carrier", "Insured"]},
+        {"canonical": "Dwelling Limit", "part_of_speech": "noun", "definition": "The maximum Coverage A amount in a homeowners policy for the primary residence structure", "aliases": ["Coverage A Limit"], "avoid": ["house limit", "structure limit"], "related_terms": ["Limit", "Policy", "RCV"]}
+      ]
+    },
+    {
+      "id": "SD-07",
+      "name": "Carrier Communications",
+      "pillar": 7,
+      "description": "All correspondence, negotiation, and dispute resolution with insurance carriers",
+      "terms": [
+        {"canonical": "Carrier", "part_of_speech": "noun", "definition": "The insurance company that issued the Policy and is responsible for paying the Claim", "aliases": ["Insurer", "Insurance Company"], "avoid": ["company", "provider"], "related_terms": ["Policy", "Claim", "Staff Adjuster"]},
+        {"canonical": "Staff Adjuster", "part_of_speech": "noun", "definition": "An employee of the Carrier who investigates and evaluates claims on behalf of the insurance company", "aliases": [], "avoid": ["adjuster", "company adjuster"], "related_terms": ["Carrier", "Independent Adjuster", "Public Adjuster"]},
+        {"canonical": "Independent Adjuster", "part_of_speech": "noun", "definition": "A third-party contractor hired by the Carrier to handle claims, not a direct employee", "aliases": ["IA"], "avoid": ["adjuster", "contractor"], "related_terms": ["Staff Adjuster", "Carrier", "Public Adjuster"]},
+        {"canonical": "Public Adjuster", "part_of_speech": "noun", "definition": "A licensed advocate who represents the Insured (not the Carrier) in preparing, filing, and negotiating insurance claims", "aliases": ["PA"], "avoid": ["adjuster", "claim adjuster"], "related_terms": ["Insured", "Fee Agreement", "LOR", "Staff Adjuster"]},
+        {"canonical": "Appraisal", "part_of_speech": "noun", "definition": "A formal dispute resolution process where an impartial umpire decides the amount of loss when the Insured and Carrier disagree on valuation", "aliases": [], "avoid": ["evaluation", "assessment"], "related_terms": ["Carrier", "Supplement", "Umpire"]},
+        {"canonical": "Bad Faith", "part_of_speech": "noun", "definition": "The Carrier's unreasonable delay, denial, or underpayment of a valid claim without proper basis, potentially creating legal liability", "aliases": [], "avoid": ["unfair denial", "wrongful denial"], "related_terms": ["Carrier", "Claim", "SOL", "Appraisal"]},
+        {"canonical": "Reservation of Rights", "part_of_speech": "noun", "definition": "A Carrier letter stating they are investigating the claim but reserving the right to deny coverage later based on policy terms", "aliases": ["ROR"], "avoid": ["pending notice"], "related_terms": ["Carrier", "Policy", "Exclusion"]},
+        {"canonical": "Denial", "part_of_speech": "noun", "definition": "The Carrier's formal refusal to pay any portion of the claim, usually citing policy exclusions or lack of coverage", "aliases": [], "avoid": ["rejection", "refusal"], "related_terms": ["Carrier", "Bad Faith", "Supplement"]},
+        {"canonical": "Partial Denial", "part_of_speech": "noun", "definition": "The Carrier's decision to pay some but not all claimed damages, often omitting code upgrades or supplemental items", "aliases": [], "avoid": ["partial approval"], "related_terms": ["Carrier", "Denial", "Supplement"]},
+        {"canonical": "Reinspection", "part_of_speech": "noun", "definition": "A second on-site inspection requested by either party when the initial scope or valuation is disputed", "aliases": [], "avoid": ["follow-up inspection", "second look"], "related_terms": ["Inspection", "Carrier", "Supplement"]}
+      ]
+    },
+    {
+      "id": "SD-08",
+      "name": "Document Assembly",
+      "pillar": 8,
+      "description": "Report generation, exhibit packaging, and final claim document preparation",
+      "terms": [
+        {"canonical": "Output Document", "part_of_speech": "noun", "definition": "A formal deliverable produced by ClaimEdge for the Insured or Carrier, such as a supplement letter or inspection report", "aliases": [], "avoid": ["document"], "related_terms": ["Document Assembly", "Exhibit", "Carrier"]},
+        {"canonical": "Evidence Document", "part_of_speech": "noun", "definition": "A document containing supporting evidence such as photos, measurements, or expert opinions", "aliases": [], "avoid": ["document"], "related_terms": ["Field Evidence", "Exhibit", "Output Document"]},
+        {"canonical": "Legal Document", "part_of_speech": "noun", "definition": "A document with legal significance such as a Fee Agreement, LOR, AOB, or Proof of Loss", "aliases": [], "avoid": ["document"], "related_terms": ["Fee Agreement", "LOR", "AOB"]},
+        {"canonical": "Supporting Document", "part_of_speech": "noun", "definition": "Any document that supports the claim such as repair estimates, contractor bids, or code citations", "aliases": [], "avoid": ["document"], "related_terms": ["Output Document", "Exhibit", "Estimate"]},
+        {"canonical": "Exhibit Package", "part_of_speech": "noun", "definition": "The organized collection of all Exhibits numbered and cross-referenced to the claim submission", "aliases": [], "avoid": ["attachment package"], "related_terms": ["Exhibit", "Output Document", "Field Evidence"]},
+        {"canonical": "CompanyCam Report", "part_of_speech": "noun", "definition": "A structured photo report generated from CompanyCam with geotagged images organized by damage area", "aliases": [], "avoid": ["photo report"], "related_terms": ["CompanyCam", "Photos", "Field Evidence"]},
+        {"canonical": "Supplement Letter", "part_of_speech": "noun", "definition": "The formal written demand sent to the Carrier requesting additional payment with supporting arguments and documentation", "aliases": [], "avoid": ["demand letter", "request letter"], "related_terms": ["Supplement", "Carrier", "Output Document"]},
+        {"canonical": "Master Claims Packet", "part_of_speech": "noun", "definition": "The complete compiled set of all claim documents, evidence, and correspondence assembled for litigation or final settlement", "aliases": [], "avoid": ["claim file", "document package"], "related_terms": ["Document Assembly", "Exhibit Package", "Proof of Loss"]}
+      ]
+    },
+    {
+      "id": "SD-09",
+      "name": "Jurisdiction Research Library",
+      "pillar": 9,
+      "description": "Legal references, statutes, case law, and regulatory resources",
+      "terms": [
+        {"canonical": "Statute", "part_of_speech": "noun", "definition": "A written law passed by a legislative body, such as 215 ILCS 5/155 (Illinois Insurance Code)", "aliases": [], "avoid": ["law", "regulation"], "related_terms": ["Jurisdiction", "Case Law", "Regulation"]},
+        {"canonical": "Case Law", "part_of_speech": "noun", "definition": "Legal precedents established by court decisions that interpret statutes and guide future rulings", "aliases": ["Precedent"], "avoid": ["ruling", "decision"], "related_terms": ["Statute", "Jurisdiction", "Bad Faith"]},
+        {"canonical": "Jurisdiction", "part_of_speech": "noun", "definition": "The geographical area (state, county, or municipality) whose laws govern the claim and legal proceedings", "aliases": [], "avoid": ["location", "area"], "related_terms": ["Statute", "Municipality", "Building Code"]},
+        {"canonical": "Carrier Guideline", "part_of_speech": "noun", "definition": "Internal policy documents used by insurance companies to standardize claim handling procedures and settlement ranges", "aliases": [], "avoid": ["policy"], "related_terms": ["Carrier", "Statute", "Regulation"]}
+      ]
+    },
+    {
+      "id": "SD-10",
+      "name": "AI OS Infrastructure",
+      "pillar": 10,
+      "description": "The ClaimEdge AI Operating System itself — skills, roles, automation, and governance",
+      "terms": [
+        {"canonical": "Skill", "part_of_speech": "noun", "definition": "A reusable AI capability module with defined triggers, functions, and output formats that activates automatically when needed", "aliases": [], "avoid": ["tool", "function", "plugin"], "related_terms": ["Pillar", "Command Council", "Trigger"]},
+        {"canonical": "Pillar", "part_of_speech": "noun", "definition": "A functional domain grouping related Skills together under a common business capability (e.g., Claim Intake & Triage)", "aliases": [], "avoid": ["category", "group", "module"], "related_terms": ["Skill", "Golden Path", "Command Council"]},
+        {"canonical": "Command Council", "part_of_speech": "noun", "definition": "The governance structure of 22 specialized AI agent roles that manage the ClaimEdge AI OS", "aliases": [], "avoid": ["team", "group", "council"], "related_terms": ["Role", "Skill", "Golden Path"]},
+        {"canonical": "Golden Path", "part_of_speech": "noun", "definition": "The standard workflow: Intake → Inspection → Evidence → Code → Scope → Supplement → Carrier → Follow-up", "aliases": [], "avoid": ["workflow", "process", "pipeline"], "related_terms": ["Pillar", "Skill", "Command Council"]},
+        {"canonical": "Human Review Gate", "part_of_speech": "noun", "definition": "A mandatory signoff checkpoint where a human must review and approve AI-generated outputs before they are client or carrier-facing", "aliases": [], "avoid": ["review", "approval", "checkpoint"], "related_terms": ["Risk Matrix", "Skill", "Output Document"]},
+        {"canonical": "Trigger", "part_of_speech": "noun", "definition": "The activation phrase or condition that causes a Skill to automatically engage when mentioned in conversation", "aliases": [], "avoid": ["keyword", "command"], "related_terms": ["Skill", "Pillar", "Command Council"]},
+        {"canonical": "Risk Matrix", "part_of_speech": "noun", "definition": "The classification system that determines whether AI output requires auto-run, internal review, or human signoff based on risk level", "aliases": [], "avoid": ["risk table", "risk chart"], "related_terms": ["Human Review Gate", "Skill", "Output Document"]}
+      ]
+    },
+    {
+      "id": "SD-11",
+      "name": "Sports Ventures",
+      "pillar": 11,
+      "description": "Buddy Boy Sports, wrestling, and baseball operations (non-claims)",
+      "terms": [
+        {"canonical": "Sports Ventures", "part_of_speech": "noun", "definition": "Robert Krapil's portfolio of youth sports initiatives including wrestling tracking and baseball team management, separate from claims operations", "aliases": [], "avoid": ["sports", "athletics"], "related_terms": ["Pillar"], "ambiguity_note": "Never conflate with claims operations. Sports Ventures operates under separate skills and databases."}
+      ]
+    },
+    {
+      "id": "SD-12",
+      "name": "Productization & R&D",
+      "pillar": 12,
+      "description": "Stripe billing, SaaS product development, and future commercialization",
+      "terms": [
+        {"canonical": "Productization", "part_of_speech": "noun", "definition": "The process of converting ClaimEdge's internal AI tools into commercial SaaS products available for purchase via Stripe", "aliases": [], "avoid": ["commercialization", "monetization"], "related_terms": ["Stripe", "SaaS", "Pillar"]},
+        {"canonical": "Stripe", "part_of_speech": "proper noun", "definition": "The payment processing platform used for ClaimEdge product billing and subscription management", "aliases": [], "avoid": [], "related_terms": ["Productization", "SaaS"]}
+      ]
+    }
+  ],
+  "resolved_ambiguities": [
+    {
+      "id": "AMB-01",
+      "ambiguity": "\"Client\" vs \"Insured\"",
+      "canonical": "Insured",
+      "rationale": "Insured is the legally precise term from insurance policy language. Client is acceptable only in Robert's direct verbal communication with the person, never in documents or AI outputs.",
+      "code_rule": "Use 'Insured' in all SKILL.md files, prompts, documents, and databases. Flag any instance of 'client' or 'customer' for replacement.",
+      "exceptions": ["Robert's direct verbal/text messages to the insured person"]
+    },
+    {
+      "id": "AMB-02",
+      "ambiguity": "\"Adjuster\" (PA, IA, or staff?)",
+      "canonical": "Always qualified — Public Adjuster, Staff Adjuster, or Independent Adjuster. Bare 'adjuster' is banned.",
+      "rationale": "The unqualified term 'adjuster' creates dangerous ambiguity since three distinct roles exist. Each has different loyalties and authorities.",
+      "code_rule": "All SKILL.md files must use qualified adjuster terms. A linter should reject bare 'adjuster' in all outputs.",
+      "exceptions": ["Direct quotes from carrier correspondence", "Citations of carrier documents"]
+    },
+    {
+      "id": "AMB-03",
+      "ambiguity": "\"Claim\" vs \"Case\" vs \"Matter\"",
+      "canonical": "Claim",
+      "rationale": "Case implies litigation. Matter is attorney jargon. Claim is the industry-standard term for an insurance claim from first notice of loss through resolution.",
+      "code_rule": "Use 'Claim' universally. Replace 'case' and 'matter' with 'Claim' except in legal litigation contexts.",
+      "exceptions": ["Active litigation contexts where 'case' is legally appropriate"]
+    },
+    {
+      "id": "AMB-04",
+      "ambiguity": "\"Estimate\" vs \"Scope\" vs \"Valuation\"",
+      "canonical": "Three distinct concepts: Scope of Work (what work is needed), Estimate (the priced Xactimate document), Valuation (the total dollar amount)",
+      "rationale": "These are commonly conflated but represent fundamentally different things. The Scope describes work, the Estimate prices it, and Valuation is the resulting dollar figure.",
+      "code_rule": "Always distinguish in SKILL.md files. Scope of Work = description. Estimate = Xactimate document. Valuation = dollar amount.",
+      "exceptions": ["Casual conversation where context makes the meaning clear"]
+    },
+    {
+      "id": "AMB-05",
+      "ambiguity": "\"Document\" (unqualified)",
+      "canonical": "Always qualified — Output Document, Evidence Document, Legal Document, or Supporting Document",
+      "rationale": "The bare word 'document' is too vague in a domain where multiple distinct document types exist with different legal and operational significance.",
+      "code_rule": "All SKILL.md files must use qualified document types. A linter should flag bare 'document' when context doesn't make the type obvious.",
+      "exceptions": ["Generic references where the specific type is irrelevant to the point being made"]
+    }
+  ],
+  "cross_boundary_terms": [
+    {"term": "Public Adjuster", "spans": ["SD-01", "SD-07", "SD-10"], "primary": "SD-01"},
+    {"term": "Carrier", "spans": ["SD-01", "SD-02", "SD-06", "SD-07"], "primary": "SD-07"},
+    {"term": "Policy", "spans": ["SD-01", "SD-02", "SD-07"], "primary": "SD-02"},
+    {"term": "Scope of Work", "spans": ["SD-03", "SD-04", "SD-06"], "primary": "SD-03"}
+  ],
+  "banned_terms": [
+    {"term": "client", "replacement": "Insured", "severity": "HIGH"},
+    {"term": "adjuster", "replacement": "Public Adjuster / Staff Adjuster / Independent Adjuster", "severity": "CRITICAL"},
+    {"term": "case", "replacement": "Claim", "severity": "MEDIUM"},
+    {"term": "matter", "replacement": "Claim", "severity": "MEDIUM"},
+    {"term": "company", "replacement": "Carrier", "severity": "MEDIUM"},
+    {"term": "provider", "replacement": "Carrier", "severity": "MEDIUM"},
+    {"term": "quote", "replacement": "Estimate", "severity": "LOW"},
+    {"term": "bid", "replacement": "Estimate", "severity": "LOW"},
+    {"term": "walkthrough", "replacement": "Inspection", "severity": "LOW"},
+    {"term": "pictures", "replacement": "Photos", "severity": "LOW"},
+    {"term": "storm damage", "replacement": "Hail Damage / Wind Damage / [specific peril]", "severity": "MEDIUM"},
+    {"term": "code compliance", "replacement": "Code Upgrade", "severity": "MEDIUM"},
+    {"term": "commercialization", "replacement": "Productization", "severity": "LOW"}
+  ]
+}
