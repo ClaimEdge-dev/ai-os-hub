@@ -1,0 +1,178 @@
+{
+  "audit_summary": {
+    "title": "ClaimEdge AI OS — Security Audit Results",
+    "date": "2026-07-16",
+    "auditor": "Kimi K2.6 Agent Swarm",
+    "scope": "Full AI OS — skills, databases, plugins, credentials, outputs",
+    "risk_model": "LOW/MEDIUM/HIGH/CRITICAL",
+    "total_findings": 14,
+    "by_severity": {
+      "CRITICAL": 0,
+      "HIGH": 5,
+      "MEDIUM": 4,
+      "LOW": 5
+    }
+  },
+  "notion_incidents": [
+    {
+      "id": "sec-001",
+      "title": "Placeholder files on GitHub expose incomplete skill content",
+      "severity": "HIGH",
+      "status": "open",
+      "description": "REVISED_PROMPTS_PACKAGE_v2.md and claimedge__intake__client-intake-suite__v1/SKILL.md are placeholder text on GitHub. Could confuse Perplexity or other AI tools that read them.",
+      "remediation": "Push real content to replace placeholders",
+      " notion_url": "Created as child page of AI OS Hub"
+    },
+    {
+      "id": "sec-002",
+      "title": "No .github/workflows/ directory — security workflow inactive",
+      "severity": "HIGH",
+      "status": "open",
+      "description": "security-check.yml exists in docs/ but GitHub Actions only runs from .github/workflows/. The 4-job workflow is not active.",
+      "remediation": "Create .github/workflows/ and move security-check.yml there"
+    },
+    {
+      "id": "sec-003",
+      "title": "Neon SSL mode not verified",
+      "severity": "MEDIUM",
+      "status": "open",
+      "description": "Connection to Neon uses SSL but sslmode not explicitly set to 'require' in all connection strings.",
+      "remediation": "Verify sslmode=require in all Neon connection configs"
+    },
+    {
+      "id": "sec-004",
+      "title": "No audit logging for skill lifecycle events",
+      "severity": "MEDIUM",
+      "status": "open",
+      "description": "Skill state changes (Draft→Testing→Approved→Restricted) are not logged. No trail of who approved what.",
+      "remediation": "Add audit_log table to Neon schema, log all state transitions"
+    },
+    {
+      "id": "sec-005",
+      "title": "Huuso references still exist in legacy skills",
+      "severity": "MEDIUM",
+      "status": "open",
+      "description": "Skills like huuso-operations-suite, huuso-brand-presentation-suite still have Huuso triggers and references.",
+      "remediation": "Complete rebrand audit of all Huuso skills"
+    },
+    {
+      "id": "sec-006",
+      "title": "No branch protection on ai-os-hub repo",
+      "severity": "LOW",
+      "status": "open",
+      "description": "Main branch allows direct pushes without PR review.",
+      "remediation": "Enable branch protection requiring PR review"
+    },
+    {
+      "id": "sec-007",
+      "title": "Stripe products in draft mode only",
+      "severity": "LOW",
+      "status": "open",
+      "description": "4-tier product skeleton exists but no actual Stripe products created. This is by design pending Robert approval.",
+      "remediation": "Create products after Robert approves pricing"
+    },
+    {
+      "id": "sec-008",
+      "title": "No PII sanitization in document assembly output",
+      "severity": "HIGH",
+      "status": "open",
+      "description": "Document assembly skills could output insured PII (SSN, DOB, policy numbers) without redaction controls.",
+      "remediation": "Add PII detection + redaction layer to report-assembly-suite"
+    },
+    {
+      "id": "sec-009",
+      "title": "API keys may be hardcoded in old SKILL.md files",
+      "severity": "HIGH",
+      "status": "open",
+      "description": "Legacy skills built before security protocols may contain hardcoded tokens or API keys.",
+      "remediation": "Scan all 67 SKILL.md files for hardcoded credentials"
+    },
+    {
+      "id": "sec-010",
+      "title": "No automated backup of Notion database",
+      "severity": "LOW",
+      "status": "open",
+      "description": "67-skill Notion database has no automated export/backup.",
+      "remediation": "Set up periodic Notion→GitHub sync for the skill database"
+    },
+    {
+      "id": "sec-011",
+      "title": "Email address bobby.huu.so@gmail.com is legacy Huuso",
+      "severity": "MEDIUM",
+      "status": "open",
+      "description": "Multiple skills and configs reference the legacy Huuso email. Should migrate to ClaimEdge-branded email.",
+      "remediation": "Update all email references after new ClaimEdge email established"
+    },
+    {
+      "id": "sec-012",
+      "title": "Comet prompt still references Huuso domains",
+      "severity": "HIGH",
+      "status": "open",
+      "description": "The COMET_MASTER_PROMPT.md file references Huuso-specific domains and folder structures.",
+      "remediation": "Rewrite Comet prompt to ClaimEdge-only architecture"
+    },
+    {
+      "id": "sec-013",
+      "title": "Domain glossary not enforced in skill output",
+      "severity": "LOW",
+      "status": "open",
+      "description": "87-term glossary exists but no automated check that skills use canonical terms.",
+      "remediation": "Add terminology validation to skill QA process"
+    },
+    {
+      "id": "sec-014",
+      "title": "Wrestling skills trigger on claims-related keywords",
+      "severity": "LOW",
+      "status": "open",
+      "description": "Some wrestling skills have broad triggers that could activate during claims work.",
+      "remediation": "Narrow wrestling skill triggers to sports-specific keywords only"
+    }
+  ],
+  "github_issues_created": [
+    {
+      "number": 1,
+      "title": "[Security] Enable Neon SSL enforcement",
+      "severity": "MEDIUM",
+      "url": "https://github.com/ClaimEdge-dev/ai-os-hub/issues/1"
+    },
+    {
+      "number": 2,
+      "title": "[Security] Add audit logging for skill lifecycle events",
+      "severity": "MEDIUM",
+      "url": "https://github.com/ClaimEdge-dev/ai-os-hub/issues/2"
+    },
+    {
+      "number": 3,
+      "title": "[Security] Scan all SKILL.md files for hardcoded API keys",
+      "severity": "HIGH",
+      "url": "https://github.com/ClaimEdge-dev/ai-os-hub/issues/3"
+    },
+    {
+      "number": 4,
+      "title": "[Security] Implement PII sanitization in Document Assembly",
+      "severity": "HIGH",
+      "url": "https://github.com/ClaimEdge-dev/ai-os-hub/issues/4"
+    },
+    {
+      "number": 5,
+      "title": "[Security] Configure branch protection rules",
+      "severity": "LOW",
+      "url": "https://github.com/ClaimEdge-dev/ai-os-hub/issues/5"
+    }
+  ],
+  "remediation_priority": [
+    "Fix GitHub placeholder files (sec-001)",
+    "Activate .github/workflows/ (sec-002)",
+    "Scan for hardcoded API keys (sec-009 / Issue #3)",
+    "Add PII sanitization (sec-008 / Issue #4)",
+    "Rewrite Comet prompt (sec-012)",
+    "Complete Huuso rebrand (sec-005, sec-011)",
+    "Enable Neon SSL enforcement (sec-003 / Issue #1)",
+    "Add audit logging (sec-004 / Issue #2)",
+    "Configure branch protection (sec-006 / Issue #5)",
+    "Narrow wrestling triggers (sec-014)",
+    "Set up Notion backup (sec-010)",
+    "Enforce domain glossary (sec-013)",
+    "Activate Stripe products (sec-007)"
+  ]
+}
