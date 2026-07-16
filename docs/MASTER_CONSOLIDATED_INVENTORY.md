@@ -32,8 +32,8 @@
 
 **GitHub:** `ClaimEdge-dev/ai-os-hub`
 **Default Branch:** `main`
-**Total Files:** 50+
-**Total Size:** ~660KB+
+**Total Files:** 60+
+**Total Size:** ~800KB+
 
 ### Directory Structure
 
@@ -63,7 +63,7 @@ ai-os-hub/
 |   |   |           |-- SKILL.md           # Client Intake Suite (pointer)
 |   |   |           |-- SKILL_PART[1-3].md # 48KB total
 |   |   |-- policy/
-|   |   |   |-- coverage-review/           # NEW: Comprehensive Policy & Coverage Review
+|   |   |   |-- coverage-review/           # Comprehensive Policy & Coverage Review
 |   |   |   |   |-- v1/
 |   |   |   |       |-- SKILL.md           # Pointer + navigation
 |   |   |   |       |-- SKILL_PART[1-9].md # 110KB total -- 6 functions, 3 templates, 3 examples
@@ -73,6 +73,11 @@ ai-os-hub/
 |   |   |   |-- policy-review-endorsement-tracker/  # Legacy (previous session)
 |   |   |       |-- v1/
 |   |   |           |-- SKILL.md
+|   |   |-- inspection/
+|   |   |   |-- field-evidence/            # NEW: Comprehensive Inspection & Field Evidence
+|   |   |   |   |-- v1/
+|   |   |   |       |-- SKILL.md           # Pointer + navigation
+|   |   |   |       |-- SKILL_PART[1-16].md # 142KB total -- 6 functions, 3 templates, 3 examples
 |-- migration/
 |   |-- (planned for future migration scripts)
 |-- README.md
@@ -222,7 +227,8 @@ ai-os-hub/
 | # | Skill | Pillar | Status | Location | Size |
 |---|-------|--------|--------|----------|------|
 | 1 | **Client Intake Suite v1** | Intake (P1) | Complete | `skills/claimedge/intake/client-intake-suite/v1/` | 48KB |
-| 2 | **Policy & Coverage Review v1** | Policy (P2) | **COMPLETE - NEW** | `skills/claimedge/policy/coverage-review/v1/` | 110KB |
+| 2 | **Policy & Coverage Review v1** | Policy (P2) | Complete | `skills/claimedge/policy/coverage-review/v1/` | 110KB |
+| 3 | **Inspection & Field Evidence v1** | Inspection (P3) | **COMPLETE - NEW** | `skills/claimedge/inspection/field-evidence/v1/` | 142KB |
 
 **Skill #1 -- Client Intake Suite v1 (48KB):**
 - Client Intake Questionnaire (53 IL legal citations)
@@ -232,32 +238,46 @@ ai-os-hub/
 - Communication Preferences Manager
 - Total: 4 files, 1,160 lines
 
-**Skill #2 -- Policy & Coverage Review v1 (110KB) - NEW:**
+**Skill #2 -- Policy & Coverage Review v1 (110KB):**
 - 6 Functions: Policy Document Review, Declarations Page Extractor, Coverage Gap Analysis, O&L Assessment, Coverage Argument Builder, Coverage Opinion Memo Generator
 - 3 Production Templates: Policy Review Checklist, Coverage Gap Report, Coverage Opinion Memo
 - 3 Complete Worked Examples: Residential Hail (State Farm), Commercial Wind (Liberty Mutual), Residential Water (Allstate)
 - 6 Error Handling Conditions with resolutions
-- 8 Illinois Statutes (215 ILCS 5/154.6, 5/155, 5/143.13a, 735 ILCS 5/13-205, 5/13-202, PA 103-0510, 820 ILCS 120, 815 ILCS 505)
-- 7 Case Law Citations (Cramer, Wald, Duldulao, DeLuna, DiBenedetto, Wallace, Cline)
-- 4 Building Code References (IRC 2021, IBC 2021, IEBC 2021, IECC 2021)
+- 8 Illinois Statutes, 7 Case Law Citations, 4 Building Code References
 - Full Integration Points: Upstream (Intake), Downstream (Inspection, Estimate, Carrier Comms, Document Assembly, Jurisdiction)
 - ASCII Workflow Diagrams for all 6 functions
 - Total: 10 files, 2,692 lines, 110KB
+
+**Skill #3 -- Inspection & Field Evidence v1 (142KB) - NEW:**
+- 6 Functions: Pre-Inspection Planner, Field Evidence Collector, Photo Documentation Manager, Interior & Moisture Inspector, Drone Survey Integrator, Field Report Generator
+- 3 Production Templates: Residential Hail Damage Report (Template A), Commercial Wind Damage Report (Template B), Residential Water Damage Report (Template C)
+- 3 Detailed Worked Examples: Residential Hail (Naperville, State Farm), Commercial Wind (Des Plaines, Liberty Mutual), Residential Water (Oak Lawn, Allstate)
+- 8 Standardized Error Conditions: Property Inaccessible, Unsafe Weather, Insufficient Photos, Equipment Failure, Evidence Tampered, Hazardous Materials, Client Disputes, Carrier Adjuster Present
+- Complete Legal Framework: 8 IL Statutes (215 ILCS 5/154.6, 5/155, 5/143.13a, 735 ILCS 5/13-205, 5/13-202, PA 103-0510, 820 ILCS 120, 815 ILCS 505), 4 Building Codes (IRC/IBC/IECC/IEBC 2021), 4 Federal Regulations (14 CFR Part 107), 6 Industry Standards (Haag, IICRC S500/S520, ASCE 7, FM Global), 4 Case Law References
+- Standards of Care: 8 professional principles for insurance inspectors
+- Quality Assurance: 16-point checklist before report delivery
+- CompanyCam Integration: Photo sync specs, CE-PH-### naming convention
+- FAA Part 107 Compliance: Full drone operations framework with LAANC, pre-flight checklist, hazard identification
+- Haag Engineering Integration: Complete damage classification (C/M/MO/MA/S), test square methodology
+- Moisture Mapping: Protimeter Surveymaster protocols with normal/elevated/saturated thresholds
+- Thermal Imaging: FLIR C5 specifications with anomaly detection
+- Integration Points: 7 upstream, 7 downstream, 5 external integrations
+- Total: 17 files, 3,119 lines, 142KB
 
 ### 7.2 Legacy Skills (Previous Sessions)
 
 | # | Skill | Pillar | Status | Location | Size | Notes |
 |---|-------|--------|--------|----------|------|-------|
-| 3 | Policy Coverage Analyzer v1 | Policy (P2) | Legacy | `skills/claimedge/policy/policy-review-coverage-analyzer/v1/` | 52KB | Predecessor to Skill #2 -- reference only |
-| 4 | Policy Endorsement Tracker v1 | Policy (P2) | Legacy | `skills/claimedge/policy/policy-review-endorsement-tracker/v1/` | 46KB | Predecessor to Skill #2 -- reference only |
+| 4 | Policy Coverage Analyzer v1 | Policy (P2) | Legacy | `skills/claimedge/policy/policy-review-coverage-analyzer/v1/` | 52KB | Predecessor to Skill #2 -- reference only |
+| 5 | Policy Endorsement Tracker v1 | Policy (P2) | Legacy | `skills/claimedge/policy/policy-review-endorsement-tracker/v1/` | 46KB | Predecessor to Skill #2 -- reference only |
 
-> **Note:** Skills #3 and #4 were built in previous sessions and are superseded by Skill #2 (Policy & Coverage Review v1), which integrates and expands their functionality. They remain in the repository for reference but Skill #2 should be used for all new policy review work.
+> **Note:** Skills #4 and #5 were built in previous sessions and are superseded by Skill #2 (Policy & Coverage Review v1). They remain in the repository for reference but Skill #2 should be used for all new policy review work.
 
 ### 7.3 Migration Queue (from 67-skill migration table)
 
 | Priority | Count | Pillar |
 |----------|-------|--------|
-| P0 (Revenue-Critical) | 5 remaining | Inspection, Estimate, Carrier Comms, Jurisdiction, Code Compliance |
+| P0 (Revenue-Critical) | 4 remaining | Hazards, Estimate, Carrier Comms, Jurisdiction |
 | P1 (High) | 15 | Document Assembly, AI OS Infrastructure |
 | P2 (Medium) | 22 | Analytics, Training, Sports Ventures |
 | P3 (Low) | 22 | R&D, Archive, Personal AI Ops |
@@ -266,7 +286,6 @@ ai-os-hub/
 
 | # | Skill | Pillar | Effort | Why P0 |
 |---|-------|--------|--------|--------|
-| 5 | `claimedge__inspection__field-evidence__v1` | Inspection (P3) | High | Core revenue skill -- Haag protocols, photo documentation, CompanyCam integration |
 | 6 | `claimedge__inspection__hazards-assessment__v1` | Inspection (P3) | Low | Material hazards identification (rename from claimedge-material-hazards) |
 | 7 | `claimedge__estimate__supplement-builder__v1` | Estimate (P6) | High | Core revenue skill -- Xactimate supplement generation with code citations |
 | 8 | `claimedge__carrier__dispute-letter-writer__v1` | Carrier Comms (P7) | High | Carrier dispute letters with IL statutes + 215 ILCS 5/155 arguments |
@@ -275,7 +294,7 @@ ai-os-hub/
 **Pillar Status:**
 - P1 Intake: ✅ COMPLETE (Skill #1)
 - P2 Policy & Coverage: ✅ COMPLETE (Skill #2)
-- P3 Inspections: PENDING (Skills #5, #6)
+- P3 Inspections: ✅ COMPLETE (Skill #3) — Hazards rename remaining
 - P4 Exterior Damage: PENDING
 - P5 Code & Compliance: PENDING
 - P6 Estimate & Supplement: PENDING (Skill #7)
@@ -375,8 +394,8 @@ All Huuso Exteriors references removed from page titles and content.
 
 | # | Action | Owner | ETA |
 |---|--------|-------|-----|
-| 7 | Build P0 skill #5: Inspection & Field Evidence v1 | Kimi | Next session |
-| 8 | Build P0 skill #6: Hazards Assessment v1 | Kimi | Next session |
+| 7 | Build P0 skill #6: Hazards Assessment v1 (rename from material-hazards) | Kimi | Next session |
+| 8 | Build P0 skill #7: Supplement Builder v1 | Kimi | Next session |
 | 9 | Create Notion databases (8 schemas ready) | Perplexity | 1 week |
 | 10 | Populate Neon with full skill metadata | Kimi | 1 week |
 | 11 | Build `.github/workflows/security-check.yml` | Kimi | After directory created |
@@ -386,7 +405,7 @@ All Huuso Exteriors references removed from page titles and content.
 
 | # | Action | Owner | ETA |
 |---|-------|--------|-----|
-| 13 | Build P0 skills #7-9 (Estimate, Carrier Comms, Jurisdiction) | Kimi + Perplexity | 1 month |
+| 13 | Build P0 skills #8-9 (Carrier Comms, Jurisdiction) | Kimi + Perplexity | 1 month |
 | 14 | Stripe integration testing and product setup | Robert | 2 weeks |
 | 15 | Full end-to-end Golden Path workflow test | Kimi | 2 weeks |
 
@@ -405,10 +424,10 @@ All Huuso Exteriors references removed from page titles and content.
 | Field | Value |
 |---|---|
 | **Document** | Master Consolidated Inventory |
-| **Version** | 1.3 |
+| **Version** | 1.4 |
 | **Date** | July 16, 2026 |
 | **Prepared By** | Kimi AI (ClaimEdge Command Center) |
-| **Review Status** | Updated -- Policy & Coverage Review v1 Complete |
+| **Review Status** | Updated -- Inspection & Field Evidence v1 Complete |
 | **Next Review** | July 23, 2026 |
 | **Classification** | Internal -- ClaimEdge Operations |
 
@@ -418,4 +437,4 @@ All Huuso Exteriors references removed from page titles and content.
 >
 > **ClaimEdge LLC -- Independent Insurance Claims Inspection & Consulting**
 > **Chicagoland, Illinois**
-> **All systems operational. 2 primary skills complete. Pillars 1-2 done. 5 P0 skills remaining.**
+> **All systems operational. 3 primary skills complete. Pillars 1-3 done. 4 P0 skills remaining.**
