@@ -1,0 +1,1 @@
+> *"A public adjuster is any person who, for compensation, acts on behalf of an insured in negotiating for or effecting the settlement of a claim for loss or damage under any policy of insurance covering real or personal property."* — 215 ILCS 5/154.6(a)

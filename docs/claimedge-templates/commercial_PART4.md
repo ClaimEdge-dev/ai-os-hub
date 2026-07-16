@@ -1,0 +1,1 @@
+**See:** *Cramer v. Insurance Exchange Agency*, 174 Ill. App. 3d 498 (2d Dist. 1988); *Wald v. Crusader Ins. Co.*, 2018 IL App (2d) 170803; *DeLuna v. Northwestern Mut. Ins. Co.*, 2021 IL App (2d) 200123.
