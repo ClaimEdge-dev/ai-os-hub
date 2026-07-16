@@ -1,99 +1,219 @@
+### Function 2 Output: Declarations Page Extracted Data
+
+```json
+{
+  "declarations_extraction": {
+    "extraction_id": "CE-DEC-{YYYY}-{NNNN}",
+    "extraction_date": "2025-07-16",
+    "status": "complete",
+    "confidence": "high",
+    "validation_issues": [],
+
+    "named_insureds": {
+      "primary": "Sarah and David Thompson",
+      "additional": []
+    },
+
+    "addresses": {
+      "mailing": "1847 Mill Creek Drive, Naperville, IL 60540",
+      "property": "1847 Mill Creek Drive, Naperville, IL 60540"
+    },
+
+    "policy_period": {
+      "effective_date": "2025-01-15",
+      "expiration_date": "2026-01-15",
+      "in_force_at_loss": true
+    },
+
+    "coverage_table": [
+      {
+        "coverage_code": "A",
+        "coverage_name": "Dwelling",
+        "limit": 425000.00,
+        "deductible": 2500.00
+      },
+      {
+        "coverage_code": "B",
+        "coverage_name": "Other Structures",
+        "limit": 42500.00,
+        "deductible": 2500.00
+      },
+      {
+        "coverage_code": "C",
+        "coverage_name": "Personal Property",
+        "limit": 212500.00,
+        "deductible": 2500.00
+      },
+      {
+        "coverage_code": "D",
+        "coverage_name": "Loss of Use",
+        "limit": null,
+        "deductible": 0.00,
+        "notes": "No stated dollar limit — actual loss sustained basis"
+      },
+      {
+        "coverage_code": "E",
+        "coverage_name": "Personal Liability",
+        "limit": 300000.00,
+        "deductible": 0.00
+      },
+      {
+        "coverage_code": "F",
+        "coverage_name": "Medical Payments",
+        "limit": 5000.00,
+        "deductible": 0.00
+      }
+    ],
+
+    "deductibles": {
+      "all_peril": {
+        "amount": 2500.00,
+        "type": "flat"
+      },
+      "wind_hail": null,
+      "named_storm": null,
+      "hurricane": null
+    },
+
+    "endorsements": [
+      { "form_number": "OL 01 01", "description": "Limited Coverage — Ordinance or Law" },
+      { "form_number": "HO 04 73", "description": "Actual Cash Value — Personal Property" },
+      { "form_number": "HO 32 31", "description": "Water Back-Up and Sump Discharge or Overflow" },
+      { "form_number": "HO 04 20", "description": "Additional Coverage — miscellaneous" },
+      { "form_number": "HO 04 54", "description": "Extended Replacement Cost — Dwelling" }
+    ],
+
+    "mortgagee": {
+      "name": "Chase Bank",
+      "loan_number": "XXXXXXXX4567",
+      "address": "Chase Bank, PO Box 182065, Columbus, OH 43218"
+    },
+
+    "premium": {
+      "annual_premium": 2850.00,
+      "payment_plan": "escrow"
+    },
+
+    "prior_carrier": {
+      "carrier": "Allstate",
+      "expiration_date": "2025-01-15"
+    },
+
+    "extraction_notes": [
+      "All Coverage limits confirmed against policy form language",
+      "Policy in force on date of loss (June 28, 2025)",
+      "No special deductibles (wind/hail/named storm) apply to this loss",
+      "Five endorsements identified — recommend reviewing each for claim impact"
+    ]
+  }
+}
+```
+
+---
+
 ### Function 3 Output: Coverage Gap Analysis
 
 ```json
 {
-  "gap_analysis": {
+  "coverage_gap_analysis": {
     "analysis_id": "CE-CGA-{YYYY}-{NNNN}",
     "analysis_date": "2025-07-16",
     "client_id": "CE-CLI-0156",
     "claim_number": "SF-2025-789456",
 
-    "summary": {
-      "total_coverage_available": 680000.00,
-      "total_estimated_damages": 847650.00,
-      "total_gap": 167650.00,
-      "gap_percentage": 19.8,
-      "assessment": "significant_underinsurance",
-      "coinsurance_penalty_risk": true
-    },
-
-    "coverage_a_analysis": {
-      "coverage_limit": 425000.00,
-      "estimated_damage": 485000.00,
-      "gap": 60000.00,
-      "gap_percentage": 12.4,
-      "estimated_replacement_cost": 575000.00,
-      "coinsurance_requirement": 0.80,
-      "coinsurance_required_amount": 460000.00,
-      "coinsurance_compliance": "non_compliant",
-      "coinsurance_penalty_estimate": 42500.00,
-      "notes": "Coverage A is 73.9% of replacement cost — below 80% coinsurance requirement. Estimated penalty: $42,500 if carrier invokes coinsurance."
-    },
-
-    "coverage_b_analysis": {
-      "coverage_limit": 42500.00,
-      "estimated_damage": 67500.00,
-      "gap": 25000.00,
-      "gap_percentage": 37.0,
-      "components": {
-        "detached_garage": 28000.00,
-        "fence": 8500.00,
-        "deck": 22000.00,
-        "shed": 9000.00
+    "coverage_vs_damage_comparison": {
+      "coverage_a_dwelling": {
+        "coverage_limit": 425000.00,
+        "extended_replacement_cost": 106250.00,
+        "total_available": 531250.00,
+        "estimated_damage": 187500.00,
+        "gap_amount": 0.00,
+        "gap_status": "adequate",
+        "percentage_of_damage_covered": 100.0,
+        "notes": "Damage well within limits including Extended Replacement Cost buffer"
       },
-      "notes": "Coverage B at 10% of A may be insufficient for full other structures replacement in Naperville market"
+      "coverage_b_other_structures": {
+        "coverage_limit": 42500.00,
+        "estimated_damage": 28500.00,
+        "gap_amount": 0.00,
+        "gap_status": "adequate",
+        "percentage_of_damage_covered": 100.0
+      },
+      "coverage_c_personal_property": {
+        "coverage_limit": 212500.00,
+        "estimated_damage": 67500.00,
+        "gap_amount": 0.00,
+        "gap_status": "adequate",
+        "percentage_of_damage_covered": 100.0,
+        "notes": "ACV settlement will reduce recovery — recommend depreciated value analysis"
+      },
+      "coverage_d_loss_of_use": {
+        "coverage_limit": null,
+        "ale_monthly_estimate": 4500.00,
+        "ale_duration_months": 4.5,
+        "estimated_ale_total": 20250.00,
+        "gap_amount": 0.00,
+        "gap_status": "adequate_unlimited",
+        "notes": "Coverage D has no dollar limit — actual loss sustained basis"
+      }
     },
 
-    "coverage_c_analysis": {
-      "coverage_limit": 212500.00,
-      "estimated_damage": 145000.00,
-      "gap": 0,
-      "gap_percentage": 0,
-      "assessment": "adequate",
-      "loss_settlement": "ACV",
-      "rcv_recovery_gap_estimate": 35000.00,
-      "notes": "Limit is adequate but ACV settlement creates ~$35,000 recovery gap vs. RCV. Recommend pursuing ACV-to-RCV argument."
+    "coinsurance_analysis": {
+      "coinsurance_percentage_required": 80.0,
+      "coverage_a_limit": 425000.00,
+      "minimum_required_coverage": 340000.00,
+      "estimated_replacement_cost": 485000.00,
+      "coverage_as_percentage_of_rcv": 87.6,
+      "coinsurance_penalty_risk": false,
+      "replacement_cost_80_percent": 388000.00,
+      "notes": "Coverage A at $425,000 represents 87.6% of estimated RCV — above 80% threshold. No coinsurance penalty anticipated.",
+      "warning": "If RCV exceeds $531,250, Coverage A + Extended Replacement Cost may be exhausted. Monitor supplementary dwelling cost estimates."
     },
 
-    "coverage_d_analysis": {
-      "coverage_limit": null,
-      "estimated_ale": 45000.00,
-      "ale_monthly": 5500.00,
-      "estimated_duration_months": 8.2,
-      "assessment": "unlimited_adequate",
-      "notes": "No dollar limit on Coverage D — full ALE recoverable for reasonable repair period"
+    "underinsurance_assessment": {
+      "is_underinsured": false,
+      "coverage_a_shortfall": 0.00,
+      "coverage_a_as_percent_of_rcv": 87.6,
+      "recommended_coverage_a": 485000.00,
+      "underinsurance_percentage": 0.0,
+      "action_required": "None — coverage adequate for current loss. Recommend client increase Coverage A to $485,000 at renewal to match full replacement cost."
     },
 
-    "ordinance_law_analysis": {
-      "ol_limit": 42500.00,
-      "estimated_code_upgrades": 105000.00,
-      "gap": 62500.00,
-      "gap_percentage": 59.5,
-      "assessment": "severely_inadequate",
-      "notes": "O&L coverage at 10% of Coverage A is grossly inadequate for full IRC 2021 compliance. Key shortfalls: roof decking replacement ($28,000), electrical panel upgrade ($8,500), insulation R-value upgrade ($12,000), window egress compliance ($9,500)"
+    "total_damage_summary": {
+      "total_estimated_damage": 303750.00,
+      "total_coverage_available": 786250.00,
+      "net_after_deductible": 301250.00,
+      "applicable_deductible": 2500.00,
+      "coverage_shortfall": 0.00,
+      "overall_status": "adequate"
     },
 
-    "overall_assessment": {
-      "risk_level": "high",
-      "primary_concerns": [
-        "Significant underinsurance on Coverage A with coinsurance penalty exposure",
-        "Severe O&L inadequacy — 59.5% shortfall for code compliance",
-        "Coverage B insufficient for full other structures replacement",
-        "ACV settlement on contents creates $35,000 recovery gap"
-      ],
-      "recommended_actions": [
-        "Order independent replacement cost appraisal immediately",
-        "Build coinsurance waiver argument under 215 ILCS 5/154.6 — carrier failed to recommend adequate Coverage A limit",
-        "Pursue full O&L coverage through argument that damage percentage triggers all three O&L limits",
-        "Document all contents at pre-loss condition for ACV-to-RCV fight",
-        "Prepare Coverage Gap Report for client education and carrier negotiation"
-      ],
-      "escalation_needed": true,
-      "escalation_reason": "Underinsurance and coinsurance issues require attorney consultation"
-    }
+    "missing_endorsements": [
+      {
+        "endorsement": "Replacement Cost — Personal Property (HO 04 90)",
+        "impact": "Client will receive ACV only on personal property — estimated depreciation penalty: $18,000–$25,000",
+        "recommendation": "Cannot add retroactively. Argue reasonable expectations if carrier represented 'full replacement' during sale."
+      }
+    ],
+
+    "coverage_increase_arguments": [
+      "Extended Replacement Cost endorsement provides 25% buffer above Coverage A — ensure carrier applies before exhausting base limit",
+      "If repair costs exceed $531,250, argue under 215 ILCS 5/154.6 that carrier must provide clear explanation of limit exhaustion and options",
+      "Recommend client increase Coverage A to $485,000 at renewal; document this recommendation for E&O protection"
+    ],
+
+    "flagged_issues": [
+      {
+        "severity": "warning",
+        "issue": "ACV on personal property will reduce recovery by estimated $18,000–$25,000",
+        "recommendation": "Build reasonable expectations argument; document any carrier representations about 'full replacement' coverage"
+      }
+    ]
   }
 }
 ```
+
+---
 
 ### Function 4 Output: Ordinance & Law Coverage Assessment
 
@@ -106,103 +226,136 @@
     "claim_number": "SF-2025-789456",
 
     "ol_coverage_summary": {
-      "limit_a_undamaged_portion": 42500.00,
-      "limit_b_demolition_debris": 42500.00,
-      "limit_c_increased_cost": 42500.00,
-      "total_ol_coverage": 127500.00,
-      "assessment": "marginally_adequate"
+      "limit_a_undamaged_portion": 14167.00,
+      "limit_b_demolition_debris": 14167.00,
+      "limit_c_increased_cost": 14166.00,
+      "total_ol_coverage": 42500.00,
+      "percentage_of_coverage_a": 10.0,
+      "endorsement_form": "OL 01 01"
     },
 
-    "code_upgrade_analysis": [
-      {
-        "upgrade_category": "Roof Decking Replacement",
-        "triggering_code": "IRC 2021 R905.2.1 — Roof deck requirements",
-        "local_amendment": "Naperville Amendment: All roof decking must be minimum 7/16\" OSB or plywood",
-        "estimated_cost": 28000.00,
-        "ol_limit_triggered": "C",
-        "covered_amount": 28000.00,
-        "coverage_status": "full",
-        "notes": "Spaced decking must be replaced with solid sheathing per IRC 2021"
-      },
-      {
-        "upgrade_category": "Electrical Panel Upgrade",
-        "triggering_code": "IRC 2021 E3401.2 — Service minimum 100A; E3403.3 — AFCI protection",
-        "local_amendment": "Naperville requires 200A service for homes >3,000 sq ft",
-        "estimated_cost": 8500.00,
-        "ol_limit_triggered": "C",
-        "covered_amount": 8500.00,
-        "coverage_status": "full",
-        "notes": "Pre-loss panel was 100A Federal Pacific — must upgrade to 200A with AFCI breakers"
-      },
-      {
-        "upgrade_category": "Insulation R-Value Upgrade",
-        "triggering_code": "IECC 2021 R402.1.2 — Ceiling R-49, Wall R-20",
-        "local_amendment": "DuPage County requires R-60 ceiling for new construction",
-        "estimated_cost": 12000.00,
-        "ol_limit_triggered": "C",
-        "covered_amount": 12000.00,
-        "coverage_status": "full",
-        "notes": "Pre-loss insulation was R-30 ceiling, R-11 walls — must upgrade to current code"
-      },
-      {
-        "upgrade_category": "Window Egress Compliance",
-        "triggering_code": "IRC 2021 R310.1 — Emergency escape and rescue openings",
-        "local_amendment": "Naperville: All basement bedrooms require egress windows",
-        "estimated_cost": 9500.00,
-        "ol_limit_triggered": "C",
-        "covered_amount": 9500.00,
-        "coverage_status": "full",
-        "notes": "Two basement bedrooms have non-egress windows — must install compliant openings"
-      },
-      {
-        "upgrade_category": "HVAC Duct Sealing & Efficiency",
-        "triggering_code": "IECC 2021 R403.3 — Ducts must be sealed and tested",
-        "local_amendment": "DuPage County requires duct blaster test for all new HVAC installs",
-        "estimated_cost": 4500.00,
-        "ol_limit_triggered": "C",
-        "covered_amount": 4500.00,
-        "coverage_status": "full",
-        "notes": "New HVAC install requires sealed ductwork and blower door test"
-      },
-      {
-        "upgrade_category": "Undamaged Siding Replacement",
-        "triggering_code": "IBC 2021 3403.1 — repairs must match existing or entire wall must be replaced",
-        "local_amendment": "Naperville: Vinyl siding cannot be patched — full wall replacement required",
-        "estimated_cost": 18000.00,
-        "ol_limit_triggered": "A",
-        "covered_amount": 18000.00,
-        "coverage_status": "full",
-        "notes": "Hail damaged 40% of siding; code requires undamaged 60% be replaced for uniformity"
-      }
-    ],
+    "code_upgrade_analysis": {
+      "property_age": 20,
+      "construction_type": "frame",
+      "applicable_codes": ["IRC 2021", "IECC 2021", "IBC 2021"],
+      "jurisdiction": "Naperville, IL (DuPage County)",
 
-    "totals": {
-      "total_code_upgrade_cost": 79500.00,
-      "total_ol_coverage": 127500.00,
-      "ol_shortfall": 0,
-      "ol_excess": 48000.00,
-      "assessment": "adequate_with_margin",
-      "limit_a_used": 18000.00,
-      "limit_b_used": 0,
-      "limit_c_used": 61500.00
-    },
-
-    "legal_arguments": {
-      "primary_argument": "All six code upgrades are mandated by currently adopted codes (IRC 2021, IECC 2021, IBC 2021) as interpreted by Naperville and DuPage County. Under 215 ILCS 5/154.6, carrier must provide clear explanation if any upgrade is denied.",
-      "secondary_argument": "PA 103-0510 (2024) strengthened policyholder protections — carrier cannot arbitrarily deny code upgrades that are mandated by locally adopted building codes.",
-      "case_law_support": [
-        "Cramer v. Insurance Exchange Agency, 174 Ill. App. 3d 862 (3d Dist. 1988) — Ambiguous policy language construed against drafter",
-        "Wald v. Crusader Ins. Co., 201 Ill. App. 3d 712 (2d Dist. 1990) — Reasonable expectations doctrine applies to coverage disputes"
+      "triggered_code_upgrades": [
+        {
+          "building_component": "Roof",
+          "triggering_code": "IRC 2021 R905.1.1 — Underlayment requirements",
+          "description": "Self-adhering polymer modified bitumen underlayment required in entirety, not just valleys/eaves",
+          "estimated_cost": 4200.00,
+          "ol_limit_triggered": "C",
+          "notes": "Pre-2005 roof likely had only #15 felt underlayment"
+        },
+        {
+          "building_component": "Roof",
+          "triggering_code": "IRC 2021 R905.2.8.2 — Drip edge requirements",
+          "description": "Drip edge at eaves and gables with 1/4 inch extension minimum",
+          "estimated_cost": 1800.00,
+          "ol_limit_triggered": "C"
+        },
+        {
+          "building_component": "Roof",
+          "triggering_code": "IRC 2021 R806.2 — Roof ventilation (1:150 ratio)",
+          "description": "Continuous ridge and soffit ventilation may be required if not existing",
+          "estimated_cost": 3500.00,
+          "ol_limit_triggered": "C"
+        },
+        {
+          "building_component": "Siding",
+          "triggering_code": "IRC 2021 R703.11 — Water-resistive barrier",
+          "description": "House wrap or equivalent water-resistive barrier behind all siding",
+          "estimated_cost": 5800.00,
+          "ol_limit_triggered": "C"
+        },
+        {
+          "building_component": "Siding",
+          "triggering_code": "IRC 2021 R703.11.2.1 — Flashing at penetrations",
+          "description": "Self-adhered flashing tape at all windows, doors, and penetrations",
+          "estimated_cost": 2400.00,
+          "ol_limit_triggered": "C"
+        },
+        {
+          "building_component": "Insulation",
+          "triggering_code": "IECC 2021 R402.1.1 — Wall insulation R-value",
+          "description": "Wall insulation must meet R-13 minimum (cavity) or R-20 (continuous); existing may be R-11",
+          "estimated_cost": 6500.00,
+          "ol_limit_triggered": "C"
+        },
+        {
+          "building_component": "Insulation",
+          "triggering_code": "IECC 2021 R402.1.2 — Ceiling insulation R-value",
+          "description": "Ceiling insulation R-49 minimum; existing may be R-30 or less",
+          "estimated_cost": 4800.00,
+          "ol_limit_triggered": "C"
+        },
+        {
+          "building_component": "Electrical",
+          "triggering_code": "IRC 2021 E3901.2 — GFCI protection",
+          "description": "GFCI protection required for all exterior outlets; may require AFCI upgrade on affected circuits",
+          "estimated_cost": 1200.00,
+          "ol_limit_triggered": "C"
+        },
+        {
+          "building_component": "Demolition/Debris",
+          "triggering_code": "IRC 2021 Chapter 33 — Demolition safety requirements",
+          "description": "Permitted demolition with debris removal to approved facility; disposal restrictions on asphalt shingles",
+          "estimated_cost": 3800.00,
+          "ol_limit_triggered": "B"
+        },
+        {
+          "building_component": "Windows",
+          "triggering_code": "IECC 2021 R402.3.1 — Window U-factor",
+          "description": "Replacement windows must meet U-0.30 maximum; existing may exceed this",
+          "estimated_cost": 2800.00,
+          "ol_limit_triggered": "C"
+        }
       ]
     },
 
+    "ol_shortfall_calculation": {
+      "total_estimated_code_upgrades": 36800.00,
+      "limit_c_available": 14166.00,
+      "limit_b_available": 14167.00,
+      "total_ol_available": 42500.00,
+      "total_ol_needed": 36800.00,
+      "shortfall_amount": 0.00,
+      "shortfall_status": "adequate",
+      "limit_c_shortfall": 22634.00,
+      "limit_b_shortfall": 0.00,
+      "notes": "O&L coverage appears adequate IF carrier accepts all code upgrade triggers. Risk: carrier may dispute which upgrades are 'required by ordinance or law' vs. merely 'desirable'.",
+      "recommendation": "Document each code requirement with municipal building department written confirmation. Obtain permit requirements in writing before repairs begin."
+    },
+
+    "legal_arguments": [
+      {
+        "argument": "215 ILCS 5/154.6 requires carrier to provide 'a reasonable explanation for the denial or offer of a compromise settlement'",
+        "application": "If carrier disputes any code upgrade as not 'required by ordinance or law,' demand written explanation citing specific policy language and code provisions",
+        "strength": "strong"
+      },
+      {
+        "argument": "PA 103-0510 (2024) strengthens policyholder protections for code upgrade coverage",
+        "application": "Cite PA 103-0510 reforms requiring carriers to clearly explain O&L coverage at policy inception and renewal",
+        "strength": "moderate"
+      },
+      {
+        "argument": "Contra proferentem — ambiguous O&L language construed against drafter (carrier)",
+        "application": "If 'required by ordinance or law' is ambiguous as to whether it means 'mandatory by code official' or 'required to obtain permit,' argue for broader interpretation favoring insured",
+        "strength": "moderate"
+      }
+    ],
+
     "recommendations": [
-      "O&L coverage is adequate for this claim — total upgrades ($79,500) are within total O&L limit ($127,500)",
-      "Document each code upgrade with specific IRC/IBC/IECC section citations",
-      "Obtain written confirmation from Naperville Building Department that each upgrade is required",
-      "Prepare O&L sub-limit tracking spreadsheet for carrier negotiation",
-      "If carrier disputes any upgrade, cite 215 ILCS 5/154.6 and PA 103-0510"
+      "Obtain written confirmation from Naperville Building Department of all applicable code requirements for 20-year-old dwelling",
+      "Photograph all pre-code conditions before demolition to prove code upgrade necessity",
+      "Request carrier adjuster meet with building official to confirm code triggers",
+      "If carrier disputes O&L applicability, cite 215 ILCS 5/154.6 and demand written coverage position",
+      "Consider appraisal if O&L dispute exceeds $10,000"
     ]
   }
 }
 ```
+
+---
