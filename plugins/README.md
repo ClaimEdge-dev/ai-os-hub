@@ -1,42 +1,32 @@
 # ClaimEdge Plugins
 
-This directory contains the ClaimEdge AI OS skill plugins in source form.
+This directory contains build artifacts and references for ClaimEdge AI OS skill plugins.
 
-## Structure
+## Source of Truth
 
-Each subdirectory contains the source files for a skill plugin:
-- `SKILL.md` — The skill trigger file with YAML frontmatter
-- `references/` — Reference documentation and templates
-- `scripts/` — Optional automation scripts
+**Canonical source files are in `skills/claimedge/policy/`:**
+
+| Skill | Source Path | Status |
+|-------|------------|--------|
+| Policy Coverage Analyzer | `skills/claimedge/policy/policy-review-coverage-analyzer/v1/` | Complete |
+| Policy Endorsement Tracker | `skills/claimedge/policy/policy-review-endorsement-tracker/v1/` | Complete |
 
 ## Building .skill Packages
 
-To create distributable `.skill` files (ZIP archives):
+The `.skill` files are ZIP archives of the source directories. To build:
 
-### Option 1: Use the build script
 ```bash
-./build-skills.sh
+# From repo root
+cd skills/claimedge/policy/policy-review-coverage-analyzer/v1
+zip -r ../../../claimedge-policy-review-coverage-analyzer.skill SKILL.md references/
+
+cd ../policy-review-endorsement-tracker/v1
+zip -r ../../../claimedge-policy-review-endorsement-tracker.skill SKILL.md references/
 ```
 
-### Option 2: Manual packaging
-```bash
-cd /path/to/skill-source/
-zip -r ../skill-name.skill SKILL.md references/ scripts/
-```
+Or use the packaging script from the skill-creator skill.
 
-### Option 3: Use the skill-creator skill
-```
-Run package_skill.py from the skill-creator skill
-```
+## Note on Binary Files
 
-## Available Skills
-
-| # | Skill | Pillar | Status | Source Path |
-|---|-------|--------|--------|-------------|
-| 2 | Policy Coverage Analyzer | Policy & Coverage | Complete | `claimedge-policy-review-coverage-analyzer/` |
-| 3 | Policy Endorsement Tracker | Policy & Coverage | Complete | `claimedge-policy-review-endorsement-tracker/` |
-
-## Pre-built .skill Files
-
-Pre-built `.skill` packages are available as build artifacts.
-Build from source using the script above.
+`.skill` binary packages cannot be stored directly in this repo via the MCP tools
+(text-only encoding). Build them locally from the source files above.
