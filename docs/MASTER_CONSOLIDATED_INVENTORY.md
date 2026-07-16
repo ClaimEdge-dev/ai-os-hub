@@ -32,8 +32,8 @@
 
 **GitHub:** `ClaimEdge-dev/ai-os-hub`
 **Default Branch:** `main`
-**Total Files:** 41+
-**Total Size:** ~550KB+
+**Total Files:** 50+
+**Total Size:** ~660KB+
 
 ### Directory Structure
 
@@ -44,23 +44,13 @@ ai-os-hub/
 |-- docs/
 |   |-- claimedge-templates/               # Production templates (10 files, 113KB)
 |   |   |-- README.md
-|   |   |-- storm_PART1.md                 # Alert Email + Inspection Checklist (A-G)
-|   |   |-- storm_PART2.md                 # Inspection Checklist (H-Z) + Event Doc Log
-|   |   |-- storm_PART3.md                 # Supplement Narrative (Parts I-VII)
-|   |   |-- storm_PART4.md                 # Client Status Update + Appendices
-|   |   |-- commercial_PART1.md            # Commercial Inspection Report (A-G)
-|   |   |-- commercial_PART2.md            # Commercial Inspection (H-Z) + Supplement Intro
-|   |   |-- commercial_PART3.md            # Supplement Narrative (Statutes + Scope)
-|   |   |-- commercial_PART4.md            # Supplement (Demand) + Dispute Letter Intro
-|   |   |-- commercial_PART5.md            # Dispute Letter (Remedy) + Multi-Building Matrix
+|   |   |-- storm_PART[1-4].md            # Storm response templates (41KB)
+|   |   |-- commercial_PART[1-5].md       # Commercial claims templates (72KB)
 |   |-- migration-jul-2026/
 |   |   |-- CLAIMEDGE_MIGRATION_PACK.md    # 55KB -- 12-pillar architecture + 67-skill table
 |   |-- REVISED_PROMPTS_PACKAGE.md         # Pointer to v2 parts
-|   |-- REVISED_PROMPTS_PACKAGE_v2_PART1.md    # Perplexity Phases 2+ (A-D)
-|   |-- REVISED_PROMPTS_PACKAGE_v2_PART2.md    # Perplexity Phases 2+ (E-H)
-|   |-- REVISED_PROMPTS_PACKAGE_v2_PART3.md    # Comet Prompt (Phases 0-3)
-|   |-- REVISED_PROMPTS_PACKAGE_v2_PART4.md    # Comet Prompt (Phases 4-6)
-|   |-- PERPLEXITY_MASTER_HANDOFF_COMPLETE.md  # 15-section master handoff
+|   |-- REVISED_PROMPTS_PACKAGE_v2_PART[1-4].md  # 58KB total
+|   |-- PERPLEXITY_MASTER_HANDOFF_COMPLETE.md  # 22KB master handoff
 |   |-- UBIQUITOUS_LANGUAGE.md             # 87-term domain glossary
 |   |-- claimedge_gantt.html               # Interactive HTML Gantt chart
 |   |-- security_audit_results.json        # 14 Notion incidents + 5 GitHub issues
@@ -70,26 +60,19 @@ ai-os-hub/
 |   |   |-- intake/
 |   |   |   |-- client-intake-suite/
 |   |   |       |-- v1/
-|   |   |           |-- SKILL.md           # Client Intake + Fee Agreement
-|   |   |           |-- SKILL_PART1.md     # Client Intake + Fee Agreement
-|   |   |           |-- SKILL_PART2.md     # LOR Generator + SOL Calculator
-|   |   |           |-- SKILL_PART3.md     # Comm Preferences + IL Law Table
+|   |   |           |-- SKILL.md           # Client Intake Suite (pointer)
+|   |   |           |-- SKILL_PART[1-3].md # 48KB total
 |   |   |-- policy/
-|   |   |   |-- policy-review-coverage-analyzer/
+|   |   |   |-- coverage-review/           # NEW: Comprehensive Policy & Coverage Review
 |   |   |   |   |-- v1/
-|   |   |   |       |-- SKILL.md           # Policy Coverage Analysis trigger + workflow
-|   |   |   |       |-- references/
-|   |   |   |           |-- policy-analysis-framework.md    # 5-phase workflow
-|   |   |   |           |-- coverage-types-library.md       # 14 coverage types
-|   |   |   |           |-- exclusion-database.md           # 10 exclusions + counters
-|   |   |   |           |-- illinois-statutes.md            # IL legal framework
-|   |   |   |-- policy-review-endorsement-tracker/
+|   |   |   |       |-- SKILL.md           # Pointer + navigation
+|   |   |   |       |-- SKILL_PART[1-9].md # 110KB total -- 6 functions, 3 templates, 3 examples
+|   |   |   |-- policy-review-coverage-analyzer/  # Legacy (previous session)
+|   |   |   |   |-- v1/
+|   |   |   |       |-- SKILL.md
+|   |   |   |-- policy-review-endorsement-tracker/  # Legacy (previous session)
 |   |   |       |-- v1/
-|   |   |           |-- SKILL.md           # Endorsement tracking trigger + workflow
-|   |   |           |-- references/
-|   |   |               |-- endorsement-tracking-framework.md       # 4-phase workflow
-|   |   |               |-- retroactive-endorsement-countermeasures.md  # 6 countermeasures
-|   |   |               |-- illinois-endorsement-statutes.md       # IL endorsement law
+|   |   |           |-- SKILL.md
 |-- migration/
 |   |-- (planned for future migration scripts)
 |-- README.md
@@ -125,10 +108,6 @@ ai-os-hub/
 | 2 | **Commercial Supplement Narrative** | PART2-3 | 30KB | Code upgrade triggers, statutory basis, demand summary |
 | 3 | **Carrier Dispute Letter** | PART4 | 15KB | Formal dispute with 215 ILCS 5/155, remediation requests |
 | 4 | **Multi-Building Assessment Matrix** | PART4-5 | 15KB | Portfolio assessment for self-storage/industrial/retail/office |
-
-**Legal Citations:** 215 ILCS 5/155, 5/154.6, 815 ILCS 505, 820 ILCS 120
-**Building Codes:** IBC 2021, IEBC 2021, IECC 2021, NFPA
-**Standards:** Xactimate, ADAAG, ASCE 7
 
 ### 2.3 Templates Summary
 
@@ -242,55 +221,70 @@ ai-os-hub/
 
 | # | Skill | Pillar | Status | Location | Size |
 |---|-------|--------|--------|----------|------|
-| 1 | Client Intake Suite v1 | Intake | Complete | `skills/claimedge/intake/client-intake-suite/v1/` | 48KB |
-| 2 | Policy Coverage Analyzer v1 | Policy & Coverage | Complete | `skills/claimedge/policy/policy-review-coverage-analyzer/v1/` | 52KB |
-| 3 | Policy Endorsement Tracker v1 | Policy & Coverage | Complete | `skills/claimedge/policy/policy-review-endorsement-tracker/v1/` | 46KB |
+| 1 | **Client Intake Suite v1** | Intake (P1) | Complete | `skills/claimedge/intake/client-intake-suite/v1/` | 48KB |
+| 2 | **Policy & Coverage Review v1** | Policy (P2) | **COMPLETE - NEW** | `skills/claimedge/policy/coverage-review/v1/` | 110KB |
 
-**Skill #1 -- Client Intake Suite Contents:**
+**Skill #1 -- Client Intake Suite v1 (48KB):**
 - Client Intake Questionnaire (53 IL legal citations)
 - Fee Agreement Generator (59 template placeholders)
 - Letter of Representation (auto-generated from intake data)
 - SOL Calculator (IL statute database)
 - Communication Preferences Manager
-- Total: 4 files, 1,160 lines, 48KB
+- Total: 4 files, 1,160 lines
 
-**Skill #2 -- Policy Coverage Analyzer Contents:**
-- 5-Phase Policy Analysis Workflow (Document Intake to Gap Identification)
-- Coverage Types Library (14 categories with IL-specific issues)
-- Exclusion Database (10 exclusions with counter-arguments + IL case law)
-- Illinois Statutes Reference (50+ IL citations, 15+ case law entries, 3 doctrines)
-- Integration Points: Upstream (Client Intake Suite), Downstream (Inspection, Supplements, Carrier Comms, Bad Faith)
-- Total: 5 files, ~1,075 lines, 52KB
+**Skill #2 -- Policy & Coverage Review v1 (110KB) - NEW:**
+- 6 Functions: Policy Document Review, Declarations Page Extractor, Coverage Gap Analysis, O&L Assessment, Coverage Argument Builder, Coverage Opinion Memo Generator
+- 3 Production Templates: Policy Review Checklist, Coverage Gap Report, Coverage Opinion Memo
+- 3 Complete Worked Examples: Residential Hail (State Farm), Commercial Wind (Liberty Mutual), Residential Water (Allstate)
+- 6 Error Handling Conditions with resolutions
+- 8 Illinois Statutes (215 ILCS 5/154.6, 5/155, 5/143.13a, 735 ILCS 5/13-205, 5/13-202, PA 103-0510, 820 ILCS 120, 815 ILCS 505)
+- 7 Case Law Citations (Cramer, Wald, Duldulao, DeLuna, DiBenedetto, Wallace, Cline)
+- 4 Building Code References (IRC 2021, IBC 2021, IEBC 2021, IECC 2021)
+- Full Integration Points: Upstream (Intake), Downstream (Inspection, Estimate, Carrier Comms, Document Assembly, Jurisdiction)
+- ASCII Workflow Diagrams for all 6 functions
+- Total: 10 files, 2,692 lines, 110KB
 
-**Skill #3 -- Policy Endorsement Tracker Contents:**
-- 4-Phase Endorsement Tracking Workflow (Detection to Classification to Countermeasures to Dispute)
-- 5-Type Legal Classification Matrix (A=Lawful, B=Suspicious, C=Retroactive, D=No Notice, E=Bad Faith)
-- 6 Counter-Argument Categories with Case Law (Retroactivity, Notice Failure, Conspicuousness, Unfair Practice, Estoppel, Waiver)
-- 4 Dispute Document Templates (Carrier Challenge Letter, IDOI Complaint Addendum, Appraisal Brief Section, Bad Faith Evidence Entry)
-- Endorsement Pattern Tracker for multi-claim carrier monitoring
-- Total: 4 files, ~800 lines, 46KB
+### 7.2 Legacy Skills (Previous Sessions)
 
-### 7.2 Migration Queue (from 67-skill migration table)
+| # | Skill | Pillar | Status | Location | Size | Notes |
+|---|-------|--------|--------|----------|------|-------|
+| 3 | Policy Coverage Analyzer v1 | Policy (P2) | Legacy | `skills/claimedge/policy/policy-review-coverage-analyzer/v1/` | 52KB | Predecessor to Skill #2 -- reference only |
+| 4 | Policy Endorsement Tracker v1 | Policy (P2) | Legacy | `skills/claimedge/policy/policy-review-endorsement-tracker/v1/` | 46KB | Predecessor to Skill #2 -- reference only |
+
+> **Note:** Skills #3 and #4 were built in previous sessions and are superseded by Skill #2 (Policy & Coverage Review v1), which integrates and expands their functionality. They remain in the repository for reference but Skill #2 should be used for all new policy review work.
+
+### 7.3 Migration Queue (from 67-skill migration table)
 
 | Priority | Count | Pillar |
 |----------|-------|--------|
-| P0 (Revenue-Critical) | 6 remaining | Inspection, Supplements, Carrier Comms, Jurisdiction |
-| P1 (High) | 15 | Code Compliance, Document Assembly, AI OS Infrastructure |
+| P0 (Revenue-Critical) | 5 remaining | Inspection, Estimate, Carrier Comms, Jurisdiction, Code Compliance |
+| P1 (High) | 15 | Document Assembly, AI OS Infrastructure |
 | P2 (Medium) | 22 | Analytics, Training, Sports Ventures |
 | P3 (Low) | 22 | R&D, Archive, Personal AI Ops |
 
-### 7.3 Next P0 Skills (Priority Order)
+### 7.4 Next P0 Skills (Priority Order)
 
 | # | Skill | Pillar | Effort | Why P0 |
 |---|-------|--------|--------|--------|
-| 4 | `claimedge-inspections-photo-documentation` | Inspections | Medium | Field photo standards + Haag protocols |
-| 5 | `claimedge-inspections-hazards-assessment` | Inspections | Low | Rename from claimedge-material-hazards |
-| 6 | `claimedge-estimate-support-supplement-builder` | Estimate | High | Core revenue skill -- Xactimate supplements |
-| 7 | `claimedge-carrier-comms-supplement-letter-writer` | Carrier Comms | High | Carrier dispute letters + IL statutes |
-| 8 | `claimedge-jurisdiction-bad-faith-tracker` | Jurisdiction | High | Bad faith documentation for 215 ILCS 5/155 |
-| 9 | `claimedge-code-compliance-municipal-toolkit` | Code Compliance | Low | Rename from municipal-code-compliance-toolkit |
+| 5 | `claimedge__inspection__field-evidence__v1` | Inspection (P3) | High | Core revenue skill -- Haag protocols, photo documentation, CompanyCam integration |
+| 6 | `claimedge__inspection__hazards-assessment__v1` | Inspection (P3) | Low | Material hazards identification (rename from claimedge-material-hazards) |
+| 7 | `claimedge__estimate__supplement-builder__v1` | Estimate (P6) | High | Core revenue skill -- Xactimate supplement generation with code citations |
+| 8 | `claimedge__carrier__dispute-letter-writer__v1` | Carrier Comms (P7) | High | Carrier dispute letters with IL statutes + 215 ILCS 5/155 arguments |
+| 9 | `claimedge__jurisdiction__bad-faith-tracker__v1` | Jurisdiction (P9) | Medium | Bad faith documentation for 215 ILCS 5/155 penalties |
 
-**Pillar 2 (Policy & Coverage) Status:** ✅ COMPLETE -- Both planned skills built.
+**Pillar Status:**
+- P1 Intake: ✅ COMPLETE (Skill #1)
+- P2 Policy & Coverage: ✅ COMPLETE (Skill #2)
+- P3 Inspections: PENDING (Skills #5, #6)
+- P4 Exterior Damage: PENDING
+- P5 Code & Compliance: PENDING
+- P6 Estimate & Supplement: PENDING (Skill #7)
+- P7 Carrier Communications: PENDING (Skill #8)
+- P8 Document Assembly: PENDING
+- P9 Jurisdiction: PENDING (Skill #9)
+- P10 AI OS Infrastructure: PENDING
+- P11 Sports Ventures: PENDING
+- P12 Productization & R&D: PENDING
 
 ---
 
@@ -381,27 +375,28 @@ All Huuso Exteriors references removed from page titles and content.
 
 | # | Action | Owner | ETA |
 |---|--------|-------|-----|
-| 7 | Build P0 revenue-critical skills (6 remaining) | Kimi + Perplexity | 2 weeks |
-| 8 | Create Notion databases (8 schemas ready) | Perplexity | 1 week |
-| 9 | Populate Neon with full skill metadata | Kimi | 1 week |
-| 10 | Build `.github/workflows/security-check.yml` | Kimi | After directory created |
-| 11 | Update 3 remaining Notion Preset pages | Perplexity | 1 week |
+| 7 | Build P0 skill #5: Inspection & Field Evidence v1 | Kimi | Next session |
+| 8 | Build P0 skill #6: Hazards Assessment v1 | Kimi | Next session |
+| 9 | Create Notion databases (8 schemas ready) | Perplexity | 1 week |
+| 10 | Populate Neon with full skill metadata | Kimi | 1 week |
+| 11 | Build `.github/workflows/security-check.yml` | Kimi | After directory created |
+| 12 | Update 3 remaining Notion Preset pages | Perplexity | 1 week |
 
 ### P2 -- Medium Term (Next Month)
 
 | # | Action | Owner | ETA |
 |---|-------|--------|-----|
-| 12 | Build P1 skills (15 skills) | Kimi + Perplexity | 1 month |
-| 13 | Stripe integration testing and product setup | Robert | 2 weeks |
-| 14 | Full end-to-end Golden Path workflow test | Kimi | 2 weeks |
+| 13 | Build P0 skills #7-9 (Estimate, Carrier Comms, Jurisdiction) | Kimi + Perplexity | 1 month |
+| 14 | Stripe integration testing and product setup | Robert | 2 weeks |
+| 15 | Full end-to-end Golden Path workflow test | Kimi | 2 weeks |
 
 ### P3 -- Long Term (Ongoing)
 
 | # | Action | Owner | ETA |
 |---|-------|--------|-----|
-| 15 | Build remaining 44 skills (P2+P3) | Kimi + Perplexity | Ongoing |
-| 16 | Comet browser automation deployment | Comet | After prompt execution |
-| 17 | Multi-AI workflow optimization | Kimi | Continuous |
+| 16 | Build remaining 44 skills (P1-P3) | Kimi + Perplexity | Ongoing |
+| 17 | Comet browser automation deployment | Comet | After prompt execution |
+| 18 | Multi-AI workflow optimization | Kimi | Continuous |
 
 ---
 
@@ -410,10 +405,10 @@ All Huuso Exteriors references removed from page titles and content.
 | Field | Value |
 |---|---|
 | **Document** | Master Consolidated Inventory |
-| **Version** | 1.2 |
+| **Version** | 1.3 |
 | **Date** | July 16, 2026 |
 | **Prepared By** | Kimi AI (ClaimEdge Command Center) |
-| **Review Status** | Updated -- Skills #2 and #3 Complete |
+| **Review Status** | Updated -- Policy & Coverage Review v1 Complete |
 | **Next Review** | July 23, 2026 |
 | **Classification** | Internal -- ClaimEdge Operations |
 
@@ -423,4 +418,4 @@ All Huuso Exteriors references removed from page titles and content.
 >
 > **ClaimEdge LLC -- Independent Insurance Claims Inspection & Consulting**
 > **Chicagoland, Illinois**
-> **All systems operational. 3 of 67 skills complete. Pillar 2 (Policy) complete. 6 P0 skills remaining.**
+> **All systems operational. 2 primary skills complete. Pillars 1-2 done. 5 P0 skills remaining.**
