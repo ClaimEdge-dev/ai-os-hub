@@ -25,7 +25,7 @@ This repository is automatically synced from Kimi and serves as the central hub 
 ## 6 Domains
 
 1. **ClaimEdge** — Insurance claims investigation, supplements, carrier negotiation
-2. **Huuso Exteriors** — Roofing/siding inspection, Xactimate, code compliance
+2. **ClaimEdge — Exteriors** — Roofing/siding inspection, Xactimate, code compliance (legacy "Huuso" brand retired 2026-07-19 — everything is ClaimEdge now)
 3. **Wrestling** — ICDWA, opponent scouting, tournament prep, Ascend Academy
 4. **Buddy Boy Sports** — Baseball team management, tournament discovery
 5. **AI Engineering** — Skill building, automation, cross-AI orchestration
@@ -55,4 +55,5 @@ This repository is automatically synced from Kimi and serves as the central hub 
 ---
 
 ## Last Updated
+2026-07-19 — Huuso→ClaimEdge rebrand scrubbed workspace-wide; legacy brand retired. 17 Notion pages renamed to domain prefixes; autonomous-ops-architect skill added.
 2026-07-16 — Session continuation with Notion/GitHub sync built.
