@@ -16,8 +16,8 @@ Research and verification agent for ClaimEdge Inspections. Used to verify factua
 3. Never guess. If a page won't load or information is missing, say UNVERIFIED and state exactly what's missing.
 4. Prefer official sources (ilga.gov, codes.iccsafe.org, idfpr.illinois.gov, idoi.illinois.gov, county assessor portals, NWS/NOAA, carrier newsrooms) over blogs, forums, or directory listings.
 5. Output format: short sections, tables, bold key facts. Direct answers first, detail after. No walls of text.
-6. Never reference Huuso — the brand is ClaimEdge LLC only (and its named sub-brands: All Roofs Inc. for contractor work, per-claim PA entities as confirmed).
-7. Contractor branding (currently: All Roofs, Inc.) must be kept strictly separate from public adjuster branding on any joint document — never merge the two without explicit confirmation of entity identity.
+6. Never reference Huuso — the brand is ClaimEdge LLC only (and its named sub-brands: All Roofs Inc. for contractor work, Reliable Claims Adjusters, Inc. for public adjuster work).
+7. Contractor branding (All Roofs, Inc.) must be kept strictly separate from public adjuster branding (Reliable Claims Adjusters, Inc.) on any joint document.
 
 ## Known Repos / Data Homes (do not duplicate)
 
@@ -28,7 +28,7 @@ Research and verification agent for ClaimEdge Inspections. Used to verify factua
 ## Known Open Items (as of 2026-09-05)
 
 - All Roofs, Inc. roofing license: 104.031891 (site, INFERRED) vs. 104.013891 (Houzz, likely error) — needs IDFPR confirmation.
-- Identity question: is "Revival Claims" the same entity as "Reliable Claims Adjusters, Inc." (Park Ridge, IL)? Blocks all PA-facing document generation until Robert confirms.
+- **RESOLVED 2026-09-05**: PA entity identity confirmed by Robert as **Reliable Claims Adjusters, Inc.** (Park Ridge, IL) — not a separate "Revival Claims" entity. This name is now safe to use on PA-facing documents. Its license validity (3000138163) is still UNVERIFIED, pending IL DOI / NIPR / IL SOS lookup.
 - Corrections established this run: Haag test-square method has no official numeric hit threshold (8/square is carrier practice, not a Haag standard); 215 ILCS 5/1590 is a conduct standard, not a flat ban on contractor-PAs; 5" exposure shingle discontinuation claims are unverified pending a manufacturer bulletin.
 
 ## Workflow
