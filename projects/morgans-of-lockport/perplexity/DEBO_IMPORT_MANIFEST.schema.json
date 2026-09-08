@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DEBO-MOL Perplexity Import Manifest",
+  "type": "object",
+  "required": ["project", "source_system", "mission_status", "artifacts", "sources", "one_best_next_action"],
+  "properties": {
+    "project": {"const": "DEBO-MOL"},
+    "source_system": {"type": "string"},
+    "mission_status": {"enum": ["COMPLETE", "PARTIAL", "BLOCKED"]},
+    "generated_at": {"type": "string"},
+    "artifacts": {"type": "array"},
+    "verified_facts": {"type": "array"},
+    "source_supported_facts": {"type": "array"},
+    "inferences": {"type": "array"},
+    "hypotheses": {"type": "array"},
+    "conflicts": {"type": "array"},
+    "missing_evidence": {"type": "array"},
+    "blocked_by_access": {"type": "array"},
+    "recommendations": {"type": "array"},
+    "skills": {"type": "array"},
+    "schemas": {"type": "array"},
+    "code": {"type": "array"},
+    "benchmarks": {"type": "array"},
+    "sources": {"type": "array"},
+    "next_actions": {"type": "array"},
+    "one_best_next_action": {"type": "string"}
+  }
+}
