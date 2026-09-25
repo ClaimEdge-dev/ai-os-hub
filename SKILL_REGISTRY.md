@@ -1,7 +1,7 @@
-# Skill Registry — All 67 Skills
+# Skill Registry — All 69 Skills
 
 **Auto-generated from Kimi session**  
-**Last updated:** 2026-07-16  
+**Last updated:** 2026-09-25  
 **Source of truth:** This file + Notion "AI OS Hub"
 
 ---
@@ -110,6 +110,8 @@
 | 60 | `vehicle-collision-case-analyzer` | Motor vehicle accident case analysis | Car accident | ACTIVE |
 | 61 | `pi-case-analyzer` | Personal injury settlement strategy | PI case | ACTIVE |
 | 62 | `credit-repair-master-orchestrator` | Multi-agent credit repair campaigns | Credit repair | ACTIVE |
+| 68 | `agent-talent-manager` | Hires/evaluates/promotes/retires specialist agents; assigns model + fallback | New recurring workstream / agent weakness | ACTIVE |
+| 69 | `proactive-build-ahead` | Automatically builds safe internal skeletons for obvious downstream needs | Predictable dependency discovered | ACTIVE |
 
 ---
 
@@ -140,12 +142,12 @@
 
 | Metric | Count |
 |---|---|
-| Total Skills | 67 |
-| Active | 67 |
+| Total Skills | 69 |
+| Active | 69 |
 | Draft | 0 |
 | Deprecated | 0 |
 | Archived | 0 |
-| By Domain | ClaimEdge: 14, Huuso: 10, Wrestling: 14, Buddy Boy: 2, AI-Meta: 22, Research: 5 |
+| By Domain | ClaimEdge: 14, Huuso: 10, Wrestling: 14, Buddy Boy: 2, AI-Meta: 24, Research: 5 |
 
 ---
 
