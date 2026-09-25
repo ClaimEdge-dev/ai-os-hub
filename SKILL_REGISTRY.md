@@ -1,4 +1,4 @@
-# Skill Registry — All 69 Skills
+# Skill Registry — All 70 Skills
 
 **Auto-generated from Kimi session**  
 **Last updated:** 2026-09-25  
@@ -112,6 +112,7 @@
 | 62 | `credit-repair-master-orchestrator` | Multi-agent credit repair campaigns | Credit repair | ACTIVE |
 | 68 | `agent-talent-manager` | Hires/evaluates/promotes/retires specialist agents; assigns model + fallback | New recurring workstream / agent weakness | ACTIVE |
 | 69 | `proactive-build-ahead` | Automatically builds safe internal skeletons for obvious downstream needs | Predictable dependency discovered | ACTIVE |
+| 70 | `chatgpt-surface-router` | Routes substantial tasks to Chat, Voice, Dictation, Work, Search, Deep Research, Projects, Library and correct reasoning level | Every substantial ChatGPT task | ACTIVE |
 
 ---
 
@@ -142,12 +143,12 @@
 
 | Metric | Count |
 |---|---|
-| Total Skills | 69 |
-| Active | 69 |
+| Total Skills | 70 |
+| Active | 70 |
 | Draft | 0 |
 | Deprecated | 0 |
 | Archived | 0 |
-| By Domain | ClaimEdge: 14, Huuso: 10, Wrestling: 14, Buddy Boy: 2, AI-Meta: 24, Research: 5 |
+| By Domain | ClaimEdge: 14, Huuso: 10, Wrestling: 14, Buddy Boy: 2, AI-Meta: 25, Research: 5 |
 
 ---
 
