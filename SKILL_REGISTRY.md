@@ -112,6 +112,8 @@
 | 62 | `credit-repair-master-orchestrator` | Multi-agent credit repair campaigns | Credit repair | ACTIVE |
 | 68 | `agent-talent-manager` | Hires/evaluates/promotes/retires specialist agents; assigns model + fallback | New recurring workstream / agent weakness | ACTIVE |
 | 69 | `proactive-build-ahead` | Automatically builds safe internal skeletons for obvious downstream needs | Predictable dependency discovered | ACTIVE |
+| 70 | `chatgpt-mode-router` | Routes work to Chat / Work / Voice / Work+Voice / Codex / Project / Temporary Chat | Every substantial task / mode decision | ACTIVE |
+| 71 | `chatgpt-workspace-steward` | Files, checkpoints, archives and cleans ChatGPT projects/chats/sources without losing canon | Project setup / session close / cleanup | ACTIVE |
 | 70 | `chatgpt-surface-router` | Routes substantial tasks to Chat, Voice, Dictation, Work, Search, Deep Research, Projects, Library and correct reasoning level | Every substantial ChatGPT task | ACTIVE |
 
 ---
