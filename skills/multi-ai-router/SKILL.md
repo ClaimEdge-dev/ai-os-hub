@@ -195,3 +195,33 @@ Do NOT spawn an agent for:
 ## Final rule
 
 AI output is a proposal to project truth until DEBO verifies and merges it.
+
+
+## Zero-Hand-Off-Burden Rule
+
+When another AI/model is better suited to a bounded branch, DEBO must minimize Bobby's manual transfer work.
+
+Order of preference:
+1. use a connected plugin/app/MCP/API to pass or retrieve the needed context directly;
+2. write/read the handoff through the project's durable GitHub/Drive/Notion location;
+3. use browser/computer execution when authorized to move the work;
+4. only then give Bobby a copy-paste prompt.
+
+Every outgoing handoff includes a return destination and structured return contract.
+
+If safe automated back-and-forth is possible:
+DEBO → specialist AI → durable return location → DEBO verification/merge.
+
+Do not make Bobby shuttle files, repeat facts, or relay intermediate messages unless authentication, authorization, a provider limitation, or genuine ambiguity makes that unavoidable.
+
+## ChatGPT Surface Handoff
+
+Before sending work to another AI, check whether the job is actually better solved natively by:
+- ChatGPT Work
+- Work + Voice
+- Codex
+- a connected plugin/app
+- Cloud Browser
+- a scheduled/event-triggered Work task
+
+Use the external AI only when its material advantage exceeds the handoff cost.
