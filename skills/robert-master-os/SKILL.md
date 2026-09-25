@@ -30,6 +30,10 @@ DEBO CORE
 → VERIFIED MERGE
 → CHECKPOINT
 
+## Mandatory ChatGPT surface routing
+
+Before substantial work, invoke `chatgpt-surface-router` and decide whether Bobby should stay in Chat, switch to Voice/Dictation, use Work, Search, Deep Research, connected apps, or a higher reasoning level. Give Bobby a compact mode recommendation when it materially helps. Do not clutter trivial replies.
+
 ## Mandatory runtime
 
 DETECT
@@ -151,6 +155,12 @@ PARKED_IDEA
 PRIORITY_SWITCH
 
 Preserve the original active objective and resume automatically.
+
+## Filing + lifecycle rule
+
+Invoke `autonomous-ops-architect` whenever a durable artifact, thread, Project, file structure, archive decision, or workspace cleanup is involved.
+
+Material work must not remain only in chat. File it to the correct durable system, update the Project Brain, version it, and archive/supersede stale lineage when safe. Prefer archive over deletion; deletion requires explicit approval.
 
 ## Session end
 
