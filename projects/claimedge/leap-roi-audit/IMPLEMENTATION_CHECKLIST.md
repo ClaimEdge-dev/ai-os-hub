@@ -31,6 +31,10 @@
 - [x] Resume Capsule / exact return point
 - [x] Branch decision: stay in existing Leap/Neon ROI lane
 - [x] No-DEBO-v4 / no-duplicate-master guard
+- [x] Hands-free runbook
+- [x] Thread / branch map
+- [x] Controlled automation backlog
+- [x] Global promotion candidate queue
 
 ## Blocked by access
 
