@@ -87,22 +87,22 @@ BEGIN
 
   -- Duplicate webhook delivery. Must remain one normalized event.
   INSERT INTO leap_roi.webhook_events
-    (sync_run_id, claim_id, provider, event_key, event_type, operation,
+    (sync_run_id, claim_id, provider, event_key, action, operation,
      entity_type, external_job_id, stage_from, stage_to,
      event_occurred_at, processing_status, payload_hash)
   VALUES
     (v_sync_run_id, v_claim_id, 'LEAP', 'TEST:WEBHOOK:001',
-     'jobs.stage', 'update', 'job', 'TEST-LEAP-JOB-001',
+     'jobs', 'stage_change', 'job', 'TEST-LEAP-JOB-001',
      'Lead', 'Appointment', now() - interval '60 minutes',
      'PROCESSED', 'synthetic-hash');
 
   INSERT INTO leap_roi.webhook_events
-    (sync_run_id, claim_id, provider, event_key, event_type, operation,
+    (sync_run_id, claim_id, provider, event_key, action, operation,
      entity_type, external_job_id, stage_from, stage_to,
      event_occurred_at, processing_status, payload_hash)
   VALUES
     (v_sync_run_id, v_claim_id, 'LEAP', 'TEST:WEBHOOK:001',
-     'jobs.stage', 'update', 'job', 'TEST-LEAP-JOB-001',
+     'jobs', 'stage_change', 'job', 'TEST-LEAP-JOB-001',
      'Lead', 'Appointment', now() - interval '60 minutes',
      'PROCESSED', 'synthetic-hash')
   ON CONFLICT DO NOTHING;
