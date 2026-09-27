@@ -1,0 +1,58 @@
+# Implementation Checklist
+
+## Already built
+
+- [x] GitHub feature branch
+- [x] Draft PR
+- [x] Master audit prompt
+- [x] Initial Leap gap register
+- [x] Owner presentation specification
+- [x] Neon v1 schema proposal
+- [x] Leap integration architecture
+- [x] Reconciliation specification
+- [x] Webhook normalization reference
+- [x] Neon v2 event/sync/history schema
+- [x] Read-only validation pack
+- [x] Temporary-branch test plan
+
+## Blocked by access
+
+- [ ] Neon read-only project inspection
+- [ ] Existing-schema overlap check
+- [ ] Temporary migration branch
+- [ ] Temporary-branch migration test
+- [ ] Schema comparison against parent
+
+Current blocker: Neon connector returns authorization/internal HTTP 404 before database access.
+
+## Requires Leap credential/configuration
+
+- [ ] Obtain Leap API access token through the authorized account/admin path
+- [ ] Store token as a secret/environment variable, never in GitHub
+- [ ] Verify actual API resources and pagination for this account
+- [ ] Register webhook endpoint
+- [ ] Verify delivered event payload shapes
+- [ ] Run first read-only reconciliation
+
+## Production approval gate
+
+These remain intentionally undone until explicit approval:
+
+- [ ] Apply Neon migration to production
+- [ ] Deploy production webhook receiver
+- [ ] Turn on recurring reconciliation
+- [ ] Merge PR to `main`
+- [ ] Publish owner-facing KPI report
+
+## First live baseline
+
+After the connectors are working:
+
+1. ingest active Leap jobs read-only;
+2. build missing-field baseline;
+3. record source freshness;
+4. recover authoritative values from claim evidence;
+5. capture manual-time baselines before automation changes them;
+6. separate verified dollars from modeled opportunity;
+7. generate the first owner snapshot;
+8. preserve it for before/after comparison.
