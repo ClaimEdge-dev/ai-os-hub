@@ -236,7 +236,10 @@ WITH ordered AS (
     to_stage AS stage,
     event_at AS entered_at,
     lead(event_at) OVER (
-      PARTITION BY COALESCE(claim_id::text, external_job_id)
+      PARTITION BY CASE
+        WHEN claim_id IS NOT NULL THEN 'claim:' || claim_id::text
+        ELSE 'job:' || external_job_id
+      END
       ORDER BY event_at, stage_event_id
     ) AS exited_at,
     verification_status
