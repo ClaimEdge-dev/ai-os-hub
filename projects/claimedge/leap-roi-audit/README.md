@@ -149,7 +149,7 @@ The Neon connector can identify the project from GitHub recovery, but the curren
 - `MASTER_PROMPT.md` — autonomous DEBO audit/orchestration prompt
 - `INITIAL_GAPS_REGISTER.md` — first known missing/underbuilt fields
 - `OWNER_PRESENTATION_SPEC.md` — owner-facing KPI and presentation design
-- `neon/migration_v1.sql` — additive base schema proposal for Neon\n- `neon/migration_v2_event_history.sql` — idempotency, webhook/sync history, stage duration, owner snapshots, and corrected completeness logic\n- `neon/validation_v1.sql` — read-only QA queries for temporary-branch testing\n- `neon/TEST_PLAN.md` — required temporary-branch test matrix\n- `IMPLEMENTATION_CHECKLIST.md` — current build state, blockers, and production gates
+- `neon/migration_v1.sql` — additive base schema proposal for Neon\n- `neon/migration_v2_event_history.sql` — idempotency, webhook/sync history, stage duration, owner snapshots, and corrected completeness logic\n- `neon/validation_v1.sql` — read-only QA queries for temporary-branch testing\n- `neon/TEST_PLAN.md` — required temporary-branch test matrix\n- `neon/temporary_test_fixture.sql` — self-checking synthetic test that runs in a transaction and rolls back\n- `IMPLEMENTATION_CHECKLIST.md` — current build state, blockers, and production gates
 
 ## Release gate
 
