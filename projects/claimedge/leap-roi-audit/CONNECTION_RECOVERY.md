@@ -72,3 +72,36 @@ Resume:
 2. reopen/read the already-created target project tab if preserved;
 3. inspect project identity, branches, databases, and schema read-only;
 4. continue normal temporary-branch validation sequence if confirmed.
+
+## 2026-09-27 ChatGPT plugin-state inconsistency confirmed
+
+Verified against the same Neon plugin ID:
+`plugin_asdk_app_69e0086d87088191a3edc052fa50c29f`
+
+Observed:
+- Plugin directory search reports:
+  - display name: Neon
+  - status: ENABLED
+  - installed: true
+- ChatGPT app-permission service reports:
+  - same app ID
+  - status: not_installed
+  - global permission: Allow read actions
+- Neon project calls continue to fail before database access with authorization-layer HTTP 404.
+
+Conclusion:
+- this is not adequately explained by a bad Neon project ID;
+- this is not a SQL/schema failure;
+- the ChatGPT Neon connection record is internally inconsistent/stale;
+- live Neon access should be treated as CONNECTION_BROKEN until the app is reconnected/re-authorized in ChatGPT.
+
+Do not keep retrying project IDs as the primary recovery strategy.
+
+Required repair:
+1. Open ChatGPT Settings -> Plugins.
+2. Open Neon.
+3. Reconnect/re-authorize the Neon account.
+4. If the UI only offers remove/reinstall, preserve current project IDs first, then reconnect deliberately.
+5. Resume read-only project inspection immediately after reconnection.
+
+No production Neon changes have occurred.
