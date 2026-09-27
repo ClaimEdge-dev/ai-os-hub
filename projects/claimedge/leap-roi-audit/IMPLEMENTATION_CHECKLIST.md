@@ -21,6 +21,10 @@
 - [x] Strong-evidence gate for verified financial totals
 - [x] Stage timing-basis disclosure
 - [x] Rollback-safe self-checking synthetic fixture
+- [x] GitHub PostgreSQL 16 CI validation
+- [x] Canonical migrations execute successfully on clean PostgreSQL 16
+- [x] Validation pack executes successfully in CI
+- [x] Synthetic fixture passes and proves full rollback in CI
 
 ## Blocked by access
 
@@ -31,6 +35,8 @@
 - [ ] Schema comparison against parent
 
 Current blocker: Neon connector returns authorization/internal HTTP 404 before database access.
+
+GitHub Actions checkpoint: `Leap ROI schema validation` run #1 passed on PostgreSQL 16, including both migrations, validation queries, rollback-safe fixture, rollback proof, and canonical-view existence checks.
 
 ## Requires Leap credential/configuration
 
