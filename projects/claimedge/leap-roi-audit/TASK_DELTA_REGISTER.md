@@ -6,7 +6,7 @@
 | LRA-002 | Reconcile newest DEBO governance | COMPLETE | P0 | recovery | inherit DEBO Core |
 | LRA-003 | Canonicalize Neon migrations | COMPLETE | P0 | schema design | keep v1 + v2 |
 | LRA-004 | PostgreSQL CI validation | COMPLETE / VERIFIED | P0 | migrations | continue enforcing CI |
-| LRA-005 | Live Neon read-only inspection | BLOCKED | P0 | Neon auth | retry when authorized |
+| LRA-005 | Live Neon read-only inspection | PARTIAL / BLOCKED | P0 | Neon auth or stable Opera connector | target URL reached; inspect live schema when connector stabilizes |
 | LRA-006 | Live schema overlap audit | WAITING | P0 | LRA-005 | inspect claimedge_os + leap_roi |
 | LRA-007 | Temporary Neon branch validation | WAITING | P0 | LRA-006 | prepare migration branch |
 | LRA-008 | Production Neon apply | APPROVAL_REQUIRED | P0 | LRA-007 | explicit human approval |
