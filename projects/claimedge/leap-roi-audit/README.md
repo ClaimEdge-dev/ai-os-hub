@@ -71,7 +71,7 @@ All of the above start as USER-REPORTED until verified against Leap, carrier doc
 Stores the system definition, prompt, migration SQL, KPI formulas, data dictionary, and change history.
 
 ### Neon
-Stores live structured audit events, missing fields, sources, work events, time-savings events, financial-impact events, recommendations, and presentation snapshots.
+Planned structured store for audit runs, claim state, source artifacts, webhook events, stage history, reconciliation health, field audits, work/time events, financial-impact events, recommendations, assumptions, and owner snapshots.
 
 ### Leap
 Operational CRM/source of job and claim-state fields. Do not treat a Leap field as verified merely because it is populated.
@@ -140,6 +140,19 @@ Allowed attribution bases include:
 
 Do not assign 100% credit simply because Bobby touched the claim. Record shared attribution where appropriate.
 
+## Hardening completed in draft
+
+- deterministic webhook hashing so retries do not become new events;
+- event-level idempotency keys for field, work, financial, webhook, and stage history;
+- latest-field-only completeness math so repeated audits do not inflate counts;
+- OPTIONAL and NOT-APPLICABLE controls for the completeness denominator;
+- verified vs estimated vs modeled time-savings buckets;
+- verified financial totals require VERIFIED or SOURCE-CONFIRMED evidence;
+- stage timing records whether time came from the provider or from webhook/API observation;
+- reconciliation findings preserve ambiguous identities and conflicts instead of silently merging;
+- historical owner snapshots preserve the before/after story;
+- rollback-safe temporary-branch validation fixture.
+
 ## Current blocker
 
 The Neon connector can identify the project from GitHub recovery, but the current connection returned an authorization error for `snowy-block-04251510`. No production database write has been attempted. Apply the migration only after Neon access is authorized and the existing schema is read-only audited.
@@ -149,17 +162,23 @@ The Neon connector can identify the project from GitHub recovery, but the curren
 - `MASTER_PROMPT.md` — autonomous DEBO audit/orchestration prompt
 - `INITIAL_GAPS_REGISTER.md` — first known missing/underbuilt fields
 - `OWNER_PRESENTATION_SPEC.md` — owner-facing KPI and presentation design
-- `neon/migration_v1.sql` — additive base schema proposal for Neon\n- `neon/migration_v2_event_history.sql` — idempotency, webhook/sync history, stage duration, owner snapshots, and corrected completeness logic\n- `neon/validation_v1.sql` — read-only QA queries for temporary-branch testing\n- `neon/TEST_PLAN.md` — required temporary-branch test matrix\n- `neon/temporary_test_fixture.sql` — self-checking synthetic test that runs in a transaction and rolls back\n- `IMPLEMENTATION_CHECKLIST.md` — current build state, blockers, and production gates
+- `neon/migration_v1.sql` — additive base schema proposal for Neon
+- `neon/migration_v2_event_history.sql` — idempotency, webhook/sync history, stage duration, owner snapshots, and corrected completeness logic
+- `neon/validation_v1.sql` — read-only QA queries for temporary-branch testing
+- `neon/TEST_PLAN.md` — required temporary-branch test matrix
+- `neon/temporary_test_fixture.sql` — self-checking synthetic test that runs in a transaction and rolls back
+- `IMPLEMENTATION_CHECKLIST.md` — current build state, blockers, and production gates
 
 ## Release gate
 
 Before merging to main or applying to Neon:
 
-1. read-only inspect `claimedge-prod`;
-2. confirm no overlapping canonical tables already exist;
-3. run migration on a temporary Neon branch;
-4. test views and formulas;
-5. verify duplicate/double-count controls;
-6. human approval;
-7. apply to production;
-8. create first owner baseline snapshot.
+1. restore/authorize Neon connector access;
+2. read-only inspect `claimedge-prod`;
+3. confirm no overlapping canonical tables already exist;
+4. apply `migration_v1.sql` then `migration_v2_event_history.sql` on a temporary Neon branch;
+5. run `validation_v1.sql` and `temporary_test_fixture.sql` there;
+6. verify duplicate/double-count controls and evidence-bucket separation;
+7. human approval;
+8. apply to production;
+9. create and preserve the first owner baseline snapshot.
