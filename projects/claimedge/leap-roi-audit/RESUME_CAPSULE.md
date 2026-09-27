@@ -14,17 +14,30 @@ Validate and prepare the Leap ROI audit system against the real `claimedge-prod`
 - Fresh-head GitHub Actions validation passed.
 
 ## Current blocker
-Neon connector authorization fails for project `snowy-block-04251510` before DB access.
+Neon connector authorization still fails for project `snowy-block-04251510` before DB access.
 
-Opera fallback is also unavailable because Browser Connector is not connected.
+Opera fallback partially recovered:
+- browser connector briefly connected;
+- signed-in Neon account label observed as `bobby.huuso`;
+- target project URL `snowy-block-04251510` opened successfully;
+- connector disconnected again before schema content could be inspected.
+
+Therefore live schema inspection remains incomplete.
 
 ## Exact resume action
-Immediately retry:
-1. Neon describe project
-2. Neon list branches
-3. Neon get `neondb` tables
+Immediately retry BOTH lanes:
 
-If those succeed:
+Neon connector:
+1. describe project
+2. list branches
+3. get `neondb` tables
+
+Opera fallback:
+1. reconnect Browser Connector;
+2. reopen/read target Neon tab for `snowy-block-04251510`;
+3. confirm project identity + branch/database/schema content.
+
+When either lane confirms live read access:
 4. inspect existing schemas/tables/views read-only;
 5. identify overlap/conflicts;
 6. prepare a temporary migration branch;
