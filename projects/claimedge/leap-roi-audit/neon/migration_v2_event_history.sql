@@ -166,6 +166,14 @@ CREATE TABLE IF NOT EXISTS leap_roi.stage_events (
   from_stage TEXT,
   to_stage TEXT NOT NULL,
   event_at TIMESTAMPTZ NOT NULL,
+  time_basis TEXT NOT NULL DEFAULT 'WEBHOOK_RECEIVED_TIME'
+    CHECK (time_basis IN (
+      'PROVIDER_EVENT_TIME',
+      'WEBHOOK_RECEIVED_TIME',
+      'API_OBSERVED_TIME',
+      'USER_REPORTED',
+      'ESTIMATED'
+    )),
   source TEXT NOT NULL DEFAULT 'LEAP',
   source_webhook_event_id BIGINT REFERENCES leap_roi.webhook_events(webhook_event_id),
   verification_status TEXT NOT NULL DEFAULT 'SOURCE-CONFIRMED'
@@ -366,7 +374,6 @@ CREATE OR REPLACE VIEW leap_roi.v_claim_completeness AS
 SELECT
   c.claim_id,
   c.external_job_id,
-  c.job_number,
   c.job_name,
   count(fr.field_key) FILTER (
     WHERE fr.active
@@ -388,6 +395,7 @@ SELECT
       AND fr.importance <> 'OPTIONAL'
       AND fa.current_state='CONFLICTED'
   ) AS conflicted_fields,
+  c.job_number,
   count(fr.field_key) FILTER (
     WHERE fr.active
       AND fr.importance <> 'OPTIONAL'
@@ -409,7 +417,7 @@ CROSS JOIN leap_roi.field_requirements fr
 LEFT JOIN leap_roi.v_latest_field_audit fa
   ON fa.claim_id=c.claim_id
  AND fa.field_key=fr.field_key
-GROUP BY c.claim_id, c.external_job_id, c.job_number, c.job_name;
+GROUP BY c.claim_id, c.external_job_id, c.job_name, c.job_number;
 
 -- ---------------------------------------------------------------------------
 -- 12) Cycle-time view.
@@ -425,12 +433,13 @@ WITH ordered AS (
     to_stage AS stage,
     event_at AS entered_at,
     lead(event_at) OVER (
-      PARTITION BY CASE
-        WHEN claim_id IS NOT NULL THEN 'claim:' || claim_id::text
-        ELSE 'job:' || external_job_id
-      END
+      PARTITION BY COALESCE(
+        CASE WHEN external_job_id IS NOT NULL THEN 'job:' || external_job_id END,
+        CASE WHEN claim_id IS NOT NULL THEN 'claim:' || claim_id::text END
+      )
       ORDER BY event_at, stage_event_id
     ) AS exited_at,
+    time_basis,
     verification_status
   FROM leap_roi.stage_events
 )
@@ -446,7 +455,8 @@ SELECT
     WHEN exited_at IS NOT NULL
     THEN EXTRACT(EPOCH FROM (exited_at-entered_at))/60.0
   END AS minutes_in_stage,
-  verification_status
+  verification_status,
+  time_basis
 FROM ordered;
 
 -- ---------------------------------------------------------------------------
@@ -477,18 +487,12 @@ CREATE OR REPLACE VIEW leap_roi.v_owner_summary AS
 SELECT
   c.claim_id,
   c.external_job_id,
-  c.job_number,
   c.job_name,
   cc.required_fields,
   cc.verified_fields,
   cc.missing_fields,
   cc.conflicted_fields,
-  cc.unverified_fields,
-  cc.not_applicable_fields,
   ts.minutes_saved,
-  ts.verified_minutes_saved,
-  ts.estimated_minutes_saved,
-  ts.modeled_minutes_saved,
   fs.verified_realized,
   fs.verified_identified,
   fs.modeled_opportunity,
@@ -497,7 +501,13 @@ SELECT
   CASE
     WHEN c.baseline_rcv IS NOT NULL AND c.current_rcv IS NOT NULL
     THEN c.current_rcv - c.baseline_rcv
-  END AS documented_rcv_delta
+  END AS documented_rcv_delta,
+  c.job_number,
+  cc.unverified_fields,
+  cc.not_applicable_fields,
+  ts.verified_minutes_saved,
+  ts.estimated_minutes_saved,
+  ts.modeled_minutes_saved
 FROM leap_roi.claims c
 LEFT JOIN leap_roi.v_claim_completeness cc USING (claim_id)
 LEFT JOIN leap_roi.v_time_savings ts USING (claim_id)
