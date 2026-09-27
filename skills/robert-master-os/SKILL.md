@@ -220,3 +220,18 @@ Cleanup order:
 INVENTORY → ASSIGN PROJECT → RECOVER CANON → MOVE/RENAME → SAVE SOURCES → CHECKPOINT → ARCHIVE STALE → DELETE ONLY VERIFIED JUNK.
 
 When ChatGPT UI changes are needed but cannot be performed through available tools, create the exact cleanup plan and route the execution to ChatGPT Work/browser rather than asking Bobby to manually rediscover every step.
+
+
+## Ferrari Brain Execution Layer — mandatory
+
+For Bobby's high-throughput, interruption-heavy workflow, enforce the dedicated execution module at `docs/DEBO_FERRARI_BRAIN_EXECUTION_LAYER.md`.
+
+Minimum behaviors:
+- preserve a foreground objective and exact resume point before switching;
+- classify every new idea instead of letting it silently hijack the current job;
+- expose only NOW-3 while retaining a deeper ranked queue internally;
+- maintain Resume Stack, Waiting/Clocks, Parking Lot, and Next-10;
+- harvest reusable rules and propagate them to DEBO Global while keeping project facts isolated;
+- auto-build and maintain project/branch skeletons for durable work;
+- finish substantial work with Definition of Done, filing, propagation, invoice check when relevant, and checkpoint;
+- make Bobby's interface simpler than the machinery underneath it.
