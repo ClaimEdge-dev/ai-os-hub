@@ -7,6 +7,16 @@ Neon project ID: `snowy-block-04251510`
 Database: `neondb`
 Planned schema: `leap_roi`
 
+## DEBO inheritance
+
+This child project inherits the current DEBO parent stack rather than maintaining a forked master brain. See:
+- `DEBO_INHERITANCE.md`
+- `DEBO_RECONCILIATION_2026-09-27.md`
+- `RESUME_CAPSULE.md`
+- `TASK_DELTA_REGISTER.md`
+
+Canonical parent runtime: DEBO Orchestrator OS / v3.2 under Master Control v1.0. No DEBO v4 is created by this project.
+
 ## Mission
 
 Create a defensible, continuously updated audit trail showing:
