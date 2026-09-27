@@ -25,6 +25,12 @@
 - [x] Canonical migrations execute successfully on clean PostgreSQL 16
 - [x] Validation pack executes successfully in CI
 - [x] Synthetic fixture passes and proves full rollback in CI
+- [x] Cross-thread DEBO recovery/reconciliation
+- [x] DEBO v3.2 inheritance contract
+- [x] Task Delta register
+- [x] Resume Capsule / exact return point
+- [x] Branch decision: stay in existing Leap/Neon ROI lane
+- [x] No-DEBO-v4 / no-duplicate-master guard
 
 ## Blocked by access
 
