@@ -14,6 +14,15 @@ Validate and prepare the Leap ROI audit system against the real `claimedge-prod`
 - Fresh-head GitHub Actions validation passed.
 
 ## Current blocker
+
+**Confirmed ChatGPT plugin-state inconsistency**
+- Plugin directory says Neon is installed/enabled.
+- Permission service says the same Neon app ID is not installed.
+- Neon API calls fail authorization with HTTP 404.
+
+Treat Neon as CONNECTION_BROKEN until re-authorized in ChatGPT.
+
+
 Neon connector authorization still fails for project `snowy-block-04251510` before DB access.
 
 Opera fallback partially recovered:
