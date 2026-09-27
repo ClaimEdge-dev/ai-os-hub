@@ -47,7 +47,7 @@ WHERE attribution='DIRECT'
   AND NULLIF(btrim(attribution_notes),'') IS NULL;
 
 -- 6) Webhooks that failed, need retry, or require human review.
-SELECT webhook_event_id, event_key, event_type, external_job_id,
+SELECT webhook_event_id, event_key, action, operation, external_job_id,
        processing_status, retry_count, last_error, received_at
 FROM leap_roi.webhook_events
 WHERE processing_status IN ('FAILED','RETRY','REVIEW_REQUIRED')
