@@ -13,7 +13,14 @@
 - [x] Webhook normalization reference
 - [x] Neon v2 event/sync/history schema
 - [x] Read-only validation pack
-- [x] Temporary-branch test plan\n- [x] Rollback-safe self-checking synthetic fixture
+- [x] Temporary-branch test plan
+- [x] Deterministic webhook dedupe
+- [x] Latest-field completeness correction
+- [x] OPTIONAL / NOT-APPLICABLE denominator controls
+- [x] Verified / estimated / modeled time separation
+- [x] Strong-evidence gate for verified financial totals
+- [x] Stage timing-basis disclosure
+- [x] Rollback-safe self-checking synthetic fixture
 
 ## Blocked by access
 
@@ -54,5 +61,6 @@ After the connectors are working:
 4. recover authoritative values from claim evidence;
 5. capture manual-time baselines before automation changes them;
 6. separate verified dollars from modeled opportunity;
-7. generate the first owner snapshot;
-8. preserve it for before/after comparison.
+7. separate measured time savings from estimated/modeled time;
+8. generate the first owner snapshot;
+9. preserve it for before/after comparison.
