@@ -50,3 +50,25 @@ Still intentionally not done:
 - no production webhook deployment
 - no PR merge
 - no recurring reconciliation activation
+
+## 2026-09-27 partial browser recovery
+
+New verified observations:
+- Opera Browser Connector briefly connected successfully.
+- Signed-in Neon console account label observed: `bobby.huuso`.
+- Existing open Neon console tabs were on project `damp-math-10052614`.
+- DEBO opened the intended target URL `https://console.neon.tech/app/projects/snowy-block-04251510` in a new Neon Console tab.
+- Accessibility tree for that target tab loaded only the shell/account controls before the browser connector disconnected again.
+- Browser connector then reverted to: "Browser not connected. Make sure to enable Allow AI connection ... and sign in with your Opera account."
+
+Interpretation:
+- target project route is reachable from the current signed-in browser context;
+- account/project mismatch is no longer the only hypothesis;
+- live schema inspection is still NOT COMPLETE;
+- do not claim access to tables/branches/schema until page content or Neon API confirms them.
+
+Resume:
+1. reconnect Opera Browser Connector;
+2. reopen/read the already-created target project tab if preserved;
+3. inspect project identity, branches, databases, and schema read-only;
+4. continue normal temporary-branch validation sequence if confirmed.
