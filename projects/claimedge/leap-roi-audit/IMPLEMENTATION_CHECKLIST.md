@@ -13,7 +13,7 @@
 - [x] Webhook normalization reference
 - [x] Neon v2 event/sync/history schema
 - [x] Read-only validation pack
-- [x] Temporary-branch test plan
+- [x] Temporary-branch test plan\n- [x] Rollback-safe self-checking synthetic fixture
 
 ## Blocked by access
 
