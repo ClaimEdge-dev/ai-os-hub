@@ -61,7 +61,10 @@ WITH x AS (
     external_job_id,
     event_at,
     lag(event_at) OVER (
-      PARTITION BY COALESCE(claim_id::text, external_job_id)
+      PARTITION BY CASE
+        WHEN claim_id IS NOT NULL THEN 'claim:' || claim_id::text
+        ELSE 'job:' || external_job_id
+      END
       ORDER BY stage_event_id
     ) AS prior_event_at
   FROM leap_roi.stage_events
