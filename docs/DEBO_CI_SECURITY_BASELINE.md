@@ -2,23 +2,20 @@
 
 Status: **PILOT / draft PR**
 
-This workflow is intended to be the reusable minimum CI/security guard for DEBO-managed repositories.
+This design intentionally separates a **read-only reusable baseline** from a **privileged CodeQL workflow**. That prevents callers from granting security-write permissions merely to run repository hygiene checks.
 
-## What it checks
+## Read-only baseline
 
-The baseline job:
+`.github/workflows/debo-ci-security.yml`:
 
 1. parses every tracked JSON file;
-2. fails on unresolved merge-conflict marker sets;
+2. detects actual unresolved merge-conflict blocks;
 3. blocks tracked sensitive-file types such as private keys and non-template .env files;
 4. scans tracked text for a short list of high-confidence secret patterns;
-5. never prints a detected secret value.
+5. never prints a detected secret value;
+6. includes safe synthetic regression self-tests for the conflict and token detectors.
 
-An optional CodeQL job uses GitHub CodeQL Action v4 when a caller supplies a language.
-
-## Reuse after this baseline is merged
-
-A repository can call the workflow with no CodeQL language:
+### Reuse after merge
 
 ```yaml
 jobs:
@@ -26,32 +23,53 @@ jobs:
     uses: ClaimEdge-dev/ai-os-hub/.github/workflows/debo-ci-security.yml@main
 ```
 
-Or request CodeQL for a supported language:
+The caller only needs:
 
 ```yaml
+permissions:
+  contents: read
+```
+
+## Separate CodeQL workflow
+
+`.github/workflows/debo-codeql.yml` is deliberately separate because GitHub Code Scanning requires elevated token permissions.
+
+A caller that actually needs CodeQL can opt in:
+
+```yaml
+permissions:
+  contents: read
+  security-events: write
+  packages: read
+
 jobs:
-  debo-baseline:
-    uses: ClaimEdge-dev/ai-os-hub/.github/workflows/debo-ci-security.yml@main
+  codeql:
+    uses: ClaimEdge-dev/ai-os-hub/.github/workflows/debo-codeql.yml@main
     with:
-      codeql_language: javascript-typescript
+      language: javascript-typescript
 ```
+
+## Pilot findings
+
+The first baseline run caught a false-positive design bug: the conflict detector matched the marker strings inside its own source code. The detector was rewritten to recognize full conflict-marker lines in order and now carries regression self-tests.
+
+The first cross-repo reusable call then hit a startup failure. The likely least-privilege cause was the combined workflow requesting CodeQL write permissions while the caller granted only read access. v0.1 was redesigned to separate those permission domains instead of broadening every caller.
 
 ## Boundaries
 
-- This is a **minimum baseline**, not proof that a repository is secure.
-- It does not read GitHub secrets.
-- It does not print matched secret values.
-- CodeQL is optional because the repository estate spans docs/data/code projects and languages.
-- Artifact attestations belong in build/release workflows that actually create artifacts; they are not faked in a generic baseline.
-- Repositories with package-specific tests should add their own test/build jobs in addition to this baseline.
-- No automatic merge is performed by DEBO. Promotion to an organization-wide standard requires a passing pilot and review.
+- These workflows are a minimum guard, not proof a repository is secure.
+- They do not read repository secret values.
+- Matched secret values are never printed.
+- Artifact attestations belong in build/release workflows that actually produce artifacts.
+- Package-specific tests/builds remain repository-specific additions.
+- No DEBO automatic merge to main.
 
 ## Promotion gate
 
 PILOT passes when:
 
-- this workflow runs successfully on its own PR;
-- a deliberate safe negative fixture or regression test proves one guard fails when expected, without committing a real secret;
-- at least one second repository successfully calls the reusable workflow.
+1. the source baseline workflow passes on its own PR;
+2. safe detector regression self-tests pass;
+3. a second repository successfully invokes the read-only reusable workflow.
 
-Only after those gates should DEBO treat it as a verified cross-repo baseline.
+Only after those gates should DEBO consider the baseline verified for cross-repo use.
