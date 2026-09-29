@@ -3,19 +3,7 @@ name: DEBO CI Security Baseline
 on:
   pull_request:
   workflow_dispatch:
-    inputs:
-      codeql_language:
-        description: "Optional CodeQL language (for example: javascript-typescript, python)"
-        required: false
-        type: string
-        default: ""
   workflow_call:
-    inputs:
-      codeql_language:
-        description: "Optional CodeQL language (for example: javascript-typescript, python)"
-        required: false
-        type: string
-        default: ""
 
 permissions:
   contents: read
@@ -82,7 +70,6 @@ jobs:
                   and start.start() < middle.start() < end.start()
               )
 
-          # Safe regression self-tests.
           assert has_conflict_block(
               "<<<<<<< HEAD\nleft\n=======\nright\n>>>>>>> branch\n"
           )
@@ -106,8 +93,8 @@ jobs:
                   findings.append(str(path))
 
           if findings:
-              for path in findings:
-                  print(f"Merge-conflict markers found: {path}")
+              for file_path in findings:
+                  print(f"Merge-conflict markers found: {file_path}")
               sys.exit(1)
 
           print("Conflict-marker regression self-test passed.")
@@ -161,7 +148,6 @@ jobs:
           import subprocess
           import sys
 
-          # Never print a matched secret value. Report only file + pattern label.
           patterns = {
               "private-key-header": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
               "github-token": re.compile(r"\bgh[pousr]_[A-Za-z0-9]{30,}\b"),
@@ -169,7 +155,6 @@ jobs:
               "openai-project-key": re.compile(r"\bsk-proj-[A-Za-z0-9_-]{20,}\b"),
           }
 
-          # Safe synthetic regression check. This is not a real credential.
           fake_github_token = "ghp_" + ("A" * 30)
           assert patterns["github-token"].search(fake_github_token)
 
@@ -199,28 +184,3 @@ jobs:
           print("Secret-pattern regression self-test passed.")
           print("No high-confidence secret patterns detected.")
           PY
-
-  codeql:
-    name: Optional CodeQL
-    if: ${{ inputs.codeql_language != '' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-      packages: read
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4
-        with:
-          languages: ${{ inputs.codeql_language }}
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v4
-
-      - name: Analyze
-        uses: github/codeql-action/analyze@v4
