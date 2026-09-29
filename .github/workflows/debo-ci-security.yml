@@ -65,12 +65,32 @@ jobs:
         run: |
           python3 - <<'PY'
           import pathlib
+          import re
           import subprocess
           import sys
 
-          markers = ("<<<<<<<", "=======", ">>>>>>>")
-          findings = []
+          start_re = re.compile(r"(?m)^<<<<<<<(?: .*)?$")
+          middle_re = re.compile(r"(?m)^=======$")
+          end_re = re.compile(r"(?m)^>>>>>>>(?: .*)?$")
 
+          def has_conflict_block(text: str) -> bool:
+              start = start_re.search(text)
+              middle = middle_re.search(text)
+              end = end_re.search(text)
+              return bool(
+                  start and middle and end
+                  and start.start() < middle.start() < end.start()
+              )
+
+          # Safe regression self-tests.
+          assert has_conflict_block(
+              "<<<<<<< HEAD\nleft\n=======\nright\n>>>>>>> branch\n"
+          )
+          assert not has_conflict_block(
+              'markers = ("<<<<<<<", "=======", ">>>>>>>")\n'
+          )
+
+          findings = []
           raw = subprocess.check_output(["git", "ls-files", "-z"])
           for item in raw.split(b"\0"):
               if not item:
@@ -82,7 +102,7 @@ jobs:
                   text = path.read_text(encoding="utf-8")
               except (UnicodeDecodeError, OSError):
                   continue
-              if all(marker in text for marker in markers):
+              if has_conflict_block(text):
                   findings.append(str(path))
 
           if findings:
@@ -90,7 +110,8 @@ jobs:
                   print(f"Merge-conflict markers found: {path}")
               sys.exit(1)
 
-          print("No unresolved merge-conflict marker sets found.")
+          print("Conflict-marker regression self-test passed.")
+          print("No unresolved merge-conflict blocks found.")
           PY
 
       - name: Block tracked sensitive-file types
@@ -124,8 +145,8 @@ jobs:
                   findings.append(name)
 
           if findings:
-              for path in findings:
-                  print(f"Sensitive file type is tracked: {path}")
+              for file_path in findings:
+                  print(f"Sensitive file type is tracked: {file_path}")
               sys.exit(1)
 
           print("No blocked sensitive-file types are tracked.")
@@ -148,6 +169,10 @@ jobs:
               "openai-project-key": re.compile(r"\bsk-proj-[A-Za-z0-9_-]{20,}\b"),
           }
 
+          # Safe synthetic regression check. This is not a real credential.
+          fake_github_token = "ghp_" + ("A" * 30)
+          assert patterns["github-token"].search(fake_github_token)
+
           findings = []
           raw = subprocess.check_output(["git", "ls-files", "-z"])
           for item in raw.split(b"\0"):
@@ -166,11 +191,12 @@ jobs:
                       findings.append((str(path), label))
 
           if findings:
-              for path, label in findings:
-                  print(f"Potential secret detected: {path} [{label}]")
+              for file_path, label in findings:
+                  print(f"Potential secret detected: {file_path} [{label}]")
               print("Matched secret values were intentionally not printed.")
               sys.exit(1)
 
+          print("Secret-pattern regression self-test passed.")
           print("No high-confidence secret patterns detected.")
           PY
 
