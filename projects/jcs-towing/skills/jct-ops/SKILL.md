@@ -52,3 +52,21 @@ IDENTIFY → RECOVER → VERIFY → SPECIFY → ROUTE → EXECUTE → QA → FIL
 
 ## Handoff format
 STATE / DONE / VERIFIED / OPEN / APPROVAL / ARTIFACTS / NEXT / RESUME CAPSULE.
+
+
+## v2 P0 routing
+- Rate market/source intelligence → jct-rate-intelligence-engine
+- Cost, margin, minimum acceptable price → jct-job-cost-margin-engine
+- Actual insurer payment history → jct-insurance-payment-evidence
+- Reduced/denied invoice or supplement → jct-denial-supplement-recovery
+- Missed legitimate performed charges → jct-revenue-leakage-auditor
+- Storage/lien/release workflow → jct-storage-lien-release-compliance
+- Complex heavy/semi scene reconstruction → jct-heavy-recovery-scene-builder
+- Driver scene-completion documentation → jct-driver-field-documentation-coach
+
+## v2 chaining
+- JCT RATE: rate-authority-manager → rate-intelligence-engine → John approval when a JC rate changes.
+- JCT INVOICE: tow evidence → leakage audit → rate authority/intelligence → invoice builder → evidence QA → approval gate.
+- JCT SEMI / RECOVERY: dispatch → heavy-recovery-scene-builder → heavy-semi-billing → rate authority/intelligence → evidence QA.
+- Carrier dispute: insurance-payment-evidence → denial-supplement-recovery → evidence QA → approval before external send.
+- Storage: storage-lien-release-compliance → rate authority → evidence QA → release/notice action.
