@@ -119,7 +119,7 @@ Activated 2026-10-01. Existing v1 specialists remain installed. P0 additions:
 - jct-heavy-recovery-scene-builder
 - jct-driver-field-documentation-coach
 
-Queued, not yet active: skills 31–50 covering commercial rate contracts, motor-club networks, municipal applications, B2B pipeline, AR/collections, dispatch pricing guardrails, CRM data/workflows, missed calls, website release/CRM sync, template/version/document autofill, competitor/review/local SEO/source verification, and operating scorecards.
+Historical activation checkpoint — at this stage, skills 31–50 were queued, not yet active, covering commercial rate contracts, motor-club networks, municipal applications, B2B pipeline, AR/collections, dispatch pricing guardrails, CRM data/workflows, missed calls, website release/CRM sync, template/version/document autofill, competitor/review/local SEO/source verification, and operating scorecards. This records the earlier 30-active state and is superseded for current status by the later activation sections below.
 
 ### v2 short commands
 - JCT MARGIN → jct-job-cost-margin-engine
@@ -159,7 +159,7 @@ New routes:
 - JCT CRM → crm-data-model + crm-workflow-automation
 - JCT MISSED CALL → missed-call-recovery
 
-Queued, not active: skills 40–50.
+Historical activation checkpoint — after this P1 activation, skills 40–50 remained queued at that time. This is historical, not current status.
 
 
 ## P1 document + digital activation — 2026-10-01
@@ -181,7 +181,7 @@ New routes:
 
 Document chain: recover template → verify source facts → autofill → brand QA → evidence/business QA → version controller → approval/publish gate.
 Website chain: recover current build → business truth → brand QA → release QA → CRM sync QA → explicit approval → deploy.
-Queued, not active: skills 46–50.
+Historical activation checkpoint — after this document + digital activation, skills 46–50 remained queued at that time. This is historical, not current status.
 
 
 ## Final roadmap activation — skills 46–50
@@ -200,3 +200,5 @@ Routes:
 - JCT SCORECARD → operating-scorecard
 
 The planned v2 specialist roadmap 01–50 is now fully active. Continue to distinguish the 50 specialist skills from the jct-ops root/orchestrator skill.
+
+Static routing integrity was verified PASS on 2026-10-02 for JCT-OPS + 50 specialist skill IDs. Runtime routing, end-to-end workflow verification, native ChatGPT product installation, and native Kimi installation remain separate evidence states.
