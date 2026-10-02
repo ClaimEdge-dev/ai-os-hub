@@ -1,0 +1,17 @@
+flowchart LR
+  C[Customer / Website Visitor] --> W[JC's Towing Public Website]
+  W -->|Call| P[(815) 474-7384]
+  W -->|Request Service| L[Restricted Lead Intake]
+  L --> DB[(Supabase / Lovable Cloud Postgres)]
+  S[Staff Portal /staff] --> DB
+  A[Supabase Auth + RLS] --> S
+  S --> D[Dashboard]
+  S --> LE[Leads & Calls]
+  S --> J[Dispatch / Jobs]
+  S --> B[Billing]
+  S --> E[Evidence]
+  S --> R[Reports]
+  G[GitHub ai-os-hub] -. checkpoint/source .-> W
+  G -. checkpoint/source .-> S
+  V[Vercel Preview] -. after QA .-> W
+  N[Neon] -. optional analytics/branching only .-> R
