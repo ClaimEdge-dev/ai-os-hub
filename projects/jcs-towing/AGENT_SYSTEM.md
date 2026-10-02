@@ -135,3 +135,28 @@ Existing routes are upgraded:
 - JCT INVOICE → jct-insurance-invoice-builder + jct-revenue-leakage-auditor when job evidence is complete enough to audit
 - JCT SEMI → jct-heavy-semi-billing + jct-heavy-recovery-scene-builder as applicable
 - JCT EVIDENCE → jct-evidence-pack-qa + field/scene specialists as applicable
+
+
+## P1 activation — 2026-10-01
+Active additions:
+- jct-commercial-rate-contract-manager
+- jct-motor-club-network-manager
+- jct-municipal-rotation-application-builder
+- jct-b2b-pipeline-manager
+- jct-ar-payment-collections
+- jct-dispatch-pricing-guardrail
+- jct-crm-data-model
+- jct-crm-workflow-automation
+- jct-missed-call-recovery
+
+New routes:
+- JCT CONTRACT → commercial-rate-contract-manager
+- JCT MOTOR CLUB → motor-club-network-manager
+- JCT ROTATION → municipal-rotation-application-builder
+- JCT PIPELINE → b2b-pipeline-manager
+- JCT AR → ar-payment-collections
+- JCT QUOTE → dispatch-pricing-guardrail
+- JCT CRM → crm-data-model + crm-workflow-automation
+- JCT MISSED CALL → missed-call-recovery
+
+Queued, not active: skills 40–50.
