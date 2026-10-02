@@ -70,3 +70,21 @@ STATE / DONE / VERIFIED / OPEN / APPROVAL / ARTIFACTS / NEXT / RESUME CAPSULE.
 - JCT SEMI / RECOVERY: dispatch → heavy-recovery-scene-builder → heavy-semi-billing → rate authority/intelligence → evidence QA.
 - Carrier dispute: insurance-payment-evidence → denial-supplement-recovery → evidence QA → approval before external send.
 - Storage: storage-lien-release-compliance → rate authority → evidence QA → release/notice action.
+
+
+## v2 P1 routing
+- Commercial/fleet account terms → jct-commercial-rate-contract-manager
+- Motor club / roadside network → jct-motor-club-network-manager
+- Police/municipal application packet → jct-municipal-rotation-application-builder
+- Commercial prospect pipeline → jct-b2b-pipeline-manager
+- Invoice aging/payment follow-up → jct-ar-payment-collections
+- Dispatcher quote decision → jct-dispatch-pricing-guardrail
+- CRM object/schema work → jct-crm-data-model
+- CRM automation/workflow → jct-crm-workflow-automation
+- Missed inbound call → jct-missed-call-recovery
+
+### P1 chaining
+- New commercial account: B2B pipeline → rate intelligence/margin → contract manager → CRM.
+- Dispatcher quote: CRM/account lookup → pricing guardrail → approved rate/contract → dispatch.
+- Invoice lifecycle: invoice/evidence QA → AR → payment evidence → denial recovery when reduced.
+- Municipal opportunity: municipal intelligence → rotation application builder → John approval before submission.
