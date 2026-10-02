@@ -24,7 +24,7 @@ The JCT skill layer is part of this project's operating runtime. It does not ove
 - Durable outputs must be filed into the existing JC'S TOWING — DEBO BUSINESS OS / GitHub structure.
 - Material state changes report back to JCT-OPS and DEBO.
 
-## Installed specialist skills
+## Installed specialist skills — v2.0
 - jct-prompt-router
 - jct-business-truth-auditor
 - jct-dispatch-intake
@@ -47,6 +47,14 @@ The JCT skill layer is part of this project's operating runtime. It does not ove
 - jct-file-artifact-router
 - jct-competitor-market-scout
 - jct-resume-capsule
+- jct-driver-field-documentation-coach
+- jct-heavy-recovery-scene-builder
+- jct-storage-lien-release-compliance
+- jct-revenue-leakage-auditor
+- jct-denial-supplement-recovery
+- jct-insurance-payment-evidence
+- jct-job-cost-margin-engine
+- jct-rate-intelligence-engine
 
 ## Default specialists
 Business Truth Auditor
@@ -98,3 +106,32 @@ This project inherits:
 DEBO should tell Bobby when CHAT / WORK / VOICE / WORK+VOICE / CODEX materially improves the task.
 Durable work stays in this project's own ChatGPT Project / Drive / Notion / GitHub scope.
 At substantial completion: file, version, checkpoint, supersede/archive stale artifacts, and update Resume Capsule / Next-10.
+
+
+## Skill Pack v2 activation
+Activated 2026-10-01. Existing v1 specialists remain installed. P0 additions:
+- jct-rate-intelligence-engine
+- jct-job-cost-margin-engine
+- jct-insurance-payment-evidence
+- jct-denial-supplement-recovery
+- jct-revenue-leakage-auditor
+- jct-storage-lien-release-compliance
+- jct-heavy-recovery-scene-builder
+- jct-driver-field-documentation-coach
+
+Queued, not yet active: skills 31–50 covering commercial rate contracts, motor-club networks, municipal applications, B2B pipeline, AR/collections, dispatch pricing guardrails, CRM data/workflows, missed calls, website release/CRM sync, template/version/document autofill, competitor/review/local SEO/source verification, and operating scorecards.
+
+### v2 short commands
+- JCT MARGIN → jct-job-cost-margin-engine
+- JCT CARRIER → jct-insurance-payment-evidence
+- JCT DENIAL → jct-denial-supplement-recovery
+- JCT LEAK → jct-revenue-leakage-auditor
+- JCT STORAGE → jct-storage-lien-release-compliance
+- JCT RECOVERY → jct-heavy-recovery-scene-builder
+- JCT FIELD → jct-driver-field-documentation-coach
+
+Existing routes are upgraded:
+- JCT RATE → jct-rate-authority-manager + jct-rate-intelligence-engine
+- JCT INVOICE → jct-insurance-invoice-builder + jct-revenue-leakage-auditor when job evidence is complete enough to audit
+- JCT SEMI → jct-heavy-semi-billing + jct-heavy-recovery-scene-builder as applicable
+- JCT EVIDENCE → jct-evidence-pack-qa + field/scene specialists as applicable
