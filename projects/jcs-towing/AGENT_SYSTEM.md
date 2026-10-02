@@ -182,3 +182,21 @@ New routes:
 Document chain: recover template → verify source facts → autofill → brand QA → evidence/business QA → version controller → approval/publish gate.
 Website chain: recover current build → business truth → brand QA → release QA → CRM sync QA → explicit approval → deploy.
 Queued, not active: skills 46–50.
+
+
+## Final roadmap activation — skills 46–50
+Active:
+- jct-competitor-watch
+- jct-review-intelligence
+- jct-local-seo-city-engine
+- jct-source-verification-engine
+- jct-operating-scorecard
+
+Routes:
+- JCT WATCH → competitor-watch
+- JCT REVIEWS → review-intelligence
+- JCT LOCAL SEO → local-seo-city-engine
+- JCT VERIFY → source-verification-engine
+- JCT SCORECARD → operating-scorecard
+
+The planned v2 specialist roadmap 01–50 is now fully active. Continue to distinguish the 50 specialist skills from the jct-ops root/orchestrator skill.
