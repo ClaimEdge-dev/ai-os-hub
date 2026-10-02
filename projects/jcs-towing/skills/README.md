@@ -47,3 +47,17 @@ Recover before rebuild. Use VERIFIED / PROVISIONAL / CONFLICT / TBD. Never inven
 
 ## v2 queued specialists
 Skills 31–50 are approved for the JCT roadmap but are not active runtime modules until installed and verified. Preserve this distinction in status reporting.
+
+
+## v2 P1 active specialists
+- [jct-commercial-rate-contract-manager](./jct-commercial-rate-contract-manager/SKILL.md)
+- [jct-motor-club-network-manager](./jct-motor-club-network-manager/SKILL.md)
+- [jct-municipal-rotation-application-builder](./jct-municipal-rotation-application-builder/SKILL.md)
+- [jct-b2b-pipeline-manager](./jct-b2b-pipeline-manager/SKILL.md)
+- [jct-ar-payment-collections](./jct-ar-payment-collections/SKILL.md)
+- [jct-dispatch-pricing-guardrail](./jct-dispatch-pricing-guardrail/SKILL.md)
+- [jct-crm-data-model](./jct-crm-data-model/SKILL.md)
+- [jct-crm-workflow-automation](./jct-crm-workflow-automation/SKILL.md)
+- [jct-missed-call-recovery](./jct-missed-call-recovery/SKILL.md)
+
+Remaining queued roadmap: skills 40–50.
