@@ -88,3 +88,18 @@ STATE / DONE / VERIFIED / OPEN / APPROVAL / ARTIFACTS / NEXT / RESUME CAPSULE.
 - Dispatcher quote: CRM/account lookup → pricing guardrail → approved rate/contract → dispatch.
 - Invoice lifecycle: invoice/evidence QA → AR → payment evidence → denial recovery when reduced.
 - Municipal opportunity: municipal intelligence → rotation application builder → John approval before submission.
+
+
+## v2 document + digital routing
+- Website pre-release audit → jct-website-release-qa
+- Website lead/form to CRM mapping → jct-website-crm-sync
+- Reusable template governance → jct-template-library-manager
+- Brand QA → jct-brand-consistency-qa
+- Verified-data template population → jct-document-auto-fill
+- Artifact version/status lineage → jct-document-version-controller
+
+### Document chain
+template-library-manager → document-auto-fill → brand-consistency-qa → domain/evidence QA → document-version-controller → approval gate.
+
+### Website chain
+business-truth-auditor → brand-consistency-qa → website-release-qa → website-crm-sync → approval gate → deployment.
