@@ -160,3 +160,25 @@ New routes:
 - JCT MISSED CALL → missed-call-recovery
 
 Queued, not active: skills 40–50.
+
+
+## P1 document + digital activation — 2026-10-01
+Active additions:
+- jct-website-release-qa
+- jct-website-crm-sync
+- jct-template-library-manager
+- jct-brand-consistency-qa
+- jct-document-auto-fill
+- jct-document-version-controller
+
+New routes:
+- JCT WEB QA → website-release-qa
+- JCT WEB CRM → website-crm-sync
+- JCT TEMPLATE → template-library-manager
+- JCT BRAND QA → brand-consistency-qa
+- JCT AUTOFILL → document-auto-fill
+- JCT VERSION → document-version-controller
+
+Document chain: recover template → verify source facts → autofill → brand QA → evidence/business QA → version controller → approval/publish gate.
+Website chain: recover current build → business truth → brand QA → release QA → CRM sync QA → explicit approval → deploy.
+Queued, not active: skills 46–50.
