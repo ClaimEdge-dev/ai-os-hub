@@ -33,3 +33,17 @@ Load `jct-ops` first for substantial JC's Towing work. It routes to the speciali
 
 ## Runtime contract
 Recover before rebuild. Use VERIFIED / PROVISIONAL / CONFLICT / TBD. Never invent rates, capabilities, authority, ETA, or public claims. Preserve evidence. Send/publish/spend/account/destructive actions remain approval-gated. Return material state changes to JCT-OPS and DEBO.
+
+
+## v2 P0 specialists
+- [jct-rate-intelligence-engine](./jct-rate-intelligence-engine/SKILL.md)
+- [jct-job-cost-margin-engine](./jct-job-cost-margin-engine/SKILL.md)
+- [jct-insurance-payment-evidence](./jct-insurance-payment-evidence/SKILL.md)
+- [jct-denial-supplement-recovery](./jct-denial-supplement-recovery/SKILL.md)
+- [jct-revenue-leakage-auditor](./jct-revenue-leakage-auditor/SKILL.md)
+- [jct-storage-lien-release-compliance](./jct-storage-lien-release-compliance/SKILL.md)
+- [jct-heavy-recovery-scene-builder](./jct-heavy-recovery-scene-builder/SKILL.md)
+- [jct-driver-field-documentation-coach](./jct-driver-field-documentation-coach/SKILL.md)
+
+## v2 queued specialists
+Skills 31–50 are approved for the JCT roadmap but are not active runtime modules until installed and verified. Preserve this distinction in status reporting.
