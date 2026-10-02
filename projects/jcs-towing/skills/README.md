@@ -45,8 +45,8 @@ Recover before rebuild. Use VERIFIED / PROVISIONAL / CONFLICT / TBD. Never inven
 - [jct-heavy-recovery-scene-builder](./jct-heavy-recovery-scene-builder/SKILL.md)
 - [jct-driver-field-documentation-coach](./jct-driver-field-documentation-coach/SKILL.md)
 
-## v2 queued specialists
-Skills 31–50 are approved for the JCT roadmap but are not active runtime modules until installed and verified. Preserve this distinction in status reporting.
+## Historical activation checkpoint — after v2 P0
+At this historical checkpoint, skills 31–50 were approved for the JCT roadmap but were not yet active runtime modules. This records the earlier 30-active state and is superseded for current status by the later activation sections below.
 
 
 ## v2 P1 active specialists
@@ -60,7 +60,7 @@ Skills 31–50 are approved for the JCT roadmap but are not active runtime modul
 - [jct-crm-workflow-automation](./jct-crm-workflow-automation/SKILL.md)
 - [jct-missed-call-recovery](./jct-missed-call-recovery/SKILL.md)
 
-Remaining queued roadmap: skills 40–50.
+Historical activation checkpoint: after this P1 activation, skills 40–50 remained queued at that time.
 
 
 ## v2 P1 document + digital specialists
@@ -71,7 +71,7 @@ Remaining queued roadmap: skills 40–50.
 - [jct-document-auto-fill](./jct-document-auto-fill/SKILL.md)
 - [jct-document-version-controller](./jct-document-version-controller/SKILL.md)
 
-Remaining queued roadmap: skills 46–50.
+Historical activation checkpoint: after this document + digital activation, skills 46–50 remained queued at that time.
 
 
 ## v2 final active specialists
@@ -82,3 +82,5 @@ Remaining queued roadmap: skills 46–50.
 - [jct-operating-scorecard](./jct-operating-scorecard/SKILL.md)
 
 The v2 specialist roadmap 01–50 is fully active.
+
+Static routing integrity was verified PASS on 2026-10-02 for JCT-OPS + 50 specialist skill IDs. Runtime routing, end-to-end workflow verification, native ChatGPT product installation, and native Kimi installation remain separate evidence states.
