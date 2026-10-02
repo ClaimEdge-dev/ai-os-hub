@@ -61,3 +61,14 @@ Skills 31–50 are approved for the JCT roadmap but are not active runtime modul
 - [jct-missed-call-recovery](./jct-missed-call-recovery/SKILL.md)
 
 Remaining queued roadmap: skills 40–50.
+
+
+## v2 P1 document + digital specialists
+- [jct-website-release-qa](./jct-website-release-qa/SKILL.md)
+- [jct-website-crm-sync](./jct-website-crm-sync/SKILL.md)
+- [jct-template-library-manager](./jct-template-library-manager/SKILL.md)
+- [jct-brand-consistency-qa](./jct-brand-consistency-qa/SKILL.md)
+- [jct-document-auto-fill](./jct-document-auto-fill/SKILL.md)
+- [jct-document-version-controller](./jct-document-version-controller/SKILL.md)
+
+Remaining queued roadmap: skills 46–50.
