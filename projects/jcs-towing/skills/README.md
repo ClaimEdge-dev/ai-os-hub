@@ -72,3 +72,13 @@ Remaining queued roadmap: skills 40–50.
 - [jct-document-version-controller](./jct-document-version-controller/SKILL.md)
 
 Remaining queued roadmap: skills 46–50.
+
+
+## v2 final active specialists
+- [jct-competitor-watch](./jct-competitor-watch/SKILL.md)
+- [jct-review-intelligence](./jct-review-intelligence/SKILL.md)
+- [jct-local-seo-city-engine](./jct-local-seo-city-engine/SKILL.md)
+- [jct-source-verification-engine](./jct-source-verification-engine/SKILL.md)
+- [jct-operating-scorecard](./jct-operating-scorecard/SKILL.md)
+
+The v2 specialist roadmap 01–50 is fully active.
