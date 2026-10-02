@@ -103,3 +103,16 @@ template-library-manager → document-auto-fill → brand-consistency-qa → dom
 
 ### Website chain
 business-truth-auditor → brand-consistency-qa → website-release-qa → website-crm-sync → approval gate → deployment.
+
+
+## v2 final intelligence routing
+- Competitor monitoring/intelligence → jct-competitor-watch
+- Review pattern intelligence → jct-review-intelligence
+- City/service local-search coverage → jct-local-seo-city-engine
+- Research/source reconciliation → jct-source-verification-engine
+- Owner operating KPIs → jct-operating-scorecard
+
+### Intelligence chain
+source-verification-engine supports rate, municipal, competitor, SEO and insurer research.
+competitor-watch + review-intelligence → local-seo-city-engine / rate intelligence / B2B as applicable.
+CRM + dispatch + billing + payment + margin data → operating-scorecard.
