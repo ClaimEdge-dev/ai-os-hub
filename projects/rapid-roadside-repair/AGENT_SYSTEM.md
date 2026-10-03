@@ -23,6 +23,7 @@ DEBO Core → RRR-OPS → RRR Project Brain → specialist skill → tool/runtim
 - RRR RATE / QUOTE → rrr-rate-authority-manager
 - RRR CRM / LEAD → rrr-crm-lead-account
 - RRR WEB / PUBLIC CLAIM → rrr-website-public-claim-qa
+- RRR APPROVAL / RELEASE → rrr-approval-gate
 
 ## Current gates
 Owner truth lock: OPEN
