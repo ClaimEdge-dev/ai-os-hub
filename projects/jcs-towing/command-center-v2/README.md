@@ -2,13 +2,55 @@
 
 Project: DEBO — JC's Towing Command, Dispatch & Growth OS  
 Project ID: JCT  
-Status: PRIVATE PREVIEW / WORKING BUILD  
+Status: PRIVATE PREVIEW / CURRENT SAFE BASELINE  
 Lovable Project ID: 2a656371-38ce-4ada-a7bf-d3b651723ef4  
-Lovable preview: https://id-preview--2a656371-38ce-4ada-a7bf-d3b651723ef4.lovable.app
+Lovable preview: https://id-preview--2a656371-38ce-4ada-a7bf-d3b651723ef4.lovable.app  
+Current Lovable build commit: 999cdbeec6ff266d20aea6b79dadbd4b9ab42c68
 
 ## Recovered
 
 This v2 build supersedes the old single-file Website V1 as the active development build. The old Website V1 remains preserved under `projects/jcs-towing/site-v1` and must not be deleted.
+
+The 2026-10-04 website pass upgraded the existing Lovable project in place rather than creating a duplicate website.
+
+## Current operating decision — 2026-10-04
+
+Proceed with the facts currently verified in the project. Do not wait for more owner answers for private development.
+
+For anything unresolved:
+- hide it,
+- disable it,
+- or use neutral wording.
+
+Do not expose public placeholders such as TBD / owner verification required.
+
+This decision does **not** authorize production publishing or unsupported public claims.
+
+## Current safe public baseline
+
+Use:
+- JC's Towing
+- (815) 474-7384
+- Lockport, Illinois
+- jcstowinginc.com
+- red / black / white / metallic silver / dark charcoal brand direction
+- only services enabled by Business Truth
+- only service areas present in Business Truth
+
+Do not invent or imply:
+- 24/7 service
+- operating hours
+- street address
+- response times
+- rates or pricing
+- fleet size
+- heavy/semi capability
+- roadside services unless enabled
+- commercial services unless enabled
+- review counts, ratings, or testimonials
+- licenses or certifications
+- police / municipal relationships
+- additional cities
 
 ## Architecture
 
@@ -27,11 +69,29 @@ This v2 build supersedes the old single-file Website V1 as the active developmen
 - Home
 - Services
 - Service Area
-- Commercial / Fleet
+- Commercial / Fleet, gated by Business Truth
 - Reviews
 - About
 - Contact / Request Service
 - Sitemap / robots
+
+## Website V2 changes completed
+
+- stronger mobile-first Call Now hierarchy
+- improved Request Service secondary CTA
+- "Have these details ready" dispatch-prep panel
+- safer three-step service flow
+- improved approved-service cards
+- safer service-area wording
+- commercial navigation/promotion gated by service settings
+- honest reviews empty state
+- request form grouping and no-guarantee notice
+- unverified default slogan removed from public display
+- improved metadata
+- subtle CSS-based industrial motion/effects
+- prefers-reduced-motion handling
+- responsive QA across phone, tablet, and desktop widths
+- staff routes preserved
 
 ## Staff modules
 
@@ -60,23 +120,34 @@ opportunities, profiles, review_followups, settings, user_roles, vehicles.
 - Admin / Dispatcher / Driver / Office role model
 - Driver job access restricted to assigned operator jobs
 - CRM data not exposed to anonymous users
-- Public Request Service is intended to use a restricted lead-insert path
+- Public Request Service uses a restricted lead-insert path
 - Audit log table present
 
 ## Current blocker
 
-Lovable workspace is out of build credits. The current code and database remain preserved, but the next completion/QA edit cannot run in Lovable until credits are restored.
+Lovable workspace is currently out of build credits.
 
-Known incomplete UI discovered during QA:
-- Settings / Business Truth still contains an in-progress placeholder in the current commit.
-- A full placeholder sweep and end-to-end build/test pass is still required.
+The current Website V2 private preview and database remain preserved. No further Lovable edits can run until workspace credits are restored.
+
+This is not a blocker to using the current private preview as the JCT WEBSITE V2 — CURRENT SAFE BASELINE.
+
+## Remaining internal-only gaps
+
+- approved logo image swap
+- Customers / Vehicles full UI
+- full Billing editor / print view
+- Evidence library
+- Reviews follow-up screen
+- Reports
+- Settings / Business Truth editor completion
+- final full end-to-end release QA after future code changes
 
 ## Stack routing
 
 - Lovable: active app builder / private preview
 - Supabase/Lovable Cloud: one production-intent CRM database/auth source
 - GitHub: checkpoint/source-control mirror and historical website preservation
-- Vercel: preview deployment after source mirror + QA
+- Vercel: future preview/deployment only after source mirror + QA + approval
 - Mermaid: architecture documentation
 - Neon: optional future analytics/branching layer only; do not create a second operational CRM database without a deliberate migration decision
 
@@ -89,4 +160,5 @@ Do not:
 - send external customer messages
 - invent rates/services/fleet/licenses/hours
 - merge or delete the old Website V1
+
 without explicit approval and verified business facts.
