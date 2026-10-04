@@ -171,3 +171,29 @@ https://jcs-towing-v2-review.higgsfield.app
 Use this link for fast visual review of Website V2 changes while the canonical production-intent source remains protected. This is a review deployment only: no jcstowinginc.com DNS/domain change, no production publish authorization, and no unsupported public claims.
 
 Review-surface rule: unresolved business facts should be hidden or neutral rather than blocking design/development. Hard stops are reserved for production publishing, DNS/domain changes, spend, destructive actions, and unsupported public claims.
+
+## Owner-approved elite public website scope — 2026-10-04
+
+Bobby reported John approved the full public website direction and confirmed 24-hour / 7-day service.
+
+Approved public website lanes now include:
+- towing
+- roadside assistance
+- accident / recovery
+- vehicle transport
+- heavy-duty / semi
+- commercial / fleet
+- insurance towing
+- property towing inquiries
+- local + long-distance positioning
+
+Business Truth in the existing Lovable/Supabase settings was updated to reflect those approved service toggles and 24-hour hours.
+
+Current elite review deployment:
+https://jcs-towing-v2-review.higgsfield.app
+
+Higgsfield source commit: d248f97
+
+Typecheck and production build passed before deployment.
+
+Still data-driven, not invented: fleet count, operator count, exact equipment models, rates, response-time guarantees, live review metrics, customer logos and named commercial relationships.
