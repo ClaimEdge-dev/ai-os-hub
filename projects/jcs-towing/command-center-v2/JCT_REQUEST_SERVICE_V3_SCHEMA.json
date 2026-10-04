@@ -1,0 +1,261 @@
+{
+  "schema_version": "3.0-staged",
+  "status": "STAGED_NOT_LIVE",
+  "preserves_existing_lead_flow": true,
+  "groups": [
+    {
+      "id": "contact",
+      "fields": [
+        {
+          "name": "name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "phone",
+          "type": "tel",
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "required": false
+        },
+        {
+          "name": "preferred_contact_method",
+          "type": "enum",
+          "values": [
+            "phone",
+            "text",
+            "email"
+          ],
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "location",
+      "fields": [
+        {
+          "name": "pickup",
+          "type": "text",
+          "required": true,
+          "help": "Address, intersection, or landmark"
+        },
+        {
+          "name": "geolocation_lat",
+          "type": "number",
+          "required": false,
+          "privacy": "consent-based"
+        },
+        {
+          "name": "geolocation_lng",
+          "type": "number",
+          "required": false,
+          "privacy": "consent-based"
+        },
+        {
+          "name": "location_accuracy_m",
+          "type": "number",
+          "required": false
+        },
+        {
+          "name": "destination",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "vehicle",
+      "fields": [
+        {
+          "name": "vehicle_year",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "vehicle_make",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "vehicle_model",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "vehicle_type",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "condition",
+      "fields": [
+        {
+          "name": "service",
+          "type": "business_truth_service_or_other",
+          "required": false
+        },
+        {
+          "name": "rolls",
+          "type": "enum",
+          "values": [
+            "yes",
+            "no",
+            "unsure"
+          ],
+          "required": false
+        },
+        {
+          "name": "steers",
+          "type": "enum",
+          "values": [
+            "yes",
+            "no",
+            "unsure"
+          ],
+          "required": false
+        },
+        {
+          "name": "shifts",
+          "type": "enum",
+          "values": [
+            "yes",
+            "no",
+            "unsure"
+          ],
+          "required": false
+        },
+        {
+          "name": "keys_available",
+          "type": "enum",
+          "values": [
+            "yes",
+            "no",
+            "unsure"
+          ],
+          "required": false
+        },
+        {
+          "name": "accident",
+          "type": "enum",
+          "values": [
+            "yes",
+            "no",
+            "unsure"
+          ],
+          "required": false
+        },
+        {
+          "name": "wheel_damage",
+          "type": "enum",
+          "values": [
+            "yes",
+            "no",
+            "unsure"
+          ],
+          "required": false
+        },
+        {
+          "name": "clearance_issue",
+          "type": "enum",
+          "values": [
+            "yes",
+            "no",
+            "unsure"
+          ],
+          "required": false
+        },
+        {
+          "name": "access_notes",
+          "type": "textarea",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "photos",
+      "fields": [
+        {
+          "name": "evidence_upload_ids",
+          "type": "private_file_array",
+          "required": false,
+          "max_items": 6
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "fields": [
+        {
+          "name": "notes",
+          "type": "textarea",
+          "required": false,
+          "max_length": 2000
+        }
+      ]
+    },
+    {
+      "id": "attribution",
+      "hidden": true,
+      "fields": [
+        {
+          "name": "source_page",
+          "type": "url_path"
+        },
+        {
+          "name": "referrer",
+          "type": "string"
+        },
+        {
+          "name": "utm_source",
+          "type": "string"
+        },
+        {
+          "name": "utm_medium",
+          "type": "string"
+        },
+        {
+          "name": "utm_campaign",
+          "type": "string"
+        },
+        {
+          "name": "utm_content",
+          "type": "string"
+        },
+        {
+          "name": "device_type",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "id": "consent",
+      "fields": [
+        {
+          "name": "contact_consent",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "name": "location_consent",
+          "type": "boolean",
+          "required": false
+        }
+      ],
+      "notice": "Submitting this form does not guarantee dispatch, availability, ETA, or price. JC's Towing will confirm service details directly."
+    }
+  ],
+  "security": {
+    "no_payment_collection": true,
+    "private_uploads": true,
+    "public_signup": false,
+    "rate_limit": true,
+    "honeypot": true,
+    "captcha": "only_if_needed",
+    "server_side_validation": true
+  }
+}
