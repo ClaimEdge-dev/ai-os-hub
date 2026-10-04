@@ -1,0 +1,588 @@
+project: JCT
+workstream: JCT 90 — WEBSITE & DIGITAL
+state: CURRENT SAFE BASELINE + STAGED SKELETON
+live_project:
+  lovable_project_id: 2a656371-38ce-4ada-a7bf-d3b651723ef4
+  preview: https://id-preview--2a656371-38ce-4ada-a7bf-d3b651723ef4.lovable.app
+  published: false
+rules:
+  - recover_before_rebuild
+  - verified_facts_only
+  - unresolved_public_claims_are_hidden_disabled_or_neutral
+  - no_publish_without_approval
+  - no_dns_changes_without_approval
+  - no_paid_services_without_approval
+
+verified_public_baseline:
+  name: "JC's Towing"
+  phone: "(815) 474-7384"
+  phone_e164: "+18154747384"
+  city: "Lockport"
+  state: "IL"
+  domain: "jcstowinginc.com"
+  colors:
+    - red
+    - black
+    - white
+    - metallic_silver
+    - dark_charcoal
+
+status_values:
+  - LIVE_BASELINE
+  - STAGED
+  - BLOCKED_TRUTH
+  - BLOCKED_TOOLING
+  - FUTURE
+  - APPROVAL_REQUIRED
+
+features:
+  - id: brand.logo.real
+    priority: P0
+    status: BLOCKED_TRUTH
+    target: public
+    description: Replace placeholder BrandLogo with approved JC's Towing logo asset.
+    dependency: approved_logo_asset
+
+  - id: media.real_job_gallery
+    priority: P0
+    status: STAGED
+    target: public
+    description: Real trucks, operators, tow jobs, recovery scenes and approved equipment media.
+    dependency: approved_marketing_media
+
+  - id: mobile.call_bar
+    priority: P0
+    status: LIVE_BASELINE
+    target: public
+    description: Persistent mobile Call Now control.
+
+  - id: mobile.request_service
+    priority: P0
+    status: LIVE_BASELINE
+    target: public
+    description: Secondary mobile Request Service control.
+
+  - id: intake.geolocation
+    priority: P0
+    status: STAGED
+    target: public
+    description: Optional browser geolocation to help customer provide pickup location.
+    dependency: browser_permission
+    privacy: do_not_store_without_submission
+
+  - id: intake.photo_upload
+    priority: P0
+    status: STAGED
+    target: public
+    description: Optional scene/vehicle photo upload linked to lead evidence.
+    dependency: private_storage_and_upload_policy
+
+  - id: intake.vehicle_condition
+    priority: P0
+    status: STAGED
+    target: public
+    description: Rolls, steers, shifts, keys available, accident, wheel/access issues.
+
+  - id: intake.service_selector
+    priority: P0
+    status: LIVE_BASELINE
+    target: public
+    description: Show only Business Truth enabled services plus Other / Not sure.
+
+  - id: intake.no_guarantee_notice
+    priority: P0
+    status: LIVE_BASELINE
+    target: public
+    description: Submission does not guarantee dispatch, availability, ETA or price.
+
+  - id: trust.verified_strip
+    priority: P0
+    status: STAGED
+    target: public
+    description: Verified name, phone, Lockport base and direct-contact trust strip.
+
+  - id: business_truth.editor
+    priority: P0
+    status: STAGED
+    target: staff
+    description: Admin editor for logo, hours, services, service areas, review URL, about copy and public toggles.
+
+  - id: analytics.web_events
+    priority: P0
+    status: STAGED
+    target: internal
+    description: Track call clicks, request starts/completions, source, page, device and conversion.
+    dependency: analytics_provider_selection
+    approval: provider_activation_if_external
+
+  - id: analytics.call_attribution
+    priority: P0
+    status: STAGED
+    target: internal
+    description: Preserve campaign/source attribution for inbound call intent.
+    dependency: future_call_tracking_provider
+
+  - id: pages.towing_service
+    priority: P1
+    status: STAGED
+    target: public
+    description: Full towing service SEO/conversion page using verified towing facts.
+
+  - id: pages.service_template
+    priority: P1
+    status: STAGED
+    target: public
+    description: Reusable service-page template gated by Business Truth.
+
+  - id: pages.emergency_tow
+    priority: P1
+    status: STAGED
+    target: public
+    description: Short mobile-first landing page optimized for Call Now.
+    dependency: approved_campaign_use
+
+  - id: pages.commercial_fleet
+    priority: P1
+    status: BLOCKED_TRUTH
+    target: public
+    description: Full B2B commercial/fleet page when commercial capability is enabled.
+
+  - id: forms.commercial_inquiry
+    priority: P1
+    status: STAGED
+    target: public
+    description: Company, contact, vehicle/fleet type, geography, service need and notes.
+    dependency: commercial_enabled
+
+  - id: service_area.map
+    priority: P1
+    status: STAGED
+    target: public
+    description: Map generated only from verified service-area locations.
+
+  - id: seo.city_page_engine
+    priority: P1
+    status: STAGED
+    target: public
+    description: Reusable city-page engine; no page activates until city is verified.
+
+  - id: content.faq
+    priority: P1
+    status: STAGED
+    target: public
+    description: FAQs for requests, destinations, vehicle condition, availability and process.
+
+  - id: reviews.integration
+    priority: P1
+    status: BLOCKED_TRUTH
+    target: public
+    description: Show verified review source/link and approved testimonials only.
+    dependency: verified_review_data
+
+  - id: reviews.leave_review_cta
+    priority: P1
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: verified_review_url
+
+  - id: gallery.work
+    priority: P1
+    status: STAGED
+    target: public
+    description: Approved job/equipment gallery with categories and alt text.
+    dependency: approved_marketing_media
+
+  - id: about.owner_story
+    priority: P1
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: owner_approved_history
+
+  - id: content.before_you_call
+    priority: P1
+    status: LIVE_BASELINE
+    target: public
+    description: Location, vehicle, destination, condition and access details.
+
+  - id: marketing.qr_codes
+    priority: P1
+    status: STAGED
+    target: marketing
+    description: Website, service-request and review QR destinations.
+    dependency: final_urls
+
+  - id: attribution.utm
+    priority: P1
+    status: STAGED
+    target: public
+    description: Preserve UTM/source/referrer through lead creation.
+
+  - id: crm.lead_source
+    priority: P1
+    status: STAGED
+    target: staff
+    description: Save page, campaign, source, device and timestamp on lead.
+
+  - id: crm.missed_call_queue
+    priority: P1
+    status: STAGED
+    target: staff
+    description: Queue missed call records for manual follow-up.
+    dependency: call_system_integration
+
+  - id: crm.lead_status
+    priority: P1
+    status: STAGED
+    target: staff
+    description: New, Contacted, Dispatch Pending, Job, Lost, Closed.
+
+  - id: crm.customer_vehicle
+    priority: P1
+    status: STAGED
+    target: staff
+    description: Reusable customer and vehicle records.
+
+  - id: crm.dispatch_board
+    priority: P1
+    status: LIVE_BASELINE
+    target: staff
+    description: Existing job/dispatch status foundation.
+
+  - id: crm.evidence_upload
+    priority: P1
+    status: LIVE_BASELINE
+    target: staff
+    description: Per-job evidence upload foundation exists; library screen remains staged.
+
+  - id: crm.review_followup
+    priority: P1
+    status: STAGED
+    target: staff
+    description: Completed jobs become review follow-up candidates.
+
+  - id: customer.job_status
+    priority: P2
+    status: FUTURE
+    target: public
+    description: Customer-safe status: request received, confirmed, en route, completed.
+    dependency: dispatch_state_governance
+
+  - id: customer.sms_updates
+    priority: P2
+    status: FUTURE
+    target: public
+    dependency: approved_sms_provider_and_consent
+
+  - id: customer.portal
+    priority: P2
+    status: FUTURE
+    target: public
+
+  - id: commercial.portal
+    priority: P2
+    status: FUTURE
+    target: public
+
+  - id: release.online_vehicle_release
+    priority: P2
+    status: FUTURE
+    target: public
+    dependency: release_workflow_truth
+
+  - id: payments.invoice_link
+    priority: P2
+    status: FUTURE
+    target: public
+    dependency: approved_payment_provider
+
+  - id: quotes.staff_estimate_intake
+    priority: P2
+    status: STAGED
+    target: internal
+    description: Gather details for staff estimate; no automatic public price promise.
+
+  - id: fleet.public_page
+    priority: P2
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: verified_fleet_register
+
+  - id: fleet.equipment_cards
+    priority: P2
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: verified_fleet_register
+
+  - id: pages.heavy_semi
+    priority: P2
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: verified_heavy_semi_capability
+
+  - id: pages.recovery
+    priority: P2
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: verified_recovery_capability
+
+  - id: pages.roadside
+    priority: P2
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: verified_roadside_services
+
+  - id: pages.insurance_towing
+    priority: P2
+    status: STAGED
+    target: public
+    description: Explain documentation/process only; never promise coverage or reimbursement.
+
+  - id: pages.body_shop
+    priority: P2
+    status: STAGED
+    target: public
+    dependency: approved_b2b_positioning
+
+  - id: pages.dealership
+    priority: P2
+    status: STAGED
+    target: public
+    dependency: approved_b2b_positioning
+
+  - id: pages.trucking_company
+    priority: P2
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: verified_heavy_commercial_capability
+
+  - id: pages.property_manager
+    priority: P2
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: verified_property_towing_capability
+
+  - id: pages.municipal
+    priority: P2
+    status: STAGED
+    target: public
+    description: Future qualification/inquiry page; no existing municipal relationship claims.
+
+  - id: pages.careers
+    priority: P2
+    status: FUTURE
+    target: public
+    dependency: active_hiring
+
+  - id: seo.gbp_bridge
+    priority: P2
+    status: STAGED
+    target: growth
+    dependency: verified_gbp_profile_and_urls
+
+  - id: social.facebook_campaign_routes
+    priority: P2
+    status: STAGED
+    target: growth
+
+  - id: social.approved_job_gallery
+    priority: P2
+    status: STAGED
+    target: growth
+    dependency: approved_marketing_media
+
+  - id: content.resources
+    priority: P2
+    status: STAGED
+    target: public
+    description: Useful towing guides, checklists and FAQs. No thin AI spam.
+
+  - id: content.accident_checklist
+    priority: P2
+    status: STAGED
+    target: public
+
+  - id: content.breakdown_checklist
+    priority: P2
+    status: STAGED
+    target: public
+
+  - id: seo.structured_data
+    priority: P2
+    status: STAGED
+    target: public
+    description: LocalBusiness/TowingService/Service/Breadcrumb schema from verified Business Truth only.
+
+  - id: social.opengraph
+    priority: P2
+    status: STAGED
+    target: public
+
+  - id: brand.favicon_app_icons
+    priority: P2
+    status: STAGED
+    target: public
+    dependency: approved_logo_asset
+
+  - id: pages.404
+    priority: P2
+    status: STAGED
+    target: public
+
+  - id: legal.privacy_policy
+    priority: P2
+    status: STAGED
+    target: public
+
+  - id: legal.service_request_notice
+    priority: P2
+    status: STAGED
+    target: public
+
+  - id: legal.accessibility_statement
+    priority: P2
+    status: STAGED
+    target: public
+
+  - id: privacy.analytics_controls
+    priority: P2
+    status: FUTURE
+    target: public
+    dependency: analytics_stack
+
+  - id: security.form_spam_protection
+    priority: P2
+    status: STAGED
+    target: public
+
+  - id: ux.form_recovery
+    priority: P2
+    status: STAGED
+    target: public
+
+  - id: mobile.click_to_text
+    priority: P2
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: approved_sms_number_use
+
+  - id: location.directions
+    priority: P2
+    status: BLOCKED_TRUTH
+    target: public
+    dependency: approved_public_address_strategy
+
+  - id: seo.search_console
+    priority: P2
+    status: APPROVAL_REQUIRED
+    target: growth
+    dependency: domain_verification
+
+  - id: seo.bing_webmaster
+    priority: P2
+    status: APPROVAL_REQUIRED
+    target: growth
+    dependency: domain_verification
+
+  - id: performance.web_vitals
+    priority: P2
+    status: STAGED
+    target: internal
+
+  - id: monitoring.error_capture
+    priority: P2
+    status: STAGED
+    target: internal
+
+  - id: analytics.form_funnel
+    priority: P2
+    status: STAGED
+    target: internal
+
+  - id: analytics.call_funnel
+    priority: P2
+    status: STAGED
+    target: internal
+
+  - id: dashboard.owner
+    priority: P2
+    status: STAGED
+    target: staff
+
+  - id: dashboard.marketing
+    priority: P2
+    status: STAGED
+    target: staff
+
+  - id: app.pwa
+    priority: P3
+    status: FUTURE
+    target: public
+
+  - id: staff.offline_driver_mode
+    priority: P3
+    status: FUTURE
+    target: staff
+
+  - id: customer.repeat_service
+    priority: P3
+    status: FUTURE
+    target: public
+
+  - id: commercial.account_login
+    priority: P3
+    status: FUTURE
+    target: public
+
+  - id: ops.digital_tow_ticket
+    priority: P3
+    status: STAGED
+    target: staff
+
+  - id: ops.digital_signature
+    priority: P3
+    status: STAGED
+    target: staff
+
+  - id: automation.evidence_pack
+    priority: P3
+    status: STAGED
+    target: staff
+
+  - id: automation.invoice_draft
+    priority: P3
+    status: STAGED
+    target: staff
+    rule: never_invent_rates_or_unperformed_services
+
+  - id: fleet.maintenance_integration
+    priority: P3
+    status: FUTURE
+    target: staff
+
+  - id: ai.dispatch_assistant
+    priority: P3
+    status: STAGED
+    target: staff
+    rule: assist_only_no_unapproved_external_actions
+
+  - id: ai.photo_classifier
+    priority: P3
+    status: FUTURE
+    target: staff
+
+  - id: ai.lead_scoring
+    priority: P3
+    status: FUTURE
+    target: staff
+
+  - id: ai.review_drafts
+    priority: P3
+    status: STAGED
+    target: staff
+    rule: drafts_only_until_approved
+
+  - id: governance.owner_approval_center
+    priority: P3
+    status: STAGED
+    target: staff
+    description: Queue public claims, content, spend and release decisions for approval.
