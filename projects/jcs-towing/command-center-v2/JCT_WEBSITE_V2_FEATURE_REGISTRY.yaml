@@ -29,6 +29,7 @@ verified_public_baseline:
 
 status_values:
   - LIVE_BASELINE
+  - PATCH_READY
   - STAGED
   - BLOCKED_TRUTH
   - BLOCKED_TOOLING
@@ -64,7 +65,7 @@ features:
 
   - id: intake.geolocation
     priority: P0
-    status: STAGED
+    status: PATCH_READY
     target: public
     description: Optional browser geolocation to help customer provide pickup location.
     dependency: browser_permission
@@ -97,7 +98,7 @@ features:
 
   - id: trust.verified_strip
     priority: P0
-    status: STAGED
+    status: PATCH_READY
     target: public
     description: Verified name, phone, Lockport base and direct-contact trust strip.
 
@@ -109,7 +110,7 @@ features:
 
   - id: analytics.web_events
     priority: P0
-    status: STAGED
+    status: PATCH_READY
     target: internal
     description: Track call clicks, request starts/completions, source, page, device and conversion.
     dependency: analytics_provider_selection
@@ -124,7 +125,7 @@ features:
 
   - id: pages.towing_service
     priority: P1
-    status: STAGED
+    status: PATCH_READY
     target: public
     description: Full towing service SEO/conversion page using verified towing facts.
 
@@ -168,7 +169,7 @@ features:
 
   - id: content.faq
     priority: P1
-    status: STAGED
+    status: PATCH_READY
     target: public
     description: FAQs for requests, destinations, vehicle condition, availability and process.
 
@@ -213,7 +214,7 @@ features:
 
   - id: attribution.utm
     priority: P1
-    status: STAGED
+    status: PATCH_READY
     target: public
     description: Preserve UTM/source/referrer through lead creation.
 
@@ -392,18 +393,18 @@ features:
 
   - id: content.resources
     priority: P2
-    status: STAGED
+    status: PATCH_READY
     target: public
     description: Useful towing guides, checklists and FAQs. No thin AI spam.
 
   - id: content.accident_checklist
     priority: P2
-    status: STAGED
+    status: PATCH_READY
     target: public
 
   - id: content.breakdown_checklist
     priority: P2
-    status: STAGED
+    status: PATCH_READY
     target: public
 
   - id: seo.structured_data
@@ -425,12 +426,12 @@ features:
 
   - id: pages.404
     priority: P2
-    status: STAGED
+    status: PATCH_READY
     target: public
 
   - id: legal.privacy_policy
     priority: P2
-    status: STAGED
+    status: PATCH_READY
     target: public
 
   - id: legal.service_request_notice
@@ -440,7 +441,7 @@ features:
 
   - id: legal.accessibility_statement
     priority: P2
-    status: STAGED
+    status: PATCH_READY
     target: public
 
   - id: privacy.analytics_controls
