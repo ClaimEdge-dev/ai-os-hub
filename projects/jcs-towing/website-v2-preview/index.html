@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>JC's Towing — Website V2 Preview</title>
+  <meta name="description" content="JC's Towing in Lockport, Illinois. Call (815) 474-7384 or request service.">
+  <meta name="theme-color" content="#050505">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="JC's Towing home"><span>JC'S</span> TOWING</a>
+      <nav class="desktop-nav" aria-label="Main">
+        <a href="#services">Services</a>
+        <a href="#area">Service Area</a>
+        <a href="#faq">FAQ</a>
+        <a href="/resources.html">Resources</a>
+        <a href="/privacy.html">Privacy</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn primary" data-track="call_click" href="tel:+18154747384">Call (815) 474-7384</a>
+        <a class="btn silver" data-track="request_click" href="#request">Request Service</a>
+      </div>
+    </div>
+    <div class="slash"></div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-grid"></div>
+      <div class="wrap hero-content">
+        <div class="eyebrow">JC'S TOWING • LOCKPORT, ILLINOIS</div>
+        <h1>A LOCAL TOW.<br><span>A CLEAR NEXT STEP.</span></h1>
+        <p>Need a tow? Tell us where you are, what you're driving, and what happened. Service details are confirmed directly.</p>
+        <div class="actions">
+          <a class="btn primary xl" data-track="call_click" href="tel:+18154747384">☎ Call (815) 474-7384</a>
+          <a class="btn silver xl" data-track="request_click" href="#request">Request Service</a>
+        </div>
+      </div>
+      <div class="road-stripe"></div>
+    </section>
+
+    <section class="trust-strip">
+      <div class="wrap trust-grid">
+        <div><b>CALL JC'S TOWING</b><span>(815) 474-7384</span></div>
+        <div><b>BASED IN</b><span>Lockport, Illinois</span></div>
+        <div><b>SERVICE DETAILS</b><span>Confirmed directly before service</span></div>
+      </div>
+    </section>
+
+    <section class="dark-section">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow red">WHEN YOU REACH OUT</div><h2>Have these details ready</h2></div>
+          <p>Share what you know. If you're unsure about a detail, we can talk it through.</p>
+        </div>
+        <div class="detail-grid">
+          <article><span>01</span><h3>Your location</h3><p>Address, intersection, or nearest landmark.</p></article>
+          <article><span>02</span><h3>Vehicle details</h3><p>Year, make, and model if you know them.</p></article>
+          <article><span>03</span><h3>Destination</h3><p>Where the vehicle needs to go.</p></article>
+          <article><span>04</span><h3>Vehicle condition</h3><p>Does it roll, steer, and shift?</p></article>
+          <article><span>05</span><h3>Scene access</h3><p>Parking, clearance, or access issues.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <div class="wrap">
+        <div class="section-head light">
+          <div><div class="eyebrow red">SERVICES</div><h2>Start with towing</h2></div>
+          <p>Only currently verified services should be shown publicly. This preview keeps towing as the safe baseline.</p>
+        </div>
+        <div class="cards">
+          <a class="card service-card" href="/towing.html">
+            <div class="icon">↗</div><h3>Towing</h3>
+            <p>Local towing for cars and light vehicles when you're stuck or broken down.</p>
+            <strong>Towing details →</strong>
+          </a>
+          <article class="card muted-card">
+            <div class="icon">+</div><h3>Future services</h3>
+            <p>Roadside, transport, commercial, recovery, heavy-duty and other specialty pages remain hidden until verified.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted">
+      <div class="wrap">
+        <div class="section-head light">
+          <div><div class="eyebrow red">HOW IT WORKS</div><h2>Three clear steps</h2></div>
+        </div>
+        <div class="steps">
+          <article><span>01</span><h3>Call or request</h3><p>Call directly or send your location and vehicle details.</p></article>
+          <article><span>02</span><h3>Confirm details</h3><p>We'll discuss the situation and what service may be available.</p></article>
+          <article><span>03</span><h3>Agree on next steps</h3><p>A website request alone does not arrange dispatch.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="area" class="dark-section compact">
+      <div class="wrap split">
+        <div><div class="eyebrow red">SERVICE AREA</div><h2>Based in Lockport, Illinois</h2><p>Call to confirm service at your specific location.</p></div>
+        <a class="btn silver xl" href="tel:+18154747384">Confirm by phone</a>
+      </div>
+    </section>
+
+    <section id="request" class="section">
+      <div class="wrap request-grid">
+        <div>
+          <div class="eyebrow red">REQUEST SERVICE</div>
+          <h2>Tell us what you need</h2>
+          <p class="lede">For urgent needs, calling is the quickest way to connect.</p>
+          <button id="geoButton" class="btn dark" type="button">◎ Use my current location</button>
+          <p id="geoStatus" class="micro">Location is requested only after you tap the button.</p>
+        </div>
+        <form id="previewForm" class="request-form">
+          <label>Name<input required name="name" autocomplete="name"></label>
+          <label>Phone<input required name="phone" type="tel" autocomplete="tel"></label>
+          <label class="full">Pickup location<input id="pickup" required name="pickup" placeholder="Address, intersection, landmark, or shared coordinates"></label>
+          <label class="full">Destination (optional)<input name="destination"></label>
+          <div class="vehicle-row full">
+            <label>Year<input name="year" inputmode="numeric"></label>
+            <label>Make<input name="make"></label>
+            <label>Model<input name="model"></label>
+          </div>
+          <label>Service needed<select name="service"><option>Towing</option><option>Other / not sure</option></select></label>
+          <label>Is the vehicle drivable?<select name="drivable"><option>Not sure</option><option>Yes</option><option>No</option></select></label>
+          <label class="full">Access issues or anything else?<textarea name="notes" rows="4"></textarea></label>
+          <div class="notice full">Submitting this preview form does not guarantee dispatch, availability, ETA, or price. For actual service, call JC's Towing or use the current live request form.</div>
+          <button class="btn primary xl full" type="submit">Preview Request Flow</button>
+          <a class="text-link full" href="https://id-preview--2a656371-38ce-4ada-a7bf-d3b651723ef4.lovable.app/contact">Open current live request form →</a>
+          <p id="formStatus" class="micro full"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="faq" class="section muted">
+      <div class="wrap">
+        <div class="section-head light"><div><div class="eyebrow red">FAQ</div><h2>Quick answers</h2></div></div>
+        <div class="faq">
+          <details><summary>What should I have ready when I call?</summary><p>Your location, vehicle details, destination if known, and anything unusual about access or vehicle condition.</p></details>
+          <details><summary>Does submitting a form mean a truck is dispatched?</summary><p>No. A website request does not guarantee dispatch, availability, ETA, or price.</p></details>
+          <details><summary>What if I am not sure which service I need?</summary><p>Choose “Other / not sure” or call directly and describe what happened.</p></details>
+          <details><summary>How do I know whether my location can be reached?</summary><p>JC's Towing is based in Lockport, Illinois. Call to confirm your location.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap split">
+        <div><div class="eyebrow red">RESOURCES</div><h2>Accident or breakdown?</h2><p>Use the short checklists to gather the details you may need.</p></div>
+        <a class="btn dark xl" href="/resources.html">View checklists</a>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap"><div class="eyebrow red">NEED A TOW?</div><h2>Start with a call.</h2><p>For urgent needs, calling is the quickest way to connect.</p><div class="actions"><a class="btn primary xl" href="tel:+18154747384">☎ Call (815) 474-7384</a><a class="btn silver xl" href="#request">Request Service</a></div></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div><div class="brand footer-brand"><span>JC'S</span> TOWING</div><p>Lockport, Illinois</p></div>
+      <div><b>Contact</b><a href="tel:+18154747384">(815) 474-7384</a></div>
+      <div><b>Pages</b><a href="/towing.html">Towing</a><a href="/resources.html">Resources</a><a href="/privacy.html">Privacy</a><a href="/accessibility.html">Accessibility</a></div>
+    </div>
+    <div class="copyright">© 2026 JC's Towing — Lockport, IL • Private preview for verification</div>
+  </footer>
+
+  <div class="mobile-bar"><a class="btn primary" href="tel:+18154747384">Call Now</a><a class="btn silver" href="#request">Request</a></div>
+  <script src="/app.js"></script>
+</body>
+</html>
