@@ -162,3 +162,12 @@ Do not:
 - merge or delete the old Website V1
 
 without explicit approval and verified business facts.
+
+## Live review surface — 2026-10-04
+
+Current Website V2 visual verification site:
+https://jcs-towing-v2-review.higgsfield.app
+
+Use this link for fast visual review of Website V2 changes while the canonical production-intent source remains protected. This is a review deployment only: no jcstowinginc.com DNS/domain change, no production publish authorization, and no unsupported public claims.
+
+Review-surface rule: unresolved business facts should be hidden or neutral rather than blocking design/development. Hard stops are reserved for production publishing, DNS/domain changes, spend, destructive actions, and unsupported public claims.
