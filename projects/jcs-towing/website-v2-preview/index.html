@@ -111,29 +111,55 @@
     <section id="request" class="section">
       <div class="wrap request-grid">
         <div>
-          <div class="eyebrow red">REQUEST SERVICE</div>
-          <h2>Tell us what you need</h2>
-          <p class="lede">For urgent needs, calling is the quickest way to connect.</p>
-          <button id="geoButton" class="btn dark" type="button">◎ Use my current location</button>
+          <div class="eyebrow red">REQUEST SERVICE V3</div>
+          <h2>Test the real intake loop</h2>
+          <p class="lede">This review form saves to the existing JC CRM as a clearly marked DEMO lead.</p>
+          <button id="geoButton" class="btn dark" type="button">Use my current location</button>
           <p id="geoStatus" class="micro">Location is requested only after you tap the button.</p>
+          <div class="demo-notice"><b>REVIEW MODE</b><span>Submissions are DEMO records. They are not confirmed dispatches.</span></div>
         </div>
         <form id="previewForm" class="request-form">
-          <label>Name<input required name="name" autocomplete="name"></label>
-          <label>Phone<input required name="phone" type="tel" autocomplete="tel"></label>
-          <label class="full">Pickup location<input id="pickup" required name="pickup" placeholder="Address, intersection, landmark, or shared coordinates"></label>
-          <label class="full">Destination (optional)<input name="destination"></label>
+          <h3 class="form-section full">01 / Contact</h3>
+          <label>Name<input required name="name" autocomplete="name" maxlength="100"></label>
+          <label>Phone<input required name="phone" type="tel" autocomplete="tel" maxlength="30"></label>
+          <label>Email (optional)<input name="email" type="email" autocomplete="email" maxlength="255"></label>
+          <label>Preferred contact<select name="preferred_contact_method"><option value="phone">Phone</option><option value="text">Text</option><option value="email">Email</option></select></label>
+
+          <h3 class="form-section full">02 / Location</h3>
+          <label class="full">Pickup location<input id="pickup" required name="pickup" placeholder="Address, intersection, landmark, or shared coordinates" maxlength="300"></label>
+          <label class="full">Destination (optional)<input name="destination" maxlength="300"></label>
+
+          <h3 class="form-section full">03 / Vehicle</h3>
           <div class="vehicle-row full">
-            <label>Year<input name="year" inputmode="numeric"></label>
-            <label>Make<input name="make"></label>
-            <label>Model<input name="model"></label>
+            <label>Year<input name="vehicle_year" inputmode="numeric" maxlength="10"></label>
+            <label>Make<input name="vehicle_make" maxlength="60"></label>
+            <label>Model<input name="vehicle_model" maxlength="60"></label>
           </div>
-          <label>Service needed<select name="service"><option>Towing</option><option>Other / not sure</option></select></label>
-          <label>Is the vehicle drivable?<select name="drivable"><option>Not sure</option><option>Yes</option><option>No</option></select></label>
-          <label class="full">Access issues or anything else?<textarea name="notes" rows="4"></textarea></label>
-          <div class="notice full">Submitting this preview form does not guarantee dispatch, availability, ETA, or price. For actual service, call JC's Towing or use the current live request form.</div>
-          <button class="btn primary xl full" type="submit">Preview Request Flow</button>
-          <a class="text-link full" href="https://id-preview--2a656371-38ce-4ada-a7bf-d3b651723ef4.lovable.app/contact">Open current live request form →</a>
-          <p id="formStatus" class="micro full"></p>
+          <label class="full">Vehicle type<input name="vehicle_type" placeholder="Car, SUV, pickup, van, other" maxlength="60"></label>
+
+          <h3 class="form-section full">04 / Vehicle condition</h3>
+          <div class="condition-grid full">
+            <label>Rolls?<select name="rolls"><option value="unsure">Not sure</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+            <label>Steers?<select name="steers"><option value="unsure">Not sure</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+            <label>Shifts?<select name="shifts"><option value="unsure">Not sure</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+            <label>Keys available?<select name="keys_available"><option value="unsure">Not sure</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+            <label>Accident?<select name="accident"><option value="unsure">Not sure</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+            <label>Wheel damage?<select name="wheel_damage"><option value="unsure">Not sure</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+            <label>Clearance/access issue?<select name="clearance_issue"><option value="unsure">Not sure</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+          </div>
+          <label class="full">Access / clearance notes<textarea name="access_notes" rows="3" maxlength="1000"></textarea></label>
+
+          <h3 class="form-section full">05 / Service + notes</h3>
+          <label>Service needed<select name="service"><option value="Towing">Towing</option><option value="Other / not sure">Other / not sure</option></select></label>
+          <label>Photos for review<input id="photoInput" class="file-input" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" multiple></label>
+          <div id="photoStatus" class="micro full">Photo storage is staged; selected files are validated in this review build.</div>
+          <label class="full">Anything else we should know?<textarea name="notes" rows="4" maxlength="2000"></textarea></label>
+
+          <h3 class="form-section full">06 / Consent</h3>
+          <label class="check-row full"><input name="consent" type="checkbox" value="yes" required>I agree that JC's Towing may contact me about this request.</label>
+          <div class="notice full">Submitting this form does not guarantee dispatch, availability, ETA, or price. JC's Towing will confirm service details directly.</div>
+          <button id="submitButton" class="btn primary xl full" type="submit">Save Demo Request to CRM</button>
+          <p id="formStatus" class="form-status full" aria-live="polite"></p>
         </form>
       </div>
     </section>
