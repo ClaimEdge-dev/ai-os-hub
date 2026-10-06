@@ -14,6 +14,11 @@ Then route to the narrowest specialist skill from:
 
 The JCT skill layer is part of this project's operating runtime. It does not override DEBO's cross-project continuity, tool routing, or approval controls.
 
+## Current skill state
+- **Current JCT project runtime:** JCT-OPS root + **50 specialist skills** present/routed.
+- **Historical checkpoints:** 30 active / 20 queued, then 39 active, then 45 active. Those counts remain below for provenance only.
+- **Separate evidence surfaces:** native ChatGPT installation, native Kimi installation, and production end-to-end workflow verification are not inferred from GitHub runtime presence.
+
 ## Core JCT rules
 - Recover before rebuild.
 - Truth states: VERIFIED / PROVISIONAL / CONFLICT / TBD.
@@ -24,7 +29,7 @@ The JCT skill layer is part of this project's operating runtime. It does not ove
 - Durable outputs must be filed into the existing JC'S TOWING — DEBO BUSINESS OS / GitHub structure.
 - Material state changes report back to JCT-OPS and DEBO.
 
-## Installed specialist skills — v2.0
+## Historical 30-active checkpoint — base + P0 specialists
 - jct-prompt-router
 - jct-business-truth-auditor
 - jct-dispatch-intake
