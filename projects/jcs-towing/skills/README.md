@@ -6,7 +6,13 @@ Root Sister Brain: [jct-ops](./jct-ops/SKILL.md)
 
 Load `jct-ops` first for substantial JC's Towing work. It routes to the specialist modules below and inherits DEBO's recovery, approval, and continuity controls.
 
-## Installed
+## Current project-runtime status
+- **Current:** JCT-OPS root + **50 specialist skills** are present/routed in the JCT GitHub project runtime.
+- The earlier **30 active + 20 queued** receipt is a valid historical checkpoint, not the current runtime count.
+- File presence/project-runtime routing does **not** prove native ChatGPT, native Kimi, Lovable, or other product-level installation.
+- Static routing integrity is verified; production end-to-end workflow coverage remains a separate evidence state.
+
+## Base specialist set — active
 - [jct-ops](./jct-ops/SKILL.md)
 - [jct-prompt-router](./jct-prompt-router/SKILL.md)
 - [jct-business-truth-auditor](./jct-business-truth-auditor/SKILL.md)
