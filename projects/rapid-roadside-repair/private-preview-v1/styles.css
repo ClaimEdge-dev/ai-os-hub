@@ -52,3 +52,14 @@ footer{border-top:1px solid #242424;padding:1.3rem;text-align:center;color:#6f6f
   body{padding-bottom:78px}.site-header{grid-template-columns:1fr}.dispatch-phone{align-items:flex-start}.main-nav{margin:0 -.2rem}
   .hero{min-height:auto;padding:2.4rem 0}.hero h1{font-size:3.4rem}.proof-band,.issue-grid,.service-grid,.process-grid,.why-grid,.work-gallery,.faq-grid,.truth-grid,.stats{grid-template-columns:1fr}.coverage-list>div{grid-template-columns:1fr}.fleet-stats{grid-template-columns:1fr 1fr}.split,.grid.two{grid-template-columns:1fr}.split-heading{grid-template-columns:1fr}.final-cta,.utility-header{align-items:flex-start;flex-direction:column}.job-grid{grid-template-columns:1fr}.checklist{grid-template-columns:1fr}.mobile-dock{display:flex}.brand-copy small{display:none}
 }
+
+.header-right{display:flex;align-items:center;gap:.7rem;justify-content:flex-end}
+.owner-link{appearance:none;border:1px solid #313131;background:#101010;color:#888;padding:.55rem .65rem;border-radius:6px;font-size:.62rem;font-weight:900;letter-spacing:.08em;cursor:pointer}
+.owner-link:hover{color:#fff;border-color:#555}
+.main-nav .nav-cta{background:#231010;color:#fff;border:1px solid #5d1a1a}
+.owner-subnav{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;padding:.55rem;background:#0d0d0d;border:1px solid #272727;border-radius:9px}
+.owner-subnav button{appearance:none;background:#111;border:1px solid #2b2b2b;color:#909090;border-radius:6px;padding:.55rem .7rem;font-size:.7rem;font-weight:850;cursor:pointer}
+.owner-subnav .active-owner{color:#fff;background:#3b1010;border-color:#6d1f1f}
+#services,#coverage,#faq{scroll-margin-top:110px}
+@media(max-width:1100px){.header-right{justify-content:flex-end}}
+@media(max-width:720px){.header-right{width:100%;justify-content:space-between}.owner-link{display:none}}
