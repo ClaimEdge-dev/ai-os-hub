@@ -14,7 +14,20 @@ values
 ('hours_24_7',null,'HOLD','unverified',false,'Do not publish 24/7 until verified'),
 ('service_area',null,'HOLD','unverified',false,'Radius/counties/corridors unknown'),
 ('rate_authority',null,'HOLD','unverified',false,'No official RRR rate source loaded'),
-('credentials',null,'HOLD','unverified',false,'Licenses/insurance/certifications require evidence')
+('credentials',null,'HOLD','unverified',false,'Licenses/insurance/certifications require evidence'),
+('owner_authority',null,'TBD','unverified',false,'Billy role/authority not yet confirmed'),
+('after_hours_policy',null,'TBD','unverified',false,'Do not imply after-hours or 24/7 terms'),
+('base_city',null,'TBD','unverified',false,'Illinois known; exact base not confirmed'),
+('shop_mode',null,'TBD','unverified',false,'Mobile-only vs shop+mobile unknown'),
+('towing_boundary',null,'TBD','unverified',false,'Repair-only vs towing/coordination unknown'),
+('service_trucks',null,'TBD','unverified',false,'Count/equipment unknown'),
+('diagnostic_tools',null,'TBD','unverified',false,'Tool/software inventory unknown'),
+('payment_methods',null,'TBD','unverified',false,'Owner/accounting confirmation required'),
+('fleet_terms',null,'HOLD','unverified',false,'No commercial terms approved'),
+('warranty_terms',null,'HOLD','unverified',false,'No warranty wording approved'),
+('review_link',null,'TBD','unverified',false,'Approved review destination unknown'),
+('gbp_access',null,'TBD','unverified',false,'Google Business Profile access unknown'),
+('meta_access',null,'TBD','unverified',false,'Meta/Facebook access unknown')
 on conflict (truth_key) do nothing;
 
 insert into public.rrr_service_capabilities
