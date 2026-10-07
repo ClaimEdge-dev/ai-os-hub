@@ -1,7 +1,7 @@
 import type {Attribution} from "./jct-v3-contract";
 /** First-party session attribution. No user contact data, query-bearing referrer, or location stored. */
 const KEY="jct:first-touch:v1";
-const sanitize=(s:string,n=255)=>s.slice(0,n);
+const sanitize=(s:string,n=255)=>s.replace(/[\u0000-\u001f\u007f]/g,"").slice(0,n);
 export function fromLanding(url:string,referrer:string,width:number):Attribution {
  const u=new URL(url);
  let cleanRef="";
@@ -26,7 +26,19 @@ export function firstTouch():Attribution {
    if(x&&typeof x==="object"&&!Array.isArray(x)){
     const p=x as Record<string,unknown>;
     const fields=["source_page","referrer","utm_source","utm_medium","utm_campaign","utm_content","device_type"];
-    if(fields.every(f=>typeof p[f]==="string")&&["mobile","tablet","desktop"].includes(String(p["device_type"])))return p as Attribution;
+    if(fields.every(f=>typeof p[f]==="string")&&["mobile","tablet","desktop"].includes(String(p["device_type"]))){
+      let safeRef="";
+      try{const u=new URL(String(p["referrer"]));safeRef=u.origin+u.pathname;}catch{}
+      return {
+        source_page:sanitize(String(p["source_page"]),500),
+        referrer:sanitize(safeRef,500),
+        utm_source:sanitize(String(p["utm_source"])),
+        utm_medium:sanitize(String(p["utm_medium"])),
+        utm_campaign:sanitize(String(p["utm_campaign"])),
+        utm_content:sanitize(String(p["utm_content"])),
+        device_type:p["device_type"] as Attribution["device_type"]
+      };
+    }
    }
   }
   window.sessionStorage.setItem(KEY,JSON.stringify(current));
