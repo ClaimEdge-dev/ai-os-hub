@@ -4,10 +4,10 @@ description: >
   Routes any DEBO task to the best AI/model/mode/tool stack, then assigns a fallback model
   to cover known weaknesses. Use at complex workflow kickoff, before cross-AI handoffs, when
   a task needs research + build + browser execution, or when an agent stalls, overreaches,
-  lacks citations, lacks execution access, or produces weak output.
+  lacks citations, lacks execution access, produces weak output, or when a reusable external-AI workflow could eliminate repeated prompting and handoff work.
 ---
 
-# Multi-AI Router v3.1
+# Multi-AI Router v3.2
 
 ## Mission
 
@@ -191,6 +191,93 @@ Do NOT spawn an agent for:
 - one small file edit
 - sequential steps that share tight state
 - ceremonial role-playing
+
+
+## Reusable Delegation Compiler Rule — DEBO-Wide
+
+DEBO must automatically apply this rule when another AI/tool has a material advantage.
+
+Do not make Bobby ask for a reusable setup after the fact.
+
+Before issuing a cross-AI prompt:
+
+1. RECOVER the current project truth, prior worker outputs, relevant skills, code, schemas, tests, and durable handoffs.
+2. CHECK the skill registry and worker/platform adapters.
+3. CLASSIFY the delegation:
+   - NATIVE — DEBO/ChatGPT should do it directly.
+   - ONE-OFF — bounded external task; use a structured one-time handoff.
+   - UPDATE-SKILL — an existing skill covers most of the need; extend it.
+   - NEW-WORKER-SKILL — a genuine reusable gap exists; build the narrow worker skill first, then execute the mission through it.
+4. USE skill-lifecycle-manager for USE / UPDATE / MERGE / BUILD decisions.
+5. Prefer delta prompts, patches, references, and durable source links over repeatedly pasting giant context blocks.
+6. Add platform-native agent/swarm instructions only when that runtime actually supports controlled execution.
+7. If native swarm is unavailable, use a governed sequential/K3-style fallback rather than pretending parallel agents ran.
+8. Require a structured return contract, receipts, test truth, known gaps, integration target, rollback, and approvals.
+9. Route returned work back to DEBO for verification before canonization.
+
+### Reusability gate
+
+Prefer UPDATE-SKILL or NEW-WORKER-SKILL when one or more are materially true:
+- the workflow is likely to recur;
+- the task has multiple stable steps;
+- the same specialist roles will be reused;
+- the handoff prompt is large or expensive to reconstruct;
+- a worker-specific capability meaningfully reduces future time/credit use;
+- the result should be portable across sister brains.
+
+Prefer ONE-OFF when:
+- the task is genuinely unique;
+- the workflow is tiny;
+- the rules are too unstable to encode;
+- creating a skill would cost more than the expected reuse.
+
+### Automatic worker-skill pattern
+
+When the reusability gate is met:
+
+RECOVER → REUSE → SPECIFY → BUILD/UPDATE WORKER SKILL → TEST SKILL → RUN MISSION → RETURN ARTIFACTS → DEBO VERIFY/MERGE
+
+The worker-skill creation prompt must include:
+- project / mission authority;
+- parent DEBO authority;
+- exact purpose and trigger;
+- recover-before-rebuild rule;
+- existing skills to inspect first;
+- specialist routing;
+- tool/connector boundaries;
+- approval firewall;
+- truth/provenance requirements;
+- agent/swarm rules with fallback;
+- token/credit efficiency rules;
+- required artifacts;
+- test scenarios;
+- exact return schema;
+- installation/package instructions when supported.
+
+### Structured compiler receipt
+
+Every compiled delegation records:
+
+DEBO_DELEGATION_MODE:
+PROJECT_ID:
+MISSION_ID:
+PRIMARY_WORKER:
+WHY_THIS_WORKER:
+EXISTING_SKILLS_RECOVERED:
+SKILL_ACTION: USE / UPDATE / MERGE / BUILD / NONE
+REUSABILITY_REASON:
+CONTEXT_REFERENCES:
+TOOLS_ALLOWED:
+TOOLS_PROHIBITED:
+APPROVAL_GATES:
+TEST_REQUIREMENTS:
+RETURN_ARTIFACTS:
+RETURN_SCHEMA:
+ROLLBACK:
+KNOWN_GAPS:
+DEBO_REVIEW_TARGET:
+
+No external worker output becomes project truth until DEBO verifies it.
 
 ## Final rule
 
