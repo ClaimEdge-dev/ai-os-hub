@@ -29,6 +29,8 @@ Request Service
 - `003_submit_service_request.sql` — public RPC for minimum safe service-request intake
 - `004_business_truth_public_view.sql` — public truth view exposing only approved fields
 - `005_private_evidence_storage.sql` — private evidence bucket + staff policies only
+- `006_seed_hold_defaults.sql` — non-public starter truth/service rows
+- `007_synthetic_test.sql` — rollback-only demo request-chain test
 
 ## Release rules
 
@@ -47,3 +49,18 @@ This pack intentionally does **not** allow anonymous direct photo uploads. Reque
 ## Rates
 
 No RRR dollar rate is present in this schema. Rate authority is stored as a separate source reference and official pricing remains owner-controlled.
+
+
+## Frontend adapter
+
+The private preview contains `config.js` and `backend.js`.
+
+Default mode is `local`, so the preview keeps demo data in the browser. The adapter is ready to call the RRR request RPC after the correct backend is verified and configured. It must not be pointed at an unidentified database.
+
+## Current verification
+
+- private preview JavaScript syntax: PASS
+- required local file references: PASS
+- noindex/private preview guard: PASS
+- Google Sheet CRM synthetic workflow to INVOICE READY / HOLD: PASS
+- Supabase/Postgres migrations: NOT APPLIED
