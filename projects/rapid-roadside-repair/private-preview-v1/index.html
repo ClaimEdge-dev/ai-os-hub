@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div class="private-banner">PRIVATE PREVIEW • NOT A PUBLIC WEBSITE • OWNER TRUTH + RATES + RELEASE STILL GATED</div>
+  <div class="private-banner">PRIVATE PREVIEW • BENCHMARK MODE ACTIVE • NOT A PUBLIC WEBSITE • BENCHMARKS ARE NOT VERIFIED RRR FACTS OR OFFICIAL RATES</div>
 
   <header class="site-header">
     <div class="brand-wrap">
@@ -26,6 +26,7 @@
     <button class="tab" data-view="request">Request Service</button>
     <button class="tab" data-view="dispatch">Dispatch</button>
     <button class="tab" data-view="fleet">Fleet</button>
+    <button class="tab" data-view="benchmarks">Benchmarks</button>
     <button class="tab" data-view="truth">Business Truth</button>
   </nav>
 
@@ -182,6 +183,35 @@
           <div class="eyebrow">DEMO PIPELINE</div>
           <h2>Fleet leads</h2>
           <div id="fleetList" class="compact-list"></div>
+        </article>
+      </section>
+    </section>
+
+
+    <section id="benchmarks" class="view">
+      <div class="section-head">
+        <div><div class="eyebrow">PRIVATE BENCHMARK MODE</div><h2>Working market defaults.</h2></div>
+        <span class="status-pill">NOT OFFICIAL RRR RATES</span>
+      </div>
+      <div id="benchmarkGrid" class="truth-grid"></div>
+      <section class="split">
+        <article class="panel">
+          <div class="eyebrow">BENCHMARK ESTIMATOR</div>
+          <h2>Model a road call.</h2>
+          <div class="grid two">
+            <label>Labor hours<input id="bmHours" type="number" min="0" step="0.5" value="2" /></label>
+            <label>Miles billed<input id="bmMiles" type="number" min="0" step="1" value="0" /></label>
+            <label>Parts cost<input id="bmParts" type="number" min="0" step="1" value="0" /></label>
+            <label>Call type<select id="bmAfter"><option value="day">Standard</option><option value="after">After-hours</option></select></label>
+          </div>
+          <button id="bmCalc" class="button primary" type="button">CALCULATE PRIVATE BENCHMARK</button>
+          <div id="bmResult" class="submit-result" hidden></div>
+        </article>
+        <article class="panel">
+          <div class="eyebrow">CONTROL</div>
+          <h2>What benchmark mode does.</h2>
+          <p class="muted">It lets DEBO finish the private website, CRM, estimate logic, fleet model and launch materials without waiting for every owner answer.</p>
+          <p class="muted">It does not make a benchmark true for Rapid Roadside Repair. Public-enabled remains off until real business evidence replaces the assumption.</p>
         </article>
       </section>
     </section>
