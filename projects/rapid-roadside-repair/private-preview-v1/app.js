@@ -60,10 +60,12 @@ $("#geoBtn").addEventListener("click",()=>{
   );
 });
 
-$("#serviceForm").addEventListener("submit",e=>{
+$("#serviceForm").addEventListener("submit",async e=>{
   e.preventDefault();
-  const fd=new FormData(e.currentTarget);
-  const files=[...(e.currentTarget.querySelector("[name=photos]").files||[])];
+  const form=e.currentTarget;
+  const submit=form.querySelector('button[type="submit"]');
+  const fd=new FormData(form);
+  const files=[...(form.querySelector("[name=photos]").files||[])];
   const request={
     serviceRequestId:makeId("SR"),leadId:makeId("LD"),createdAt:nowIso(),
     name:fd.get("name"),phone:fd.get("phone"),email:fd.get("email"),
@@ -75,10 +77,21 @@ $("#serviceForm").addEventListener("submit",e=>{
     status:"NEW",jobId:"",dispatchId:"",
     events:[{at:nowIso(),type:"created",oldState:"",newState:"NEW",summary:"Private demo service request created"}]
   };
-  const items=getJson(REQUESTS_KEY); items.unshift(request); saveJson(REQUESTS_KEY,items);
   const result=$("#submitResult"); result.hidden=false;
-  result.innerHTML=`<b>Demo request created:</b> ${esc(request.serviceRequestId)}<br>Status: NEW • Photos recorded: ${request.photoCount}. Open Dispatch to move the synthetic record through the workflow.`;
-  e.currentTarget.reset();
+  submit.disabled=true; submit.textContent="CREATING…";
+  try{
+    const mirror=window.RRR_BACKEND ? await window.RRR_BACKEND.mirrorServiceRequest(request) : {mode:"local",mirrored:false};
+    const items=getJson(REQUESTS_KEY); items.unshift(request); saveJson(REQUESTS_KEY,items);
+    const backendLine=mirror.mirrored
+      ? "<br><b>Backend:</b> mirrored to configured test backend."
+      : "<br><b>Backend:</b> local private-demo mode only.";
+    result.innerHTML=`<b>Demo request created:</b> ${esc(request.serviceRequestId)}<br>Status: NEW • Photos recorded: ${request.photoCount}.${backendLine}<br>Open Dispatch to move the synthetic record through the workflow.`;
+    form.reset();
+  }catch(err){
+    result.innerHTML=`<b>Request not submitted to backend.</b><br>${esc(err.message||String(err))}<br>No public dispatch or billing action occurred.`;
+  }finally{
+    submit.disabled=false; submit.textContent="CREATE DEMO SERVICE REQUEST";
+  }
 });
 
 function updateStatus(id,newState){
