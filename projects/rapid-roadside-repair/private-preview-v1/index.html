@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rapid Roadside Repair — Private Preview</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="private-banner">PRIVATE PREVIEW • NOT A PUBLIC WEBSITE • BUSINESS TRUTH + RATES STILL OWNER-GATED</div>
+
+  <header class="site-header">
+    <div class="brand-wrap">
+      <div class="r-mark">R</div>
+      <div>
+        <div class="brand-name"><span>RAPID</span> ROADSIDE REPAIR</div>
+        <div class="brand-sub">EMERGENCY MOBILE ROADSIDE • ON-SITE REPAIR • HEAVY DUTY</div>
+      </div>
+    </div>
+    <a class="phone" href="tel:+18157493811">(815) 749-3811</a>
+  </header>
+
+  <nav class="tabs" aria-label="Private preview sections">
+    <button class="tab active" data-view="customer">Request Service</button>
+    <button class="tab" data-view="dispatch">Dispatch Board</button>
+    <button class="tab" data-view="truth">Business Truth</button>
+  </nav>
+
+  <main>
+    <section id="customer" class="view active">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">MOBILE SERVICE WHERE THE BREAKDOWN HAPPENS</div>
+          <h1>TRUCKS. TRAILERS. EQUIPMENT.<br><span>RAPID RESPONSE WORKFLOW.</span></h1>
+          <p>This is the private Rapid Roadside Repair website/CRM prototype. Submit a demo service request below to test the intake-to-dispatch workflow.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="tel:+18157493811">CALL NOW</a>
+            <a class="button secondary" href="#request-form">REQUEST SERVICE</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="steel">RAPID</div>
+          <div class="redline">ROADSIDE REPAIR</div>
+          <ul>
+            <li>Emergency roadside intake</li>
+            <li>Semi + trailer workflow</li>
+            <li>Heavy-equipment capable architecture</li>
+            <li>Fleet / commercial account path</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="services">
+        <article><b>EMERGENCY ROADSIDE</b><span>Breakdown intake, location, unit and symptoms.</span></article>
+        <article><b>MOBILE TRUCK REPAIR</b><span>Mechanical, diagnostic, electrical and related categories when owner-confirmed.</span></article>
+        <article><b>TRAILER REPAIR</b><span>Trailer-specific repair intake and evidence.</span></article>
+        <article><b>HEAVY EQUIPMENT</b><span>On-site equipment workflows for confirmed classes.</span></article>
+        <article><b>FLEET SERVICE</b><span>Commercial account and preventive-maintenance path.</span></article>
+      </section>
+
+      <section id="request-form" class="panel form-panel">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">REQUEST SERVICE V1</div>
+            <h2>Tell Rapid what happened.</h2>
+          </div>
+          <span class="status-pill">PRIVATE DEMO</span>
+        </div>
+
+        <form id="serviceForm">
+          <div class="grid two">
+            <label>Name<input required name="name" autocomplete="name" /></label>
+            <label>Phone<input required name="phone" inputmode="tel" autocomplete="tel" /></label>
+            <label>Company / Fleet<input name="company" /></label>
+            <label>Current Location<input required name="location" placeholder="Address, yard, highway / mile marker" /></label>
+            <label>Asset Type
+              <select required name="assetType">
+                <option value="">Choose…</option>
+                <option>Semi / Tractor</option><option>Trailer</option><option>Box Truck</option>
+                <option>Dump Truck</option><option>Heavy Equipment</option><option>Other</option>
+              </select>
+            </label>
+            <label>Unit #<input name="unit" /></label>
+            <label>Problem Category
+              <select required name="problem">
+                <option value="">Choose…</option>
+                <option>Won’t Start</option><option>Electrical / Battery</option><option>Air / Brake</option>
+                <option>Tire / Wheel</option><option>Trailer Issue</option><option>Engine / Mechanical</option>
+                <option>Leak / Cooling</option><option>Fault Code / Derate</option><option>Hydraulic</option><option>Other</option>
+              </select>
+            </label>
+            <label>Loaded?
+              <select name="loaded"><option>Unknown</option><option>Yes</option><option>No</option></select>
+            </label>
+          </div>
+          <label>Symptoms / What happened<textarea required name="symptoms" rows="4"></textarea></label>
+          <label>Warning lights / fault codes<textarea name="faultCodes" rows="2"></textarea></label>
+          <label>Safe-access / scene notes<textarea name="safety" rows="2"></textarea></label>
+          <div class="notice">Prototype only. Do not enter real customer personal data until the production privacy/backend workflow is approved.</div>
+          <button class="button primary" type="submit">CREATE DEMO SERVICE REQUEST</button>
+        </form>
+        <div id="submitResult" class="submit-result" hidden></div>
+      </section>
+    </section>
+
+    <section id="dispatch" class="view">
+      <div class="section-head">
+        <div><div class="eyebrow">RRR OPS</div><h2>Dispatch + Job Board</h2></div>
+        <button id="clearDemo" class="button danger">CLEAR DEMO DATA</button>
+      </div>
+
+      <div class="stats">
+        <article><span>OPEN REQUESTS</span><b id="statOpen">0</b></article>
+        <article><span>AWAITING AUTH</span><b id="statAuth">0</b></article>
+        <article><span>INVOICE READY</span><b id="statInvoice">0</b></article>
+        <article><span>CLOSED</span><b id="statClosed">0</b></article>
+      </div>
+
+      <div id="dispatchList" class="dispatch-list"></div>
+    </section>
+
+    <section id="truth" class="view">
+      <div class="section-head">
+        <div><div class="eyebrow">OWNER TRUTH GATE</div><h2>What can and cannot go public yet</h2></div>
+      </div>
+      <div class="truth-grid">
+        <article class="truth-card pending"><b>Business Name</b><span>Rapid Roadside Repair</span><small>OWNER-CONFIRM</small></article>
+        <article class="truth-card pending"><b>Phone</b><span>(815) 749-3811</span><small>OWNER-CONFIRM</small></article>
+        <article class="truth-card pending"><b>Core Service</b><span>Emergency mobile roadside + on-site repair</span><small>OWNER-CONFIRM</small></article>
+        <article class="truth-card pending"><b>Assets</b><span>Semi trucks + trailers + broad equipment scope</span><small>OWNER-CONFIRM</small></article>
+        <article class="truth-card hold"><b>24/7 Hours</b><span>Not verified</span><small>HOLD</small></article>
+        <article class="truth-card hold"><b>Service Area</b><span>Exact radius / counties / corridors not verified</span><small>HOLD</small></article>
+        <article class="truth-card hold"><b>Rates</b><span>No official Rapid rate card loaded</span><small>HOLD</small></article>
+        <article class="truth-card hold"><b>Credentials</b><span>Licenses / insurance / certifications need evidence</span><small>HOLD</small></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <b>RAPID ROADSIDE REPAIR</b>
+    <span>Private DEBO build • Request → Dispatch → Job → Evidence → Invoice Ready</span>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
