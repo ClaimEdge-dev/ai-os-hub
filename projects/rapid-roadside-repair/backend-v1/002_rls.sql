@@ -1,7 +1,17 @@
 -- Rapid Roadside Repair backend v1 RLS
 -- PREPARED / NOT APPLIED
--- Conservative policy: authenticated users only for operating tables.
--- Anonymous service intake is allowed only through the security-definer RPC in 003.
+-- Conservative policy: only authenticated users with an explicit RRR app_metadata role
+-- may access operating tables. Anonymous service intake is allowed only through the
+-- security-definer RPC in 003.
+
+create or replace function public.rrr_is_staff()
+returns boolean
+language sql
+stable
+as $$
+  select coalesce(auth.jwt() -> 'app_metadata' ->> 'rrr_role','')
+    in ('owner','admin','dispatcher','technician');
+$$;
 
 alter table public.rrr_business_truth enable row level security;
 alter table public.rrr_service_capabilities enable row level security;
@@ -24,15 +34,15 @@ do $$ declare t text; begin
     'rrr_fleet_accounts','rrr_assets','rrr_service_requests','rrr_dispatch','rrr_jobs',
     'rrr_job_events','rrr_evidence','rrr_charges','rrr_invoices','rrr_payments'
   ] loop
-    execute format('drop policy if exists authenticated_staff_all on public.%I', t);
+    execute format('drop policy if exists rrr_staff_all on public.%I', t);
     execute format(
-      'create policy authenticated_staff_all on public.%I for all to authenticated using (true) with check (true)',
+      'create policy rrr_staff_all on public.%I for all to authenticated using (public.rrr_is_staff()) with check (public.rrr_is_staff())',
       t
     );
   end loop;
 end $$;
 
--- Append-only control for job events from authenticated clients:
+-- Append-only control for job events from authenticated staff clients.
 revoke update, delete on public.rrr_job_events from authenticated;
 grant select, insert on public.rrr_job_events to authenticated;
 
@@ -51,3 +61,5 @@ revoke all on public.rrr_evidence from anon;
 revoke all on public.rrr_charges from anon;
 revoke all on public.rrr_invoices from anon;
 revoke all on public.rrr_payments from anon;
+
+-- Before production, set app_metadata.rrr_role only through a trusted/admin workflow.
