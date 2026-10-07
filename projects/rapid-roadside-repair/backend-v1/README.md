@@ -64,3 +64,15 @@ Default mode is `local`, so the preview keeps demo data in the browser. The adap
 - noindex/private preview guard: PASS
 - Google Sheet CRM synthetic workflow to INVOICE READY / HOLD: PASS
 - Supabase/Postgres migrations: NOT APPLIED
+
+
+## V5 launch-candidate additions
+
+Prepared but not applied:
+- `008_customer_updates_authorizations.sql` — customer-visible updates + added-work authorization records
+- `009_public_status_tracking.sql` — safe request-status RPC using random tracking token
+- `010_authorization_decision.sql` — approve/decline additional work through a tokenized decision RPC
+- `011_fleet_portal_review_payment.sql` — fleet-portal membership, review queue and payment-link placeholders
+- `012_upload_ticket_prep.sql` — short-lived evidence-upload ticket architecture without anonymous bucket access
+
+V5 still does not connect a real payment processor, create public evidence upload access, or migrate any unverified production database.
