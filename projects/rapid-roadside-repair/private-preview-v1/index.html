@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rapid Roadside Repair — Professional Private Preview v4</title>
+  <title>Rapid Roadside Repair — Private Launch Candidate V5</title>
   <meta name="description" content="Private Rapid Roadside Repair launch-candidate preview." />
   <meta name="robots" content="noindex,nofollow,noarchive" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <div class="preview-ribbon">
-    <strong>PRIVATE V4 PREVIEW</strong>
+    <strong>PRIVATE V5 LAUNCH CANDIDATE</strong>
     <span>Benchmark assumptions are for build/testing only. Nothing here is an approved public rate, credential, address, or owner-confirmed claim.</span>
   </div>
 
@@ -27,6 +27,7 @@
       <button class="jump" data-target="fleet">Fleet</button>
       <button class="site-anchor" data-scroll="coverage">Coverage</button>
       <button class="site-anchor" data-scroll="faq">FAQ</button>
+      <button class="jump" data-target="track">Track Request</button>
       <button class="jump nav-cta" data-target="request">Request Service</button>
     </nav>
     <div class="header-right">
@@ -242,6 +243,37 @@
       </section>
     </section>
 
+
+    <section id="track" class="view utility-view">
+      <div class="utility-header">
+        <div><span class="eyebrow">TRACK REQUEST</span><h2>See the current job status.</h2><p class="muted">Private V5 demo. Use a request ID created in this browser. Production will use a secure tracking token.</p></div>
+        <button class="button ghost jump" data-target="preview">BACK TO WEBSITE</button>
+      </div>
+      <section class="split">
+        <article class="panel">
+          <form id="trackForm">
+            <label>Service Request ID<input required name="requestId" placeholder="SR-YYYYMMDD-XXXX" /></label>
+            <label>Phone<input required name="phone" inputmode="tel" placeholder="Same phone used on request" /></label>
+            <button class="button primary" type="submit">CHECK STATUS</button>
+          </form>
+          <div id="trackResult" class="track-result"></div>
+        </article>
+        <article class="panel">
+          <span class="eyebrow">CUSTOMER EXPERIENCE V5</span>
+          <h3>What the final tracker is designed to show.</h3>
+          <ul class="clean-list good">
+            <li>Request received</li>
+            <li>Dispatch confirmed</li>
+            <li>Technician en route / on site</li>
+            <li>Diagnosis in progress</li>
+            <li>Additional-work authorization needed</li>
+            <li>Repair complete</li>
+            <li>Invoice/payment status</li>
+          </ul>
+        </article>
+      </section>
+    </section>
+
     <section id="fleet" class="view utility-view">
       <div class="utility-header"><div><span class="eyebrow">FLEET ACCOUNTS</span><h2>Build a repeat-service relationship.</h2></div><button class="button ghost jump" data-target="preview">BACK TO WEBSITE</button></div>
       <section class="split">
@@ -276,8 +308,69 @@
       </div>
       <div class="utility-header"><div><span class="eyebrow">OWNER WORKSPACE</span><h2>Dispatch + Job Board</h2></div><div class="toolbar"><button id="seedDemo" class="button">LOAD SYNTHETIC TEST</button><button id="clearDemo" class="button danger">CLEAR DEMO DATA</button></div></div>
       <div class="stats"><article><span>OPEN REQUESTS</span><b id="statOpen">0</b></article><article><span>AWAITING AUTH</span><b id="statAuth">0</b></article><article><span>INVOICE READY</span><b id="statInvoice">0</b></article><article><span>CLOSED</span><b id="statClosed">0</b></article></div>
-      <div class="ops-roadmap"><span>LEAD</span><i>→</i><span>REQUEST</span><i>→</i><span>DISPATCH</span><i>→</i><span>JOB</span><i>→</i><span>EVIDENCE</span><i>→</i><span>CHARGES</span><i>→</i><span>INVOICE</span><i>→</i><span>FOLLOW-UP</span></div>
+      <div class="ops-roadmap"><span>LEAD</span><i>→</i><span>REQUEST</span><i>→</i><span>DISPATCH</span><i>→</i><span>JOB</span><i>→</i><span>AUTH</span><i>→</i><span>EVIDENCE</span><i>→</i><span>INVOICE</span><i>→</i><span>PAYMENT</span><i>→</i><span>REVIEW</span></div>
       <div id="dispatchList" class="dispatch-list"></div>
+
+      <section class="owner-grid">
+        <article class="panel owner-desk">
+          <span class="eyebrow">JOB DESK</span>
+          <div class="desk-head"><h3>Authorization + Invoice</h3><span id="deskJobLabel" class="status-pill">SELECT A JOB</span></div>
+          <div id="jobDeskEmpty" class="empty-state">Open or load a demo request, then choose <b>JOB DESK</b> from a dispatch card.</div>
+          <div id="jobDesk" hidden>
+            <div id="deskSummary" class="desk-summary"></div>
+            <div class="desk-columns">
+              <section>
+                <h4>Additional Work Authorization</h4>
+                <label>Work description<textarea id="authWork" rows="3" placeholder="Describe added work"></textarea></label>
+                <label>Amount limit / benchmark model<input id="authAmount" type="number" min="0" step="1" value="0" /></label>
+                <button id="createAuth" class="button secondary" type="button">CREATE DEMO AUTHORIZATION</button>
+                <div id="authResult" class="mini-result"></div>
+              </section>
+              <section>
+                <h4>Invoice Builder</h4>
+                <div class="grid two">
+                  <label>Labor hours<input id="invHours" type="number" min="0" step="0.5" value="2" /></label>
+                  <label>Miles<input id="invMiles" type="number" min="0" step="1" value="0" /></label>
+                  <label>Parts cost<input id="invParts" type="number" min="0" step="1" value="0" /></label>
+                  <label>Call type<select id="invAfter"><option value="day">Standard</option><option value="after">After-hours</option></select></label>
+                </div>
+                <button id="buildInvoice" class="button primary" type="button">BUILD PRIVATE INVOICE MODEL</button>
+                <div id="invoiceResult" class="mini-result"></div>
+              </section>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <span class="eyebrow">CUSTOMER UPDATES</span>
+          <h3>Status communication queue</h3>
+          <div id="customerUpdatesList" class="compact-list"></div>
+        </article>
+
+        <article class="panel">
+          <span class="eyebrow">FLEET PORTAL</span>
+          <h3>Account + asset snapshot</h3>
+          <div id="fleetPortalList" class="compact-list"></div>
+        </article>
+
+        <article class="panel">
+          <span class="eyebrow">REVIEWS</span>
+          <h3>Closeout follow-up queue</h3>
+          <div id="reviewQueueList" class="compact-list"></div>
+        </article>
+
+        <article class="panel">
+          <span class="eyebrow">PAYMENT LINKS</span>
+          <h3>Processor-ready, not connected</h3>
+          <div id="paymentLinkList" class="compact-list"></div>
+        </article>
+
+        <article class="panel">
+          <span class="eyebrow">LAUNCH QA</span>
+          <h3>Private release checks</h3>
+          <div id="qaList" class="compact-list"></div>
+        </article>
+      </section>
     </section>
 
     <section id="benchmarks" class="view utility-view">
