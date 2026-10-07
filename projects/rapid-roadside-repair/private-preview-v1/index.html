@@ -3,254 +3,215 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rapid Roadside Repair — Private Full Preview v3</title>
-  <meta name="description" content="Private Rapid Roadside Repair website, dispatch, fleet, benchmark and launch-control preview." />
+  <title>Rapid Roadside Repair — Professional Private Preview v4</title>
+  <meta name="description" content="Private Rapid Roadside Repair launch-candidate preview." />
   <meta name="robots" content="noindex,nofollow,noarchive" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div class="private-banner">PRIVATE PREVIEW V3 • BENCHMARK MODE ACTIVE • NOT PUBLIC • BENCHMARKS ARE NOT VERIFIED RRR FACTS OR OFFICIAL RATES</div>
+  <div class="preview-ribbon">
+    <strong>PRIVATE V4 PREVIEW</strong>
+    <span>Benchmark assumptions are for build/testing only. Nothing here is an approved public rate, credential, address, or owner-confirmed claim.</span>
+  </div>
 
   <header class="site-header">
-    <div class="brand-wrap">
-      <div class="r-mark">R</div>
-      <div>
-        <div class="brand-name"><span>RAPID</span> ROADSIDE REPAIR</div>
-        <div class="brand-sub">MOBILE ROADSIDE • ON-SITE REPAIR • TRUCKS • TRAILERS • EQUIPMENT</div>
+    <button class="brand-button jump" data-target="preview" aria-label="Rapid Roadside Repair home">
+      <div class="brand-badge">R</div>
+      <div class="brand-copy">
+        <b><span>RAPID</span> ROADSIDE REPAIR</b>
+        <small>MOBILE TRUCK • TRAILER • EQUIPMENT SERVICE</small>
       </div>
-    </div>
-    <div class="header-actions">
-      <span class="mode-chip">PRIVATE BENCHMARK MODE</span>
-      <a class="phone" href="tel:+18157493811">(815) 749-3811</a>
-    </div>
+    </button>
+    <nav class="main-nav">
+      <button class="jump" data-target="preview">Home</button>
+      <button class="jump" data-target="request">Request Service</button>
+      <button class="jump" data-target="fleet">Fleet</button>
+      <button class="jump" data-target="dispatch">Owner Ops</button>
+      <button class="jump" data-target="benchmarks">Benchmarks</button>
+      <button class="jump" data-target="truth">Launch Control</button>
+    </nav>
+    <a class="dispatch-phone" href="tel:+18157493811"><small>DISPATCH</small><b>(815) 749-3811</b></a>
   </header>
-
-  <nav class="tabs" aria-label="Private preview sections">
-    <button class="tab active" data-view="preview">Website Preview</button>
-    <button class="tab" data-view="request">Request Service</button>
-    <button class="tab" data-view="fleet">Fleet</button>
-    <button class="tab" data-view="dispatch">Dispatch</button>
-    <button class="tab" data-view="benchmarks">Benchmarks</button>
-    <button class="tab" data-view="truth">Launch Control</button>
-  </nav>
 
   <main>
     <section id="preview" class="view active">
-      <section class="hero hero-v3">
+      <section class="hero">
         <div class="hero-copy">
-          <div class="eyebrow">MOBILE SERVICE WHERE THE BREAKDOWN HAPPENS</div>
-          <h1>TRUCKS. TRAILERS.<br>EQUIPMENT.<br><span>WE COME TO YOU.</span></h1>
-          <p>Private launch-candidate concept for Rapid Roadside Repair. Built for emergency roadside, on-site repair, commercial fleets and heavy-duty work, with benchmark assumptions clearly separated from verified business truth.</p>
+          <span class="eyebrow">24/7 MOBILE ROADSIDE • PRIVATE BENCHMARK MODEL</span>
+          <h1>TRUCK DOWN?<br><span>WE COME TO YOU.</span></h1>
+          <p class="hero-lead">Mobile roadside and on-site repair built for semi trucks, trailers, commercial fleets and heavy equipment across the Chicagoland freight corridors.</p>
           <div class="hero-actions">
-            <a class="button primary" href="tel:+18157493811">CALL NOW</a>
+            <a class="button primary" href="tel:+18157493811">CALL DISPATCH</a>
             <button class="button secondary jump" data-target="request">REQUEST SERVICE</button>
-            <button class="button ghost jump" data-target="fleet">COMMERCIAL / FLEET</button>
           </div>
-          <div class="microproof">
-            <span>SEMI TRUCKS</span><span>TRAILERS</span><span>HEAVY EQUIPMENT</span><span>ON-SITE SERVICE</span>
+          <div class="hero-meta">
+            <span><b>24/7</b> benchmark emergency model</span>
+            <span><b>I-55 / I-80 / I-355</b> corridor focus</span>
+            <span><b>Fleet</b> account-ready workflow</span>
           </div>
         </div>
 
-        <div class="hero-stack">
-          <div class="hero-card hero-brand-card">
-            <div class="steel">RAPID</div>
-            <div class="redline">ROADSIDE REPAIR</div>
-            <div class="hero-tagline">ON-SITE MAINTENANCE • EMERGENCY ROADSIDE • HEAVY DUTY SOLUTIONS</div>
-            <div class="phone-plate">(815) 749-3811</div>
-            <div class="hero-equipment">SEMI TRUCKS • TRAILERS • HEAVY EQUIPMENT</div>
+        <aside class="dispatch-card">
+          <div class="dispatch-card-top">
+            <span class="live-dot"></span>
+            <b>NEED SERVICE NOW?</b>
           </div>
-          <div class="benchmark-strip">
-            <b>PRIVATE BENCHMARK:</b>
-            24/7 model • 50-mile core • up to 100-mile extended • I-55 / I-80 / I-355 focus
+          <p>Have your location, unit number, equipment type and symptoms ready. Photos and fault codes help speed triage.</p>
+          <div class="dispatch-steps">
+            <div><span>1</span><p><b>Send your location</b><small>Road, yard, truck stop or job site.</small></p></div>
+            <div><span>2</span><p><b>Tell us what failed</b><small>Truck, trailer, tire, air, electrical, derate and more.</small></p></div>
+            <div><span>3</span><p><b>Rapid confirms dispatch</b><small>Capability, timing and price are confirmed before commitment.</small></p></div>
           </div>
+          <a class="dispatch-card-phone" href="tel:+18157493811">(815) 749-3811</a>
+          <button class="button full secondary jump" data-target="request">OPEN SERVICE REQUEST</button>
+        </aside>
+      </section>
+
+      <section class="proof-band">
+        <div><b>MOBILE-FIRST</b><span>Roadside • Yard • Job Site</span></div>
+        <div><b>TRUCK + TRAILER</b><span>Semi • Commercial • Trailer</span></div>
+        <div><b>FLEET-READY</b><span>Accounts • PM • Unit History</span></div>
+        <div><b>EVIDENCE-BACKED</b><span>Photos • Authorization • Job Record</span></div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <span class="eyebrow">FAST TRIAGE</span>
+          <h2>What’s wrong right now?</h2>
+          <p>Start with the problem. The private Request Service flow carries the details into dispatch and the job record.</p>
+        </div>
+        <div class="issue-grid">
+          <button class="issue-card quick-problem" data-problem="Won’t Start"><span>01</span><b>Won’t Start</b><small>Battery • Starter • Charging</small></button>
+          <button class="issue-card quick-problem" data-problem="Air / Brake"><span>02</span><b>Air / Brake</b><small>Leaks • Chambers • Lines</small></button>
+          <button class="issue-card quick-problem" data-problem="Trailer Issue"><span>03</span><b>Trailer Issue</b><small>Lights • Air • Doors • Landing Gear</small></button>
+          <button class="issue-card quick-problem" data-problem="Fault Code / Derate"><span>04</span><b>Derate / Fault</b><small>Diagnostics • DPF • DEF</small></button>
+          <button class="issue-card quick-problem" data-problem="Tire / Wheel"><span>05</span><b>Tire / Wheel</b><small>Tire • Hub • Wheel</small></button>
+          <button class="issue-card quick-problem" data-problem="Leak / Cooling"><span>06</span><b>Leak / Cooling</b><small>Hose • Belt • Coolant</small></button>
+          <button class="issue-card quick-problem" data-problem="Hydraulic"><span>07</span><b>Hydraulic</b><small>Hose • Leak • Field Repair</small></button>
+          <button class="issue-card quick-problem" data-problem="Other"><span>08</span><b>Something Else</b><small>Tell dispatch what happened</small></button>
         </div>
       </section>
 
-      <section class="kpi-ribbon">
-        <article><b>24/7</b><span>benchmark emergency model</span></article>
-        <article><b>50 MI</b><span>benchmark core radius</span></article>
-        <article><b>100 MI</b><span>benchmark extended radius</span></article>
-        <article><b>FLEET</b><span>account + PM workflow ready</span></article>
-        <article><b>PROOF</b><span>photo + job evidence architecture</span></article>
-      </section>
-
-      <section class="section-block">
-        <div class="section-head">
-          <div><div class="eyebrow">SERVICES</div><h2>One mobile repair system for the whole breakdown.</h2></div>
-          <span class="status-pill">BENCHMARK-SUPPORTED / PRIVATE</span>
-        </div>
-        <div id="serviceCards" class="services"></div>
-      </section>
-
-      <section class="section-block">
-        <div class="section-head">
-          <div><div class="eyebrow">COMMON CALLS</div><h2>Built around the problems that actually stop trucks.</h2></div>
-        </div>
-        <div class="icon-grid">
-          <article><div class="icon-dot">01</div><b>NO-START / BATTERY</b><span>Starting, charging and electrical triage.</span></article>
-          <article><div class="icon-dot">02</div><b>AIR / BRAKE</b><span>Air leaks, chambers, lines and brake-system issues.</span></article>
-          <article><div class="icon-dot">03</div><b>TRAILER</b><span>Lights, air, brakes, landing gear, doors and suspension.</span></article>
-          <article><div class="icon-dot">04</div><b>FAULT / DERATE</b><span>Diagnostic-code and aftertreatment workflows when equipped.</span></article>
-          <article><div class="icon-dot">05</div><b>TIRE / WHEEL</b><span>Roadside tire, wheel, hub and related support when equipped.</span></article>
-          <article><div class="icon-dot">06</div><b>LEAK / COOLING</b><span>Hoses, coolant, belts and fluid-related roadside issues.</span></article>
-          <article><div class="icon-dot">07</div><b>HYDRAULIC</b><span>Field hose/leak support for equipment where capability is confirmed.</span></article>
-          <article><div class="icon-dot">08</div><b>WELD / FAB</b><span>Mobile fabrication concept for confirmed technician/equipment capability.</span></article>
-        </div>
-      </section>
-
-      <section class="split">
-        <article class="panel price-panel">
-          <div class="eyebrow">PRIVATE PRICING PREVIEW</div>
-          <h2>Benchmark rate model.</h2>
-          <div class="price-grid">
-            <div><span>Service call</span><b>$150</b></div>
-            <div><span>Mobile labor</span><b>$150/hr</b></div>
-            <div><span>Minimum</span><b>2 hr</b></div>
-            <div><span>After-hours call</span><b>$200</b></div>
-            <div><span>Travel model</span><b>$2/mi</b></div>
-            <div><span>Parts markup</span><b>30%</b></div>
+      <section class="section section-dark">
+        <div class="section-heading split-heading">
+          <div>
+            <span class="eyebrow">MOBILE REPAIR</span>
+            <h2>Keep the unit moving without losing the whole day.</h2>
           </div>
-          <div class="notice">PRIVATE BENCHMARK DISPLAY ONLY. These are not official Rapid Roadside Repair prices and cannot be quoted or invoiced until adopted into an approved rate source.</div>
-          <button class="button primary jump" data-target="benchmarks">OPEN BENCHMARK ESTIMATOR</button>
-        </article>
+          <p>Professional mobile-service sites lead with the emergency first, then show the repair depth behind it. Rapid now follows that pattern while keeping every unverified specialty truth-gated.</p>
+        </div>
+        <div id="serviceCards" class="service-grid"></div>
+      </section>
 
-        <article class="panel area-panel">
-          <div class="eyebrow">SERVICE AREA MODEL</div>
+      <section class="section">
+        <div class="section-heading">
+          <span class="eyebrow">HOW IT WORKS</span>
+          <h2>One service call. One clean job record.</h2>
+        </div>
+        <div class="process-grid">
+          <article><span>01</span><b>Request Service</b><p>Call or send the location, asset and symptoms.</p></article>
+          <article><span>02</span><b>Dispatch + Triage</b><p>Confirm technician, tools, parts, timing and authorization.</p></article>
+          <article><span>03</span><b>Repair + Document</b><p>Diagnosis, labor, parts, photos and additional-work approval stay attached to the job.</p></article>
+          <article><span>04</span><b>Closeout</b><p>Testing, recommendations, invoice-ready evidence and fleet history.</p></article>
+        </div>
+      </section>
+
+      <section class="coverage-section">
+        <div class="coverage-copy">
+          <span class="eyebrow">COVERAGE MODEL</span>
           <h2>Built around the freight corridors.</h2>
-          <div class="corridors"><span>I-55</span><span>I-80</span><span>I-355</span></div>
-          <p class="muted">Private planning model: a 50-mile core radius with an extended reach up to 100 miles when dispatch economics and technician availability make sense.</p>
-          <div class="area-note">Planning anchor: Joliet / Channahon freight corridor. This is <b>not</b> a claimed Rapid business address.</div>
-        </article>
-      </section>
-
-      <section class="section-block">
-        <div class="section-head">
-          <div><div class="eyebrow">WHY RAPID</div><h2>More than “a guy with tools in a truck.”</h2></div>
+          <p>Private planning model: 50-mile core coverage with extended dispatch up to 100 miles when the job, technician and travel economics make sense.</p>
+          <div class="corridor-row"><span>I-55</span><span>I-80</span><span>I-355</span><span>US-6</span></div>
+          <small>Benchmark planning anchor only. No Rapid business address is being claimed here.</small>
         </div>
-        <div class="feature-grid">
-          <article><b>MOBILE-FIRST</b><span>Roadside, yard and job-site intake built into one workflow.</span></article>
-          <article><b>EVIDENCE-BACKED</b><span>Diagnosis, authorization, parts, photos, time and closeout stay tied to the job.</span></article>
-          <article><b>FLEET-READY</b><span>PO rules, unit history, PM schedules and account billing architecture are already modeled.</span></article>
-          <article><b>NO FAKE PROMISES</b><span>Capability, ETA and price are confirmed before the workflow treats them as facts.</span></article>
-        </div>
-      </section>
-
-      <section class="split">
-        <article class="panel">
-          <div class="eyebrow">HOW IT WORKS</div>
-          <h2>Breakdown to closeout.</h2>
-          <ol class="steps">
-            <li><b>1. Tell us where you are.</b><span>Location, unit and safe-access details.</span></li>
-            <li><b>2. Tell us what happened.</b><span>Symptoms, fault codes and photos when available.</span></li>
-            <li><b>3. Rapid confirms capability.</b><span>Technician, tools, parts and dispatch options are checked.</span></li>
-            <li><b>4. Work is documented.</b><span>Diagnosis, authorization, parts, labor, travel and evidence.</span></li>
-            <li><b>5. Job closes cleanly.</b><span>Invoice-ready record, recommendations, follow-up and fleet history.</span></li>
-          </ol>
-        </article>
-
-        <article class="panel">
-          <div class="eyebrow">WHAT TO HAVE READY</div>
-          <h2>Make the first call useful.</h2>
-          <ul class="ready-list">
-            <li>Exact location, highway, yard or job site</li>
-            <li>Truck / trailer / equipment type</li>
-            <li>Unit number and VIN/serial if available</li>
-            <li>What happened and whether the unit is loaded</li>
-            <li>Warning lights or fault codes</li>
-            <li>Photos of the issue when safe</li>
-            <li>Company / fleet / PO information</li>
-            <li>Any access or roadside safety concerns</li>
-          </ul>
-          <button class="button secondary jump" data-target="request">OPEN REQUEST SERVICE</button>
-        </article>
-      </section>
-
-      <section class="section-block">
-        <div class="section-head">
-          <div><div class="eyebrow">COMMERCIAL / FLEET</div><h2>Turn one breakdown into a service relationship.</h2></div>
-          <span class="status-pill">PRIVATE ACCOUNT MODEL</span>
-        </div>
-        <div class="fleet-cards">
-          <article><small>01</small><b>ROADSIDE ACCOUNT</b><span>Central contact, unit history, PO rules and breakdown documentation.</span></article>
-          <article><small>02</small><b>YARD SERVICE</b><span>Scheduled on-site repairs and recurring service visits.</span></article>
-          <article><small>03</small><b>PM PROGRAM</b><span>Preventive maintenance schedules, due dates and asset tracking.</span></article>
-          <article><small>04</small><b>FLEET REPORTING</b><span>Evidence-backed invoices, recurring issues and service history.</span></article>
-        </div>
-        <div class="hero-actions center-actions"><button class="button primary jump" data-target="fleet">START FLEET INTAKE</button></div>
-      </section>
-
-      <section class="split">
-        <article class="panel">
-          <div class="eyebrow">JOB PROOF</div>
-          <h2>Every repair should leave a record.</h2>
-          <div class="proof-flow">
-            <span>CALL / FORM</span><i>→</i><span>TRIAGE</span><i>→</i><span>DISPATCH</span><i>→</i><span>DIAGNOSIS</span><i>→</i><span>AUTH</span><i>→</i><span>REPAIR</span><i>→</i><span>PHOTOS</span><i>→</i><span>INVOICE</span>
+        <div class="coverage-list">
+          <b>PRIVATE SERVICE-AREA DRAFT</b>
+          <div>
+            <span>Joliet</span><span>Minooka</span><span>Morris</span><span>Plainfield</span>
+            <span>Romeoville</span><span>Bolingbrook</span><span>Lockport</span><span>New Lenox</span>
+            <span>Shorewood</span><span>Naperville</span><span>Chicago Metro</span><span>NW Indiana*</span>
           </div>
-          <p class="muted">The internal system already supports job events, private evidence, charges, invoices and fleet history. The production backend and secure photo path are the remaining technical activation steps.</p>
-        </article>
-        <article class="panel">
-          <div class="eyebrow">CUSTOMER EXPERIENCE</div>
-          <h2>Anticipated next-layer features.</h2>
-          <ul class="ready-list">
-            <li>Request received confirmation</li>
-            <li>Technician / dispatch status updates</li>
-            <li>Secure photo and document upload</li>
-            <li>Additional-work authorization link</li>
-            <li>Digital invoice and payment link</li>
-            <li>Fleet portal / unit history</li>
-            <li>PM reminders</li>
-            <li>Review request after closeout</li>
-          </ul>
-        </article>
-      </section>
-
-      <section class="section-block">
-        <div class="section-head">
-          <div><div class="eyebrow">REVIEWS + REAL WORK</div><h2>Reserved for evidence, not invented applause.</h2></div>
-        </div>
-        <div class="gallery-grid">
-          <article><b>REAL JOB PHOTOS</b><span>Before / diagnosis / repair / after imagery once approved.</span></article>
-          <article><b>CUSTOMER REVIEWS</b><span>Real, sourced reviews only. No generated testimonials.</span></article>
-          <article><b>SERVICE TRUCKS</b><span>Actual Rapid truck/tool photos replace concept imagery.</span></article>
-          <article><b>TECHNICIAN SPOTLIGHTS</b><span>Real staff, experience and credentials after verification.</span></article>
+          <small>*Extended dispatch concept only.</small>
         </div>
       </section>
 
-      <section class="section-block">
-        <div class="section-head">
-          <div><div class="eyebrow">FAQ</div><h2>What drivers and fleets will ask first.</h2></div>
+      <section class="section fleet-feature">
+        <div class="fleet-copy">
+          <span class="eyebrow">COMMERCIAL + FLEET</span>
+          <h2>Emergency roadside is the first job. Fleet service is the relationship.</h2>
+          <p>Rapid’s private system already supports account contacts, asset rosters, PO rules, recurring PM, yard service, evidence-backed invoices and follow-up.</p>
+          <div class="fleet-pills"><span>Roadside Accounts</span><span>Yard Service</span><span>Preventive Maintenance</span><span>Unit History</span><span>PO Rules</span><span>Net-30 Benchmark</span></div>
+          <button class="button primary jump" data-target="fleet">OPEN FLEET INTAKE</button>
+        </div>
+        <div class="fleet-stats">
+          <article><b>1</b><span>Account</span><small>Contacts, billing and authorization rules.</small></article>
+          <article><b>2</b><span>Assets</span><small>Truck, trailer and equipment unit history.</small></article>
+          <article><b>3</b><span>PM</span><small>Recurring maintenance dates and reminders.</small></article>
+          <article><b>4</b><span>Proof</span><small>Job evidence tied to invoice-ready records.</small></article>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="section-heading">
+          <span class="eyebrow">WHY RAPID</span>
+          <h2>The professional version is about confidence, not clutter.</h2>
+        </div>
+        <div class="why-grid">
+          <article><b>Direct Service Workflow</b><p>The request feeds one dispatch/job record instead of disappearing into texts and screenshots.</p></article>
+          <article><b>Clear Communication</b><p>Capability, ETA and pricing are confirmed before the system treats them as committed facts.</p></article>
+          <article><b>Job Evidence</b><p>Photos, diagnosis, authorization, parts and completion notes can stay tied to the same job.</p></article>
+          <article><b>Fleet Continuity</b><p>Repeat customers keep asset and service history instead of starting from zero every breakdown.</p></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <span class="eyebrow">REAL WORK</span>
+          <h2>Use proof from the field, not stock-photo theater.</h2>
+          <p>The launch build reserves these areas for actual Rapid service trucks, technicians and repair photos once approved.</p>
+        </div>
+        <div class="work-gallery">
+          <article><div class="photo-placeholder">SERVICE TRUCK</div><b>Mobile Unit</b><span>Actual truck + equipment photo.</span></article>
+          <article><div class="photo-placeholder">TRAILER REPAIR</div><b>Trailer Work</b><span>Real before / repair / after sequence.</span></article>
+          <article><div class="photo-placeholder">DIAGNOSTICS</div><b>Field Diagnostics</b><span>Fault codes, tests and documented repair.</span></article>
+          <article><div class="photo-placeholder">HEAVY EQUIPMENT</div><b>Equipment Service</b><span>Real job-site or yard work.</span></article>
+        </div>
+      </section>
+
+      <section class="section section-dark">
+        <div class="section-heading">
+          <span class="eyebrow">FAQ</span>
+          <h2>Straight answers before dispatch.</h2>
         </div>
         <div class="faq-grid">
-          <details open><summary>Do you come to the truck?</summary><p>Private benchmark copy: yes, the business is modeled as mobile-first roadside, yard and job-site service. Final public wording remains truth-gated.</p></details>
-          <details><summary>Do you work on trailers?</summary><p>Trailer repair is part of the current service architecture, including electrical, air, brake, suspension, landing-gear and hardware categories.</p></details>
-          <details><summary>Do you work on heavy equipment?</summary><p>The private build supports heavy-equipment service. Exact equipment classes still need real capability confirmation before public launch.</p></details>
-          <details><summary>Are you available 24/7?</summary><p>The benchmark model assumes 24/7 emergency availability. It remains a private assumption until adopted.</p></details>
-          <details><summary>How much does a road call cost?</summary><p>The private benchmark model starts at a $150 service call plus $150/hour labor with a two-hour minimum. This is not an official quote or Rapid rate.</p></details>
-          <details><summary>Can fleets open an account?</summary><p>The system is already designed for fleet accounts, PO rules, Net-30 benchmark terms, asset rosters and recurring PM. Real account terms require setup.</p></details>
-          <details><summary>Can I send photos?</summary><p>The Request Service flow is designed for photo intake. Production upload remains private until secure storage is activated.</p></details>
-          <details><summary>What happens if the truck cannot be repaired roadside?</summary><p>The benchmark operating model is repair-first with towing coordination when on-site repair is impractical. Rapid towing ownership is not being claimed.</p></details>
+          <details open><summary>Do you come to the truck?</summary><p>The private build is mobile-first: roadside, truck stop, yard and job-site service. Final public wording stays truth-gated until the operating model is confirmed.</p></details>
+          <details><summary>Do you work on trailers?</summary><p>Trailer repair is part of the private service architecture, including air, electrical, brakes, suspension, landing gear and hardware categories.</p></details>
+          <details><summary>Are you available 24/7?</summary><p>The benchmark model assumes 24/7 emergency availability. It remains private until formally adopted.</p></details>
+          <details><summary>How much does a road call cost?</summary><p>The private benchmark model uses a $150 service call and $150/hour labor with a two-hour minimum. That is not an official quote or Rapid price.</p></details>
+          <details><summary>Can fleets open accounts?</summary><p>The system supports account contacts, unit history, PO rules, recurring PM and a Net-30 benchmark model after credit approval.</p></details>
+          <details><summary>What if it cannot be repaired on-site?</summary><p>The benchmark operating model is repair-first with towing coordination when roadside repair is impractical. Rapid towing ownership is not being claimed.</p></details>
         </div>
       </section>
 
-      <section class="cta-panel">
+      <section class="final-cta">
         <div>
-          <div class="eyebrow">PRIVATE LAUNCH CANDIDATE</div>
-          <h2>One call. One job record. One system.</h2>
-          <p>Emergency request, dispatch, repair evidence, invoice readiness and fleet follow-up all connect to the same operating spine.</p>
+          <span class="eyebrow">PRIVATE LAUNCH CANDIDATE</span>
+          <h2>Truck down? Start with the location.</h2>
+          <p>Call dispatch or open the service request. The rest of the system is designed to carry the job from triage to closeout.</p>
         </div>
         <div class="hero-actions">
-          <a class="button primary" href="tel:+18157493811">CALL RAPID</a>
+          <a class="button primary" href="tel:+18157493811">CALL (815) 749-3811</a>
           <button class="button secondary jump" data-target="request">REQUEST SERVICE</button>
         </div>
       </section>
     </section>
 
-    <section id="request" class="view">
+    <section id="request" class="view utility-view">
+      <div class="utility-header">
+        <div><span class="eyebrow">REQUEST SERVICE</span><h2>Tell Rapid what happened.</h2></div>
+        <button class="button ghost jump" data-target="preview">BACK TO WEBSITE</button>
+      </div>
       <section class="panel form-panel">
-        <div class="section-head">
-          <div><div class="eyebrow">REQUEST SERVICE V2</div><h2>Tell Rapid what happened.</h2></div>
-          <span class="status-pill">LOCAL DEMO ONLY</span>
-        </div>
         <form id="serviceForm">
           <div class="grid two">
             <label>Name<input required name="name" autocomplete="name" /></label>
@@ -258,178 +219,86 @@
             <label>Email<input name="email" type="email" autocomplete="email" /></label>
             <label>Company / Fleet<input name="company" /></label>
             <label>Current Location<input required name="location" placeholder="Address, yard, highway / mile marker" /></label>
-            <label>Location Helper
-              <button id="geoBtn" class="button mini" type="button">USE MY LOCATION</button>
-              <input name="geo" readonly placeholder="No location captured" />
-            </label>
-            <label>Asset Type
-              <select required name="assetType">
-                <option value="">Choose…</option><option>Semi / Tractor</option><option>Trailer</option>
-                <option>Box Truck</option><option>Dump Truck</option><option>Commercial Vehicle</option>
-                <option>Heavy Equipment</option><option>Other</option>
-              </select>
-            </label>
+            <label>Location Helper<button id="geoBtn" class="button mini" type="button">USE MY LOCATION</button><input name="geo" readonly placeholder="No location captured" /></label>
+            <label>Asset Type<select required name="assetType"><option value="">Choose…</option><option>Semi / Tractor</option><option>Trailer</option><option>Box Truck</option><option>Dump Truck</option><option>Commercial Vehicle</option><option>Heavy Equipment</option><option>Other</option></select></label>
             <label>Unit #<input name="unit" /></label>
             <label>VIN / Serial<input name="vin" /></label>
             <label>Year / Make / Model<input name="ymm" /></label>
-            <label>Problem Category
-              <select required name="problem">
-                <option value="">Choose…</option><option>Won’t Start</option><option>Electrical / Battery</option>
-                <option>Air / Brake</option><option>Tire / Wheel</option><option>Trailer Issue</option>
-                <option>Engine / Mechanical</option><option>Leak / Cooling</option><option>Fault Code / Derate</option>
-                <option>DEF / DPF / Emissions</option><option>Hydraulic</option><option>Welding / Fabrication</option>
-                <option>Scheduled / PM</option><option>Other</option>
-              </select>
-            </label>
-            <label>Loaded?
-              <select name="loaded"><option>Unknown</option><option>Yes</option><option>No</option></select>
-            </label>
-            <label>Preferred Contact
-              <select name="preferred"><option>Phone Call</option><option>Text</option><option>Email</option></select>
-            </label>
+            <label>Problem Category<select required name="problem"><option value="">Choose…</option><option>Won’t Start</option><option>Electrical / Battery</option><option>Air / Brake</option><option>Tire / Wheel</option><option>Trailer Issue</option><option>Engine / Mechanical</option><option>Leak / Cooling</option><option>Fault Code / Derate</option><option>DEF / DPF / Emissions</option><option>Hydraulic</option><option>Welding / Fabrication</option><option>Scheduled / PM</option><option>Other</option></select></label>
+            <label>Loaded?<select name="loaded"><option>Unknown</option><option>Yes</option><option>No</option></select></label>
+            <label>Preferred Contact<select name="preferred"><option>Phone Call</option><option>Text</option><option>Email</option></select></label>
             <label>Photos (demo metadata only)<input name="photos" type="file" multiple accept="image/*" /></label>
           </div>
           <label>Symptoms / What happened<textarea required name="symptoms" rows="4"></textarea></label>
           <label>Warning lights / fault codes<textarea name="faultCodes" rows="2"></textarea></label>
           <label>Safe-access / scene notes<textarea name="safety" rows="2"></textarea></label>
           <label class="check"><input type="checkbox" required name="demoConsent" /> I understand this private prototype stores demo entries only in this browser.</label>
-          <div class="notice">Do not enter real customer personal data or real payment information into this unapproved local prototype.</div>
+          <div class="notice">Private testing only. Do not enter real customer payment information.</div>
           <button class="button primary" type="submit">CREATE DEMO SERVICE REQUEST</button>
         </form>
         <div id="submitResult" class="submit-result" hidden></div>
       </section>
     </section>
 
-    <section id="fleet" class="view">
+    <section id="fleet" class="view utility-view">
+      <div class="utility-header"><div><span class="eyebrow">FLEET ACCOUNTS</span><h2>Build a repeat-service relationship.</h2></div><button class="button ghost jump" data-target="preview">BACK TO WEBSITE</button></div>
       <section class="split">
         <article class="panel">
-          <div class="eyebrow">COMMERCIAL / FLEET</div>
-          <h2>Fleet account intake.</h2>
-          <p class="muted">Private lead-capture prototype for trucking fleets, terminals, contractors and equipment operators. Benchmark terms may support planning but are not yet official Rapid account terms.</p>
           <form id="fleetForm">
             <label>Company<input required name="company" /></label>
             <div class="grid two">
-              <label>Contact<input required name="contact" /></label>
-              <label>Phone<input required name="phone" /></label>
-              <label>Email<input name="email" type="email" /></label>
-              <label>Yard / Area<input name="yard" /></label>
-              <label>Approx. Tractors<input name="tractors" type="number" min="0" /></label>
-              <label>Approx. Trailers<input name="trailers" type="number" min="0" /></label>
+              <label>Contact<input required name="contact" /></label><label>Phone<input required name="phone" /></label>
+              <label>Email<input name="email" type="email" /></label><label>Yard / Area<input name="yard" /></label>
+              <label>Approx. Tractors<input name="tractors" type="number" min="0" /></label><label>Approx. Trailers<input name="trailers" type="number" min="0" /></label>
             </div>
-            <label>What do you need?<textarea required name="needs" rows="4" placeholder="Roadside, trailer work, yard service, PM, equipment support…"></textarea></label>
+            <label>What do you need?<textarea required name="needs" rows="5" placeholder="Roadside, trailer work, yard service, PM, equipment support…"></textarea></label>
             <button class="button primary" type="submit">CREATE DEMO FLEET LEAD</button>
           </form>
           <div id="fleetResult" class="submit-result" hidden></div>
         </article>
         <article class="panel">
-          <div class="eyebrow">PRIVATE ACCOUNT MODEL</div>
-          <h2>Fleet defaults.</h2>
-          <div class="price-grid">
-            <div><span>Terms</span><b>Net 30*</b></div>
-            <div><span>PO rules</span><b>Per account</b></div>
-            <div><span>Asset roster</span><b>Ready</b></div>
-            <div><span>PM schedule</span><b>Ready</b></div>
-          </div>
-          <div class="notice">*Benchmark working model after credit approval. Not official account terms.</div>
-          <div class="eyebrow">DEMO PIPELINE</div>
+          <span class="eyebrow">PRIVATE ACCOUNT MODEL</span>
+          <h3>Fleet architecture already prepared.</h3>
+          <ul class="clean-list"><li>Net-30 benchmark after credit approval</li><li>PO / authorization rules by account</li><li>Truck, trailer and equipment asset roster</li><li>PM schedule + due dates</li><li>Job and invoice history</li><li>Evidence-backed billing</li></ul>
           <div id="fleetList" class="compact-list"></div>
         </article>
       </section>
     </section>
 
-    <section id="dispatch" class="view">
-      <div class="section-head">
-        <div><div class="eyebrow">RRR OPS</div><h2>Dispatch + Job Board</h2></div>
-        <div class="toolbar"><button id="seedDemo" class="button">LOAD SYNTHETIC TEST</button><button id="clearDemo" class="button danger">CLEAR DEMO DATA</button></div>
-      </div>
-      <div class="stats">
-        <article><span>OPEN REQUESTS</span><b id="statOpen">0</b></article>
-        <article><span>AWAITING AUTH</span><b id="statAuth">0</b></article>
-        <article><span>INVOICE READY</span><b id="statInvoice">0</b></article>
-        <article><span>CLOSED</span><b id="statClosed">0</b></article>
-      </div>
-      <div class="ops-roadmap">
-        <span>LEAD</span><i>→</i><span>REQUEST</span><i>→</i><span>DISPATCH</span><i>→</i><span>JOB</span><i>→</i><span>EVIDENCE</span><i>→</i><span>CHARGES</span><i>→</i><span>INVOICE</span><i>→</i><span>FOLLOW-UP</span>
-      </div>
+    <section id="dispatch" class="view utility-view">
+      <div class="utility-header"><div><span class="eyebrow">OWNER OPS</span><h2>Dispatch + Job Board</h2></div><div class="toolbar"><button id="seedDemo" class="button">LOAD SYNTHETIC TEST</button><button id="clearDemo" class="button danger">CLEAR DEMO DATA</button></div></div>
+      <div class="stats"><article><span>OPEN REQUESTS</span><b id="statOpen">0</b></article><article><span>AWAITING AUTH</span><b id="statAuth">0</b></article><article><span>INVOICE READY</span><b id="statInvoice">0</b></article><article><span>CLOSED</span><b id="statClosed">0</b></article></div>
+      <div class="ops-roadmap"><span>LEAD</span><i>→</i><span>REQUEST</span><i>→</i><span>DISPATCH</span><i>→</i><span>JOB</span><i>→</i><span>EVIDENCE</span><i>→</i><span>CHARGES</span><i>→</i><span>INVOICE</span><i>→</i><span>FOLLOW-UP</span></div>
       <div id="dispatchList" class="dispatch-list"></div>
     </section>
 
-    <section id="benchmarks" class="view">
-      <div class="section-head">
-        <div><div class="eyebrow">PRIVATE BENCHMARK MODE</div><h2>Working market defaults.</h2></div>
-        <span class="status-pill">NOT OFFICIAL RRR RATES</span>
-      </div>
+    <section id="benchmarks" class="view utility-view">
+      <div class="utility-header"><div><span class="eyebrow">PRIVATE BENCHMARKS</span><h2>Working market defaults.</h2></div><button class="button ghost jump" data-target="preview">BACK TO WEBSITE</button></div>
       <div id="benchmarkGrid" class="truth-grid"></div>
       <section class="split">
         <article class="panel">
-          <div class="eyebrow">BENCHMARK ESTIMATOR</div>
-          <h2>Model a road call.</h2>
-          <div class="grid two">
-            <label>Labor hours<input id="bmHours" type="number" min="0" step="0.5" value="2" /></label>
-            <label>Miles billed<input id="bmMiles" type="number" min="0" step="1" value="0" /></label>
-            <label>Parts cost<input id="bmParts" type="number" min="0" step="1" value="0" /></label>
-            <label>Call type<select id="bmAfter"><option value="day">Standard</option><option value="after">After-hours</option></select></label>
-          </div>
+          <span class="eyebrow">BENCHMARK ESTIMATOR</span><h3>Model a road call.</h3>
+          <div class="grid two"><label>Labor hours<input id="bmHours" type="number" min="0" step="0.5" value="2" /></label><label>Miles billed<input id="bmMiles" type="number" min="0" step="1" value="0" /></label><label>Parts cost<input id="bmParts" type="number" min="0" step="1" value="0" /></label><label>Call type<select id="bmAfter"><option value="day">Standard</option><option value="after">After-hours</option></select></label></div>
           <button id="bmCalc" class="button primary" type="button">CALCULATE PRIVATE BENCHMARK</button>
           <div id="bmResult" class="submit-result" hidden></div>
         </article>
-        <article class="panel">
-          <div class="eyebrow">CONTROL</div>
-          <h2>How benchmark mode works.</h2>
-          <p class="muted">It lets DEBO finish the private website, CRM, estimate logic, fleet model and launch materials without waiting for every owner answer.</p>
-          <p class="muted">It does not make a benchmark true for Rapid Roadside Repair. Public-enabled remains off until real business evidence replaces the assumption.</p>
-          <div class="area-note">Owner-specific evidence always overrides the benchmark without requiring the architecture to be rebuilt.</div>
-        </article>
+        <article class="panel"><span class="eyebrow">CONTROL</span><h3>Benchmark ≠ business truth.</h3><p class="muted">Use benchmarks for private design, estimates, fleet modeling and workflow testing. Real Rapid evidence replaces them before public release.</p></article>
       </section>
     </section>
 
-    <section id="truth" class="view">
-      <div class="section-head">
-        <div><div class="eyebrow">LAUNCH CONTROL</div><h2>What is ready and what still cannot be faked.</h2></div>
-        <span class="status-pill">PUBLIC RELEASE HOLD</span>
-      </div>
+    <section id="truth" class="view utility-view">
+      <div class="utility-header"><div><span class="eyebrow">LAUNCH CONTROL</span><h2>Ready vs. still unverified.</h2></div><button class="button ghost jump" data-target="preview">BACK TO WEBSITE</button></div>
       <div id="truthGrid" class="truth-grid"></div>
-
       <section class="split">
-        <article class="panel">
-          <div class="eyebrow">READY NOW</div>
-          <ul class="ready-list">
-            <li>Private website design</li>
-            <li>Request Service workflow</li>
-            <li>Dispatch / job states</li>
-            <li>Fleet intake + PM architecture</li>
-            <li>Benchmark rate logic</li>
-            <li>Business Truth controls</li>
-            <li>Evidence / invoice-ready workflow</li>
-            <li>Backend migration package</li>
-          </ul>
-        </article>
-        <article class="panel">
-          <div class="eyebrow">CANNOT BE BENCHMARKED INTO EXISTENCE</div>
-          <ul class="ready-list danger-list">
-            <li>Legal business identity</li>
-            <li>Actual business/base address</li>
-            <li>Real email/domain ownership</li>
-            <li>Actual licenses / insurance / certifications</li>
-            <li>Actual service-truck / tool inventory</li>
-            <li>Real payment processor / bank setup</li>
-            <li>Google / Meta ownership access</li>
-          </ul>
-        </article>
+        <article class="panel"><span class="eyebrow">READY</span><ul class="clean-list good"><li>Private website</li><li>Request Service</li><li>Dispatch / job workflow</li><li>Fleet architecture</li><li>Benchmark logic</li><li>Evidence + invoice-ready chain</li><li>Backend migration package</li></ul></article>
+        <article class="panel"><span class="eyebrow">CANNOT BE BENCHMARKED</span><ul class="clean-list warn"><li>Legal identity</li><li>Actual business address</li><li>Email / domain ownership</li><li>Licenses / insurance / certifications</li><li>Actual service-truck / tool inventory</li><li>Bank / payment processor setup</li><li>Google / Meta ownership</li></ul></article>
       </section>
-
-      <section class="panel release-panel">
-        <div class="eyebrow">RELEASE CHECKLIST</div>
-        <h2>Production stays locked until these are resolved.</h2>
-        <ul id="releaseChecks" class="checklist"></ul>
-      </section>
+      <section class="panel release-panel"><span class="eyebrow">RELEASE CHECKLIST</span><h3>Production stays locked until these are resolved.</h3><ul id="releaseChecks" class="checklist"></ul></section>
     </section>
   </main>
 
-  <div class="mobile-dock"><a href="tel:+18157493811">CALL RAPID</a><button class="jump" data-target="request">REQUEST SERVICE</button></div>\n\n  <footer>
-    <b>RAPID ROADSIDE REPAIR</b>
-    <span>Private DEBO build • Request → Dispatch → Job → Evidence → Invoice Ready → Fleet Follow-Up</span>
-  </footer>
+  <div class="mobile-dock"><a href="tel:+18157493811">CALL RAPID</a><button class="jump" data-target="request">REQUEST SERVICE</button></div>
+  <footer><b>RAPID ROADSIDE REPAIR</b><span>Private DEBO launch-candidate build</span></footer>
 
   <script src="./config.js"></script>
   <script src="./data.js"></script>
