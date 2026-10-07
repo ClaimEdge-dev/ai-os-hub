@@ -64,3 +64,8 @@ footer{border-top:1px solid #222;padding:1.4rem;display:flex;justify-content:cen
   .cta-panel{align-items:flex-start;flex-direction:column}
   .phone-plate{font-size:1.5rem}
 }
+
+.mobile-dock{display:none;position:fixed;z-index:20;left:10px;right:10px;bottom:10px;gap:8px;background:rgba(5,5,5,.94);border:1px solid #393939;padding:8px;border-radius:11px;box-shadow:0 12px 32px #000}
+.mobile-dock a,.mobile-dock button{flex:1;border:1px solid #5f1717;border-radius:7px;padding:.8rem;color:#fff;background:linear-gradient(#d91a1a,#850707);font-weight:1000;text-align:center;text-decoration:none}
+.mobile-dock button{background:linear-gradient(#303030,#111);border-color:#555}
+@media(max-width:700px){.mobile-dock{display:flex}body{padding-bottom:78px}}
