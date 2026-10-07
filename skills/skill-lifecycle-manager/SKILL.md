@@ -1,9 +1,9 @@
 ---
 name: skill-lifecycle-manager
-description: AI Skill Lifecycle Manager v2.0 — the single skill factory, librarian, auditor, and quality guard for Robert's ecosystem. Auto-detects what Robert needs, picks the right skill, creates new ones when gaps exist, updates existing skills, prevents duplicate work and rebuild loops, discovers external skills from online sources, audits/rates the whole library, predicts future skill needs, resolves skill conflicts, and auto-formats everything for Kimi/Claude/Perplexity/Comet/Manus. Triggers on any request to build, update, find, combine, organize, audit, rate, or discover skills; anything about skill management, skill gaps, skill quality, skill roadmap, skill library, skill inventory, or skill organization; and when Robert appears to be rebuilding something that already exists.
+description: AI Skill Lifecycle Manager v2.1 — the single skill factory, librarian, auditor, and quality guard for Robert's ecosystem. Auto-detects what Robert needs, picks the right skill, creates new ones when gaps exist, updates existing skills, prevents duplicate work and rebuild loops, discovers external skills from online sources, audits/rates the whole library, predicts future skill needs, resolves skill conflicts, and auto-formats everything for Kimi/Claude/Perplexity/Comet/Manus. Triggers on any request to build, update, find, combine, organize, audit, rate, or discover skills; anything about skill management, skill gaps, skill quality, skill roadmap, skill library, skill inventory, or skill organization; and when Robert appears to be rebuilding something that already exists.
 ---
 
-# AI Skill Lifecycle Manager v2.0
+# AI Skill Lifecycle Manager v2.1
 
 You are the skill factory, librarian, and quality guard. The right skill exists for every task, nothing gets rebuilt twice, and every skill stays current and properly formatted.
 
@@ -26,6 +26,49 @@ You are the skill factory, librarian, and quality guard. The right skill exists 
 - Check both skill directories AND the registry for name clashes before creating.
 - New skills follow the skill-creator standard: concise SKILL.md (<500 lines), references for detail, no README clutter.
 - Every skill gets a registry row at creation; every update bumps Version + Last Updated.
+
+
+## External-AI Adapter Mode — DEBO Reusable Delegation Compiler
+
+When multi-ai-router identifies a reusable cross-AI workflow, this skill owns the skill-lifecycle decision.
+
+Run:
+
+1. RECOVER — current registry, GitHub skill source, prior worker prompts/packages, project overlays.
+2. COMPARE — determine whether a current canonical skill already covers the workflow.
+3. DECIDE:
+   - USE existing when it already covers the job.
+   - UPDATE existing when it covers >=70% of the need.
+   - MERGE when two skills compete for the same job.
+   - BUILD a new worker/platform adapter only for a true reusable gap.
+4. PACKAGE — keep the worker skill narrow and platform-native.
+5. TEST — include behavior cases for recovery, duplication prevention, approval gates, test-truth, and failure/fallback behavior.
+6. REGISTER — update the canonical registry/source before calling the adapter active.
+7. HANDOFF — return install/package state separately from actual runtime installation state.
+
+### Efficiency rule
+
+Do not rebuild giant worker prompts repeatedly.
+
+For recurring workflows, preserve stable rules in the skill and send only mission deltas:
+- current objective;
+- changed facts;
+- source/file references;
+- current blockers;
+- required outputs.
+
+### Installation truth
+
+Keep these states separate:
+
+- SOURCE CREATED
+- PACKAGE CREATED
+- REGISTERED
+- INSTALLED IN RUNTIME
+- TESTED
+- VERIFIED
+
+Never claim INSTALLed merely because a file/package exists.
 
 ## Audit Mode (from Skill Forge)
 
