@@ -1,7 +1,7 @@
 # Skill Registry — All 70 Skills
 
 **Auto-generated from Kimi session**  
-**Last updated:** 2026-09-25  
+**Last updated:** 2026-10-06  
 **Source of truth:** This file + Notion "AI OS Hub"
 
 ---
@@ -94,14 +94,14 @@
 | 44 | `bobby-focus-system` | ADHD-friendly focus — prevents rabbit holes, auto-saves | Focus needed | ACTIVE |
 | 45 | `bobby-skill-activator` | Ignition switch — activates all skills + AI bridges | EVERY session start | ACTIVE |
 | 46 | `ai-workflow-decoder` | Determines optimal AI model, version, plugins for any task | AI selection | ACTIVE |
-| 47 | `multi-ai-router` | Routes tasks to best AI (Kimi/Perplexity/Claude/Manus/Comet) | AI routing | ACTIVE |
+| 47 | `multi-ai-router` | Routes tasks to the best AI and automatically compiles recurring cross-AI work into reusable governed worker-skill handoffs | AI routing / reusable delegation | ACTIVE |
 | 48 | `kimi-miyagi-coach` | Kimi feature maximization coach | Learn Kimi | ACTIVE |
 | 49 | `kimi-usage-optimizer` | Optimal Kimi usage for multi-AI workflows | Optimize usage | ACTIVE |
 | 50 | `session-boot-loader` | Session init — auto-activates skills, connects all plugins | Session start | ACTIVE |
 | 51 | `session-context-preserver` | Cross-session context preservation and handoff | Context save | ACTIVE |
 | 52 | `thread-handoff-manager` | Wrestling thread context preservation | Wrestling handoff | ACTIVE |
 | 53 | `thread-audit-manager` | Scans threads, suggests continue/close/archive/merge | Audit threads | ACTIVE |
-| 54 | `skill-lifecycle-manager` | Auto-detects needs, picks skills, prevents rebuilds | Skill management | ACTIVE |
+| 54 | `skill-lifecycle-manager` | Auto-detects needs, prevents rebuilds, and USE/UPDATE/MERGE/BUILDs reusable worker adapters when delegation should become a skill | Skill management / worker adapters | ACTIVE |
 | 55 | `perplexity-connector-advisor` | Auto-selects Perplexity connectors by domain | Perplexity usage | ACTIVE |
 | 56 | `bobbys-ai-translator` | Converts tech jargon to plain English | Jargon explanation | ACTIVE |
 | 57 | `content-repurposer` | One input → TikTok, Instagram, email, blog, presentation | Content reuse | ACTIVE |
