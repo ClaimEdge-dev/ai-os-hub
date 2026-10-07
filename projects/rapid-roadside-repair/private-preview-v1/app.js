@@ -23,6 +23,7 @@ function showView(name){
   $$(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===name));
   if(name==="dispatch") renderDispatch();
   if(name==="fleet") renderFleet();
+  if(name==="benchmarks") renderBenchmarks();
   if(name==="truth") renderTruth();
   window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -181,7 +182,34 @@ function renderFleet(){
   root.innerHTML=items.map(x=>`<article><b>${esc(x.company)}</b><span>${esc(x.contact)} • ${esc(x.phone)}</span><small>${esc(x.tractors||0)} tractors • ${esc(x.trailers||0)} trailers • ${esc(x.status)}</small><p>${esc(x.needs)}</p></article>`).join("");
 }
 
+
+function renderBenchmarks(){
+  const root=$("#benchmarkGrid");
+  if(!root) return;
+  const items=window.RRR_DATA?.benchmarks||[];
+  root.innerHTML=items.map(b=>'<article class="truth-card pending"><b>'+esc(b.label)+'</b><span>'+esc(b.value)+'</span><small>'+esc(b.range||"PRIVATE BENCHMARK")+'</small><p class="job-meta">'+esc(b.note||"")+'</p></article>').join("");
+}
+
+function calculateBenchmark(){
+  const cfg=window.RRR_DATA?.benchmarkCalculator||{};
+  const hours=Math.max(Number($("#bmHours")?.value||0),Number(cfg.laborMinimumHours||0));
+  const miles=Math.max(Number($("#bmMiles")?.value||0),0);
+  const partsCost=Math.max(Number($("#bmParts")?.value||0),0);
+  const after=$("#bmAfter")?.value==="after";
+  const call=after?Number(cfg.afterHoursCall||0):Number(cfg.serviceCall||0);
+  const labor=hours*Number(cfg.laborHourly||0);
+  const travel=miles*Number(cfg.mileageRate||0);
+  const parts=partsCost*(1+(Number(cfg.partsMarkupPct||0)/100));
+  const total=call+labor+travel+parts;
+  const result=$("#bmResult");
+  if(!result) return;
+  result.hidden=false;
+  result.innerHTML="<b>PRIVATE BENCHMARK MODEL:</b> $"+total.toFixed(2)+"<br>Service call: $"+call.toFixed(2)+"<br>Labor: $"+labor.toFixed(2)+"<br>Travel: $"+travel.toFixed(2)+"<br>Parts with benchmark markup: $"+parts.toFixed(2)+"<br><small>Not a quote, invoice, or approved Rapid Roadside Repair rate.</small>";
+}
+
 renderServices();
+renderBenchmarks();
 renderTruth();
 renderDispatch();
 renderFleet();
+$("#bmCalc")?.addEventListener("click",calculateBenchmark);
