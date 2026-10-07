@@ -28,8 +28,19 @@ function showView(name){
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-$$(".tab").forEach(t=>t.addEventListener("click",()=>showView(t.dataset.view)));
-$$(".jump").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.target)));
+$(".tab").forEach(t=>t.addEventListener("click",()=>showView(t.dataset.view)));
+$(".jump").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.target)));
+$(".site-anchor").forEach(b=>b.addEventListener("click",()=>{
+  showView("preview");
+  setTimeout(()=>document.getElementById(b.dataset.scroll)?.scrollIntoView({behavior:"smooth",block:"start"}),120);
+}));
+$(".quick-problem").forEach(b=>b.addEventListener("click",()=>{
+  showView("request");
+  setTimeout(()=>{
+    const select=$("#serviceForm [name=problem]");
+    if(select) select.value=b.dataset.problem||"Other";
+  },80);
+}));
 
 function renderServices(){
   const root=$("#serviceCards");
