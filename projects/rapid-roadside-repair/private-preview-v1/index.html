@@ -23,14 +23,16 @@
       </div>
     </button>
     <nav class="main-nav">
-      <button class="jump" data-target="preview">Home</button>
-      <button class="jump" data-target="request">Request Service</button>
+      <button class="site-anchor" data-scroll="services">Services</button>
       <button class="jump" data-target="fleet">Fleet</button>
-      <button class="jump" data-target="dispatch">Owner Ops</button>
-      <button class="jump" data-target="benchmarks">Benchmarks</button>
-      <button class="jump" data-target="truth">Launch Control</button>
+      <button class="site-anchor" data-scroll="coverage">Coverage</button>
+      <button class="site-anchor" data-scroll="faq">FAQ</button>
+      <button class="jump nav-cta" data-target="request">Request Service</button>
     </nav>
-    <a class="dispatch-phone" href="tel:+18157493811"><small>DISPATCH</small><b>(815) 749-3811</b></a>
+    <div class="header-right">
+      <button class="owner-link jump" data-target="dispatch">OWNER WORKSPACE</button>
+      <a class="dispatch-phone" href="tel:+18157493811"><small>DISPATCH</small><b>(815) 749-3811</b></a>
+    </div>
   </header>
 
   <main>
@@ -116,7 +118,7 @@
         </div>
       </section>
 
-      <section class="coverage-section">
+      <section id="coverage" class="coverage-section">
         <div class="coverage-copy">
           <span class="eyebrow">COVERAGE MODEL</span>
           <h2>Built around the freight corridors.</h2>
@@ -266,13 +268,25 @@
     </section>
 
     <section id="dispatch" class="view utility-view">
-      <div class="utility-header"><div><span class="eyebrow">OWNER OPS</span><h2>Dispatch + Job Board</h2></div><div class="toolbar"><button id="seedDemo" class="button">LOAD SYNTHETIC TEST</button><button id="clearDemo" class="button danger">CLEAR DEMO DATA</button></div></div>
+      <div class="owner-subnav">
+        <button class="jump active-owner" data-target="dispatch">Dispatch</button>
+        <button class="jump" data-target="benchmarks">Benchmarks</button>
+        <button class="jump" data-target="truth">Launch Control</button>
+        <button class="jump" data-target="preview">Customer Site</button>
+      </div>
+      <div class="utility-header"><div><span class="eyebrow">OWNER WORKSPACE</span><h2>Dispatch + Job Board</h2></div><div class="toolbar"><button id="seedDemo" class="button">LOAD SYNTHETIC TEST</button><button id="clearDemo" class="button danger">CLEAR DEMO DATA</button></div></div>
       <div class="stats"><article><span>OPEN REQUESTS</span><b id="statOpen">0</b></article><article><span>AWAITING AUTH</span><b id="statAuth">0</b></article><article><span>INVOICE READY</span><b id="statInvoice">0</b></article><article><span>CLOSED</span><b id="statClosed">0</b></article></div>
       <div class="ops-roadmap"><span>LEAD</span><i>→</i><span>REQUEST</span><i>→</i><span>DISPATCH</span><i>→</i><span>JOB</span><i>→</i><span>EVIDENCE</span><i>→</i><span>CHARGES</span><i>→</i><span>INVOICE</span><i>→</i><span>FOLLOW-UP</span></div>
       <div id="dispatchList" class="dispatch-list"></div>
     </section>
 
     <section id="benchmarks" class="view utility-view">
+      <div class="owner-subnav">
+        <button class="jump" data-target="dispatch">Dispatch</button>
+        <button class="jump active-owner" data-target="benchmarks">Benchmarks</button>
+        <button class="jump" data-target="truth">Launch Control</button>
+        <button class="jump" data-target="preview">Customer Site</button>
+      </div>
       <div class="utility-header"><div><span class="eyebrow">PRIVATE BENCHMARKS</span><h2>Working market defaults.</h2></div><button class="button ghost jump" data-target="preview">BACK TO WEBSITE</button></div>
       <div id="benchmarkGrid" class="truth-grid"></div>
       <section class="split">
@@ -287,6 +301,12 @@
     </section>
 
     <section id="truth" class="view utility-view">
+      <div class="owner-subnav">
+        <button class="jump" data-target="dispatch">Dispatch</button>
+        <button class="jump" data-target="benchmarks">Benchmarks</button>
+        <button class="jump active-owner" data-target="truth">Launch Control</button>
+        <button class="jump" data-target="preview">Customer Site</button>
+      </div>
       <div class="utility-header"><div><span class="eyebrow">LAUNCH CONTROL</span><h2>Ready vs. still unverified.</h2></div><button class="button ghost jump" data-target="preview">BACK TO WEBSITE</button></div>
       <div id="truthGrid" class="truth-grid"></div>
       <section class="split">
