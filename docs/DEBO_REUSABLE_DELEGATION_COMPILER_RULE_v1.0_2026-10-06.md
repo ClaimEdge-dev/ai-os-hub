@@ -148,6 +148,19 @@ SOURCE CREATED
 → TESTED
 → VERIFIED
 
+## Quota-aware execution
+
+When worker quota/credits are visible, treat them as a real constraint.
+
+Prefer:
+1. recover context in DEBO first;
+2. reuse existing worker skills;
+3. send only mission deltas;
+4. use the smallest effective agent set;
+5. route independent branches to another capable worker when that saves scarce quota.
+
+Do not purchase credits or upgrades without explicit approval.
+
 ## Approval boundary
 
 Internal read-only recovery, analysis, drafting, code preparation, safe local tests, and packaging may proceed automatically.
