@@ -14,7 +14,12 @@ export function toV3Payload(form:V3Form,a:Attribution):Record<string,unknown>{
   keys_available:form.keys_available??"unsure",accident:form.accident??"unsure",
   wheel_damage:form.wheel_damage??"unsure",clearance_issue:form.clearance_issue??"unsure",
   access_notes:clip(form.access_notes,1200),notes:clip(form.notes,2000),
-  consent:form.consent===true,is_demo:false,...a
+  consent:form.consent===true,
+  source_page:clip(a.source_page,500),referrer:clip(a.referrer,500),
+  utm_source:clip(a.utm_source,255),utm_medium:clip(a.utm_medium,255),
+  utm_campaign:clip(a.utm_campaign,255),utm_content:clip(a.utm_content,255),
+  device_type:a.device_type,
+  is_demo:false
  };
 }
 export function publicV3Receipt(raw:unknown):{reference:number}{
