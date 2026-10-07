@@ -157,6 +157,16 @@ When PRIMARY has a known weakness, automatically assign a SECONDARY:
 - polished conclusion but weak canonical state -> DEBO merges into Project Brain/registers
 - browser execution produced facts -> source/evidence verifier before canonization
 
+## Quota / Credit Guard
+
+Before external delegation, use any visible worker quota, plan, rate-limit, or credit state as a routing constraint.
+
+- Low remaining quota -> prefer delta prompts, existing skills, targeted branches, or an alternate capable worker.
+- Do not spend scarce worker quota rediscovering project context that DEBO can recover itself.
+- Build/update a reusable worker skill when doing so is expected to reduce repeated future prompt cost.
+- Never claim a quota value unless it was actually observed in the current worker/runtime state.
+- Do not buy credits or upgrade plans without explicit approval.
+
 ## Cross-AI handoff schema
 
 MISSION_ID:
