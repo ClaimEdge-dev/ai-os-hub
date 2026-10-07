@@ -19,26 +19,26 @@ drop policy if exists rrr_staff_read_evidence on storage.objects;
 create policy rrr_staff_read_evidence
 on storage.objects for select
 to authenticated
-using (bucket_id = 'rrr-evidence');
+using (bucket_id = 'rrr-evidence' and public.rrr_is_staff());
 
 drop policy if exists rrr_staff_insert_evidence on storage.objects;
 create policy rrr_staff_insert_evidence
 on storage.objects for insert
 to authenticated
-with check (bucket_id = 'rrr-evidence');
+with check (bucket_id = 'rrr-evidence' and public.rrr_is_staff());
 
 drop policy if exists rrr_staff_update_evidence on storage.objects;
 create policy rrr_staff_update_evidence
 on storage.objects for update
 to authenticated
-using (bucket_id = 'rrr-evidence')
-with check (bucket_id = 'rrr-evidence');
+using (bucket_id = 'rrr-evidence' and public.rrr_is_staff())
+with check (bucket_id = 'rrr-evidence' and public.rrr_is_staff());
 
 drop policy if exists rrr_staff_delete_evidence on storage.objects;
 create policy rrr_staff_delete_evidence
 on storage.objects for delete
 to authenticated
-using (bucket_id = 'rrr-evidence');
+using (bucket_id = 'rrr-evidence' and public.rrr_is_staff());
 
--- Future public-request photo upload should use a tested signed-upload
--- or security-definer authorization path. Do not grant anon insert here.
+-- Future public-request photo upload should use a tested signed-upload or
+-- security-definer authorization path. Do not grant anon insert here.
