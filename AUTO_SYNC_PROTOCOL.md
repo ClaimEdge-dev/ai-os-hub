@@ -235,3 +235,13 @@ If everything is lost (Notion corrupted, GitHub down, local files gone):
 ## LAST UPDATED
 
 2026-07-16 — Protocol created and deployed.
+
+---
+
+## DEC-016 — Durable-Save Gate (2026-10-10)
+
+Shared verification source: [utility](tools/debo_durable_save_gate.py), [instructions](tools/DEBO_DURABLE_SAVE_GATE_README.md), [runtime receipt](records/DEC-016_DURABLE_SAVE_GATE_RUNTIME_RECEIPT_2026-10-10.md).
+
+For DEBO and sister-brain deliverables: after saving to approved durable storage, independently read back a separate copy; run the SHA-256 comparison gate; record full checksums, exit code, source/destination IDs, and approval state. A successful comparison does **not** authorize publishing or prove a persistent skill installation. On mismatch, missing readback, or absent permissions, report BLOCKED rather than DONE. Do not put private client, minor, business, or credential data in this public repository.
+
+Kimi reported a successful one-session Python runtime execution of three tests. Persistent runtime installation and automatic hooks are **not verified**. Do not advertise cross-AI auto-installation from this protocol alone.
