@@ -1,0 +1,42 @@
+name: DEBO Durable Save Gate
+on:
+  push:
+    paths:
+      - "tools/debo_durable_save_gate.py"
+      - ".github/workflows/debo-durable-save-gate.yml"
+  pull_request:
+    paths:
+      - "tools/debo_durable_save_gate.py"
+      - ".github/workflows/debo-durable-save-gate.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify success and failure cases
+        run: |
+          python - <<'PY'
+          import hashlib, pathlib, subprocess, sys, tempfile, zipfile
+          script = pathlib.Path("tools/debo_durable_save_gate.py").resolve()
+          with tempfile.TemporaryDirectory() as tmp:
+              root = pathlib.Path(tmp)
+              a, b = root/"original.zip", root/"readback.zip"
+              for p in (a, b):
+                  with zipfile.ZipFile(p, "w") as z:
+                      z.writestr("proof.txt", "DEBO verification")
+              expected = hashlib.sha256(a.read_bytes()).hexdigest()
+              def check(code, *args):
+                  r = subprocess.run([sys.executable, str(script), *map(str,args)], capture_output=True, text=True)
+                  assert r.returncode == code, (r.returncode, r.stdout, r.stderr)
+              check(0, a, b, "--expected-sha256", expected)
+              check(1, a, b, "--expected-sha256", "0"*64)
+              b.write_bytes(b"changed")
+              check(1, a, b)
+              print("DEBO gate: 3 checks passed")
+          PY
