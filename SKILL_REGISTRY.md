@@ -172,3 +172,15 @@ Download from [GitHub Releases](https://github.com/ClaimEdge-dev/ai-os-hub/relea
 - **Auto-Sync Protocol:** [AUTO_SYNC_PROTOCOL.md](AUTO_SYNC_PROTOCOL.md)
 - **Perplexity Starter Prompt:** [PERPLEXITY_STARTER_PROMPT.md](PERPLEXITY_STARTER_PROMPT.md)
 - **Strategic Roadmap:** [ROBERT_AI_OS_ROADMAP_v1.0.md](ROBERT_AI_OS_ROADMAP_v1.0.md)
+
+---
+
+## Shared verification capability — DEC-016 (2026-10-10)
+
+| Capability | Scope | Trigger | Evidence status | Install status |
+|---|---|---|---|---|
+| `debo-durable-save-gate` | DEBO and all sister brains | Before marking a saved artifact DONE | RUNTIME VERIFIED in Kimi session (reported); source checksums and 3 test cases reported | INSTALL PENDING; no persistent hook verified |
+
+Source: [Python utility](tools/debo_durable_save_gate.py) · [README](tools/DEBO_DURABLE_SAVE_GATE_README.md) · [DEC-016 receipt](records/DEC-016_DURABLE_SAVE_GATE_RUNTIME_RECEIPT_2026-10-10.md).
+
+This is a **registered shared capability**, not a claim that another skill was installed. Before marking a deliverable DONE, run the utility against the original and an independently retrieved durable copy, check exit code and full hashes, and record destination/readback IDs. Do not execute automatically unless the active runtime explicitly supports a persistent hook. Never publish private artifacts or receipts to this public repository.
