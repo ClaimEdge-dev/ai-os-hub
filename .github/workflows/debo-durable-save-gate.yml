@@ -4,11 +4,13 @@ on:
     paths:
       - "tools/debo_durable_save_gate.py"
       - "tools/debo_verify_all.py"
+      - "tests/test_debo_verification.py"
       - ".github/workflows/debo-durable-save-gate.yml"
   pull_request:
     paths:
       - "tools/debo_durable_save_gate.py"
       - "tools/debo_verify_all.py"
+      - "tests/test_debo_verification.py"
       - ".github/workflows/debo-durable-save-gate.yml"
   workflow_dispatch:
 permissions:
@@ -21,39 +23,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Test exact gate and batch runner together
-        run: |
-          python - <<'PY'
-          import hashlib, json, pathlib, subprocess, sys, tempfile, zipfile
-          gate = pathlib.Path("tools/debo_durable_save_gate.py").resolve()
-          runner = pathlib.Path("tools/debo_verify_all.py").resolve()
-          with tempfile.TemporaryDirectory() as tmp:
-              root = pathlib.Path(tmp)
-              original, readback = root/"original.zip", root/"readback.zip"
-              for path in (original, readback):
-                  with zipfile.ZipFile(path, "w") as z:
-                      z.writestr("proof.txt", "DEBO verification")
-              expected = hashlib.sha256(original.read_bytes()).hexdigest()
-              manifest = root/"manifest.json"
-              def run_case(label, expected_exit, checksum=None):
-                  manifest.write_text(json.dumps({"artifacts":[{
-                      "id":label,"original":str(original),"readback":str(readback),
-                      "destination":"test-readback",
-                      "expected_sha256": checksum or expected}]}))
-                  r = subprocess.run([sys.executable,str(runner),str(manifest),
-                                      "--gate",str(gate)],capture_output=True,text=True)
-                  assert r.returncode == expected_exit, (label,r.stdout,r.stderr)
-                  receipt = json.loads(r.stdout)
-                  assert receipt["results"][0]["exit_code"] == expected_exit, receipt
-                  print(label, "PASS", "exit", r.returncode)
-              run_case("matching",0)
-              run_case("wrong_expected_hash",1,"0"*64)
-              readback.write_bytes(b"changed")
-              run_case("mutated_readback",1)
-              manifest.write_text('{"artifacts":[]}')
-              r = subprocess.run([sys.executable,str(runner),str(manifest),
-                                  "--gate",str(gate)],capture_output=True,text=True)
-              assert r.returncode == 1, (r.stdout,r.stderr)
-              print("empty_manifest PASS exit 1")
-              print("DEBO gate and batch runner: 4 checks passed")
-          PY
+      - name: Seven fail-closed regression tests
+        run: python tests/test_debo_verification.py
