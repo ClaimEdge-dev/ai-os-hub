@@ -29,5 +29,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Seven fail-closed regression tests
+      - name: DEBO verification and registry regression tests
         run: python -m unittest discover -s tests -p "test_debo*.py" -v
