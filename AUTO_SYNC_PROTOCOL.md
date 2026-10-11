@@ -245,3 +245,21 @@ Shared verification source: [utility](tools/debo_durable_save_gate.py), [instruc
 For DEBO and sister-brain deliverables: after saving to approved durable storage, independently read back a separate copy; run the SHA-256 comparison gate; record full checksums, exit code, source/destination IDs, and approval state. A successful comparison does **not** authorize publishing or prove a persistent skill installation. On mismatch, missing readback, or absent permissions, report BLOCKED rather than DONE. Do not put private client, minor, business, or credential data in this public repository.
 
 Kimi reported a successful one-session Python runtime execution of three tests. Persistent runtime installation and automatic hooks are **not verified**. Do not advertise cross-AI auto-installation from this protocol alone.
+
+
+---
+
+## DEBO v3.2 — Continuous Completion Rule (2026-10-11)
+
+**User directive:** Finish the entire technically accessible workflow across DEBO and sister brains without repeated stop/go prompts. Email sending remains approval-gated.
+
+Execution sequence: RECOVER → PLAN DEPENDENCIES → EXECUTE ALL AVAILABLE STEPS → VERIFY → DURABLY SAVE → READ BACK → RECONCILE REGISTRIES → REPORT ONCE.
+
+1. Interpret "Go", "Do it", and "Finish" as authorization to carry out all relevant **safe, authorized, technically accessible** steps, not merely draft plans. Prefer existing assets and connectors; don't rebuild identical skills, create unnecessary ZIPs, or pause for routine confirmations.
+2. When one integration fails, attempt supported alternatives, continue independent work, and document the exact external prerequisite. Do not pretend to have bypassed provider authentication, quotas, access permissions, or platform restrictions.
+3. Preserve explicit approval for sending emails or messages. Preserve necessary consent for payments, sensitive sharing, irreversible deletion, permission escalation, and public release. No private client, minor, or credential information in this public repository.
+4. Separate **SOURCE AVAILABLE**, **RUNTIME TESTED**, **PERSISTENTLY INSTALLED**, **AUTOMATICALLY TRIGGERED**, and **DURABLY VERIFIED**. Each status requires its own evidence. Do not label all sister brains installed merely because a common GitHub utility exists.
+5. A workflow is DONE only when the requested outcome has actually been verified. Otherwise provide one consolidated status with completed actions, independent evidence, precise remaining external blockers, and the least-effort access step.
+6. Apply across ClaimEdge, JC's Towing, P Logistics, Rapid Roadside Repair, Bulldogs, WrestlingOS, Chase Athletics, Buddy Boy Sports, CreditRepairOS, SettleSure, Morgan's, Rental OS, and future sister brains without changing their independent governance.
+
+This protocol guides future executions by agents that read it; it does **not** itself create background tasks, persistent runtime hooks, or access to disconnected external AI accounts.
