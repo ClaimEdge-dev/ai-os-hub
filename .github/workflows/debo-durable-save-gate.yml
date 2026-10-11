@@ -5,12 +5,18 @@ on:
       - "tools/debo_durable_save_gate.py"
       - "tools/debo_verify_all.py"
       - "tests/test_debo_verification.py"
+      - "tests/test_debo_registry_audit.py"
+      - "tools/debo_registry_audit.py"
+      - "schemas/debo_skill_inventory.schema.json"
       - ".github/workflows/debo-durable-save-gate.yml"
   pull_request:
     paths:
       - "tools/debo_durable_save_gate.py"
       - "tools/debo_verify_all.py"
       - "tests/test_debo_verification.py"
+      - "tests/test_debo_registry_audit.py"
+      - "tools/debo_registry_audit.py"
+      - "schemas/debo_skill_inventory.schema.json"
       - ".github/workflows/debo-durable-save-gate.yml"
   workflow_dispatch:
 permissions:
@@ -24,4 +30,4 @@ jobs:
         with:
           python-version: "3.11"
       - name: Seven fail-closed regression tests
-        run: python tests/test_debo_verification.py
+        run: python -m unittest discover -s tests -p "test_debo*.py" -v
