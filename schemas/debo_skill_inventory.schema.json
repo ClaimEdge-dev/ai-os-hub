@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DEBO Skill Registry Audit",
+  "type": "object",
+  "required": [
+    "row_count",
+    "unique_numbers",
+    "duplicate_numbers",
+    "missing_numbers",
+    "skills",
+    "runtime_installation_verified"
+  ],
+  "properties": {
+    "row_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "unique_numbers": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "duplicate_numbers": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "missing_numbers": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "duplicate_skill_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "domains": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "number",
+          "skill",
+          "domain",
+          "installed"
+        ],
+        "properties": {
+          "number": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "skill": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "installed": {
+            "enum": [
+              "UNVERIFIED",
+              "INSTALLED",
+              "NOT_INSTALLED"
+            ]
+          }
+        }
+      }
+    },
+    "runtime_installation_verified": {
+      "type": "boolean"
+    }
+  }
+}
