@@ -184,3 +184,12 @@ Download from [GitHub Releases](https://github.com/ClaimEdge-dev/ai-os-hub/relea
 Source: [Python utility](tools/debo_durable_save_gate.py) · [README](tools/DEBO_DURABLE_SAVE_GATE_README.md) · [DEC-016 receipt](records/DEC-016_DURABLE_SAVE_GATE_RUNTIME_RECEIPT_2026-10-10.md).
 
 This is a **registered shared capability**, not a claim that another skill was installed. Before marking a deliverable DONE, run the utility against the original and an independently retrieved durable copy, check exit code and full hashes, and record destination/readback IDs. Do not execute automatically unless the active runtime explicitly supports a persistent hook. Never publish private artifacts or receipts to this public repository.
+
+
+## DEBO × Kimi engineering orchestration — 2026-10-11
+
+| Capability | Source | Activation | Status |
+|---|---|---|---|
+| `debo-kimi-system-wide-engineering-v1` | [Master command](prompts/DEBO_KIMI_SYSTEM_WIDE_ENGINEERING_COMMAND_v1.md) | Kimi receives command and reads existing skill inventory; reuse → update → build → install/test | PROMPT REGISTERED; KIMI RUNTIME INSTALL NOT VERIFIED |
+
+**Skill evolution rule:** search installed skills and plugin connections first; use working ones, update outdated ones with versioned tests, build new governed skills only for real gaps, and verify each installation in the target runtime. Do not confuse GitHub prompt registration with skill installation. Emails/messages remain approval-gated.
