@@ -1,0 +1,21 @@
+name: DEBO Bootstrap Integrity
+on:
+  push:
+    paths:
+      - 'governance/**'
+      - 'projects/dwing-exterior/DEBO_PROFILE_v2.md'
+      - 'tools/debo_bootstrap_check.py'
+      - '.github/workflows/debo-bootstrap-check.yml'
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate DEBO repository bootstrap
+        run: python tools/debo_bootstrap_check.py
