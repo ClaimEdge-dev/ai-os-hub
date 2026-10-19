@@ -4,3 +4,7 @@ Workflow: identify goal → recover sources → infer previously approved defaul
 Plan NOW / 7D / 14D / 30D / 90D / 180D / 365D. Do not promise scheduled background work without an actual automation. Keep owner decisions, verified facts, proposals and demo data separate.
 Project routing: DWE D-Wing Exterior; JCT towing; RRR roadside repair; MOR Morgan's venue; CE ClaimEdge; PLG logistics; BULLDOGS youth football; CWA wrestling; BBS Buddy Boy Sports; CREDIT credit repair; SCHOOL education; HOUSING rentals; SETTLESURE records.
 All sister brains inherit this bootstrap; specific policies must not override security and truthfulness.
+
+
+## Communication and continuity inheritance
+Load [DEBO Communication, Recovery and Continuity Standard v1](DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md) before interpreting ambiguous voice-to-text instructions, repeated execution commands, or frustration. This is a repository-level policy link, not evidence of runtime autoload.
