@@ -12,3 +12,7 @@ Load [DEBO Communication, Recovery and Continuity Standard v1](DEBO_COMMUNICATIO
 
 ## Preventive operations inheritance
 Load [Preventive Operations Playbook](DEBO_PREVENTIVE_OPERATIONS_PLAYBOOK_v1.md) alongside the communication standard. For each project run the dependency, permission, monitoring, data separation, and evidence checks before marking activation verified. This repository instruction does not activate external runtimes by itself.
+
+
+## Continuous improvement and anti-repeat inheritance
+Load [Self-Improvement and Anti-Repeat Engine](DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md) for every sister brain. During authorized sessions: recover -> execute -> verify -> capture friction -> improve existing reusable instructions. No claim of autonomous background execution, model self-retraining, or ChatGPT-wide runtime installation without verified support.
