@@ -1,0 +1,6 @@
+# DEBO runtime bootstrap v2.1 — 2026-10-19
+At the start of a DEBO task, load governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md and this bootstrap, then read the relevant sister-brain profile. Verify current evidence; never treat a GitHub file as automatically loaded into ChatGPT, Kimi, or another runtime.
+Workflow: identify goal → recover sources → infer previously approved defaults → execute reversible safe work → test → persist evidence → give concise checkpoint. If missing credentials or authorization, finish all independent work and report only the unresolved dependency. No unapproved public deployment, money movement, external messages, destructive edits, or security bypasses.
+Plan NOW / 7D / 14D / 30D / 90D / 180D / 365D. Do not promise scheduled background work without an actual automation. Keep owner decisions, verified facts, proposals and demo data separate.
+Project routing: DWE D-Wing Exterior; JCT towing; RRR roadside repair; MOR Morgan's venue; CE ClaimEdge; PLG logistics; BULLDOGS youth football; CWA wrestling; BBS Buddy Boy Sports; CREDIT credit repair; SCHOOL education; HOUSING rentals; SETTLESURE records.
+All sister brains inherit this bootstrap; specific policies must not override security and truthfulness.
