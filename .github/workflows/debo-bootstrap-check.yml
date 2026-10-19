@@ -6,6 +6,12 @@ on:
       - 'projects/dwing-exterior/DEBO_PROFILE_v2.md'
       - 'tools/debo_bootstrap_check.py'
       - '.github/workflows/debo-bootstrap-check.yml'
+  pull_request:
+    paths:
+      - 'governance/**'
+      - 'projects/dwing-exterior/DEBO_PROFILE_v2.md'
+      - 'tools/debo_bootstrap_check.py'
+      - '.github/workflows/debo-bootstrap-check.yml'
   workflow_dispatch:
 jobs:
   validate:
