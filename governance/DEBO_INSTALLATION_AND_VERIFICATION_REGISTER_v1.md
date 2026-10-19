@@ -13,11 +13,11 @@ VERIFIED means actual operation observed with evidence. DOCUMENTED means instruc
 | D-Wing profile | DOCUMENTED | projects/dwing-exterior/DEBO_PROFILE_v2.md |
 | Notion DEBO master control page | VERIFIED (page creation) | https://app.notion.com/p/3feb37124b6781ff8ea8fb9f245352e9 |
 | Notion communication rules | VERIFIED (page creation) | https://app.notion.com/p/3feb37124b6781f184e4db058f5ecd3a |
-| Other individual sister-brain profiles | UNKNOWN | Locate and test per-project profile loading |
+| Individual sister-brain profiles (13) | VERIFIED (repository retrieval only) | All 13 GitHub profiles fetched on 2026-10-19; Neon tasks read back PROFILE_VERIFIED; runtime activation remains DOCUMENTED |
 | ChatGPT account-wide instruction activation | BLOCKED | No project/global instruction write control exposed in current chat |
 | Existing ChatGPT threads updated | UNKNOWN | No verified cross-thread write mechanism |
 | Plugin permission changes | NOT REQUESTED | Do not grant blanket unrestricted access |
-| Neon Live Bridge synchronization | BLOCKED | Read attempt rejected; do not claim database writes |
+| Neon Live Bridge registry | VERIFIED (database access and metadata) | Project damp-math-10052614: 13 projects, 13 sister brains, 13 tasks read back PROFILE_VERIFIED; runtime sync not certified |
 | Kimi/Perplexity/other AI autoload | UNKNOWN | Test independently in each runtime |
 
 ## Sister-brain audit queue
