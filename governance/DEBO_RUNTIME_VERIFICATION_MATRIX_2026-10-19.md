@@ -16,8 +16,8 @@ PROFILE_VERIFIED = repository profile read successfully; it does not mean applic
 |---|---|---|---|
 | DWE | PROFILE_VERIFIED | NOT VERIFIED | Load bootstrap in actual project environment, perform one authorized safe operation, inspect result and write an evidence receipt |
 | JCT | PROFILE_VERIFIED | NOT VERIFIED | Load bootstrap in actual project environment, perform one authorized safe operation, inspect result and write an evidence receipt |
-| RRR | PROFILE_VERIFIED | NOT VERIFIED | Load bootstrap in actual project environment, perform one authorized safe operation, inspect result and write an evidence receipt |
-| MOR | PROFILE_VERIFIED | NOT VERIFIED | Load bootstrap in actual project environment, perform one authorized safe operation, inspect result and write an evidence receipt |
+| RRR | PROFILE_VERIFIED | DATABASE VERIFIED; APPLICATION NOT VERIFIED | Supabase project ACTIVE_HEALTHY, 13 RLS tables, 9 migrations, zero security advisories; smoke receipt ffaa047e-a0cd-4ab7-a461-559ae1ee2f76. Staff auth, workbook-to-staging, dispatcher workflow and resume remain pending |
+| MOR | PROFILE_VERIFIED | PRIVATE DEPLOYMENT PARTIALLY VERIFIED | Vercel project exists; latest preview BLOCKED, previous READY; SSO protection enabled. Protected preview and actual application workflow not tested |
 | CE | PROFILE_VERIFIED | NOT VERIFIED | Load bootstrap in actual project environment, perform one authorized safe operation, inspect result and write an evidence receipt |
 | PLG | PROFILE_VERIFIED | NOT VERIFIED | Load bootstrap in actual project environment, perform one authorized safe operation, inspect result and write an evidence receipt |
 | BULLDOGS | PROFILE_VERIFIED | NOT VERIFIED | Load bootstrap in actual project environment, perform one authorized safe operation, inspect result and write an evidence receipt |
@@ -33,3 +33,12 @@ Each project needs (1) source access (2) profile load (3) authorized safe operat
 
 ## Known limits
 GitHub profile retrieval and Neon metadata writes do not activate ChatGPT-wide instructions or install cross-platform runtimes. Workflow YAML configuration alone does not prove GitHub Actions has passed; inspect actual job logs/checks.
+
+## Additional checks — 2026-10-19
+- RRR original Google workbook ID `1hRtE0y98SvgG5Fv7oni1ZG_GvDn2BBRKrepElTeP7eE` identified and 38 tabs inspected. Owner granted editor access to `claimedgeinspections@gmail.com`; original remained read-only to Sheets batchUpdate (HTTP 403).
+- RRR recovery copy `1BgbO2U9V31ljxMy2dbaZKJScPYygakJBTZNppXLrGF8` created with all 38 tabs. Its integration status and Sync Control updated and read back successfully. This copy is NOT yet connected to the deployed endpoint.
+- RRR `rrr-sheets-stage` Edge Function is ACTIVE, version 2, and accepts the ORIGINAL spreadsheet ID only. It uses a separate sync secret and stages records for review. Secret configuration, authenticated sync and schedule are unverified; do not infer a successful transfer.
+- RRR active staff query returned 0; staff authorization cannot pass until a real authorized account exists.
+- RRR Vercel preview `rrr-rapid-roadside-preview` latest deployment READY; public production is not established.
+- Morgan's Vercel `morgans-lockport-private-preview` latest deployment BLOCKED, SSO enabled; do not disable protection or promote to production as a workaround.
+- Supabase SQL inspection queries were subsequently blocked by safety checks; do not treat those as test failures or retry to bypass.
