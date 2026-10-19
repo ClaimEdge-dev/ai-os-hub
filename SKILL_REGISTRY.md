@@ -1,7 +1,7 @@
-# Skill Registry — All 70 Skills
+# Skill Registry — 72 catalogued skills
 
 **Auto-generated from Kimi session**  
-**Last updated:** 2026-10-06  
+**Last updated:** 2026-10-19 (metadata reconciliation)  
 **Source of truth:** This file + Notion "AI OS Hub"
 
 ---
@@ -10,7 +10,7 @@
 
 1. **Find your domain** — ClaimEdge, Huuso, Wrestling, Buddy Boy Sports, AI-Meta, or Research
 2. **Check the skill** — Description tells you what it does
-3. **Check the trigger** — This is what activates the skill automatically
+3. **Check the trigger** — This is the intended routing condition; automatic activation requires a separately verified runtime
 4. **Check status** — Active, Draft, Deprecated, or Archived
 5. **Click the link** — Goes to GitHub or Notion for full documentation
 
@@ -114,7 +114,7 @@
 | 69 | `proactive-build-ahead` | Automatically builds safe internal skeletons for obvious downstream needs | Predictable dependency discovered | ACTIVE |
 | 70 | `chatgpt-mode-router` | Routes work to Chat / Work / Voice / Work+Voice / Codex / Project / Temporary Chat | Every substantial task / mode decision | ACTIVE |
 | 71 | `chatgpt-workspace-steward` | Files, checkpoints, archives and cleans ChatGPT projects/chats/sources without losing canon | Project setup / session close / cleanup | ACTIVE |
-| 70 | `chatgpt-surface-router` | Routes substantial tasks to Chat, Voice, Dictation, Work, Search, Deep Research, Projects, Library and correct reasoning level | Every substantial ChatGPT task | ACTIVE |
+| 72 | `chatgpt-surface-router` | Routes substantial tasks to Chat, Voice, Dictation, Work, Search, Deep Research, Projects, Library and correct reasoning level | Every substantial ChatGPT task | ACTIVE |
 
 ---
 
@@ -134,7 +134,7 @@
 
 | Status | Meaning |
 |---|---|
-| **ACTIVE** | Working, current, ready to use |
+| **ACTIVE** | Legacy source maturity label; runtime installation and automatic activation remain UNVERIFIED unless separately evidenced |
 | **DRAFT** | Built but needs testing/validation |
 | **DEPRECATED** | Replaced by newer skill, don't use |
 | **ARCHIVED** | Kept for reference but not maintained |
@@ -145,12 +145,12 @@
 
 | Metric | Count |
 |---|---|
-| Total Skills | 70 |
-| Active | 70 |
+| Total Skills | 72 |
+| Source-labelled Active | 72 |
 | Draft | 0 |
 | Deprecated | 0 |
 | Archived | 0 |
-| By Domain | ClaimEdge: 14, Huuso: 10, Wrestling: 14, Buddy Boy: 2, AI-Meta: 25, Research: 5 |
+| By Domain | ClaimEdge: 14, Huuso: 10, Wrestling: 14, Buddy Boy: 2, AI-Meta: 27, Research: 5 |
 
 ---
 
