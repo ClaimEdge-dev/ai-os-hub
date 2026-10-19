@@ -8,3 +8,7 @@ All sister brains inherit this bootstrap; specific policies must not override se
 
 ## Communication and continuity inheritance
 Load [DEBO Communication, Recovery and Continuity Standard v1](DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md) before interpreting ambiguous voice-to-text instructions, repeated execution commands, or frustration. This is a repository-level policy link, not evidence of runtime autoload.
+
+
+## Preventive operations inheritance
+Load [Preventive Operations Playbook](DEBO_PREVENTIVE_OPERATIONS_PLAYBOOK_v1.md) alongside the communication standard. For each project run the dependency, permission, monitoring, data separation, and evidence checks before marking activation verified. This repository instruction does not activate external runtimes by itself.
