@@ -57,3 +57,10 @@ This repository is automatically synced from Kimi and serves as the central hub 
 ## Last Updated
 2026-07-19 — Huuso→ClaimEdge rebrand scrubbed workspace-wide; legacy brand retired. 17 Notion pages renamed to domain prefixes; autonomous-ops-architect skill added.
 2026-07-16 — Session continuation with Notion/GitHub sync built.
+
+
+## DEBO v2 canonical activation
+
+For every DEBO and sister-brain task, begin with [DEBO runtime bootstrap](governance/DEBO_RUNTIME_BOOTSTRAP_v2.md), then [autonomous execution standard](governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md), and the [sister-brain profile template](governance/SISTER_BRAIN_PROFILE_TEMPLATE_v2.md). [Activation checklist](governance/DEBO_INSTALLATION_CHECKLIST_2026-10-19.md) documents verification.
+
+Treat these as canonical repository instructions, not proof of automatic loading into ChatGPT or other AI runtimes. Only mark an integration installed after its own startup and execution tests succeed. Recover before rebuild, complete safe reversible steps without redundant approval, maintain project isolation, and record verified outcomes.
