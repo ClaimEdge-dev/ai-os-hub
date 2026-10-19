@@ -5,17 +5,22 @@ on:
       - 'governance/**'
       - 'projects/dwing-exterior/DEBO_PROFILE_v2.md'
       - 'tools/debo_bootstrap_check.py'
+      - 'tests/test_debo*.py'
       - '.github/workflows/debo-bootstrap-check.yml'
   pull_request:
     paths:
       - 'governance/**'
       - 'projects/dwing-exterior/DEBO_PROFILE_v2.md'
       - 'tools/debo_bootstrap_check.py'
+      - 'tests/test_debo*.py'
       - '.github/workflows/debo-bootstrap-check.yml'
+  schedule:
+    - cron: '17 12 * * *'
   workflow_dispatch:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: read
     steps:
@@ -25,3 +30,5 @@ jobs:
           python-version: '3.11'
       - name: Validate DEBO repository bootstrap
         run: python tools/debo_bootstrap_check.py
+      - name: Test bootstrap and durable-save failure detection
+        run: python -m unittest discover -s tests -p 'test_debo*.py' -v
