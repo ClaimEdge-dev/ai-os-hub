@@ -59,3 +59,21 @@ Audit scope: evidence retrieved from GitHub default branch; portable October 19 
 ### Required next deterministic smoke test
 DEBO-01: Fetch this matrix from GitHub; identify source/date/status; confirm connector tenant; execute one authorized private, non-destructive improvement; read back exact persisted data; create receipt; in a later session recover the exact receipt with no conversational handholding. Mark PASS only after complete.
 Next action: verify actual CI workflow run and a real, permitted end-to-end project-specific operation. Tool choices live in `governance/DEBO_TOOL_SELECTION_REGISTER_v1.md`.
+
+
+## October 20, 2026 — Sports network source recovery (private data excluded)
+Evidence boundary: On October 20 a newer private DEBO Elite Sports Network blueprint and multi-sport recovery/handoff were located and read through ChatGPT Library. The blueprint is explicitly PLANNING/RECOVERY and does NOT establish the deployment or installation of a new sports network application. Proposed partnerships and collaboration roles require independent acceptance.
+
+Verified source-file presence on GitHub (fetch/contents inspection, NOT runtime tests):
+- `governance/sister-brains/BULLDOGS_PROFILE_v1.md`
+- `athleteos/video-ai/PLAYBOOK_BENCHMARK_v0.2.md`
+- `skills/wrestling-extraction-suite/SKILL.md`
+- `skills/wrestling-intelligence-master/SKILL.md`
+
+Canonical scope: DEBO v3.2 core remains the parent. Elite Sports Network is a coordination view, not a new separate data store or league affiliation. AthleteOS can supply stable private athlete IDs with multiple team/season memberships. Bulldogs/football, Upper Deck Hitters/baseball, WrestlingOS, Celtic Wrestling Academy, Ascend/Level Up, personal development, and media remain separately owned. Reuse documented shared workflows rather than cloning project databases or skills.
+
+Privacy and authority: Do not commit minor identities, guardian details, private media, health information, schools, schedules, birthdays, or unverifiable honors to this public repository. Verify guardian/media rights and coach permissions for every private app pilot. Official league/team/college awards require source-backed evidence and must not be confused with internal achievement badges. Season/division-specific rules and eligibility questions require confidential authorized review; no automated youth allegations or sanctions.
+
+NEXT SPORTS PILOT (all NOT RUN): Recover the authorized Bulldogs Truth Register and one Hitters/Wrestling source; prove a one-athlete-to-multiple-teams identity link in a private synthetic/test context; validate one original film/playbook annotation and one official result; test a denied unauthorized access path. Check public rankings, deployments and external outreach behind separate release gates.
+
+This note is an evidence delta to the existing runtime matrix; it does not promote any sports application from PROFILE_VERIFIED to OPERATIONAL.
