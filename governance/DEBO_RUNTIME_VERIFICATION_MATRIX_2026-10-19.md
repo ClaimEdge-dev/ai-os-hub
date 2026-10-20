@@ -42,3 +42,20 @@ GitHub profile retrieval and Neon metadata writes do not activate ChatGPT-wide i
 - RRR Vercel preview `rrr-rapid-roadside-preview` latest deployment READY; public production is not established.
 - Morgan's Vercel `morgans-lockport-private-preview` latest deployment BLOCKED, SSO enabled; do not disable protection or promote to production as a workaround.
 - Supabase SQL inspection queries were subsequently blocked by safety checks; do not treat those as test failures or retry to bypass.
+
+## October 20, 2026 — independent reconciliation and connector identity check
+Audit scope: evidence retrieved from GitHub default branch; portable October 19 skill/install receipts in ChatGPT Library; selected Google Drive indexes; exposed connector actions; official CompanyCam/Leap documentation. A full August 20–October 20 conversation-by-conversation audit is **not** established by this update.
+
+### Corrected evidence and status
+- GitHub repository ClaimEdge-dev/ai-os-hub was reachable through authenticated connected GitHub search and file fetch. The October 19 portable installation receipt recording an unavailable GitHub write remains historically true for that earlier execution **but does not describe all subsequent sessions**; repository commits on October 19 and 20 establish later successful writes. No cross-platform permanent DEBO installation is inferred.
+- Both exposed connector namespaces `CompanyCam` and `Company_cam` returned the same current OAuth company ID `1520702` from `get_current_user` on October 20. These are duplicate connector surfaces, not evidence of two separately authenticated companies. Earlier records associate `1520702` with ClaimEdge. Do not touch D-Wing production jobs via this session; verify D-Wing target tenant and authorization first.
+- CompanyCam's official Leap integration exists: https://companycam.com/integrations/leap . Investigate existing native job-photo sync and enabled account configuration **before** designing custom LEAP↔CompanyCam↔DEBO synchronization.
+- CompanyCam's new REST API and Beta MCP exist (https://help.companycam.com/en/articles/15949273-building-custom-integrations-with-companycam-s-api; https://help.companycam.com/en/articles/15928195-connecting-the-companycam-mcp-server-beta). API availability or accessible tool methods are not proof of tenant authorization, real job access, or successful delivery.
+- RRR91 lead/revenue spec was fetched at `projects/rapid-roadside-repair/RRR91_LEAD_REVENUE_OS.md`. It marks attribution changes pushed but **not deployed**, backend migrations **not applied**, and compensation agreement **not executed**. Its Higgsfield URL and zero-count baseline are prior-file evidence, not a fresh live smoke test here.
+- Google Drive discovery identified `CURRENT — DEBO Operating Rules`, `CURRENT — DEBO Skill Registry`, `DEBO — Trace Run Ledger`, and existing RRR/D-Wing indices. These were located, **not all read end-to-end**. Do not replace their authority with this note.
+- GitHub combined status request for commit `6034228a9bd20ac6291160f5f4bc4da879154e15` returned **zero individual statuses**. Therefore GitHub Actions PASS is **NOT ESTABLISHED** by that query; inspect actual workflow logs before asserting it.
+- Source-of-truth rule: personal pay, legal, claim/client and minor records belong in access-controlled systems, not in this public GitHub repository.
+
+### Required next deterministic smoke test
+DEBO-01: Fetch this matrix from GitHub; identify source/date/status; confirm connector tenant; execute one authorized private, non-destructive improvement; read back exact persisted data; create receipt; in a later session recover the exact receipt with no conversational handholding. Mark PASS only after complete.
+Next action: verify actual CI workflow run and a real, permitted end-to-end project-specific operation. Tool choices live in `governance/DEBO_TOOL_SELECTION_REGISTER_v1.md`.
