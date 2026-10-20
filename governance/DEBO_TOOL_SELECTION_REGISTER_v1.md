@@ -148,3 +148,21 @@ Discovery is a snapshot of names and tool counts exposed to this assistant, **no
 
 ## Anti-repeat decision
 Before each new integration: check existing native connection -> check target company identity/permissions -> check whether desired data is already present -> propose smallest missing adapter -> dry-run with synthetic records -> verify access, logging, dedupe, retries, source references -> only then request production release. Log negative tests, not merely happy-path demos.
+
+
+## Sports workflow tool routing — Oct 20 evidence delta
+Sports source files read from GitHub: `governance/sister-brains/BULLDOGS_PROFILE_v1.md`, `athleteos/video-ai/PLAYBOOK_BENCHMARK_v0.2.md`, `skills/wrestling-extraction-suite/SKILL.md` and `skills/wrestling-intelligence-master/SKILL.md`. Source availability is not installation or workflow-test evidence.
+
+| Task type | First-choice existing tool/source | Reason | Fallback | Runtime evidence / blocker |
+| --- | --- | --- | --- | --- |
+| Bulldogs roster and playbook truth | Existing coach-approved team register and original playbook in Drive, versioned GitHub benchmark | Native team source, allows coach review | Human reviewed private upload | Exact Drive document contents, team permissions and film rights need current check |
+| Bulldogs game film analysis | Existing AthleteOS benchmark with source film and reviewed tags | Reuse call vocabulary; one film-to-play acceptance | Manual clip tags | NO live model accuracy/production pipeline demonstrated |
+| Wrestling tournament and achievement histories | Official public event/bracket sources + existing wrestling extraction skill source | Direct evidence, source/version provenance | Restricted read-only authorized export | Skill source fetched; trigger/extraction not tested |
+| Hitters baseball scores, roster, tournaments | Authorized originals in existing Hitters Drive folders and provider accounts (GameChanger etc. only if authorized) | Avoid duplicate app/database and unlicensed scraping | Coach-approved scorecard import | Third-party live connectors and reuse rights unverified |
+| Sports schedule and team events | Existing authorized team calendar and Google Calendar connector | Avoid duplicate events | Manual source-backed calendar import | Account ownership and write authorization not tested |
+| Shared athlete identity/permissions | Existing project registry and secure access-controlled data store | Link one athlete to many team-season records without publishing minors | Private, pseudonymized spreadsheet pilot | DB schema proposal only; no migrations tested |
+| Social highlights and athlete marketing | Existing media/brand apps + explicit guardian/coach/media rights | Preserve ownership and consent | Private draft review | No child/public post without approval |
+| Official honors, league rules, eligibility | League/team/school primary sources with season/version | Prevent mistaken awards and allegations | Authorized registrar review | No automatic classification or public allegations |
+| Registration and operational sports management | Existing authorized Hudl/GameChanger/TeamSnap/SportsEngine/LeagueApps/etc. only where already in use | Prefer native software over custom rebuilds | Existing Drive roster | Plan, account connection, licensing and data-export access still unknown |
+
+Privacy gate: Do not use public repo as a youth identity store. Availability of search or linked media is not consent to republish. Research records should track source, date, identity match basis, guardian/media permissions, season and authority level. New app/plugin installations require demonstrated work fit, free-tier suitability and reversible authorization.
