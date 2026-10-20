@@ -1,0 +1,3 @@
+# Illinois Record Clearing OS: Engineering v5
+Existing repo project `AGENT_SYSTEM.md` remains canonical. This branch adds four narrow skill modules and a Kimi work request. The wider tested Python case intake and attorney draft generation kit is packaged privately for the client, not installed here. All clinical/legal facts are SOURCE-VERIFIED or UNKNOWN.
+**Important:** No actual court cases recovered into this code repo; no petition drafted from personal data; no e-filing performed. This public repo must contain code and synthetic fixtures only. Local build kit tests: five passed on 2026-10-20; installation in Kimi and end-to-end tests pending. Human attorney review and user approval required for legal filings.
