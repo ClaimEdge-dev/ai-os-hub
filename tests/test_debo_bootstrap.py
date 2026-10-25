@@ -58,13 +58,17 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertTrue(any('Bootstrap missing reference' in e for e in data['errors']))
 
-    def test_anti_repeat_regression_controls_present(self):
-        policy = (self.root / 'governance/DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md').read_text(encoding='utf-8')
+    def assert_anti_repeat_regression_controls(self, policy):
+        # Raise directly so negative tests can catch missing controls. A subTest
+        # would record the failure instead of propagating it to assertRaises.
         for n in range(1, 13):
-            with self.subTest(control=n):
-                self.assertIn(f'| AR-{n:02d} |', policy)
+            self.assertIn(f'| AR-{n:02d} |', policy)
         self.assertIn('Mandatory change gate (all sister brains)', policy)
         self.assertIn('October 19 RRR corrective example', policy)
+
+    def test_anti_repeat_regression_controls_present(self):
+        policy = (self.root / 'governance/DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md').read_text(encoding='utf-8')
+        self.assert_anti_repeat_regression_controls(policy)
 
     def test_anti_repeat_regression_missing_control_fails(self):
         path = self.root / 'governance/DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md'
@@ -72,14 +76,14 @@ class BootstrapTests(unittest.TestCase):
         self.assertIn('| AR-08 |', text)
         path.write_text(text.replace('| AR-08 |', '| REMOVED |'), encoding='utf-8')
         with self.assertRaises(AssertionError):
-            self.test_anti_repeat_regression_controls_present()
+            self.assert_anti_repeat_regression_controls(path.read_text(encoding='utf-8'))
 
     def test_anti_repeat_regression_missing_gate_fails(self):
         path = self.root / 'governance/DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md'
         text = path.read_text(encoding='utf-8')
         path.write_text(text.replace('Mandatory change gate (all sister brains)', 'Missing gate'), encoding='utf-8')
         with self.assertRaises(AssertionError):
-            self.test_anti_repeat_regression_controls_present()
+            self.assert_anti_repeat_regression_controls(path.read_text(encoding='utf-8'))
 
 if __name__ == '__main__':
     unittest.main()
