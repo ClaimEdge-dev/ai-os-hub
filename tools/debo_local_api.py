@@ -3,9 +3,9 @@
 Single-owner development gateway. Not a production identity system.
 """
 import hmac
-import io
 import json
 import os
+from pathlib import Path
 from wsgiref.simple_server import make_server
 
 from tools.debo_command_core import CommandCore
@@ -15,6 +15,7 @@ def application(core, token, allowed_projects):
     if not token or len(token) < 32:
         raise ValueError("DEBO_LOCAL_TOKEN must be at least 32 characters")
     allowed_projects = frozenset(allowed_projects)
+    dashboard = (Path(__file__).resolve().parents[1] / "web" / "debo-local.html").read_bytes()
 
     def respond(start_response, status, payload):
         body = json.dumps(payload, sort_keys=True).encode("utf-8")
@@ -24,12 +25,21 @@ def application(core, token, allowed_projects):
         return [body]
 
     def app(environ, start_response):
+        method, path = environ.get("REQUEST_METHOD", "GET"), environ.get("PATH_INFO", "")
+        if method == "GET" and path == "/":
+            start_response("200 OK", [("Content-Type", "text/html; charset=utf-8"),
+                       ("Content-Length", str(len(dashboard))),
+                       ("Cache-Control", "no-store"),
+                       ("X-Content-Type-Options", "nosniff"),
+                       ("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")])
+            return [dashboard]
         supplied = environ.get("HTTP_AUTHORIZATION", "")
         expected = "Bearer " + token
         if not hmac.compare_digest(supplied, expected):
             return respond(start_response, "401 Unauthorized", {"error": "Unauthorized"})
-        method, path = environ.get("REQUEST_METHOD", "GET"), environ.get("PATH_INFO", "")
         try:
+            if method == "GET" and path == "/tasks":
+                return respond(start_response, "200 OK", {"tasks": core.list_tasks(allowed_projects)})
             if method == "POST" and path == "/tasks":
                 size = int(environ.get("CONTENT_LENGTH", "0"))
                 if size < 1 or size > 16384:
