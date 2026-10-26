@@ -65,6 +65,37 @@ class LocalAPITests(unittest.TestCase):
         self.assertEqual(status, "200 OK")
         self.assertEqual([x["project_id"] for x in data["tasks"]], ["CE"])
 
+    def test_independent_operator_tokens_and_denial_audit(self):
+        bbs_token = "b" * 48
+        self.app = application(self.core, operators={
+            "ce-operator": {"token": self.token, "projects": ["CE"]},
+            "bbs-operator": {"token": bbs_token, "projects": ["BBS"]},
+        })
+        ce_task = self.call("POST", "/tasks", {"command": "note: ce", "project_id": "CE",
+              "idempotency_key": "ce-only"}, self.token)[1]["task"]["id"]
+        bbs_task = self.call("POST", "/tasks", {"command": "note: bbs", "project_id": "BBS",
+              "idempotency_key": "bbs-only"}, bbs_token)[1]["task"]["id"]
+        self.assertEqual([t["id"] for t in self.call("GET", "/tasks", token=self.token)[1]["tasks"]], [ce_task])
+        self.assertEqual([t["id"] for t in self.call("GET", "/tasks", token=bbs_token)[1]["tasks"]], [bbs_task])
+        for path in (f"/tasks/{bbs_task}", f"/tasks/{bbs_task}/events"):
+            self.assertTrue(self.call("GET", path, token=self.token)[0].startswith("403"))
+        self.assertTrue(self.call("POST", f"/tasks/{bbs_task}/execute", token=self.token)[0].startswith("403"))
+        self.assertTrue(self.call("GET", "/tasks", token="invalid")[0].startswith("401"))
+        rows = [dict(r) for r in self.core.db.execute("SELECT * FROM security_events ORDER BY id")]
+        self.assertEqual([r["outcome"] for r in rows], ["ACCESS_DENIED"] * 3 + ["AUTH_DENIED"])
+        self.assertTrue(all(r["actor_id"] in {"ce-operator", "UNKNOWN"} for r in rows))
+        self.assertNotIn(self.token, str(rows))
+        self.assertNotIn(bbs_token, str(rows))
+
+    def test_operator_configuration_rejects_shared_or_short_tokens(self):
+        with self.assertRaises(ValueError):
+            application(self.core, operators={"a": {"token": self.token, "projects": ["CE"]},
+                                              "b": {"token": self.token, "projects": ["BBS"]}})
+        with self.assertRaises(ValueError):
+            application(self.core, operators={"a": {"token": "short", "projects": ["CE"]}})
+        with self.assertRaises(ValueError):
+            application(self.core, operators={"a": {"token": self.token, "projects": ["UNKNOWN"]}})
+
 
 if __name__ == "__main__":
     unittest.main()
