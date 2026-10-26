@@ -5,6 +5,7 @@ This is an isolated reference adapter, not the canonical Neon runtime.
 from __future__ import annotations
 
 import json
+import hashlib
 import sqlite3
 import uuid
 from datetime import datetime, timezone
@@ -148,3 +149,21 @@ class CommandCore:
             f"SELECT * FROM command_tasks WHERE project_id IN ({marks}) ORDER BY created_at DESC LIMIT ?",
             (*scoped, limit))
         return [dict(row) for row in rows]
+
+    def backup_to(self, destination):
+        """Create a consistent, non-overwriting SQLite snapshot for manual safekeeping.
+
+        The snapshot is NOT encrypted. Caller must store it in an approved private location.
+        """
+        destination = Path(destination)
+        if destination.exists():
+            raise FileExistsError("Backup destination already exists")
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        with sqlite3.connect(str(destination)) as snapshot:
+            self.db.backup(snapshot)
+        with sqlite3.connect(str(destination)) as check:
+            valid = check.execute("PRAGMA integrity_check").fetchone()[0]
+        if valid != "ok":
+            raise RuntimeError("Backup integrity check failed")
+        return {"path": str(destination), "sha256": hashlib.sha256(destination.read_bytes()).hexdigest(),
+                "integrity": "ok"}
