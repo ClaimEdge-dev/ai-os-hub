@@ -105,6 +105,39 @@ class LocalAPITests(unittest.TestCase):
         self.assertEqual(self.call("GET", "/tasks", token=self.token,
             headers={"HTTP_HOST": "localhost:8765", "HTTP_ORIGIN": "http://localhost:8765"})[0], "200 OK")
 
+    def test_separate_approval_records_decision_but_never_executes(self):
+        reviewer_token = "r" * 48
+        self.app = application(self.core, operators={
+            "submitter": {"token": self.token, "projects": ["CE"], "role": "operator"},
+            "reviewer": {"token": reviewer_token, "projects": ["CE"], "role": "approver"}})
+        task_id = self.call("POST", "/tasks", {"command": "send email", "project_id": "CE",
+           "idempotency_key": "needs-review"}, self.token)[1]["task"]["id"]
+        path = f"/tasks/{task_id}/approval"
+        self.assertTrue(self.call("POST", path, {"decision": "APPROVED"}, self.token)[0].startswith("403"))
+        self.assertTrue(self.call("POST", path, {"decision": "INVALID"}, reviewer_token)[0].startswith("400"))
+        status, data = self.call("POST", path, {"decision": "APPROVED"}, reviewer_token)
+        self.assertEqual(status, "200 OK")
+        self.assertEqual(data["approval"], {"decision": "APPROVED", "execution_unlocked": False})
+        self.assertTrue(self.call("POST", path, {"decision": "REJECTED"}, reviewer_token)[0].startswith("403"))
+        self.assertTrue(self.call("POST", f"/tasks/{task_id}/execute", token=reviewer_token)[0].startswith("403"))
+        self.assertEqual(self.core.get(task_id, {"CE"})["state"], "WAITING_APPROVAL")
+        evidence = self.core.events(task_id, {"CE"})
+        self.assertEqual(evidence[-1]["event"], "APPROVAL_DECISION")
+        self.assertNotIn(reviewer_token, str(evidence))
+
+    def test_approver_cannot_self_approve_or_cross_project(self):
+        reviewer_token = "r" * 48
+        self.app = application(self.core, operators={
+            "reviewer": {"token": reviewer_token, "projects": ["CE"], "role": "approver"},
+            "bbs": {"token": self.token, "projects": ["BBS"], "role": "operator"}})
+        own = self.call("POST", "/tasks", {"command": "external", "project_id": "CE",
+            "idempotency_key": "own"}, reviewer_token)[1]["task"]["id"]
+        foreign = self.call("POST", "/tasks", {"command": "external", "project_id": "BBS",
+            "idempotency_key": "foreign"}, self.token)[1]["task"]["id"]
+        for task_id in (own, foreign):
+            self.assertTrue(self.call("POST", f"/tasks/{task_id}/approval",
+                {"decision": "APPROVED"}, reviewer_token)[0].startswith("403"))
+
 
 if __name__ == "__main__":
     unittest.main()
