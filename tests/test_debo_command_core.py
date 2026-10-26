@@ -61,6 +61,22 @@ class CommandCoreTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.core.list_tasks({"CE"}, limit=101)
 
+    def test_backup_integrity_and_restore(self):
+        original = self.core.submit("note: checkpoint", "CE", {"CE"}, "backup-key")
+        self.core.execute_note(original["id"], {"CE"})
+        backup_path = Path(self.folder.name) / "snapshot.sqlite"
+        receipt = self.core.backup_to(backup_path)
+        self.assertEqual(receipt["integrity"], "ok")
+        self.assertEqual(len(receipt["sha256"]), 64)
+        with self.assertRaises(FileExistsError):
+            self.core.backup_to(backup_path)
+        restored = CommandCore(backup_path, {"CE", "BBS"})
+        try:
+            self.assertEqual(restored.get(original["id"], {"CE"})["state"], "VERIFIED")
+            self.assertEqual(len(restored.events(original["id"], {"CE"})), 2)
+        finally:
+            restored.close()
+
 
 if __name__ == "__main__":
     unittest.main()
