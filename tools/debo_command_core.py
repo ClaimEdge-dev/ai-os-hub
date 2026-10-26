@@ -46,7 +46,15 @@ class CommandCore:
           id INTEGER PRIMARY KEY AUTOINCREMENT, task_id TEXT NOT NULL,
           event TEXT NOT NULL, evidence TEXT NOT NULL, created_at TEXT NOT NULL,
           FOREIGN KEY(task_id) REFERENCES command_tasks(id));
+        CREATE TABLE IF NOT EXISTS security_events (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, actor_id TEXT NOT NULL,
+          action TEXT NOT NULL, outcome TEXT NOT NULL, created_at TEXT NOT NULL);
         """)
+
+    def audit_security(self, actor_id, action, outcome):
+        """Record minimal access evidence, never credentials or request contents."""
+        self.db.execute("INSERT INTO security_events(actor_id,action,outcome,created_at) VALUES (?,?,?,?)",
+                        (actor_id, action, outcome, timestamp()))
 
     def close(self):
         self.db.close()
