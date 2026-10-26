@@ -53,6 +53,14 @@ class CommandCoreTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.core.submit("note: second", "CE", {"CE"}, "same")
 
+    def test_list_scope_and_limit(self):
+        self.core.submit("note: CE", "CE", {"CE"}, "list1")
+        self.core.submit("note: BBS", "BBS", {"BBS"}, "list2")
+        self.assertEqual(len(self.core.list_tasks({"CE"})), 1)
+        self.assertEqual(self.core.list_tasks(set()), [])
+        with self.assertRaises(ValueError):
+            self.core.list_tasks({"CE"}, limit=101)
+
 
 if __name__ == "__main__":
     unittest.main()
