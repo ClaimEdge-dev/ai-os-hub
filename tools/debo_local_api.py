@@ -1,6 +1,6 @@
 """Local-only DEBO command API; no Neon, cloud secrets, or public listener.
 
-Single-owner development gateway. Not a production identity system.
+Local development gateway with scoped operators. Not production identity.
 """
 import hmac
 import json
@@ -11,10 +11,22 @@ from wsgiref.simple_server import make_server
 from tools.debo_command_core import CommandCore
 
 
-def application(core, token, allowed_projects):
-    if not token or len(token) < 32:
-        raise ValueError("DEBO_LOCAL_TOKEN must be at least 32 characters")
-    allowed_projects = frozenset(allowed_projects)
+def application(core, token=None, allowed_projects=(), *, operators=None):
+    if operators is None:
+        operators = {"local-owner": {"token": token, "projects": allowed_projects}}
+    validated = []
+    seen = set()
+    for actor_id, operator in operators.items():
+        secret = operator.get("token")
+        projects = frozenset(operator.get("projects", ()))
+        if (not isinstance(actor_id, str) or not actor_id or not isinstance(secret, str)
+                or len(secret) < 32 or secret in seen or not projects
+                or not projects.issubset(core.project_ids)):
+            raise ValueError("Invalid operator configuration, credential, or project scope")
+        seen.add(secret)
+        validated.append((actor_id, "Bearer " + secret, projects))
+    if not validated:
+        raise ValueError("At least one operator is required")
     dashboard = (Path(__file__).resolve().parents[1] / "web" / "debo-local.html").read_bytes()
 
     def respond(start_response, status, payload):
@@ -34,9 +46,14 @@ def application(core, token, allowed_projects):
                        ("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")])
             return [dashboard]
         supplied = environ.get("HTTP_AUTHORIZATION", "")
-        expected = "Bearer " + token
-        if not hmac.compare_digest(supplied, expected):
+        authenticated = None
+        for actor_id, expected, scope in validated:
+            if hmac.compare_digest(supplied, expected):
+                authenticated = (actor_id, scope)
+        if authenticated is None:
+            core.audit_security("UNKNOWN", "API_REQUEST", "AUTH_DENIED")
             return respond(start_response, "401 Unauthorized", {"error": "Unauthorized"})
+        actor_id, allowed_projects = authenticated
         try:
             if method == "GET" and path == "/tasks":
                 return respond(start_response, "200 OK", {"tasks": core.list_tasks(allowed_projects)})
@@ -61,6 +78,7 @@ def application(core, token, allowed_projects):
         except (KeyError, ValueError, TypeError, json.JSONDecodeError):
             return respond(start_response, "400 Bad Request", {"error": "Invalid request"})
         except PermissionError:
+            core.audit_security(actor_id, "API_REQUEST", "ACCESS_DENIED")
             return respond(start_response, "403 Forbidden", {"error": "Operation forbidden"})
 
     return app
@@ -74,7 +92,9 @@ def main():
         raise SystemExit("Set DEBO_LOCAL_PROJECTS to explicitly authorized project IDs")
     core = CommandCore(db_path, projects)
     try:
-        app = application(core, token, projects)
+        operators_json = os.environ.get("DEBO_LOCAL_OPERATORS_JSON")
+        operators = json.loads(operators_json) if operators_json else None
+        app = application(core, token, projects, operators=operators)
         with make_server("127.0.0.1", 8765, app) as server:
             print("DEBO local API listening on 127.0.0.1:8765", flush=True)
             server.serve_forever()
