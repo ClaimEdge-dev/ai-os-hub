@@ -31,12 +31,16 @@ Routes:
 | GET | `/tasks/{id}` | Read scoped task |
 | GET | `/tasks/{id}/events` | Read evidence events |
 | POST | `/tasks/{id}/execute` | Execute allowlisted `note:` action only |
+| GET | `/tasks` | List recent tasks within the configured project scope |
+| GET | `/` | Mobile-friendly local command dashboard (no private data embedded) |
+
+The dashboard is served on the same local endpoint and asks for the bearer token after loading. It retains the token only in page memory. The interface supports task creation, scoped task listing, local-note execution and evidence inspection. It is not publicly hosted or visually QA-certified on an iPhone.
 
 There is intentionally **no API route to approve or send** sensitive external actions. Unsupported commands stay `WAITING_APPROVAL`.
 
 ## Verification
 
-`python3 -m unittest discover -s tests -p 'test_debo*.py' -v` → 26 tests passed locally on 2026-10-26.
+`python3 -m unittest discover -s tests -p 'test_debo*.py' -v` → 28 tests passed locally on 2026-10-26.
 
 ## Security limitations
 
