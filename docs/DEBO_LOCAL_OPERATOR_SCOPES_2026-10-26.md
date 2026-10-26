@@ -14,6 +14,12 @@ Never place actual tokens in shell history, checked-in `.env` files, screenshots
 
 The API also rejects browser requests with a non-loopback `Host` header or a foreign `Origin` header (local dashboard origins `http://127.0.0.1:8765` and `http://localhost:8765` are accepted). This is a basic defense against browser-based DNS rebinding and cross-origin misuse; it does not replace a production reverse proxy, TLS, authentication service, or rate limiting.
 
+## Independent approval decision pilot
+
+For a reviewer, configure a distinct token and an operator object with `"role":"approver"`; ordinary tokens default to `"role":"operator"`. The reviewer must have the relevant project in their `projects` allowlist. A task submitted through the API with an external/unknown operation receives a durable `approval_requests` entry that records the submitting identity. An approver submits `POST /tasks/{task_id}/approval` with JSON `{"decision":"APPROVED"}` or `{"decision":"REJECTED"}`. A creator cannot approve their own task, an approver cannot approve another project, and decisions cannot be overwritten. Historical external tasks with no recorded submitting identity fail closed.
+
+**Approval is evidence, not an execution permit:** both decisions leave the task in `WAITING_APPROVAL`; the API never dispatches external work. The decision is recorded in the task events with reviewer ID and `execution_unlocked: false`. This is a local workflow prototype, not proof of a real-world human identity or a production authorization service. Actual external-action execution requires a separate reviewed design and explicit release authorization.
+
 Security events in the local SQLite `security_events` table record a configured actor ID for forbidden operations, `UNKNOWN` for rejected credentials, and an outcome code. They intentionally omit raw bearer tokens, request payloads, IP addresses, and task content. Failed authentication and authorization are independently testable. Audit storage is **not tamper-proof**; protect the SQLite file and backups.
 
 External actions remain in `WAITING_APPROVAL` because no production approval identity service is present. The only executable action is a deterministic local `note:` checkpoint. Before any production release, replace this pilot gateway with audited authenticated identity, rate limiting, secure token lifecycle, encrypted storage/backup, transport protections, and independent approval gates.
