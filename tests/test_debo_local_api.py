@@ -16,12 +16,13 @@ class LocalAPITests(unittest.TestCase):
         self.token = "a" * 48
         self.app = application(self.core, self.token, {"CE"})
 
-    def call(self, method, path, payload=None, token=None):
+    def call(self, method, path, payload=None, token=None, headers=None):
         body = json.dumps(payload).encode() if payload is not None else b""
         env = {"REQUEST_METHOD": method, "PATH_INFO": path,
                "CONTENT_LENGTH": str(len(body)), "wsgi.input": io.BytesIO(body)}
         if token is not None:
             env["HTTP_AUTHORIZATION"] = "Bearer " + token
+        env.update(headers or {})
         status = []
         data = b"".join(self.app(env, lambda s, h: status.append(s)))
         return status[0], json.loads(data)
@@ -95,6 +96,14 @@ class LocalAPITests(unittest.TestCase):
             application(self.core, operators={"a": {"token": "short", "projects": ["CE"]}})
         with self.assertRaises(ValueError):
             application(self.core, operators={"a": {"token": self.token, "projects": ["UNKNOWN"]}})
+
+    def test_dns_rebinding_and_cross_origin_requests_rejected(self):
+        for headers in ({"HTTP_HOST": "attacker.example:8765"},
+                        {"HTTP_HOST": "127.0.0.1:8765", "HTTP_ORIGIN": "https://attacker.example"},
+                        {"HTTP_HOST": "localhost:8765", "HTTP_ORIGIN": "null"}):
+            self.assertTrue(self.call("GET", "/tasks", token=self.token, headers=headers)[0].startswith("403"))
+        self.assertEqual(self.call("GET", "/tasks", token=self.token,
+            headers={"HTTP_HOST": "localhost:8765", "HTTP_ORIGIN": "http://localhost:8765"})[0], "200 OK")
 
 
 if __name__ == "__main__":
