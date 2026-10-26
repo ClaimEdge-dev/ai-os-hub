@@ -135,3 +135,16 @@ class CommandCore:
     def events(self, task_id, actor_projects):
         self.get(task_id, actor_projects)
         return [dict(row) for row in self.db.execute("SELECT * FROM command_events WHERE task_id=? ORDER BY id", (task_id,))]
+
+    def list_tasks(self, actor_projects, limit=50):
+        """Only list tasks in the caller's configured project scope."""
+        scoped = sorted(self.project_ids.intersection(actor_projects))
+        if not scoped:
+            return []
+        if not 1 <= limit <= 100:
+            raise ValueError("Invalid limit")
+        marks = ",".join("?" for _ in scoped)
+        rows = self.db.execute(
+            f"SELECT * FROM command_tasks WHERE project_id IN ({marks}) ORDER BY created_at DESC LIMIT ?",
+            (*scoped, limit))
+        return [dict(row) for row in rows]
