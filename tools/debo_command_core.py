@@ -49,6 +49,10 @@ class CommandCore:
         CREATE TABLE IF NOT EXISTS security_events (
           id INTEGER PRIMARY KEY AUTOINCREMENT, actor_id TEXT NOT NULL,
           action TEXT NOT NULL, outcome TEXT NOT NULL, created_at TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS approval_requests (
+          task_id TEXT PRIMARY KEY, requester_id TEXT NOT NULL,
+          decision TEXT, reviewer_id TEXT, decided_at TEXT,
+          FOREIGN KEY(task_id) REFERENCES command_tasks(id));
         """)
 
     def audit_security(self, actor_id, action, outcome):
@@ -71,7 +75,7 @@ class CommandCore:
             raise PermissionError("Project access denied")
         return dict(row)
 
-    def submit(self, command, project_id, actor_projects, idempotency_key):
+    def submit(self, command, project_id, actor_projects, idempotency_key, *, actor_id="UNKNOWN"):
         if project_id not in self.project_ids or project_id not in actor_projects:
             raise PermissionError("Project not registered or accessible")
         if not command.strip() or not idempotency_key:
@@ -90,11 +94,37 @@ class CommandCore:
                 self.db.execute("INSERT INTO command_tasks VALUES (?,?,?,?,?,?,?,?,?,?)",
                     (task_id, project_id, command, idempotency_key, state, operation, None, None, timestamp(), timestamp()))
                 self._event(task_id, "SUBMITTED", {"state": state, "operation": operation})
+                if state == "WAITING_APPROVAL":
+                    self.db.execute("INSERT INTO approval_requests(task_id,requester_id) VALUES (?,?)",
+                                    (task_id, actor_id))
             self.db.commit()
         except BaseException:
             self.db.rollback()
             raise
         return self.get(task_id, actor_projects)
+
+    def decide_approval(self, task_id, actor_projects, reviewer_id, decision):
+        """Record independent human decision; never unlock external execution."""
+        if decision not in {"APPROVED", "REJECTED"}:
+            raise ValueError("Decision must be APPROVED or REJECTED")
+        self.db.execute("BEGIN IMMEDIATE")
+        try:
+            task = self.get(task_id, actor_projects)
+            record = self.db.execute("SELECT * FROM approval_requests WHERE task_id=?", (task_id,)).fetchone()
+            if (not record or task["state"] != "WAITING_APPROVAL"
+                    or record["requester_id"] == "UNKNOWN" or reviewer_id == record["requester_id"]):
+                raise PermissionError("Independent approval not permitted")
+            if record["decision"] is not None:
+                raise PermissionError("Approval decision is final")
+            self.db.execute("UPDATE approval_requests SET decision=?,reviewer_id=?,decided_at=? WHERE task_id=?",
+                            (decision, reviewer_id, timestamp(), task_id))
+            self._event(task_id, "APPROVAL_DECISION", {"decision": decision, "reviewer_id": reviewer_id,
+                                                       "execution_unlocked": False})
+            self.db.commit()
+        except BaseException:
+            self.db.rollback()
+            raise
+        return {"decision": decision, "execution_unlocked": False}
 
     def transition(self, task_id, actor_projects, target, *, checkpoint=None, evidence=None):
         if target not in STATES:
