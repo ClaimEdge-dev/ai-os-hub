@@ -38,6 +38,14 @@ def application(core, token=None, allowed_projects=(), *, operators=None):
 
     def app(environ, start_response):
         method, path = environ.get("REQUEST_METHOD", "GET"), environ.get("PATH_INFO", "")
+        # Loopback listener alone does not prevent DNS-rebinding browser requests.
+        host = environ.get("HTTP_HOST", "")
+        valid_hosts = {"127.0.0.1:8765", "localhost:8765"}
+        if host and host not in valid_hosts:
+            return respond(start_response, "403 Forbidden", {"error": "Invalid local host"})
+        origin = environ.get("HTTP_ORIGIN")
+        if origin and origin not in {"http://" + h for h in valid_hosts}:
+            return respond(start_response, "403 Forbidden", {"error": "Invalid local origin"})
         if method == "GET" and path == "/":
             start_response("200 OK", [("Content-Type", "text/html; charset=utf-8"),
                        ("Content-Length", str(len(dashboard))),
