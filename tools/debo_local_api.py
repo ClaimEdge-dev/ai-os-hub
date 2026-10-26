@@ -19,12 +19,13 @@ def application(core, token=None, allowed_projects=(), *, operators=None):
     for actor_id, operator in operators.items():
         secret = operator.get("token")
         projects = frozenset(operator.get("projects", ()))
+        role = operator.get("role", "operator")
         if (not isinstance(actor_id, str) or not actor_id or not isinstance(secret, str)
                 or len(secret) < 32 or secret in seen or not projects
-                or not projects.issubset(core.project_ids)):
+                or not projects.issubset(core.project_ids) or role not in {"operator", "approver"}):
             raise ValueError("Invalid operator configuration, credential, or project scope")
         seen.add(secret)
-        validated.append((actor_id, "Bearer " + secret, projects))
+        validated.append((actor_id, "Bearer " + secret, projects, role))
     if not validated:
         raise ValueError("At least one operator is required")
     dashboard = (Path(__file__).resolve().parents[1] / "web" / "debo-local.html").read_bytes()
@@ -55,13 +56,13 @@ def application(core, token=None, allowed_projects=(), *, operators=None):
             return [dashboard]
         supplied = environ.get("HTTP_AUTHORIZATION", "")
         authenticated = None
-        for actor_id, expected, scope in validated:
+        for actor_id, expected, scope, role in validated:
             if hmac.compare_digest(supplied, expected):
-                authenticated = (actor_id, scope)
+                authenticated = (actor_id, scope, role)
         if authenticated is None:
             core.audit_security("UNKNOWN", "API_REQUEST", "AUTH_DENIED")
             return respond(start_response, "401 Unauthorized", {"error": "Unauthorized"})
-        actor_id, allowed_projects = authenticated
+        actor_id, allowed_projects, role = authenticated
         try:
             if method == "GET" and path == "/tasks":
                 return respond(start_response, "200 OK", {"tasks": core.list_tasks(allowed_projects)})
@@ -71,7 +72,7 @@ def application(core, token=None, allowed_projects=(), *, operators=None):
                     return respond(start_response, "413 Content Too Large", {"error": "Invalid payload size"})
                 payload = json.loads(environ["wsgi.input"].read(size))
                 task = core.submit(payload["command"], payload["project_id"], allowed_projects,
-                                   payload["idempotency_key"])
+                                   payload["idempotency_key"], actor_id=actor_id)
                 return respond(start_response, "200 OK", {"task": task})
             bits = path.strip("/").split("/")
             if len(bits) >= 2 and bits[0] == "tasks":
@@ -82,6 +83,15 @@ def application(core, token=None, allowed_projects=(), *, operators=None):
                     return respond(start_response, "200 OK", {"events": core.events(task_id, allowed_projects)})
                 if len(bits) == 3 and bits[2] == "execute" and method == "POST":
                     return respond(start_response, "200 OK", {"task": core.execute_note(task_id, allowed_projects)})
+                if len(bits) == 3 and bits[2] == "approval" and method == "POST":
+                    if role != "approver":
+                        raise PermissionError("Independent approver role required")
+                    size = int(environ.get("CONTENT_LENGTH", "0"))
+                    if size < 1 or size > 1024:
+                        return respond(start_response, "413 Content Too Large", {"error": "Invalid payload size"})
+                    payload = json.loads(environ["wsgi.input"].read(size))
+                    result = core.decide_approval(task_id, allowed_projects, actor_id, payload["decision"])
+                    return respond(start_response, "200 OK", {"approval": result})
             return respond(start_response, "404 Not Found", {"error": "Not found"})
         except (KeyError, ValueError, TypeError, json.JSONDecodeError):
             return respond(start_response, "400 Bad Request", {"error": "Invalid request"})
