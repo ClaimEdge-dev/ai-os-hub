@@ -50,6 +50,21 @@ class LocalAPITests(unittest.TestCase):
         self.assertTrue(self.call("POST", "/tasks", token=self.token)[0].startswith("413"))
         self.assertTrue(self.call("POST", "/tasks", {"oops": True}, self.token)[0].startswith("400"))
 
+    def test_dashboard_and_scoped_list(self):
+        # Public local UI contains no private task data; API still requires token.
+        status = []
+        html = b"".join(self.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/"},
+                                 lambda s, h: status.append((s, h)))).decode()
+        self.assertEqual(status[0][0], "200 OK")
+        self.assertIn("DEBO Command Center", html)
+        self.assertIn("Content-Security-Policy", dict(status[0][1]))
+        self.assertTrue(self.call("GET", "/tasks")[0].startswith("401"))
+        self.core.submit("note: hidden", "BBS", {"BBS"}, "hidden")
+        self.core.submit("note: visible", "CE", {"CE"}, "visible")
+        status, data = self.call("GET", "/tasks", token=self.token)
+        self.assertEqual(status, "200 OK")
+        self.assertEqual([x["project_id"] for x in data["tasks"]], ["CE"])
+
 
 if __name__ == "__main__":
     unittest.main()
