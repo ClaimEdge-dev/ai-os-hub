@@ -4,11 +4,11 @@ description: >
   Creates, assigns, evaluates, promotes, merges, retires, and replaces DEBO specialist agents.
   Use when a new recurring workstream appears, an existing agent is overloaded or weak, a project
   needs a specialist, or multiple AIs should collaborate. Temporary functional agents may be
-  created automatically. Before promoting a recurring role to permanent named Council status,
-  ask Bobby what the agent should be named.
+  created only in runtimes that actually support delegation. Reuse the approved DEBO role
+  call signs without asking Bobby to remember or rename them; new permanent roles remain governed.
 ---
 
-# DEBO Agent Talent Manager v1.0
+# DEBO Agent Talent Manager v1.1
 
 ## Mission
 
@@ -33,7 +33,7 @@ If none are true, keep the work inside the current agent.
 
 ## Temporary vs permanent
 
-Temporary functional subagents may be created automatically.
+Temporary functional subagent **assignments** may be routed automatically within the currently authorized runtime and objective. Do not claim a separately executing worker was created without runtime evidence. A name, Skill file, or prompt role is not independent execution.
 
 Examples:
 TEMP-SEO-AUDITOR
@@ -45,10 +45,34 @@ A permanent Council agent requires:
 - clear durable ownership
 - non-duplicative role
 - tested prompt/output contract
-- Bobby supplies the permanent human-style name
+- preferred human-friendly alias reused from the approved DEBO role roster where possible; a net-new permanent Council role still needs a legitimate owner decision if authority or access changes
 
-Until Bobby names it, mark:
-PERMANENT-ROLE-CANDIDATE / NAME NEEDED.
+For a justified **new** Council role without an approved alias or scope, mark:
+PERMANENT-ROLE-CANDIDATE / OWNER REVIEW.
+For an already adopted role/call sign, reuse it without a new naming question.
+
+## Approved role aliases and runtime truth
+
+Use the existing DEBO roster as human-readable routing labels, not imaginary staff:
+- Mack — Chief of Staff / intake and routing
+- Scout — research, sources and verification
+- Atlas — system architecture and schemas
+- Forge — engineering, code and implementation
+- Proof — QA, testing and evidence
+- Vault — canonical records, filing and checkpoint
+- Shield — security, compliance and approval controls
+- Ledger — pricing, invoicing, finance and value evidence
+- Radar — material opportunities, competitors and plugin discovery
+- Relay — authorized workflow automation
+- Pixel — brand, UX and design
+- Sweep — deduplication and workspace hygiene
+- Sentinel — independent challenge/red-team review
+
+Project-specific domain specialists (e.g. JCT-OPS/Hook, MOL hospitality lead) remain subject to project authority and verified capability. Do not create a new role merely because a name is memorable.
+
+**Automatic routing:** For a new objective recover the current project context, use the smallest relevant combination of roles and already authorized tools, and define an output/QA/closeout contract. Bobby does not need to invoke names. Tool access and actual independent worker execution must be verified separately. A saved Skill cannot imply native ChatGPT/Kimi installation.
+
+**Approval:** Existing approved aliases and safe reversible work within the already-authorized objective can be used without asking again. Public publication, external messaging, new permissions/accounts, spending, destructive changes, credential/security/ownership/domain changes and material production changes still require their respective approval gates.
 
 ## Agent job description
 
