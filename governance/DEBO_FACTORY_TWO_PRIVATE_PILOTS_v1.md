@@ -28,3 +28,6 @@ python tools/debo_factory_pilot.py projects/morgans/factory-adapter.json project
 
 ## QA gates
 No public send, publish, payment, domain/ownership change or production write. Missing rates remain null, never zero or guessed. Missing approved brand source keeps Morgan's creative output a placeholder, not a claimed usable asset. Do not log synthetic records as real jobs or bookings.
+
+## Canonical reconciliation / do-not-merge-unreviewed
+The existing DEBO Live Project Index and BusinessAudit now report a separate canonical 24/24 synthetic test suite and Morgan's 3/3 local responsive QA proof. This experimental branch is an **additional contract candidate**, not the authoritative current factory implementation and not a replacement for verified work. Do not merge, publish, deploy, or adopt until its five gate cases and adapters have been compared with the 24-test source; preserve this branch as REFERENCE / REVIEW. The external Code Tytor executor returned an interactive browser UI, not a server-confirmed Python run. An independent local logic model passed five equivalent gate cases; exact GitHub file test execution is still UNVERIFIED. No customer data, live CRM write, approved rates, invoices or public assets were created.
