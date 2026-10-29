@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TPB Tracking Observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "video_asset_id",
+    "frame",
+    "track_id",
+    "bbox",
+    "review_status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "video_asset_id": {
+      "type": "string"
+    },
+    "frame": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "track_id": {
+      "type": "string"
+    },
+    "player_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "bbox": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "number"
+      }
+    },
+    "jersey_candidate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "team_candidate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confidence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "review_status": {
+      "enum": [
+        "UNREVIEWED",
+        "AI_CANDIDATE",
+        "HUMAN_REVIEWED",
+        "VERIFIED",
+        "REJECTED"
+      ]
+    }
+  }
+}
