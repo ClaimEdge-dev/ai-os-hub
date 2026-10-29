@@ -1,0 +1,32 @@
+{
+  "project_id": "JCT",
+  "version": "1.0",
+  "industry": "FIELD_OPERATIONS",
+  "source_refs": [
+    "Drive:JCT Operations Pack 1cre4DuYXNmZ9zURCVcY3ebh2rexQha8Zu3Mn7bNURNw",
+    "Drive:JCT-OPS 1AjqDxwjAhxv2BQmPIN2UUyCvm-mY2amXkzIqCxa9dFc"
+  ],
+  "modules": {
+    "Business Truth": "REQUIRED",
+    "Brand": "REQUIRED",
+    "Website Intake": "REQUIRED",
+    "CRM": "REQUIRED",
+    "Dispatch": "REQUIRED",
+    "Tow Ticket": "REQUIRED",
+    "Evidence QA": "REQUIRED",
+    "Billing": "REQUIRED",
+    "Rate Authority": "REQUIRED",
+    "Payments/AR": "REQUIRED",
+    "Fleet": "CONDITIONAL",
+    "Heavy Recovery": "CONDITIONAL",
+    "Municipal": "CONDITIONAL",
+    "Hospitality POS": "NOT_APPLICABLE"
+  },
+  "approval_gates": {
+    "external_send_publish_spend": true,
+    "production_data_write": true,
+    "real_invoice": true,
+    "owner_approval": "John"
+  },
+  "stated_maturity": "CONTRACT ONLY / NON-PRODUCTION"
+}
