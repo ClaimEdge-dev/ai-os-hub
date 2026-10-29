@@ -1,0 +1,11 @@
+{
+  "scenario_id": "SYN-JCT-LEAD-001",
+  "synthetic": true,
+  "source": "WEBSITE TEST",
+  "pickup": "SIMULATED PICKUP",
+  "destination": "SIMULATED DROP",
+  "vehicle_class": "HEAVY DUTY",
+  "authorized": false,
+  "evidence_present": false,
+  "rate_approved": false
+}
