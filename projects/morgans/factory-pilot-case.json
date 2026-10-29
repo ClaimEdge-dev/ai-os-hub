@@ -1,0 +1,8 @@
+{
+  "scenario_id": "SYN-MOL-LEAD-001",
+  "synthetic": true,
+  "inquiry_type": "PRIVATE EVENT INQUIRY",
+  "owner_approved_assets": false,
+  "public_business_truth_verified": false,
+  "owner_approved_copy": false
+}
