@@ -1,0 +1,21 @@
+{
+  "mission_id": "",
+  "agent": "",
+  "scope_completed": [],
+  "verified_findings": [],
+  "inferences": [],
+  "unresolved": [],
+  "conflicts": [],
+  "source_urls": [],
+  "artifacts_created": [],
+  "code_files": [],
+  "tests_run": [],
+  "tests_passed": [],
+  "tests_failed": [],
+  "license_flags": [],
+  "privacy_flags": [],
+  "recommended_changes": [],
+  "do_not_promote": [],
+  "next_best_action": "",
+  "owner_decision_needed": false
+}
