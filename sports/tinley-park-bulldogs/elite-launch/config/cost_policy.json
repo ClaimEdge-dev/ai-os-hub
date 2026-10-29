@@ -1,0 +1,20 @@
+{
+  "default_spend_usd": 0,
+  "paid_dependency_default": "BLOCKED_UNTIL_OWNER_APPROVAL",
+  "core_pipeline_must_run_without_paid_creative_credits": true,
+  "preferred_licenses": [
+    "MIT",
+    "Apache-2.0",
+    "BSD-3-Clause"
+  ],
+  "required_justification": [
+    "exact_blocker",
+    "free_methods_attempted",
+    "benchmark_result",
+    "expected_gain",
+    "exact_cost",
+    "free_fallback",
+    "privacy_impact",
+    "rollback"
+  ]
+}
