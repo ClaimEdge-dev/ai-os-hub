@@ -1,0 +1,31 @@
+name: TPB Elite Launch Integrity
+
+on:
+  push:
+    branches:
+      - "bulldogs/elite-launch-free-first-2026-10-29"
+  pull_request:
+    paths:
+      - "sports/tinley-park-bulldogs/elite-launch/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python syntax
+        run: python -m compileall -q sports/tinley-park-bulldogs/elite-launch/python
+      - name: JSON syntax
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          root=pathlib.Path("sports/tinley-park-bulldogs/elite-launch")
+          for p in list(root.glob("**/*.json")):
+              json.loads(p.read_text())
+              print("PASS",p)
+          PY
+      - name: Core behavioral tests
+        run: python sports/tinley-park-bulldogs/elite-launch/tests/test_core.py
