@@ -67,7 +67,7 @@ At substantial completion:
 6. save reusable ChatGPT response to Project sources when useful;
 7. update Resume Capsule / Next-10;
 8. mark predecessor SUPERSEDED instead of leaving two apparent masters;
-9. archive stale chat after checkpoint.
+9. classify stale chat as ARCHIVE_CANDIDATE after checkpoint and preservation checks. Only call it ARCHIVED after an authorized ChatGPT UI/API archive action actually succeeds; otherwise give the user a batch archive queue.
 
 ## Cleanup rules
 
