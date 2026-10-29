@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TPB Play",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "game_id",
+    "source_clip_id",
+    "active_snap",
+    "evidence_label",
+    "review_status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "game_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_clip_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "active_snap": {
+      "type": "boolean"
+    },
+    "phase": {
+      "enum": [
+        "OFFENSE",
+        "DEFENSE",
+        "SPECIAL_TEAMS",
+        "CONTEXT",
+        "UNKNOWN"
+      ]
+    },
+    "play_family": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "result": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verified_yards": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "evidence_label": {
+      "enum": [
+        "VERIFIED",
+        "SOURCE_SUPPORTED",
+        "INFERRED",
+        "UNRESOLVED",
+        "PROPOSED",
+        "DEPLOYED",
+        "ESTIMATE"
+      ]
+    },
+    "confidence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "review_status": {
+      "enum": [
+        "UNREVIEWED",
+        "AI_CANDIDATE",
+        "HUMAN_REVIEWED",
+        "COACH_REVIEW_NEEDED",
+        "VERIFIED",
+        "REJECTED"
+      ]
+    },
+    "stat_scope": {
+      "enum": [
+        "CAPTURED_FILM_ONLY",
+        "COMPLETE_GAME_VERIFIED",
+        "OFFICIAL_SOURCE"
+      ]
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}
