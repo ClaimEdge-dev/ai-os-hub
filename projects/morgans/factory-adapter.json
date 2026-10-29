@@ -1,0 +1,27 @@
+{
+  "project_id": "MORGANS",
+  "version": "1.0",
+  "industry": "HOSPITALITY",
+  "source_refs": [
+    "Drive:MOL Brain 1zhooJ8uKI-DSH07AZPOXBQlfJAtsZZcpkB4nRSqM4qo",
+    "Drive:Brand Forge 1TVU6gfx0DLQflRqHTZuj2Q2oR9zlE1XsPadtWb3AKvA"
+  ],
+  "modules": {
+    "Business Truth": "REQUIRED",
+    "Brand": "REQUIRED",
+    "Website": "REQUIRED",
+    "Inquiry/CRM": "REQUIRED",
+    "Reviews/Social": "CONDITIONAL",
+    "Events": "CONDITIONAL",
+    "Menu/Restaurant Ops": "CONDITIONAL",
+    "Analytics": "REQUIRED",
+    "Towing Dispatch": "NOT_APPLICABLE"
+  },
+  "approval_gates": {
+    "external_send_publish_spend": true,
+    "production_data_write": true,
+    "public_menu_or_nap_claim": true,
+    "owner_approval": "Morgan's owner"
+  },
+  "stated_maturity": "CONTRACT ONLY / NON-PRODUCTION"
+}
