@@ -47,7 +47,7 @@ One skill for the whole thread lifecycle: audit → decide → name → hand off
 - Before a new thread: recover existing objective and classify SAME TASK / REQUIRED DEPENDENCY / SEPARATE BRANCH / FUTURE IDEA.
 - Default to one canonical active execution thread per objective and one best next action. A project-wide WIP cap is a review signal, not an absolute ban on justified parallel work.
 - During scope creep, finish the current objective and park unrelated discoveries; never drop them from the backlog.
-- After substantial completion: source/readback → QA → audit receipt → checkpoint → classifiy STAY / MERGE / REFERENCE / ARCHIVE_CANDIDATE.
+- After substantial completion: source/readback → QA → audit receipt → checkpoint → classify STAY / MERGE / REFERENCE / ARCHIVE_CANDIDATE.
 - An ARCHIVE_CANDIDATE is not a confirmed archived chat. Require proof that unique decisions, artifacts and open items survive in canonical sources. Never auto-delete and never claim ChatGPT archive UI was mutated without a supported tool and successful response.
 - Deduplicate by objective, source and content, not just title. Maintain a lightweight archive index with canonical replacement and reopen conditions.
 - Staleness: preserve true last-touch only when returned by an authoritative source. Otherwise record UNKNOWN and use last verified checkpoint time as a different field.
