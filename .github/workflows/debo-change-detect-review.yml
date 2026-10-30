@@ -1,0 +1,25 @@
+name: DEBO Change Detector Review
+on:
+  pull_request:
+    paths:
+      - 'tools/debo_sync_detect.py'
+      - 'tests/test_debo_change_detect.py'
+      - 'sync/debo-change-manifest.json'
+      - 'sync/DEBO_CHANGE_DETECT_README.md'
+      - '.github/workflows/debo-change-detect-review.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-dry-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Regression tests (no external credentials)
+        run: python -m unittest discover -s tests -p 'test_debo*.py' -v
+      - name: Offline review-only change preview
+        run: python tools/debo_sync_detect.py --dry-run=true
