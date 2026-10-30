@@ -98,6 +98,27 @@ class ChangeDetectTests(unittest.TestCase):
         with self.assertRaises(MOD.PreviewBlocked):
             self.run_preview()
 
+    def test_private_snapshot_is_read_only_and_git_excluded(self):
+        fp = self.run_preview()["records"][0]["new_fingerprint"]
+        snapshot_dir = self.root / "sync" / ".private"
+        snapshot_dir.mkdir(parents=True)
+        snapshot = snapshot_dir / "ledger_state.json"
+        snapshot.write_text(json.dumps({"sources": {"public-doc": {"fingerprint": fp, "version": 7}}}), encoding="utf-8")
+        self.assertEqual(MOD.validate_snapshot_path(self.root, "sync/.private/ledger_state.json"), snapshot)
+        previous = snapshot.read_bytes()
+        result = self.run_preview_with_snapshot(snapshot)
+        self.assertEqual(result["skipped_unchanged"], 1)
+        self.assertEqual(result["records"][0]["proposed_version"], 7)
+        self.assertEqual(snapshot.read_bytes(), previous)
+
+    def run_preview_with_snapshot(self, snapshot):
+        state = json.loads(snapshot.read_text(encoding="utf-8"))
+        return MOD.preview(self.root, self.manifest, state)
+
+    def test_snapshot_outside_private_directory_blocks(self):
+        with self.assertRaises(MOD.PreviewBlocked):
+            MOD.validate_snapshot_path(self.root, "docs/example.md")
+
     def test_cli_fails_closed_on_non_dry_run(self):
         proc = subprocess.run([sys.executable, str(ROOT / "tools/debo_sync_detect.py"), "--dry-run=false"], text=True, capture_output=True)
         self.assertNotEqual(proc.returncode, 0)
