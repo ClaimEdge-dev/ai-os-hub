@@ -41,6 +41,13 @@ def validate_path(root: pathlib.Path, path: str) -> pathlib.Path:
     return resolved
 
 
+def validate_snapshot_path(root: pathlib.Path, path: str) -> pathlib.Path:
+    """Allow explicit local snapshots only in the git-ignored private directory."""
+    if not isinstance(path, str) or not path.startswith("sync/.private/") or not path.endswith(".json"):
+        raise PreviewBlocked("Ledger snapshot must be a JSON file under sync/.private/")
+    return validate_path(root, path)
+
+
 def fingerprint_file(path: pathlib.Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as f:
@@ -150,7 +157,7 @@ def main(argv: list[str] | None = None) -> int:
         manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
         state = {"sources": {}}
         if args.state:
-            state = json.loads(validate_path(root, args.state).read_text(encoding="utf-8"))
+            state = json.loads(validate_snapshot_path(root, args.state).read_text(encoding="utf-8"))
         print(json.dumps(preview(root, manifest, state), indent=2, sort_keys=True))
         return 0
     except (PreviewBlocked, json.JSONDecodeError, OSError, UnicodeError) as exc:
