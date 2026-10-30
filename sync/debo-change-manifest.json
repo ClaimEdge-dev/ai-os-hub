@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "sources": [
+    {"id": "debo-sync-protocol", "kind": "repo_file", "path": "AUTO_SYNC_PROTOCOL.md"},
+    {"id": "debo-skills", "kind": "repo_file", "path": "SKILL_REGISTRY.md"},
+    {"id": "jct-agent-rules", "kind": "repo_file", "path": "projects/jcs-towing/AGENT_SYSTEM.md"}
+  ]
+}

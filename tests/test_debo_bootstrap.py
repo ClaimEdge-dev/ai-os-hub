@@ -71,15 +71,17 @@ class BootstrapTests(unittest.TestCase):
         text = path.read_text(encoding='utf-8')
         self.assertIn('| AR-08 |', text)
         path.write_text(text.replace('| AR-08 |', '| REMOVED |'), encoding='utf-8')
-        with self.assertRaises(AssertionError):
-            self.test_anti_repeat_regression_controls_present()
+        code, data = self.run_check()
+        self.assertEqual(code, 1)
+        self.assertIn('Anti-repeat missing control: AR-08', data['errors'])
 
     def test_anti_repeat_regression_missing_gate_fails(self):
         path = self.root / 'governance/DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md'
         text = path.read_text(encoding='utf-8')
         path.write_text(text.replace('Mandatory change gate (all sister brains)', 'Missing gate'), encoding='utf-8')
-        with self.assertRaises(AssertionError):
-            self.test_anti_repeat_regression_controls_present()
+        code, data = self.run_check()
+        self.assertEqual(code, 1)
+        self.assertIn('Anti-repeat missing section: Mandatory change gate (all sister brains)', data['errors'])
 
 if __name__ == '__main__':
     unittest.main()

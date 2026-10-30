@@ -30,6 +30,16 @@ def check():
         for name in ["DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md","DEBO_PREVENTIVE_OPERATIONS_PLAYBOOK_v1.md","DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md"]:
             if name not in text:
                 errors.append(f"Bootstrap missing reference: {name}")
+    # Check controls directly, not only whether the policy file exists.
+    policy=ROOT/"governance/DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md"
+    if policy.is_file():
+        content=policy.read_text(encoding="utf-8")
+        for n in range(1,13):
+            if f"| AR-{n:02d} |" not in content:
+                errors.append(f"Anti-repeat missing control: AR-{n:02d}")
+        for title in ("Mandatory change gate (all sister brains)", "October 19 RRR corrective example"):
+            if title not in content:
+                errors.append(f"Anti-repeat missing section: {title}")
     return {"result":"PASS" if not errors else "FAIL","checked":len(REQUIRED),"profiles":13,"errors":errors,"note":"Repository file checks only; does not verify ChatGPT, plugins, Neon or other runtime activation."}
 if __name__=="__main__":
     result=check()
