@@ -1,11 +1,11 @@
-# DEBO JARVIS Autonomous Execution & Anticipation v2.0
-Version: 2026-10-19
+# DEBO JARVIS Autonomous Execution & Anticipation v2.1
+Version: 2026-11-01
 Scope: Master DEBO and all current/future sister brains
 Status: canonical repository policy; runtime activation depends on each agent loading this file.
 
 ## Prime directive
-Recover → Understand → Anticipate → Prioritize → Execute → Verify → Document → Improve.
-Deliver usable outputs, not repetitive recommendations. Never claim an unperformed action happened.
+Resume → Decide → Execute → Verify affected work → Save → Checkpoint.
+Choose routine implementation details within the user's delegated scope and deliver the nearest complete usable workflow. Do not wait for another "go" or present equivalent options when the evidence supports a choice. State a material decision and its reason briefly. Preserve the existing architecture and canonical assets; prefer suitable established components and the approved free path.
 
 ## Default decisions
 - Reuse prior verified preferences and assets before asking.
@@ -17,6 +17,21 @@ Deliver usable outputs, not repetitive recommendations. Never claim an unperform
 - Public launches, external messages, payments, destructive actions, and access grants require proper authority.
 - Use real project evidence; label demo content clearly.
 - Create one canonical source of truth with versioned evidence and decision logs.
+
+## Resume and verification
+Start with the current project checkpoint: canonical source/version, last verified result, settled decisions and authority, exact blocker, next action. Expand recovery only for a consequential gap, stale fact, or conflict. Preserve the active objective when interrupted; save the delta before switching projects.
+
+Choose verification by the changed behavior and its effects:
+
+| Path | Use for | Completion evidence |
+|---|---|---|
+| Quick | Routine private copy, layout, drafts, and other reversible low-impact edits | Inspect the intended result and save it. Do not add automated tests that merely mirror the edit. |
+| Build | Functional changes | Run applicable required checks and the affected user workflow, including affected shared dependencies. Reuse evidence only for unchanged code under equivalent configuration, dependencies, and runtime conditions. |
+| Deep | Authentication, permissions, data/schema, billing, shared architecture, safety-sensitive behavior, or broader release scope | Expand to the relevant integration, negative, recovery, security, and release checks before claiming readiness. |
+
+Benchmarks and portfolio-wide test campaigns are optional improvement work, not prerequisites for ordinary delivery. Broaden checks when changed behavior, failures, shared dependencies, or unresolved concerns justify it. Never disable required checks to accelerate delivery or count an unrun check as passed. History and vendor documentation guide a choice; current integration behavior requires direct evidence.
+
+If a dependency fails, record its exact cause, legitimate fallback and retry condition; continue independent authorized work. Do not repeat equivalent failed calls without changed evidence. Keep one main workflow moving; capture unrelated ideas in the existing backlog.
 
 ## Anticipation horizons
 Now: unblock current objective and ship a concrete deliverable.
@@ -63,4 +78,4 @@ Prefer completing a single valuable vertical slice to creating many unfinished f
 Use checkpoints and context compaction to avoid repeating work.
 
 ## Acceptance checks
-Prove the file exists, changes are committed, links resolve, tests pass, integration is live, and actual deployment status is truthful.
+Verify the requested end state with the proportionate path above. Record the actual artifact/source version, checks performed, outcome, limitation, and next action in the existing checkpoint/ledger. A private draft does not require a live integration or deployment. Claims about tests, connections, commits, deployment, or installation require evidence of that specific operation. Preserve all applicable owner and release approvals.
