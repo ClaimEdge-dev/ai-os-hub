@@ -1,5 +1,6 @@
 """Exercise bootstrap integrity against isolated copies; never mutate checkout."""
 import importlib.util
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -82,6 +83,103 @@ class BootstrapTests(unittest.TestCase):
         path.write_text(text.replace('Mandatory change gate (all sister brains)', 'Missing gate'), encoding='utf-8')
         with self.assertRaises(AssertionError):
             self.assert_anti_repeat_policy()
+
+    def run_brief(self, project='DEBO'):
+        return subprocess.run(
+            [sys.executable, str(self.root / 'tools/debo_bootstrap_check.py'),
+             '--brief', '--project', project], capture_output=True, text=True)
+
+    def test_project_brief_is_scoped_and_requires_current_state(self):
+        proc = self.run_brief('JCT')
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertIn('## Selected project: JCT', proc.stdout)
+        self.assertIn('Project ID: JCT', proc.stdout)
+        self.assertNotIn('Project ID: MOR', proc.stdout)
+        self.assertIn('## Golden rules', proc.stdout)
+        self.assertIn('Current project state: UNKNOWN', proc.stdout)
+        self.assertIn('not runtime activation', proc.stdout)
+
+    def test_master_brief_does_not_load_a_sister_profile(self):
+        proc = self.run_brief()
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertIn('## Selected project: DEBO', proc.stdout)
+        self.assertNotIn('Project ID: JCT', proc.stdout)
+        self.assertNotIn('Project ID: MOR', proc.stdout)
+
+    def test_unknown_project_is_rejected(self):
+        proc = self.run_brief('NOT_A_PROJECT')
+        self.assertEqual(proc.returncode, 2)
+        self.assertIn('invalid choice', proc.stderr)
+        self.assertNotIn('## Golden rules', proc.stdout)
+
+    def test_missing_golden_rules_fails_closed(self):
+        path = self.root / 'governance/DEBO_RUNTIME_BOOTSTRAP_v2.md'
+        path.write_text(path.read_text().replace('## Golden rules', '## Removed rules'))
+        proc = self.run_brief('JCT')
+        self.assertEqual(proc.returncode, 1)
+        self.assertIn('Golden rules', proc.stderr)
+        self.assertNotIn('## Selected project:', proc.stdout)
+
+    def test_source_change_updates_fingerprint(self):
+        proc = self.run_brief('JCT')
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        path = self.root / 'governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md'
+        before = hashlib.sha256(path.read_bytes()).hexdigest()
+        self.assertIn(before, proc.stdout)
+        path.write_text(path.read_text() + '\nChanged source version for isolated test.\n')
+        after = hashlib.sha256(path.read_bytes()).hexdigest()
+        changed = self.run_brief('JCT')
+        self.assertEqual(changed.returncode, 0, changed.stderr)
+        self.assertNotEqual(before, after)
+        self.assertNotIn(before, changed.stdout)
+        self.assertIn(after, changed.stdout)
+
+    def run_sync(self, write=False):
+        return subprocess.run(
+            [sys.executable, str(self.root / 'tools/debo_bootstrap_check.py'),
+             '--write-briefs' if write else '--check-briefs'],
+            capture_output=True, text=True)
+
+    def test_generated_briefs_are_repeatable_and_checked(self):
+        absent = self.run_sync()
+        self.assertEqual(absent.returncode, 1)
+        self.assertFalse((self.root / 'governance/runtime-briefs').exists())
+        written = self.run_sync(write=True)
+        self.assertEqual(written.returncode, 0, written.stderr)
+        self.assertEqual(len(json.loads(written.stdout)['updated']), 14)
+        profile = self.root / 'governance/runtime-briefs/JCT.md'
+        self.assertIn('Project ID: JCT', profile.read_text())
+        self.assertIn('../DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md', profile.read_text())
+        self.assertEqual(self.run_sync().returncode, 0)
+        unchanged = self.run_sync(write=True)
+        self.assertEqual(json.loads(unchanged.stdout)['updated'], [])
+
+    def test_changed_shared_source_marks_all_briefs_stale(self):
+        self.assertEqual(self.run_sync(write=True).returncode, 0)
+        path = self.root / 'governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md'
+        path.write_text(path.read_text() + '\nChanged shared source in isolated test.\n')
+        stale = self.run_sync()
+        self.assertEqual(stale.returncode, 1)
+        self.assertEqual(len(json.loads(stale.stdout)['stale']), 14)
+        self.assertEqual(self.run_sync(write=True).returncode, 0)
+        self.assertEqual(self.run_sync().returncode, 0)
+
+    def test_profile_change_only_marks_its_own_brief_stale(self):
+        self.assertEqual(self.run_sync(write=True).returncode, 0)
+        path = self.root / 'governance/sister-brains/JCT_PROFILE_v1.md'
+        path.write_text(path.read_text() + '\nChanged JCT scope in isolated test.\n')
+        stale = self.run_sync()
+        self.assertEqual(stale.returncode, 1)
+        self.assertEqual(json.loads(stale.stdout)['stale'], ['JCT.md'])
+
+    def test_generated_directory_symlink_is_rejected(self):
+        outside = self.root / 'untouched'
+        outside.mkdir()
+        (self.root / 'governance/runtime-briefs').symlink_to(outside, target_is_directory=True)
+        proc = self.run_sync(write=True)
+        self.assertEqual(proc.returncode, 1)
+        self.assertIn('symlink', proc.stderr)
+        self.assertEqual(list(outside.iterdir()), [])
 
 if __name__ == '__main__':
     unittest.main()

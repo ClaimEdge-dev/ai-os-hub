@@ -1,0 +1,81 @@
+name: DEBO Runtime Brief Auto-Update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'governance/**'
+      - '!governance/runtime-briefs/**'
+      - 'debo/policies/**'
+      - 'projects/dwing-exterior/DEBO_PROFILE_v2.md'
+      - 'tools/debo_bootstrap_check.py'
+      - 'tests/test_debo_bootstrap.py'
+      - 'AGENTS.md'
+      - 'DEBO_BOOTSTRAP.md'
+      - '.github/workflows/debo-runtime-briefs.yml'
+  pull_request:
+    paths:
+      - 'governance/**'
+      - '!governance/runtime-briefs/**'
+      - 'debo/policies/**'
+      - 'projects/dwing-exterior/DEBO_PROFILE_v2.md'
+      - 'tools/debo_bootstrap_check.py'
+      - 'tests/test_debo_bootstrap.py'
+      - 'AGENTS.md'
+      - 'DEBO_BOOTSTRAP.md'
+      - '.github/workflows/debo-runtime-briefs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: debo-runtime-briefs-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-proposal:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate sources and proposed generation
+        run: |
+          python tools/debo_bootstrap_check.py
+          python tools/debo_bootstrap_check.py --write-briefs
+          python tools/debo_bootstrap_check.py --check-briefs
+          python -B -m unittest discover -s tests -p 'test_debo*.py' -v
+
+  update-derived-briefs:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Regenerate and validate current main sources
+        run: |
+          python tools/debo_bootstrap_check.py --write-briefs
+          python tools/debo_bootstrap_check.py --check-briefs
+          python -B -m unittest discover -s tests -p 'test_debo*.py' -v
+      - name: Save only derived briefs without force-pushing
+        run: |
+          git add -- governance/runtime-briefs
+          if git diff --cached --quiet; then
+            echo 'Derived briefs already current.'
+            exit 0
+          fi
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore(debo): refresh derived runtime briefs'
+          git push origin HEAD:main

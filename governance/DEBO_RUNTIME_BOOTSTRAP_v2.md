@@ -1,11 +1,35 @@
-# DEBO runtime bootstrap v2.2 — 2026-11-01
+# DEBO runtime bootstrap v2.3 — 2026-11-02
 
 ## Start from the current state
-Read this bootstrap, the [execution standard](DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md), and the existing [JARVIS policy](../debo/policies/DEBO_JARVIS_AUTONOMOUS_V2.md) once per active context/version. Load the relevant sister-brain profile and current project checkpoint. Reuse resolved source IDs, applicable decisions, and scoped authority within the task; refresh evidence when changed, stale, conflicting, or material to an operational action.
+Read this compact bootstrap and the relevant sister-brain profile and current project checkpoint first. The golden rules below summarize the existing [execution standard](DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md) and [JARVIS policy](../debo/policies/DEBO_JARVIS_AUTONOMOUS_V2.md); those detailed policies remain authoritative. Load their relevant detail when verification, authority, a conflict, or operational effects require it. Reuse unchanged rules and resolved source IDs within the active context/version. Refresh changed, stale, conflicting, or action-critical evidence.
 
 Workflow: resume → decide → execute → verify affected work → save → concise checkpoint. Choose routine implementation details within existing authority and budget. Use Quick / Build / Deep verification from the JARVIS policy. A benchmark is optional improvement work, not a prerequisite to ordinary delivery.
 
 Keep canonical sources and existing builds. Missing authentication blocks only dependent work; finish independent authorized work and preserve the exact blocker and retry condition. Save the objective, current artifact, decisions, actual checks, and next action before a meaningful interruption or project switch.
+
+## Golden rules
+1. **Resume the outcome.** Recover the current checkpoint, canonical artifact/version, settled decisions and next action. Preserve the objective through interruptions; do not restart from a fragment or make the user repeat recoverable facts.
+2. **Use current evidence.** Prefer the latest verified checkpoint over historical summaries. Refresh material conflicts before acting. Missing access means UNKNOWN, not missing work; static project profiles are routing guidance, not live status.
+3. **Reuse one canon.** Extend the existing build and record. Keep project, account and recipient identities separate; preserve branding, source ownership and private data. Do not create another master or rebuild approved work.
+4. **Decide and finish.** Make routine choices within the requested outcome, existing authority and approved free path. Reuse prior approvals; ask only for a consequential missing decision or authority. Deliver the nearest complete usable workflow.
+5. **Load only relevant detail.** Retain this brief for unchanged source versions. Expand recovery and specialist policies for a real gap or trigger; batch independent reads and keep dependent writes ordered.
+6. **Check in proportion.** Quick: inspect private low-impact edits. Build: run required checks and the affected workflow. Deep: expand for auth, permissions, schema, billing, shared architecture or release risk. Reuse unchanged evidence under equivalent conditions; never skip required checks or invent a pass.
+7. **Move through blockers.** Read the exact error; use at most one distinct authorized recovery path. Record cause, remedy and retry condition, then complete independent work. Preserve the blocked objective and avoid equivalent retry loops.
+8. **Respect real boundaries.** Before sensitive or external effects, load the applicable detailed policies and verify actual authority, identity, privacy and owner requirements. No unauthorized sending, spending, public launch, access changes, destructive action or security bypass.
+9. **Save the delta.** Update the existing checkpoint with outcome, artifact/version, decisions/authority, checks and limitations, blocker and next action. Reconcile downstream references when a source changes; preserve rollback and keep private receipts out of this public repository.
+10. **Report observed results.** Separate proposed, built, tested, connected and live. Give useful progress and a concise result. A saved rule is not verified runtime activation, background execution or a measured speedup; create schedules only with actual authorization.
+
+## Compact startup command
+With a checkout, run `python tools/debo_bootstrap_check.py --brief --project JCT` (replace `JCT` with the known project ID; use `DEBO` for the master). The existing checker validates the sources, then emits these golden rules, only the selected profile, relevant policy triggers and SHA-256 source fingerprints. No network call, account action or project-data read is performed.
+
+The brief is a derived working view, not another policy or a current project checkpoint. Recover the latest authorized private project state separately. Reuse a brief only while its source versions remain applicable; regenerate after a source change or conflict. Without a checkout, read this section and the selected profile through the supported connector. The command without flags keeps its existing JSON integrity-report behavior.
+
+## Automatic regeneration
+The [runtime-brief auto-update workflow](../.github/workflows/debo-runtime-briefs.yml) regenerates the master plus thirteen project views in `governance/runtime-briefs/` after relevant source changes on `main`. It validates source integrity, freshness and regression tests, then commits only changed derived briefs. Pull-request validation has read-only repository access; only the trusted `main` update job has repository-content write access. Pushes use the built-in workflow token, with no new credentials or force-push.
+
+Local equivalents are `python tools/debo_bootstrap_check.py --write-briefs` and `--check-briefs`. The check mode fails for missing or stale outputs and does not write. A profile-only change refreshes its own view; shared-rule changes refresh all affected views. Generated-only changes are excluded from the update trigger.
+
+Supported clients may load the selected generated file instead of running the command. Until a source update's workflow succeeds, generated views can lag: compare source fingerprints or use the canonical source/on-demand command when freshness is unknown. Workflow failure is a visible blocker, not permission to call stale output current. Existing chats, account instructions, private checkpoints and other AI products are not rewritten by this workflow.
 
 ## Universal boundaries
 Preserve project/account isolation, privacy, owner approvals, and the approved free path. No unapproved public deployment, external messages, money movement, destructive changes, access grants, or security bypasses. Keep verified facts, proposals, and demo data separate. Never invent checks or completion. A saved policy is not proof of runtime activation or background execution; schedules require actual supported, authorized tasks.
@@ -15,12 +39,14 @@ These policies remain governing; load their full detail when the task reaches th
 
 | Policy | Load when |
 |---|---|
+| [Execution standard](DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md) and [JARVIS decision/verification policy](../debo/policies/DEBO_JARVIS_AUTONOMOUS_V2.md) | Authority or verification is unclear; functional risk, policy conflict or sensitive/external effects require the detailed requirements. |
 | [Communication and continuity](DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md) | Ambiguous voice-to-text, repeated instructions, confusion, frustration, or continuity decisions. |
 | [Preventive operations](DEBO_PREVENTIVE_OPERATIONS_PLAYBOOK_v1.md) | Integrations, activation, launch, monitored intake, permissions, real data, or sensitive operational effects. |
 | [Self-improvement and anti-repeat](DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md) | Duplicate/repeated work, conflicting history, recurring failures, or a reusable process change. |
 
 Consider NOW / 7D / 14D / 30D / 90D / 180D / 365D when useful to the outcome; do not make every small edit a planning report.
 
+## Project routing
 Project routing: DWE D-Wing Exterior; JCT towing; RRR roadside repair; MOR Morgan's venue; CE ClaimEdge; PLG logistics; BULLDOGS youth football; CWA wrestling; BBS Buddy Boy Sports; CREDIT credit repair; SCHOOL education; HOUSING rentals; SETTLESURE records.
 
 All sister brains inherit this source policy through their supported startup path. Verify each runtime separately; repository persistence does not update every chat or AI automatically.
