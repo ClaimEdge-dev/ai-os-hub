@@ -48,4 +48,11 @@ Routine implementation choices are delegated within the requested outcome, exist
 | Repository file integrity | VERIFIED (source checks only) | `python tools/debo_bootstrap_check.py` passes on the patched pinned snapshot; link targets and whitespace checked before commit. |
 | Other chats, AI runtimes, and live integrations | UNKNOWN | Verify their supported startup and operation separately; this source update does not establish account-wide activation. |
 
-No test, CI workflow, anti-repeat control, owner approval, credential, schedule, or production system is changed by this patch. The previously investigated bootstrap negative-test harness remains unchanged; no full-suite pass is claimed. Rollback is reverting this documentation commit. The private decision record carries project-specific context outside this repository.
+This documentation update changed no CI workflow, anti-repeat control, owner approval, credential, schedule, or production system. The private decision record carries project-specific context outside this repository. The test-harness follow-up below supersedes the earlier unchanged-harness status. Rollback is reverting the relevant source commit.
+
+### Same-day bootstrap test-harness repair
+The automatic workflow on the decision-first documentation commit reproduced the previously investigated AR-08 failure: the temporary fixture deliberately removed AR-08, but `subTest` recorded rather than propagated the assertion expected by `assertRaises`.
+
+The repair extracts the existing checks into `assert_anti_repeat_policy` without `subTest`. The positive test and both negative tests call that helper. AR-01 through AR-12, mandatory-gate and corrective-example checks, and temporary-copy isolation are retained. The canonical anti-repeat policy and workflow are unchanged.
+
+Local verification: all 17 existing tests passed with `python3 -B -m unittest discover -s tests -p 'test_debo*.py' -v`. Hosted CI evidence must be associated with the follow-up commit; local success is not a claim about other AI runtimes or business integrations.
