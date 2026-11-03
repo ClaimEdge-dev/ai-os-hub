@@ -21,6 +21,10 @@ REQUIRED = [
     "governance/DEBO_INSTALLATION_AND_VERIFICATION_REGISTER_v1.md",
     "governance/SISTER_BRAIN_PROFILE_TEMPLATE_v2.md",
     "projects/dwing-exterior/DEBO_PROFILE_v2.md",
+    "governance/DEBO_AGENT_BOARD_ROLE_MAP_v1.md",
+    "governance/DEBO_AGENT_COVERAGE_REGISTER_v1.json",
+    "skills/agent-talent-manager/SKILL.md",
+    "prompts/DEBO_PERPLEXITY_SPEED_RESEARCH_MISSION_v1.md",
 ]
 SISTERS = ["JCT","RRR","MOR","CE","PLG","BULLDOGS","CWA","BBS","CREDIT","SCHOOL","HOUSING","SETTLESURE"]
 REQUIRED += [f"governance/sister-brains/{x}_PROFILE_v1.md" for x in SISTERS]
@@ -37,6 +41,10 @@ BRIEF_SOURCES = [
     "governance/DEBO_PREVENTIVE_OPERATIONS_PLAYBOOK_v1.md",
     "governance/DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md",
     "tools/debo_bootstrap_check.py",
+    "governance/DEBO_AGENT_BOARD_ROLE_MAP_v1.md",
+    "governance/DEBO_AGENT_COVERAGE_REGISTER_v1.json",
+    "skills/agent-talent-manager/SKILL.md",
+    "prompts/DEBO_PERPLEXITY_SPEED_RESEARCH_MISSION_v1.md",
 ]
 
 
@@ -62,6 +70,31 @@ def render_brief(project="DEBO"):
     rules = brief_links(section(bootstrap, "## Golden rules"), BRIEF_SOURCES[0])
     triggers = brief_links(section(bootstrap, "## Load specialist detail when relevant"),
                           BRIEF_SOURCES[0])
+    communication = (ROOT / "governance/DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md").read_text(encoding="utf-8")
+    inheritance = section(communication, "## Cross-thread inheritance and cumulative snowball rule (2026-11-02)")
+    # Copy only the four recovery/closure requirements into the compact brief.
+    # This is source-derived, not a separate policy or a new cross-app memory guarantee.
+    essentials = [line.strip() for line in inheritance.splitlines()
+                  if re.match(r"^(1|2|7|8)\\. ", line)]
+    if len(essentials) != 4:
+        raise ValueError("Continuity policy is missing a required inheritance/checkpoint instruction")
+    continuity = ("## Cross-thread continuity (canonical-source excerpt)\\n"
+                  + "\\n".join(essentials)
+                  + "\\nFull policy: [communication and recovery](../DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md)."
+                  + " Current state still requires a supported, authorized checkpoint read.")
+    board_source = "governance/DEBO_AGENT_BOARD_ROLE_MAP_v1.md"
+    board_doc = (ROOT / board_source).read_text(encoding="utf-8")
+    chain = brief_links(section(board_doc, "## Chain of command"), board_source)
+    board = json.loads((ROOT / "governance/DEBO_AGENT_COVERAGE_REGISTER_v1.json").read_text(encoding="utf-8"))
+    main_roles = [role for role in board.get("roles", []) if role.get("project_id") == "DEBO"]
+    aliases = [role.get("alias") for role in main_roles]
+    if len(aliases) != 13 or len(set(aliases)) != 13 or any(not alias for alias in aliases):
+        raise ValueError("Expected exactly 13 unique documented main DEBO agent aliases")
+    board_view = ("## Main DEBO agent board (routing labels, not active workers)\\n"
+                  + "\\n".join(f"- {role['alias']}: {role['title']}" for role in main_roles)
+                  + "\\nThe current agent authority remains in [agent board rules](../DEBO_AGENT_BOARD_ROLE_MAP_v1.md)"
+                  + " and [agent talent manager](../../skills/agent-talent-manager/SKILL.md)."
+                  + " Names and skill files do not establish installed or running agents.")
     sources = list(BRIEF_SOURCES)
     parts = [
         "# DEBO compact startup brief v1",
@@ -74,6 +107,9 @@ def render_brief(project="DEBO"):
         "does not establish live status.",
         rules,
         triggers,
+        continuity,
+        chain,
+        board_view,
     ]
     profile = PROJECT_PROFILES[project]
     if profile:
