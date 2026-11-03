@@ -6,10 +6,13 @@ on:
     paths:
       - 'governance/**'
       - '!governance/runtime-briefs/**'
+      - '!governance/dashboard/DEBO_CORE_FEED_v1.json'
       - 'debo/policies/**'
       - 'projects/dwing-exterior/DEBO_PROFILE_v2.md'
       - 'tools/debo_bootstrap_check.py'
+      - 'tools/debo_dashboard_core_feed.py'
       - 'tests/test_debo_bootstrap.py'
+      - 'tests/test_debo_dashboard_core_feed.py'
       - 'skills/agent-talent-manager/SKILL.md'
       - 'prompts/DEBO_PERPLEXITY_SPEED_RESEARCH_MISSION_v1.md'
       - 'AGENTS.md'
@@ -19,10 +22,13 @@ on:
     paths:
       - 'governance/**'
       - '!governance/runtime-briefs/**'
+      - '!governance/dashboard/DEBO_CORE_FEED_v1.json'
       - 'debo/policies/**'
       - 'projects/dwing-exterior/DEBO_PROFILE_v2.md'
       - 'tools/debo_bootstrap_check.py'
+      - 'tools/debo_dashboard_core_feed.py'
       - 'tests/test_debo_bootstrap.py'
+      - 'tests/test_debo_dashboard_core_feed.py'
       - 'skills/agent-talent-manager/SKILL.md'
       - 'prompts/DEBO_PERPLEXITY_SPEED_RESEARCH_MISSION_v1.md'
       - 'AGENTS.md'
@@ -54,6 +60,8 @@ jobs:
           python tools/debo_bootstrap_check.py
           python tools/debo_bootstrap_check.py --write-briefs
           python tools/debo_bootstrap_check.py --check-briefs
+          python tools/debo_dashboard_core_feed.py --write
+          python tools/debo_dashboard_core_feed.py --check
           python -B -m unittest discover -s tests -p 'test_debo*.py' -v
 
   update-derived-briefs:
@@ -73,10 +81,12 @@ jobs:
         run: |
           python tools/debo_bootstrap_check.py --write-briefs
           python tools/debo_bootstrap_check.py --check-briefs
+          python tools/debo_dashboard_core_feed.py --write
+          python tools/debo_dashboard_core_feed.py --check
           python -B -m unittest discover -s tests -p 'test_debo*.py' -v
       - name: Save only derived briefs without force-pushing
         run: |
-          git add -- governance/runtime-briefs
+          git add -- governance/runtime-briefs governance/dashboard/DEBO_CORE_FEED_v1.json
           if git diff --cached --quiet; then
             echo 'Derived briefs already current.'
             exit 0
