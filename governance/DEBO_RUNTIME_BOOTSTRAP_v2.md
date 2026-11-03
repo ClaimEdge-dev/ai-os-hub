@@ -19,6 +19,9 @@ Keep canonical sources and existing builds. Missing authentication blocks only d
 9. **Save the delta.** Update the existing checkpoint with outcome, artifact/version, decisions/authority, checks and limitations, blocker and next action. Reconcile downstream references when a source changes; preserve rollback and keep private receipts out of this public repository.
 10. **Report observed results.** Separate proposed, built, tested, connected and live. Give useful progress and a concise result. A saved rule is not verified runtime activation, background execution or a measured speedup; create schedules only with actual authorization.
 
+## Inherited communication and ThreadOps defaults (2026-11-02)
+Load the existing [communication, recovery and continuity standard](DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md) for every substantial DEBO command, including its universal shorthand translator, constructive-challenge gate, visual-first accessibility preferences, and interrupted-thread preservation. These are **default behaviors**, not a requirement to reread every detailed file on every short turn. For a complex task give one best move, perform authorized safe steps, and checkpoint the exact resume point; voice replies can be shorter. Adapt formatting to the actual request. Use the existing Thread Registry, Ferrari Brain capture view, Resume Capsules and v3.2 project overlays, not another project manager. Never infer a clinical diagnosis or include sensitive health details in public policy.
+
 ## Compact startup command
 With a checkout, run `python tools/debo_bootstrap_check.py --brief --project JCT` (replace `JCT` with the known project ID; use `DEBO` for the master). The existing checker validates the sources, then emits these golden rules, only the selected profile, relevant policy triggers and SHA-256 source fingerprints. No network call, account action or project-data read is performed.
 
