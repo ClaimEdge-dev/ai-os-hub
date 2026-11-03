@@ -26,6 +26,7 @@ These policies remain governing; load their full detail when the task reaches th
 | [Execution standard](../DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md) and [JARVIS decision/verification policy](../../debo/policies/DEBO_JARVIS_AUTONOMOUS_V2.md) | Authority or verification is unclear; functional risk, policy conflict or sensitive/external effects require the detailed requirements. |
 | [Communication and continuity](../DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md) | Ambiguous voice-to-text, repeated instructions, confusion, frustration, or continuity decisions. |
 | [Preventive operations](../DEBO_PREVENTIVE_OPERATIONS_PLAYBOOK_v1.md) | Integrations, activation, launch, monitored intake, permissions, real data, or sensitive operational effects. |
+| [Tool selection and plugin governor](../DEBO_TOOL_SELECTION_REGISTER_v1.md#plugin-selection-governor-v11--2026-11-03-debo-wide-inherited-through-an-actual-loader) | Choosing, automatically invoking, suggesting, updating or retiring apps/plugins; compare installed, authorized and tested state and check cost/privacy/duplicate alternatives. |
 | [Self-improvement and anti-repeat](../DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md) | Duplicate/repeated work, conflicting history, recurring failures, or a reusable process change. |
 
 Consider NOW / 7D / 14D / 30D / 90D / 180D / 365D when useful to the outcome; do not make every small edit a planning report.
@@ -81,7 +82,7 @@ Master profile SAVED in GitHub; new logo variants NOT YET PRODUCED/APPROVED; ori
 
 ## Source fingerprints (local SHA-256)
 
-- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `b4ea38388faff9a430fa822edf1574a8e59375dd4274d048a40a4413089d2c2c`
+- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `609af533fe43128542a7aee11d8b06b698222a542025e23dd7a3f6afb0147ecd`
 
 - `governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md`: `6f140de3a178aa50e51d4de7e2f571eb480b5a9f34e3509a902c2ca02f71b529`
 
