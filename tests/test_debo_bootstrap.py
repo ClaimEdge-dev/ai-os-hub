@@ -198,7 +198,7 @@ class BootstrapTests(unittest.TestCase):
         p = self.root / 'governance/DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md'
         text = p.read_text(encoding='utf-8')
         original = next(line for line in text.splitlines() if line.startswith('7. Create/update a durable project checkpoint'))
-        p.write_text(text.replace(original, '7. Missing continuity gate'), encoding='utf-8')
+        p.write_text(text.replace(original, '[removed] continuity gate'), encoding='utf-8')
         result = self.run_brief('DEBO')
         self.assertEqual(result.returncode, 1)
         self.assertIn('Continuity policy', result.stderr)
