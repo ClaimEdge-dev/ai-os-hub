@@ -29,5 +29,20 @@
     "subject": "Education research folder sharing",
     "finding": "Link-reader access observed; owner review required",
     "permissions_changed": false
+  },
+  "writeback_blocker": {
+    "observed_on": "2026-11-03",
+    "status": "BLOCKED_AUTHORIZATION",
+    "affected_targets": [
+      "DEBO Live Project Index v1.0",
+      "DEBO Trace Run Ledger v0.2"
+    ],
+    "error": "Google Sheets batchUpdate 403 PERMISSION_DENIED on both targets",
+    "read_access": "VERIFIED",
+    "write_access": "NOT_VERIFIED",
+    "attempts": 2,
+    "alternative": "GitHub mapping source file retained and verified",
+    "smallest_safe_next_action": "Reauthorize Google Drive/Sheets edit access for the connected account; then test a single scoped non-sensitive write and readback",
+    "no_changes_to_drive": true
   }
 }
