@@ -1,0 +1,33 @@
+{
+  "schema_version": "debo.g3.source_route_map.v1",
+  "classification": "PUBLIC_GOVERNANCE_METADATA_ONLY",
+  "verified_on": "2026-11-03",
+  "source": "Authorized Google Drive folder metadata and DEBO Live Project Index",
+  "notes": [
+    "This is routing metadata, not proof of live operational status or approval.",
+    "No private file IDs, youth records, or permissions are included.",
+    "Drive registry writeback blocked by 403; reconcile there when access is restored."
+  ],
+  "routes": [
+    {
+      "github_project_id": "SCHOOL",
+      "drive_parent_system": "Chase Education & Scholarship OS",
+      "drive_source_category": "SCHOOL RESEARCH",
+      "mapping": "SOURCE_VERIFIED",
+      "runtime": "UNKNOWN",
+      "boundary": "Keep separate from athlete profiles."
+    },
+    {
+      "github_project_id": "CWA",
+      "drive_project_id": "CELTIC",
+      "mapping": "SOURCE_VERIFIED_SCOPE_REVIEW",
+      "runtime": "UNKNOWN",
+      "boundary": "Academy social/website; do not merge WRESTLE or CHASE."
+    }
+  ],
+  "security_review": {
+    "subject": "Education research folder sharing",
+    "finding": "Link-reader access observed; owner review required",
+    "permissions_changed": false
+  }
+}
