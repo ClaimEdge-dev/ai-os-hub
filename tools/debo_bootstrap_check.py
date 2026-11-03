@@ -75,12 +75,12 @@ def render_brief(project="DEBO"):
     # Copy only the four recovery/closure requirements into the compact brief.
     # This is source-derived, not a separate policy or a new cross-app memory guarantee.
     essentials = [line.strip() for line in inheritance.splitlines()
-                  if re.match(r"^(1|2|7|8)\\. ", line)]
+                  if re.match(r"^(1|2|7|8)\. ", line)]
     if len(essentials) != 4:
         raise ValueError("Continuity policy is missing a required inheritance/checkpoint instruction")
-    continuity = ("## Cross-thread continuity (canonical-source excerpt)\\n"
-                  + "\\n".join(essentials)
-                  + "\\nFull policy: [communication and recovery](../DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md)."
+    continuity = ("## Cross-thread continuity (canonical-source excerpt)\n"
+                  + "\n".join(essentials)
+                  + "\nFull policy: [communication and recovery](../DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md)."
                   + " Current state still requires a supported, authorized checkpoint read.")
     board_source = "governance/DEBO_AGENT_BOARD_ROLE_MAP_v1.md"
     board_doc = (ROOT / board_source).read_text(encoding="utf-8")
@@ -90,9 +90,9 @@ def render_brief(project="DEBO"):
     aliases = [role.get("alias") for role in main_roles]
     if len(aliases) != 13 or len(set(aliases)) != 13 or any(not alias for alias in aliases):
         raise ValueError("Expected exactly 13 unique documented main DEBO agent aliases")
-    board_view = ("## Main DEBO agent board (routing labels, not active workers)\\n"
-                  + "\\n".join(f"- {role['alias']}: {role['title']}" for role in main_roles)
-                  + "\\nThe current agent authority remains in [agent board rules](../DEBO_AGENT_BOARD_ROLE_MAP_v1.md)"
+    board_view = ("## Main DEBO agent board (routing labels, not active workers)\n"
+                  + "\n".join(f"- {role['alias']}: {role['title']}" for role in main_roles)
+                  + "\nThe current agent authority remains in [agent board rules](../DEBO_AGENT_BOARD_ROLE_MAP_v1.md)"
                   + " and [agent talent manager](../../skills/agent-talent-manager/SKILL.md)."
                   + " Names and skill files do not establish installed or running agents.")
     sources = list(BRIEF_SOURCES)
