@@ -1,8 +1,8 @@
 # Skill Registry — 72 catalogued skills
 
-**Auto-generated from Kimi session**  
-**Last updated:** 2026-10-19 (metadata reconciliation)  
-**Source of truth:** This file + Notion "AI OS Hub"
+**Historical catalog originally generated from Kimi work; source and runtime state must be independently verified**  
+**Last updated:** 2026-11-03 (17 historical lifecycle statuses reconciled; 72 numbered entries preserved)  
+**Source locations:** GitHub `skills/`, project-local skill folders, and the live Notion Skill Registry. This numbered catalog is not a full inventory and not evidence of runtime installation.
 
 ---
 
@@ -22,17 +22,17 @@
 |---|---|---|---|---|
 | 1 | `claimedge-complete-system` | Full ClaimEdge system — 15 courses, AI policy review, CRM, monetization tools | Any ClaimEdge task | ACTIVE |
 | 2 | `claimedge-master-coach` | Robert's personal AI coach — routes tasks, manages skills, ADHD-friendly structure | Every session start | ACTIVE |
-| 3 | `claimedge-session-memory` | Remembers everything across sessions — tracks skills built, claims managed, decisions made | Session start/end | ACTIVE |
-| 4 | `claimedge-vault-system` | Auto-saves all work to Notion/GitHub/Neon — prevents data loss between sessions | Save/archive request | ACTIVE |
-| 5 | `claimedge-skill-forge` | Manages the full skill lifecycle — audits, improves, predicts future needs | Skill management | ACTIVE |
+| 3 | `claimedge-session-memory` | Remembers everything across sessions — tracks skills built, claims managed, decisions made | Session start/end | DEPRECATED |
+| 4 | `claimedge-vault-system` | Auto-saves all work to Notion/GitHub/Neon — prevents data loss between sessions | Save/archive request | DEPRECATED |
+| 5 | `claimedge-skill-forge` | Manages the full skill lifecycle — audits, improves, predicts future needs | Skill management | DEPRECATED |
 | 6 | `claimedge-training-builder` | Creates training materials for new hires from existing skills | Training request | ACTIVE |
-| 7 | `claimedge-auto-deploy` | Pushes deliverables to Notion/Neon/GitHub automatically | Deploy request | ACTIVE |
+| 7 | `claimedge-auto-deploy` | Pushes deliverables to Notion/Neon/GitHub automatically | Deploy request | DEPRECATED |
 | 8 | `claimedge-weather-researcher` | Pulls NOAA/NWS storm data for hail/wind verification | Weather research | ACTIVE |
 | 9 | `claimedge-material-hazards` | Identifies asbestos, hardboard, vinyl from photos — assesses risk | Photo upload | ACTIVE |
 | 10 | `claimedge-roof-valley-claims` | Specializes in wood/cedar shake roofs with metal valleys | Roof inspection | ACTIVE |
 | 11 | `claimedge-full-claims-investigation` | 12-agent team — property records, weather, codes, law, valuation | Claim investigation | ACTIVE |
-| 12 | `claim-command-center` | Multi-agent claim management — hail, wind, water, fire, roof, siding | Any claim task | ACTIVE |
-| 13 | `claims-evidence-orchestrator` | Builds attorney-ready Master Claims Packets with full evidence | Evidence prep | ACTIVE |
+| 12 | `claim-command-center` | Multi-agent claim management — hail, wind, water, fire, roof, siding | Any claim task | DEPRECATED |
+| 13 | `claims-evidence-orchestrator` | Builds attorney-ready Master Claims Packets with full evidence | Evidence prep | DEPRECATED |
 | 14 | `stripe-setup-wizard` | Step-by-step Stripe payments setup for ClaimEdge website | Stripe setup | ACTIVE |
 
 ---
@@ -89,26 +89,26 @@
 | # | Skill | What It Does | Trigger | Status |
 |---|---|---|---|---|
 | 41 | `robert-master-os` | Master orchestration — auto-routes all tasks across 6 domains | EVERY session start | ACTIVE |
-| 42 | `bobby-ai-command-center` | Auto-detects domain, activates skills, routes to best AI | EVERY session start | ACTIVE |
-| 43 | `bobby-autopilot-system` | Auto-detects domain, connects plugins, generates prompts | EVERY session start | ACTIVE |
+| 42 | `bobby-ai-command-center` | Auto-detects domain, activates skills, routes to best AI | EVERY session start | DEPRECATED |
+| 43 | `bobby-autopilot-system` | Auto-detects domain, connects plugins, generates prompts | EVERY session start | DEPRECATED |
 | 44 | `bobby-focus-system` | ADHD-friendly focus — prevents rabbit holes, auto-saves | Focus needed | ACTIVE |
-| 45 | `bobby-skill-activator` | Ignition switch — activates all skills + AI bridges | EVERY session start | ACTIVE |
-| 46 | `ai-workflow-decoder` | Determines optimal AI model, version, plugins for any task | AI selection | ACTIVE |
+| 45 | `bobby-skill-activator` | Ignition switch — activates all skills + AI bridges | EVERY session start | DEPRECATED |
+| 46 | `ai-workflow-decoder` | Determines optimal AI model, version, plugins for any task | AI selection | DEPRECATED |
 | 47 | `multi-ai-router` | Routes tasks to the best AI and automatically compiles recurring cross-AI work into reusable governed worker-skill handoffs | AI routing / reusable delegation | ACTIVE |
 | 48 | `kimi-miyagi-coach` | Kimi feature maximization coach | Learn Kimi | ACTIVE |
 | 49 | `kimi-usage-optimizer` | Optimal Kimi usage for multi-AI workflows | Optimize usage | ACTIVE |
-| 50 | `session-boot-loader` | Session init — auto-activates skills, connects all plugins | Session start | ACTIVE |
-| 51 | `session-context-preserver` | Cross-session context preservation and handoff | Context save | ACTIVE |
+| 50 | `session-boot-loader` | Session init — auto-activates skills, connects all plugins | Session start | DEPRECATED |
+| 51 | `session-context-preserver` | Cross-session context preservation and handoff | Context save | DEPRECATED |
 | 52 | `thread-handoff-manager` | Wrestling thread context preservation | Wrestling handoff | ACTIVE |
-| 53 | `thread-audit-manager` | Scans threads, suggests continue/close/archive/merge | Audit threads | ACTIVE |
+| 53 | `thread-audit-manager` | Scans threads, suggests continue/close/archive/merge | Audit threads | DEPRECATED |
 | 54 | `skill-lifecycle-manager` | Auto-detects needs, prevents rebuilds, and USE/UPDATE/MERGE/BUILDs reusable worker adapters when delegation should become a skill | Skill management / worker adapters | ACTIVE |
-| 55 | `perplexity-connector-advisor` | Auto-selects Perplexity connectors by domain | Perplexity usage | ACTIVE |
+| 55 | `perplexity-connector-advisor` | Auto-selects Perplexity connectors by domain | Perplexity usage | DEPRECATED |
 | 56 | `bobbys-ai-translator` | Converts tech jargon to plain English | Jargon explanation | ACTIVE |
 | 57 | `content-repurposer` | One input → TikTok, Instagram, email, blog, presentation | Content reuse | ACTIVE |
 | 58 | `social-proof-builder` | Builds credibility without testimonials | Social proof | ACTIVE |
 | 59 | `premier-claims-investigation` | 12-agent commercial property investigation | Commercial claims | ACTIVE |
 | 60 | `vehicle-collision-case-analyzer` | Motor vehicle accident case analysis | Car accident | ACTIVE |
-| 61 | `pi-case-analyzer` | Personal injury settlement strategy | PI case | ACTIVE |
+| 61 | `pi-case-analyzer` | Personal injury settlement strategy | PI case | DEPRECATED |
 | 62 | `credit-repair-master-orchestrator` | Multi-agent credit repair campaigns | Credit repair | ACTIVE |
 | 68 | `agent-talent-manager` | Hires/evaluates/promotes/retires specialist agents; assigns model + fallback | New recurring workstream / agent weakness | ACTIVE |
 | 69 | `proactive-build-ahead` | Automatically builds safe internal skeletons for obvious downstream needs | Predictable dependency discovered | ACTIVE |
@@ -123,10 +123,10 @@
 | # | Skill | What It Does | Trigger | Status |
 |---|---|---|---|---|
 | 63 | `illinois-legal-resource-directory` | Illinois legal resources for claims disputes | IL legal research | ACTIVE |
-| 64 | `claimed-master-workflow` | 5-phase ClaimEdge workflow with Airtable CRM | Claim workflow | ACTIVE |
+| 64 | `claimed-master-workflow` | 5-phase ClaimEdge workflow with Airtable CRM | Claim workflow | DEPRECATED |
 | 65 | `huuso-exteriors-portal` | Interactive inspection report portal | Inspection portal | ACTIVE |
 | 66 | `wrestling-thread-auditor` | Quality control for wrestling intelligence threads | Audit wrestling data | ACTIVE |
-| 67 | `credit-repair-orchestrator` | Multi-agent credit repair coordination | Credit repair | ACTIVE |
+| 67 | `credit-repair-orchestrator` | Multi-agent credit repair coordination | Credit repair | DEPRECATED |
 
 ---
 
@@ -193,3 +193,23 @@ This is a **registered shared capability**, not a claim that another skill was i
 | `debo-kimi-system-wide-engineering-v1` | [Master command](prompts/DEBO_KIMI_SYSTEM_WIDE_ENGINEERING_COMMAND_v1.md) | Kimi receives command and reads existing skill inventory; reuse → update → build → install/test | PROMPT REGISTERED; KIMI RUNTIME INSTALL NOT VERIFIED |
 
 **Skill evolution rule:** search installed skills and plugin connections first; use working ones, update outdated ones with versioned tests, build new governed skills only for real gaps, and verify each installation in the target runtime. Do not confuse GitHub prompt registration with skill installation. Emails/messages remain approval-gated.
+
+
+## DEBO Core — Source-Verified Current Skill Routing (2026-11-03)
+
+These GitHub skill source files exist at `main/skills/`. This table supplements the historical 72 numbered catalog entries; do not double count rows or treat any source as an installed ChatGPT, Kimi, or independent agent runtime.
+
+| Canonical capability | Current source version | GitHub source | Runtime status |
+|---|---|---|---|
+| Thread recovery and Resume Capsules | v2.1 | [thread-ops](skills/thread-ops/SKILL.md) | UNVERIFIED |
+| Skill lifecycle and conflict management | v2.1 | [skill-lifecycle-manager](skills/skill-lifecycle-manager/SKILL.md) | UNVERIFIED |
+| Cross-AI routing and handoff authority | v3.2 | [multi-ai-router](skills/multi-ai-router/SKILL.md) | UNVERIFIED |
+| Canonical DEBO portfolio orchestration | v3.0 | [robert-master-os](skills/robert-master-os/SKILL.md) | UNVERIFIED |
+| Durable artifact routing and checkpoints | v2.0 | [universal-file-vault](skills/universal-file-vault/SKILL.md) | UNVERIFIED |
+| Workspace organization and continuity | v3.0 | [autonomous-ops-architect](skills/autonomous-ops-architect/SKILL.md) | UNVERIFIED |
+| ChatGPT project and conversation stewardship | v1.0 | [chatgpt-workspace-steward](skills/chatgpt-workspace-steward/SKILL.md) | UNVERIFIED |
+| Safe, low-risk internal build-ahead | v1.0 | [proactive-build-ahead](skills/proactive-build-ahead/SKILL.md) | UNVERIFIED |
+
+**Lifecycle reconciliation:** 17 earlier ACTIVE records now match the newer Notion DEPRECATED lifecycle label. Those entries remain in this catalog as historical records, not deletions. Seven have explicitly documented consolidation successors: `claimedge-session-memory`, `claimedge-vault-system`, and `claimedge-auto-deploy` → `universal-file-vault`; `claimedge-skill-forge` → `skill-lifecycle-manager`; `session-context-preserver` and `thread-audit-manager` → `thread-ops`; `credit-repair-orchestrator` → `credit-repair-master-orchestrator`. The other ten retain DEPRECATED without an assumed installed replacement. See [2026-11-03 reconciliation receipt](docs/DEBO_SKILL_RECONCILIATION_2026-11-03.md).
+
+**Coverage boundary:** 72 historical catalog entries ≠ all currently present SKILL.md files. The GitHub main tree inspection found 84 SKILL.md source files across root, nested, project-local, and plugin folders (19 direct root skills, 5 nested skills, 51 JCT, 8 RRR, 1 plugin). That is file presence only, not 84 distinct operating integrations. Kimi source provenance for all files and Kimi runtime install receipts remain UNVERIFIED.
