@@ -235,6 +235,13 @@
         },
         "blocker": {
           "type": "string"
+        },
+        "owner_approval": {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED",
+            "NOT_APPLICABLE"
+          ]
         }
       }
     },
