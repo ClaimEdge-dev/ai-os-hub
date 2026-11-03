@@ -143,6 +143,20 @@ Official references:
 - https://www.perplexity.ai/en-GB/hub/blog/the-new-comet-assistant
 - https://www.perplexity.ai/enterprise/comet
 
+## Research Return Bridge (2026-11-02)
+
+**Default choice:** Keep DEBO in regular ChatGPT, use its available connected sources and current web research first, and save evidence into the existing project checkpoint. Delegate to Perplexity only when it provides material independent source verification, larger research coverage, or a measurable advantage. Do not route every trivial search through an extra AI or burn Work quota to copy prompts.
+
+**Optional automation architecture:** Authorized trigger (manual/scheduled/supported connected-app event) → existing project queue/checkpoint → native sources or Perplexity Agent API / Search API → standardized research packet → source/claim QA → project-specific private evidence store → DEBO resume/notification through a **verified supported** scheduled or event-driven task. A GitHub Action may produce a packet or PR; that alone does not wake a generic ChatGPT conversation. Never claim automatic end-to-end execution before a real triggered run and readback.
+
+**Perplexity API selection:** Prefer current Agent API for web-grounded synthesized answers or Search API for web results that DEBO independently evaluates. Do not implement a new integration against retired legacy Sonar chat-completions endpoints. Use official current API docs to select endpoints and models at build time. API access and charges require verified credentials, a scoped budget, and prior authorization; no key or client/child/credit-case information in the public repository. GitHub Actions secrets must be configured through the approved secret manager, never committed.
+
+**Minimum research handoff fields:** mission_id, project_id, objective, source_urls, retrieval_dates, factual_claims, direct_quotes_if_needed, uncertainty, conflicts, proposed_actions, priority, cost_estimate_if_known, approval_needed, output_artifact_pointer, verification_status, next_safe_action. Clearly label citations collected versus claims independently verified. Reuse the existing ledger, work queue and project memory; do not create a competing master.
+
+**Release test before claiming hands-free:** One harmless scheduled or manually triggered test creates a private or non-sensitive research packet; confirm correct project/account isolation, source traceability, deduplication, bounded retries, protected credentials, checkpoint readback, supported ChatGPT task pickup, and no unauthorized messages/public launches/payments. Mark untested connections PROPOSED / NOT CONFIGURED.
+
+**Reference sources checked 2026-11-02:** https://docs.perplexity.ai/docs/getting-started/overview ; https://github.com/perplexityai/modelcontextprotocol ; https://docs.github.com/en/actions/concepts/workflows-and-actions/workflows ; https://learn.chatgpt.com/docs/automations?surface=app
+
 ## Weakness Compensation Rule
 
 Never ask one model to be great at everything.
