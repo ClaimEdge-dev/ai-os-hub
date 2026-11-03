@@ -39,12 +39,12 @@ class TestDEBOPluginGovernor(unittest.TestCase):
     def test_approval_and_privacy_controls(self):
         for phrase in ("Never silently install", "explicit required approval first",
                        "business-A", "business-B", "seven days",
-                       "credential material", "no new app, second master"):
+                       "credential material", "not a new app, second master"):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, self.register)
 
     def test_reuses_existing_automation_and_tools(self):
-        for phrase in ("DEBO System Scout", "no second Plugin Scout",
+        for phrase in ("DEBO System Scout", "not a second Plugin Scout",
                        "Firecrawl", "TinyFish", "ChatGPT Search",
                        "GitHub", "Notion"):
             with self.subTest(phrase=phrase):
