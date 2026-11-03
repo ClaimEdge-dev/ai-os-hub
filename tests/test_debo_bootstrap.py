@@ -181,5 +181,66 @@ class BootstrapTests(unittest.TestCase):
         self.assertIn('symlink', proc.stderr)
         self.assertEqual(list(outside.iterdir()), [])
 
+
+    def test_brief_includes_canonical_continuity_and_agent_chain(self):
+        proc = self.run_brief('JCT')
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertIn('## Cross-thread continuity', proc.stdout)
+        self.assertIn('## Chain of command', proc.stdout)
+        self.assertIn('## Main DEBO agent board', proc.stdout)
+        self.assertIn('Mack: Chief of Staff and Mission Control', proc.stdout)
+        self.assertIn('Atlas: Chief Systems Architect and Senior Technical Lead', proc.stdout)
+        self.assertIn('Current project state: UNKNOWN', proc.stdout)
+        self.assertIn('not active workers', proc.stdout)
+        self.assertIn('not runtime activation', proc.stdout)
+
+    def test_continuity_rule_removal_fails_closed(self):
+        p = self.root / 'governance/DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md'
+        text = p.read_text(encoding='utf-8')
+        original = next(line for line in text.splitlines() if line.startswith('7. Create/update a durable project checkpoint'))
+        p.write_text(text.replace(original, '7. Missing continuity gate'), encoding='utf-8')
+        result = self.run_brief('DEBO')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('Continuity policy', result.stderr)
+        self.assertNotIn('## Selected project:', result.stdout)
+
+    def test_duplicate_main_agent_alias_fails_closed(self):
+        p = self.root / 'governance/DEBO_AGENT_COVERAGE_REGISTER_v1.json'
+        data = json.loads(p.read_text(encoding='utf-8'))
+        main = [role for role in data['roles'] if role['project_id'] == 'DEBO']
+        main[0]['alias'] = main[1]['alias']
+        p.write_text(json.dumps(data), encoding='utf-8')
+        result = self.run_brief('JCT')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('13 unique documented', result.stderr)
+        self.assertNotIn('## Selected project:', result.stdout)
+
+    def test_continuity_and_board_changes_mark_all_briefs_stale(self):
+        for path, addition in [
+            ('governance/DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md', '\nLocal continuity change.\n'),
+            ('governance/DEBO_AGENT_BOARD_ROLE_MAP_v1.md', '\nLocal board change.\n'),
+            ('skills/agent-talent-manager/SKILL.md', '\nLocal skill charter change.\n'),
+            ('prompts/DEBO_PERPLEXITY_SPEED_RESEARCH_MISSION_v1.md', '\nLocal research prompt change.\n'),
+        ]:
+            with self.subTest(path=path):
+                self.assertEqual(self.run_sync(write=True).returncode, 0)
+                file = self.root / path
+                existing = file.read_text(encoding='utf-8')
+                file.write_text(existing + addition, encoding='utf-8')
+                stale = self.run_sync()
+                self.assertEqual(stale.returncode, 1, stale.stderr)
+                self.assertEqual(len(json.loads(stale.stdout)['stale']), 14)
+                file.write_text(existing, encoding='utf-8')
+
+    def test_registry_change_marks_all_briefs_stale(self):
+        self.assertEqual(self.run_sync(write=True).returncode, 0)
+        p = self.root / 'governance/DEBO_AGENT_COVERAGE_REGISTER_v1.json'
+        registry = json.loads(p.read_text(encoding='utf-8'))
+        registry['isolated_source_revision_test'] = 1
+        p.write_text(json.dumps(registry), encoding='utf-8')
+        stale = self.run_sync()
+        self.assertEqual(stale.returncode, 1, stale.stderr)
+        self.assertEqual(len(json.loads(stale.stdout)['stale']), 14)
+
 if __name__ == '__main__':
     unittest.main()
