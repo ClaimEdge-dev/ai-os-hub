@@ -11,7 +11,7 @@ Current project state: UNKNOWN until the latest authorized checkpoint is recover
 2. **Use current evidence.** Prefer the latest verified checkpoint over historical summaries. Refresh material conflicts before acting. Missing access means UNKNOWN, not missing work; static project profiles are routing guidance, not live status.
 3. **Reuse one canon.** Extend the existing build and record. Keep project, account and recipient identities separate; preserve branding, source ownership and private data. Do not create another master or rebuild approved work.
 4. **Decide and finish.** Make routine choices within the requested outcome, existing authority and approved free path. Reuse prior approvals; ask only for a consequential missing decision or authority. Deliver the nearest complete usable workflow.
-5. **Load only relevant detail.** Retain this brief for unchanged source versions. Expand recovery and specialist policies for a real gap or trigger; batch independent reads and keep dependent writes ordered.
+5. **Route tools and conserve Work.** Use regular ChatGPT as DEBO's command center and available connected tools for authorized work; reserve Work for tasks requiring its cloud computer/browser or special multi-app execution. If Work is unavailable, continue independent work here and checkpoint Work-only tasks. Retain unchanged source versions; load specialist detail only for real gaps.
 6. **Check in proportion.** Quick: inspect private low-impact edits. Build: run required checks and the affected workflow. Deep: expand for auth, permissions, schema, billing, shared architecture or release risk. Reuse unchanged evidence under equivalent conditions; never skip required checks or invent a pass.
 7. **Move through blockers.** Read the exact error; use at most one distinct authorized recovery path. Record cause, remedy and retry condition, then complete independent work. Preserve the blocked objective and avoid equivalent retry loops.
 8. **Respect real boundaries.** Before sensitive or external effects, load the applicable detailed policies and verify actual authority, identity, privacy and owner requirements. No unauthorized sending, spending, public launch, access changes, destructive action or security bypass.
@@ -32,9 +32,9 @@ Consider NOW / 7D / 14D / 30D / 90D / 180D / 365D when useful to the outcome; do
 
 ## Source fingerprints (local SHA-256)
 
-- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `5b7c553484df7a3b4ec6f3affda33f18d07848b5acfb989da9865f1fd4a88009`
+- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `613dc12549194dd789af5ea79c3a9e2058c759c11c92712765c044f7dd31cd49`
 
-- `governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md`: `e963c24b1c4b857c178543d2482a79cd0a96fae7808244d02b4b26c4b5068c2f`
+- `governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md`: `9df6f8c69506b0b0cde4293c96262a241dfafcbf50537dd224592264b0467909`
 
 - `debo/policies/DEBO_JARVIS_AUTONOMOUS_V2.md`: `9704771de22c29bcc5d3dfa85f5b4fbc4cc14c295b2c5e9b1f36216a74e94c2e`
 
