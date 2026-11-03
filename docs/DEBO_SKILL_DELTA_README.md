@@ -1,5 +1,13 @@
 # DEBO skill delta audit (review-only upgrade)
 
+## Where to find the auditor
+
+- **Stable shortcut:** `python tools/debo_skill_delta_audit.py` (compatibility entrypoint; safe for old references).
+- **Canonical implementation:** `tools/debo_skill_delta.py` (source of truth; do not rename it or duplicate its logic).
+- **Instructions:** `docs/DEBO_SKILL_DELTA_README.md`.
+- **Notion comparison source:** AI OS Hub Master Skill Registry → **Skill Registry** database (not the historical summary count).
+- `ACTIVE` in either catalog is a *source label*, not proof a skill is installed or operational.
+
 ## Purpose
 Run the existing DEBO Markdown skill-registry parser and compare against optional **authorized offline exports** from Notion and scheduled-task metadata. Flags cross-registry status conflicts, duplicate names, root skill-source SHA-256 changes, and new/changed/removed skill IDs. No credentials, internet calls, ChatGPT installation, Notion updates, or schedule mutations.
 
