@@ -23,6 +23,10 @@ class AgentCoverageIntegrityTests(unittest.TestCase):
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text('# documented skill\n', encoding='utf8')
 
+    def test_repository_skill_sources(self):
+        report = audit(DATA, ROOT)
+        self.assertEqual(report['status'], 'PASS', report['errors'])
+
     def test_fixture_positive(self):
         r = audit(DATA, self.root)
         self.assertEqual(r['status'], 'PASS', r['errors'])
