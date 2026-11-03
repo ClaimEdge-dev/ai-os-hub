@@ -32,7 +32,7 @@ Consider NOW / 7D / 14D / 30D / 90D / 180D / 365D when useful to the outcome; do
 
 ## Source fingerprints (local SHA-256)
 
-- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `6609ba78a0b7580381c5ad5060689e56f2b4b174075850c66dcced730ea1ea2c`
+- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `ffd152f8641eb0ceaeafcaa39e0f4cd34d7a2f0396f10fb5ba217beeb1fb0c6e`
 
 - `governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md`: `9df6f8c69506b0b0cde4293c96262a241dfafcbf50537dd224592264b0467909`
 
