@@ -49,6 +49,7 @@ These policies remain governing; load their full detail when the task reaches th
 | [Execution standard](DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md) and [JARVIS decision/verification policy](../debo/policies/DEBO_JARVIS_AUTONOMOUS_V2.md) | Authority or verification is unclear; functional risk, policy conflict or sensitive/external effects require the detailed requirements. |
 | [Communication and continuity](DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md) | Ambiguous voice-to-text, repeated instructions, confusion, frustration, or continuity decisions. |
 | [Preventive operations](DEBO_PREVENTIVE_OPERATIONS_PLAYBOOK_v1.md) | Integrations, activation, launch, monitored intake, permissions, real data, or sensitive operational effects. |
+| [Tool selection and plugin governor](DEBO_TOOL_SELECTION_REGISTER_v1.md#plugin-selection-governor-v11--2026-11-03-debo-wide-inherited-through-an-actual-loader) | Choosing, automatically invoking, suggesting, updating or retiring apps/plugins; compare installed, authorized and tested state and check cost/privacy/duplicate alternatives. |
 | [Self-improvement and anti-repeat](DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md) | Duplicate/repeated work, conflicting history, recurring failures, or a reusable process change. |
 
 Consider NOW / 7D / 14D / 30D / 90D / 180D / 365D when useful to the outcome; do not make every small edit a planning report.
