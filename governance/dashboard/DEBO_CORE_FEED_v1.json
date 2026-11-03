@@ -1,0 +1,158 @@
+{
+  "data_classification": "PUBLIC_GOVERNANCE_METADATA_ONLY",
+  "derived_from": "DEBO_RUNTIME_BRIEFS_EXISTING_WORKFLOW",
+  "feed_id": "DEBO_CORE_PUBLIC_READ_ONLY",
+  "golden_rules_count": 10,
+  "permissions": {
+    "automatic_approvals": false,
+    "automatic_deployment": false,
+    "customer_data_included": false,
+    "financial_records_included": false,
+    "read_only": true,
+    "writes_enabled": false,
+    "youth_data_included": false
+  },
+  "projects": [
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": null,
+      "profile_sha256": null,
+      "project_id": "DEBO"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "projects/dwing-exterior/DEBO_PROFILE_v2.md",
+      "profile_sha256": "fb7c5b4e6f55bfe1aaa76c599d63b6e5f00909fc657277a047d9252547756c54",
+      "project_id": "DWE"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/JCT_PROFILE_v1.md",
+      "profile_sha256": "64ce9ba57cb7ea7db86c394f295a33de2be31fe860033c396a8eb6fc94f57773",
+      "project_id": "JCT"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/RRR_PROFILE_v1.md",
+      "profile_sha256": "cf9940258b6ac460923b612da14d396abe5dd4bb4c8552bbe27b8b429c061933",
+      "project_id": "RRR"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/MOR_PROFILE_v1.md",
+      "profile_sha256": "5a0c92813141f958ce6e724b3d2ee51a9fcaea36013b6a1191ee02078ca88cb5",
+      "project_id": "MOR"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/CE_PROFILE_v1.md",
+      "profile_sha256": "452c4466622f61b95a53b787f05685b079cba8ea96525c192e84394bd50e91c5",
+      "project_id": "CE"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/PLG_PROFILE_v1.md",
+      "profile_sha256": "15264dd589b11f860582a55beb833b57757295e2b0a8cb78af460d4dae87e940",
+      "project_id": "PLG"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/BULLDOGS_PROFILE_v1.md",
+      "profile_sha256": "4310ff131f2b2e40b48d5c6d6f863afef0c24df5c06bc3363e44b4b00e2ff8cc",
+      "project_id": "BULLDOGS"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/CWA_PROFILE_v1.md",
+      "profile_sha256": "dc476d585a6f15d860f72aa65986f8cf79c75285d1c5ad5b9d580ea222592853",
+      "project_id": "CWA"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/BBS_PROFILE_v1.md",
+      "profile_sha256": "207c87362434efafb9ad2a14f53a4f139598d5dd8d62818a2c458faf37db57bf",
+      "project_id": "BBS"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/CREDIT_PROFILE_v1.md",
+      "profile_sha256": "a3289c160857e59f7b9a7532833166d44736497a6ca2bb314aaca1146465c5cc",
+      "project_id": "CREDIT"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/SCHOOL_PROFILE_v1.md",
+      "profile_sha256": "73ac8c112353805a7cd6d932170a15f74118982990769ab24a50a71735d662e4",
+      "project_id": "SCHOOL"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/HOUSING_PROFILE_v1.md",
+      "profile_sha256": "a5e22317522964e15f6b85ac0dbccfbc0cd7f77aef2ea4e4b2447c1273bb58d7",
+      "project_id": "HOUSING"
+    },
+    {
+      "approval_state": "UNKNOWN",
+      "last_live_verification": null,
+      "live_operational_status": "UNKNOWN",
+      "profile_path": "governance/sister-brains/SETTLESURE_PROFILE_v1.md",
+      "profile_sha256": "a6cca4a37b1891fd3412924063e821c4fe729a06f8172cea9ac1ad8466c800ca",
+      "project_id": "SETTLESURE"
+    }
+  ],
+  "refresh_contract": {
+    "consumer": "DEBO_DASH_005_LOCAL_READ_ONLY",
+    "last_successful_live_client_refresh": null,
+    "mode": "ON_CANONICAL_SOURCE_CHANGE",
+    "note": "Source hashes do not prove runtime operation, owner approval or deployment.",
+    "producer": ".github/workflows/debo-runtime-briefs.yml"
+  },
+  "schema_version": "debo.core.public_feed.v1",
+  "source_files": [
+    {
+      "path": "DEBO_BOOTSTRAP.md",
+      "sha256": "b443bcfea6e9f38816a8705128778bf16db0c70786bc711e11002461ea82cd4f"
+    },
+    {
+      "path": "governance/DEBO_RUNTIME_BOOTSTRAP_v2.md",
+      "sha256": "609af533fe43128542a7aee11d8b06b698222a542025e23dd7a3f6afb0147ecd"
+    },
+    {
+      "path": "governance/runtime-briefs/DEBO.md",
+      "sha256": "bfa6e82e754597a1a6c455efddeb3dd38dc0e546a4712d65260bd856e5435f22"
+    }
+  ],
+  "source_repository": "ClaimEdge-dev/ai-os-hub",
+  "status_definitions": {
+    "automatic_cross_project_sync": false,
+    "project_runtime_state": "UNKNOWN_UNTIL_PROJECT_CHECKPOINT_VERIFIED",
+    "source_feed_is_live_business_data": false,
+    "source_policy_state": "DOCUMENTED_SOURCE"
+  }
+}
