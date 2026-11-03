@@ -52,3 +52,7 @@ jobs:
         run: python tools/debo_bootstrap_check.py
       - name: Test bootstrap and durable-save failure detection
         run: python -m unittest discover -s tests -p 'test_debo*.py' -v
+      - name: Audit historical skill metadata (source-only, read-only)
+        run: |
+          python tools/debo_skill_delta.py --output /tmp/debo-skill-delta.json
+          python -c 'import json; r=json.load(open("/tmp/debo-skill-delta.json")); print("GitHub-only DEBO skill audit:", r["summary"]); assert r["summary"]["github_catalog_rows"] == 72'
