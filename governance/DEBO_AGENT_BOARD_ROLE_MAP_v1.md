@@ -1,4 +1,4 @@
-# DEBO Agent Board and Senior Technical Lead | Review v1.2
+# DEBO Agent Board and Senior Technical Lead | Review v1.3
 
 **Status: PROPOSAL / FILES ONLY.** This file adds a routing view under the existing `DEBO_BOOTSTRAP.md`, `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md` and `skills/agent-talent-manager/SKILL.md`. It does not activate autonomous workers, change any permissions, or supersede canonical DEBO policy.
 
@@ -56,6 +56,14 @@ Human project owner and approval authority → DEBO Core → Mack (global Chief 
 | CREDIT | Credit Repair OS | Credit operator | NOT_VERIFIED |
 | SCHOOL | School and Scholarship OS | School operator | NOT_VERIFIED |
 | HOUSING | Housing / Project CHASE | Housing operator | NOT_VERIFIED |
+
+
+## Main DEBO agent decision: reusable functions, not more executives (2026-11-02)
+All **13 documented DEBO Council aliases** above remain the **main** functional board for every sister build. Mack owns global coordination; Atlas is senior technical owner; Forge implements; Scout and Radar jointly identify source-backed reuse; Proof verifies; Sentinel runs independent challenge where failure risk justifies it; Vault checkpoints; Shield holds permission boundaries. No new permanent Council title is justified merely by a specialty; hire temporary work-specific subagents through the existing agent-talent-manager hiring test.
+
+**Cross-project red-team routing:** A severe unverified readiness, billing, permissions, tenancy, safety, or integration assertion goes to Sentinel for a reversible evidence-based challenge, with Proof performing independent acceptance checks. The local JCT former-Chief-of-Staff challenge persona is a **JCT-only** route within this function and is **not** the current JCT Chief of Staff. Do not add private names to the public source or treat fictionalized role behavior as a real person's malicious intentions.
+
+**Perplexity research lane:** Scout owns verification of public technology/documentation; Radar compares existing tools, skills, licensing and alternatives. Assign a scoped external Perplexity research worker only when supported. Use the existing canonical \`PERPLEXITY_STARTER_PROMPT.md\` plus the focused \`prompts/DEBO_PERPLEXITY_SPEED_RESEARCH_MISSION_v1.md\`, not a second system prompt. Perplexity returns an evidence brief and optional small file handoff; DEBO validates it before implementation. No automatic shared memory, plugin installation, or native worker activation is inferred.
 
 ## Job-card contract
 `JOB_ID | PROJECT_ID | OBJECTIVE | INPUTS_AND_EVIDENCE | LEAD_ROLE | SKILL | ALLOWED_TOOLS | REQUIRED_APPROVER | DELIVERABLE | ACTUAL_TESTS | ROLLBACK | BLOCKER | NEXT_ACTION`
