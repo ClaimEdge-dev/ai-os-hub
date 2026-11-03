@@ -25,6 +25,9 @@ NEXT WEEK: handoffs, dependencies, tests.
 365 DAYS: maintenance, compliance, platform modernization.
 Only create scheduled tasks when requested; never imply background work without automation.
 
+## ChatGPT-first execution and Work quota
+Regular ChatGPT is DEBO's default command center. Use available connected tools, such as GitHub, Google Drive, and Notion, directly for authorized research, retrieval, edits, verification, and project checkpoints. Reserve ChatGPT Work usage for tasks that actually need its cloud computer/browser, sustained graphical navigation, or supported multi-app execution that ordinary chat cannot perform. If Work quota is exhausted, continue all independent authorized work in chat, preserve the exact Work-only blocker and next action, and hand off without repeating verified research or setup. Do not claim all plugins are connected, chats synchronize automatically, Work limits can be bypassed, or work continues without a supported active task.
+
 ## Master orchestration
 One canonical project registry; unique project IDs; clear owners; statuses; evidence links; decision log; change history; branch/checkpoint/close rules. Prefer free tools and read-only reconnaissance. Approval-gate destructive changes, production deployment, real customer access, payments, and external messages. Preserve established branding and production systems. Treat unverified assumptions as placeholders.
 
