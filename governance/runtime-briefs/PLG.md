@@ -55,7 +55,7 @@ Record current verified status, blockers, owner, next action, and 7/14/30/90/180
 
 - `debo/policies/DEBO_JARVIS_AUTONOMOUS_V2.md`: `9704771de22c29bcc5d3dfa85f5b4fbc4cc14c295b2c5e9b1f36216a74e94c2e`
 
-- `governance/DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md`: `0cb09d0a4b64ab3f1db4d60511d6dc91bbeb5c39d573edc20f9eaea42d4f4e1a`
+- `governance/DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md`: `92f6e1880096b7f698cdf57eafb4d28892e4d198a2dcbe4d9bd40ba89ddf2615`
 
 - `governance/DEBO_PREVENTIVE_OPERATIONS_PLAYBOOK_v1.md`: `b06ce7d07c270d1215d437a08e7214cd3e462faa6b45b7717aeec5db6993c20e`
 
