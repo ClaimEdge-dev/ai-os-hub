@@ -1,0 +1,1082 @@
+{
+  "schema_version": "1.0",
+  "as_of": "2026-11-02",
+  "repository": "ClaimEdge-dev/ai-os-hub",
+  "canonical_root": "DEBO",
+  "truth_rule": "A named role, skill file, or router assignment does not establish a running agent",
+  "roles": [
+    {
+      "id": "DEBO-MACK",
+      "alias": "Mack",
+      "title": "Chief of Staff and Mission Control",
+      "tier": "executive",
+      "project_id": "DEBO",
+      "mission": "Intake, scope, prioritize, route, WIP lock, follow-up and owner decision packets",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-ATLAS",
+      "alias": "Atlas",
+      "title": "Chief Systems Architect and Senior Technical Lead",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Technical ownership across core and sister builds; integration map, schemas, design reviews, architecture debt, build-vs-reuse",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-FORGE",
+      "alias": "Forge",
+      "title": "VP of Engineering and Implementation Lead",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Code, Python, JS/TS, migrations as drafts, QA hooks, CI, reproducible builds",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-SCOUT",
+      "alias": "Scout",
+      "title": "Head of Research and Source Verification",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Research, primary source checks, citations, licensing/source lineage",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-PROOF",
+      "alias": "Proof",
+      "title": "Director of QA, Testing and Evidence",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Test matrix, negative cases, readbacks, release acceptance",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-VAULT",
+      "alias": "Vault",
+      "title": "Chief Records and Continuity Officer",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Canonical references, source-of-truth reconciliation, manifests, saved checkpoints",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-SHIELD",
+      "alias": "Shield",
+      "title": "Security, Privacy and Approval Lead",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Tenant isolation, access, legal/compliance routing, spending and launch gates",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-LEDGER",
+      "alias": "Ledger",
+      "title": "Revenue and Financial Controls Lead",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Rates, invoices, AR, unit economics, ROI and financial evidence",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-RADAR",
+      "alias": "Radar",
+      "title": "Market and Plugin Intelligence Lead",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Opportunities, competitors, tool availability, pricing and licensing audit",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-RELAY",
+      "alias": "Relay",
+      "title": "Workflow and Automation Lead",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Handoffs, integrations, idempotency, retries, schedules after authorization",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-PIXEL",
+      "alias": "Pixel",
+      "title": "Chief Design and Customer Experience Lead",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Brand, UX, accessibility, visual standards, customer journeys",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-SWEEP",
+      "alias": "Sweep",
+      "title": "Workspace and Duplicate Control Lead",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Artifact dedupe, cleanup, safe archives, stale references",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "DEBO-SENTINEL",
+      "alias": "Sentinel",
+      "title": "Independent Red Team and Challenge Lead",
+      "tier": "board",
+      "project_id": "DEBO",
+      "mission": "Challenge unsupported claims, prompt/tool injection, release and failure scenarios",
+      "source_status": "DOCUMENTED_ALIAS",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "task-scoped approved connectors",
+        "read-only public research",
+        "local code/tests where authorized"
+      ],
+      "tools_prohibited": [
+        "unapproved external messages",
+        "production data mutation",
+        "payments",
+        "credential modifications"
+      ],
+      "approval": "Existing DEBO governance applies"
+    },
+    {
+      "id": "JCT-Chief-of-Staff",
+      "alias": "JCT-Chief-of-Staff",
+      "title": "JCT Chief of Staff / local routing",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Dispatch-Ops",
+      "alias": "JCT-Dispatch-Ops",
+      "title": "Tow and Dispatch Operations Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Growth",
+      "alias": "JCT-Growth",
+      "title": "Growth Strategy Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Creative",
+      "alias": "JCT-Creative",
+      "title": "Creative and Branding Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Product-Tech",
+      "alias": "JCT-Product-Tech",
+      "title": "Website, CRM and Integration Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Finance",
+      "alias": "JCT-Finance",
+      "title": "Billing and Margin Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Fleet",
+      "alias": "JCT-Fleet",
+      "title": "Fleet and Heavy Recovery Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Intelligence",
+      "alias": "JCT-Intelligence",
+      "title": "Source Intelligence Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Commercial",
+      "alias": "JCT-Commercial",
+      "title": "Business Contracts and Motor Clubs Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-QA",
+      "alias": "JCT-QA",
+      "title": "Evidence and Quality Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Reputation",
+      "alias": "JCT-Reputation",
+      "title": "Reviews and CX Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Administration",
+      "alias": "JCT-Administration",
+      "title": "Document Control and Approvals Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Local-Growth",
+      "alias": "JCT-Local-Growth",
+      "title": "Local SEO and Community Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Field",
+      "alias": "JCT-Field",
+      "title": "Driver and Field Documentation Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    },
+    {
+      "id": "JCT-Customer-Care",
+      "alias": "JCT-Customer-Care",
+      "title": "Calls and Follow-up Lead",
+      "tier": "project_specialist",
+      "project_id": "JCT",
+      "mission": "Own assigned JCT skill routing and return evidence to JCT-OPS",
+      "source_status": "PROPOSED_ROLE_MAPPING",
+      "worker_status": "NOT_VERIFIED",
+      "tools_allowed": [
+        "authorized JCT-only source and sandbox actions"
+      ],
+      "tools_prohibited": [
+        "RRR cross-tenant access",
+        "John-gated live changes"
+      ],
+      "approval": "John for operational/public/financial actions"
+    }
+  ],
+  "project_adapters": [
+    {
+      "project_id": "JCT",
+      "name": "JC’s Towing",
+      "operator": "JCT-OPS / TowOps / Hook",
+      "scope": "Dispatch, drivers, tow evidence, invoicing, CRM, owner John approval",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "DWE",
+      "name": "D-Wing Exteriors",
+      "operator": "DWE project operator",
+      "scope": "Field jobs, roofing, customer data, invoices, approved install gates",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "CE",
+      "name": "ClaimEdge",
+      "operator": "CE claims operator",
+      "scope": "Claims, evidence, weather, codes, carrier packets, reviewer Susan",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "SETTLESURE",
+      "name": "SettleSure Adjusting",
+      "operator": "SettleSure operator",
+      "scope": "Adjusting, compliance, case workflow and human review",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "PLG",
+      "name": "P Logistics",
+      "operator": "PLG-OPS",
+      "scope": "Carrier/broker records, prospecting, logistics accounts and sales",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "RRR",
+      "name": "Rapid Roadside Repair",
+      "operator": "RRR operator",
+      "scope": "Roadside/heavy repair service CRM and field lead engine",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "MOR",
+      "name": "Morgan’s of Lockport",
+      "operator": "MOR operator",
+      "scope": "Restaurant operations, website, events, staffing, merch, CRM",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "BULLDOGS",
+      "name": "Tinley Park Bulldogs / Team Nation",
+      "operator": "Bulldogs operator",
+      "scope": "Rosters, coaching, film, branding, youth safeguards",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "CWA",
+      "name": "Celtic Wrestling Academy / WrestlingOS",
+      "operator": "CWA operator",
+      "scope": "Tournaments, training, athlete and parent permissions",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "BBS",
+      "name": "Buddy Boy Sports / BaseballOS",
+      "operator": "BBS operator",
+      "scope": "Baseball teams, scores, films, safe youth content",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "CREDIT",
+      "name": "Credit Repair OS",
+      "operator": "Credit operator",
+      "scope": "Personal credit workflow, laws, disputes only with verified records and approvals",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "SCHOOL",
+      "name": "School and Scholarship OS",
+      "operator": "School operator",
+      "scope": "Admissions, academic opportunities, age and eligibility verification",
+      "worker_status": "NOT_VERIFIED"
+    },
+    {
+      "project_id": "HOUSING",
+      "name": "Housing / Project CHASE",
+      "operator": "Housing operator",
+      "scope": "Rental search, verified listings, family constraints",
+      "worker_status": "NOT_VERIFIED"
+    }
+  ],
+  "jct": {
+    "root": "jct-ops",
+    "documented_specialist_count": 50,
+    "skills": [
+      {
+        "skill": "jct-prompt-router",
+        "lead_role": "JCT-Chief-of-Staff",
+        "source_path": "projects/jcs-towing/skills/jct-prompt-router/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-business-truth-auditor",
+        "lead_role": "JCT-Intelligence",
+        "source_path": "projects/jcs-towing/skills/jct-business-truth-auditor/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-dispatch-intake",
+        "lead_role": "JCT-Dispatch-Ops",
+        "source_path": "projects/jcs-towing/skills/jct-dispatch-intake/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-tow-ticket-narrative",
+        "lead_role": "JCT-Field",
+        "source_path": "projects/jcs-towing/skills/jct-tow-ticket-narrative/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-insurance-invoice-builder",
+        "lead_role": "JCT-Finance",
+        "source_path": "projects/jcs-towing/skills/jct-insurance-invoice-builder/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-heavy-semi-billing",
+        "lead_role": "JCT-Finance",
+        "source_path": "projects/jcs-towing/skills/jct-heavy-semi-billing/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-rate-authority-manager",
+        "lead_role": "JCT-Finance",
+        "source_path": "projects/jcs-towing/skills/jct-rate-authority-manager/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-evidence-pack-qa",
+        "lead_role": "JCT-QA",
+        "source_path": "projects/jcs-towing/skills/jct-evidence-pack-qa/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-fleet-capacity-register",
+        "lead_role": "JCT-Fleet",
+        "source_path": "projects/jcs-towing/skills/jct-fleet-capacity-register/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-b2b-account-builder",
+        "lead_role": "JCT-Growth",
+        "source_path": "projects/jcs-towing/skills/jct-b2b-account-builder/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-municipal-intelligence",
+        "lead_role": "JCT-Commercial",
+        "source_path": "projects/jcs-towing/skills/jct-municipal-intelligence/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-local-seo-gbp",
+        "lead_role": "JCT-Local-Growth",
+        "source_path": "projects/jcs-towing/skills/jct-local-seo-gbp/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-website-conversion",
+        "lead_role": "JCT-Product-Tech",
+        "source_path": "projects/jcs-towing/skills/jct-website-conversion/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-brand-template-factory",
+        "lead_role": "JCT-Creative",
+        "source_path": "projects/jcs-towing/skills/jct-brand-template-factory/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-social-review-content",
+        "lead_role": "JCT-Creative",
+        "source_path": "projects/jcs-towing/skills/jct-social-review-content/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-lead-call-crm",
+        "lead_role": "JCT-Customer-Care",
+        "source_path": "projects/jcs-towing/skills/jct-lead-call-crm/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-analytics-roi",
+        "lead_role": "JCT-Finance",
+        "source_path": "projects/jcs-towing/skills/jct-analytics-roi/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-john-decision-pack",
+        "lead_role": "JCT-Chief-of-Staff",
+        "source_path": "projects/jcs-towing/skills/jct-john-decision-pack/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-approval-gatekeeper",
+        "lead_role": "JCT-Administration",
+        "source_path": "projects/jcs-towing/skills/jct-approval-gatekeeper/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-file-artifact-router",
+        "lead_role": "JCT-Administration",
+        "source_path": "projects/jcs-towing/skills/jct-file-artifact-router/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-competitor-market-scout",
+        "lead_role": "JCT-Growth",
+        "source_path": "projects/jcs-towing/skills/jct-competitor-market-scout/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-resume-capsule",
+        "lead_role": "JCT-Chief-of-Staff",
+        "source_path": "projects/jcs-towing/skills/jct-resume-capsule/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-rate-intelligence-engine",
+        "lead_role": "JCT-Intelligence",
+        "source_path": "projects/jcs-towing/skills/jct-rate-intelligence-engine/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-job-cost-margin-engine",
+        "lead_role": "JCT-Finance",
+        "source_path": "projects/jcs-towing/skills/jct-job-cost-margin-engine/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-insurance-payment-evidence",
+        "lead_role": "JCT-Finance",
+        "source_path": "projects/jcs-towing/skills/jct-insurance-payment-evidence/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-denial-supplement-recovery",
+        "lead_role": "JCT-Finance",
+        "source_path": "projects/jcs-towing/skills/jct-denial-supplement-recovery/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-revenue-leakage-auditor",
+        "lead_role": "JCT-Finance",
+        "source_path": "projects/jcs-towing/skills/jct-revenue-leakage-auditor/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-storage-lien-release-compliance",
+        "lead_role": "JCT-Field",
+        "source_path": "projects/jcs-towing/skills/jct-storage-lien-release-compliance/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-heavy-recovery-scene-builder",
+        "lead_role": "JCT-Fleet",
+        "source_path": "projects/jcs-towing/skills/jct-heavy-recovery-scene-builder/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-driver-field-documentation-coach",
+        "lead_role": "JCT-Field",
+        "source_path": "projects/jcs-towing/skills/jct-driver-field-documentation-coach/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-commercial-rate-contract-manager",
+        "lead_role": "JCT-Commercial",
+        "source_path": "projects/jcs-towing/skills/jct-commercial-rate-contract-manager/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-motor-club-network-manager",
+        "lead_role": "JCT-Commercial",
+        "source_path": "projects/jcs-towing/skills/jct-motor-club-network-manager/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-municipal-rotation-application-builder",
+        "lead_role": "JCT-Commercial",
+        "source_path": "projects/jcs-towing/skills/jct-municipal-rotation-application-builder/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-b2b-pipeline-manager",
+        "lead_role": "JCT-Growth",
+        "source_path": "projects/jcs-towing/skills/jct-b2b-pipeline-manager/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-ar-payment-collections",
+        "lead_role": "JCT-Finance",
+        "source_path": "projects/jcs-towing/skills/jct-ar-payment-collections/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-dispatch-pricing-guardrail",
+        "lead_role": "JCT-Dispatch-Ops",
+        "source_path": "projects/jcs-towing/skills/jct-dispatch-pricing-guardrail/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-crm-data-model",
+        "lead_role": "JCT-Product-Tech",
+        "source_path": "projects/jcs-towing/skills/jct-crm-data-model/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-crm-workflow-automation",
+        "lead_role": "JCT-Dispatch-Ops",
+        "source_path": "projects/jcs-towing/skills/jct-crm-workflow-automation/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-missed-call-recovery",
+        "lead_role": "JCT-Dispatch-Ops",
+        "source_path": "projects/jcs-towing/skills/jct-missed-call-recovery/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-website-release-qa",
+        "lead_role": "JCT-Product-Tech",
+        "source_path": "projects/jcs-towing/skills/jct-website-release-qa/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-website-crm-sync",
+        "lead_role": "JCT-Product-Tech",
+        "source_path": "projects/jcs-towing/skills/jct-website-crm-sync/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-template-library-manager",
+        "lead_role": "JCT-Administration",
+        "source_path": "projects/jcs-towing/skills/jct-template-library-manager/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-brand-consistency-qa",
+        "lead_role": "JCT-Creative",
+        "source_path": "projects/jcs-towing/skills/jct-brand-consistency-qa/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-document-auto-fill",
+        "lead_role": "JCT-Administration",
+        "source_path": "projects/jcs-towing/skills/jct-document-auto-fill/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-document-version-controller",
+        "lead_role": "JCT-QA",
+        "source_path": "projects/jcs-towing/skills/jct-document-version-controller/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-competitor-watch",
+        "lead_role": "JCT-Growth",
+        "source_path": "projects/jcs-towing/skills/jct-competitor-watch/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-review-intelligence",
+        "lead_role": "JCT-Reputation",
+        "source_path": "projects/jcs-towing/skills/jct-review-intelligence/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-local-seo-city-engine",
+        "lead_role": "JCT-Local-Growth",
+        "source_path": "projects/jcs-towing/skills/jct-local-seo-city-engine/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-source-verification-engine",
+        "lead_role": "JCT-Intelligence",
+        "source_path": "projects/jcs-towing/skills/jct-source-verification-engine/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      },
+      {
+        "skill": "jct-operating-scorecard",
+        "lead_role": "JCT-Finance",
+        "source_path": "projects/jcs-towing/skills/jct-operating-scorecard/SKILL.md",
+        "source_status": "GITHUB_DOCUMENTED",
+        "installed_in_chatgpt": "NOT_VERIFIED",
+        "runtime_tested": "NOT_VERIFIED"
+      }
+    ]
+  },
+  "approval_gates": [
+    "external_message",
+    "public_release",
+    "spend",
+    "production_mutation",
+    "delete",
+    "access_grant",
+    "credential_change",
+    "legal_or_regulatory_submission",
+    "financial_commitment"
+  ],
+  "evidence_sources": [
+    "https://github.com/ClaimEdge-dev/ai-os-hub/blob/main/DEBO_BOOTSTRAP.md",
+    "https://github.com/ClaimEdge-dev/ai-os-hub/blob/main/governance/DEBO_RUNTIME_BOOTSTRAP_v2.md",
+    "https://github.com/ClaimEdge-dev/ai-os-hub/blob/main/skills/agent-talent-manager/SKILL.md",
+    "https://github.com/ClaimEdge-dev/ai-os-hub/blob/main/projects/jcs-towing/AGENT_SYSTEM.md",
+    "https://github.com/ClaimEdge-dev/ai-os-hub/blob/main/projects/jcs-towing/skills/README.md"
+  ]
+}
