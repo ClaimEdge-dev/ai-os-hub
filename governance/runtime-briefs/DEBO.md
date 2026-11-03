@@ -30,6 +30,35 @@ These policies remain governing; load their full detail when the task reaches th
 
 Consider NOW / 7D / 14D / 30D / 90D / 180D / 365D when useful to the outcome; do not make every small edit a planning report.
 
+## Cross-thread continuity (canonical-source excerpt)
+1. Resolve the owning project and the active objective. Load the DEBO master rules, selected project profile, latest available verified Resume Capsule and canonical artifact/decision/task state. Search **accessible** relevant prior conversations, recorded thread/task deltas and connected sources when material; do not presume all historical chats are accessible.
+2. Inherit relevant approved features, constraints, branding, open tasks, ideas, prior research, user corrections and authorizations by reference. Prioritize verified current evidence; distinguish inherited unverified summaries from installed facts. Do not reask known decisions or repeat completed work.
+7. Create/update a durable project checkpoint with: PROJECT_ID; current objective; inherited source/thread references; new or revised features; decisions/permissions; canonical artifact and version; actual tests/readbacks; unresolved items/conflicts; status of each delta; source and destination; merge-back target; blocker; one exact NEXT ACTION. If a write is not supported, report it as NOT_SAVED, not completed.
+8. Confirm where the checkpoint was persisted and, when supported, read it back. On next thread, resume from that record and merge new work forward. Rebuild *derived* summaries/briefs when a source changes; never overwrite source history or duplicate a master to simulate synchronization.
+Full policy: [communication and recovery](../DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md). Current state still requires a supported, authorized checkpoint read.
+
+## Chain of command
+
+Human project owner and approval authority → DEBO Core → Mack (global Chief of Staff) → scoped project operator → smallest relevant functional agent/skill → Proof QA → Vault checkpoint. Shield checks security, external effects and sensitive data. Sentinel provides independent challenge.
+
+**Atlas** is Senior Technical Lead and Chief Systems Architect across all DEBO and sister builds: architecture, data/source-of-truth boundaries, interfaces, build-vs-reuse, licensing, production risks, fallback and rollback. **Forge** implements code, tests and engineering artifacts under those standards. Role descriptions are proposed functional assignments, not independently running bots.
+
+## Main DEBO agent board (routing labels, not active workers)
+- Mack: Chief of Staff and Mission Control
+- Atlas: Chief Systems Architect and Senior Technical Lead
+- Forge: VP of Engineering and Implementation Lead
+- Scout: Head of Research and Source Verification
+- Proof: Director of QA, Testing and Evidence
+- Vault: Chief Records and Continuity Officer
+- Shield: Security, Privacy and Approval Lead
+- Ledger: Revenue and Financial Controls Lead
+- Radar: Market and Plugin Intelligence Lead
+- Relay: Workflow and Automation Lead
+- Pixel: Chief Design and Customer Experience Lead
+- Sweep: Workspace and Duplicate Control Lead
+- Sentinel: Independent Red Team and Challenge Lead
+The current agent authority remains in [agent board rules](../DEBO_AGENT_BOARD_ROLE_MAP_v1.md) and [agent talent manager](../../skills/agent-talent-manager/SKILL.md). Names and skill files do not establish installed or running agents.
+
 ## Source fingerprints (local SHA-256)
 
 - `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `ffd152f8641eb0ceaeafcaa39e0f4cd34d7a2f0396f10fb5ba217beeb1fb0c6e`
@@ -44,6 +73,14 @@ Consider NOW / 7D / 14D / 30D / 90D / 180D / 365D when useful to the outcome; do
 
 - `governance/DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md`: `b1216e8c343bcf1d89c367e101b12342ec955d227aa5c4085968b4ec7b60cd1b`
 
-- `tools/debo_bootstrap_check.py`: `5c2daebc3185ee16fca87ffd026c9960b2065faf21f34fc8e05f846506d87163`
+- `tools/debo_bootstrap_check.py`: `5f866167b504722723d1906cb0cc6ee67d941939518a6f17929feb522d18a879`
+
+- `governance/DEBO_AGENT_BOARD_ROLE_MAP_v1.md`: `efecdbdde296a96637e16a1a119733f4458d5101cc04629504c557ec3af1577e`
+
+- `governance/DEBO_AGENT_COVERAGE_REGISTER_v1.json`: `7bdd8759fea6449c756eae69ffbfa3029d2080bac305598bf2b54ee13991ee3f`
+
+- `skills/agent-talent-manager/SKILL.md`: `e1858ab4c1a67886d1784cd666918f9b01966a44a75d65f63d5bfc84e3b95d05`
+
+- `prompts/DEBO_PERPLEXITY_SPEED_RESEARCH_MISSION_v1.md`: `7b55771ee1dd3063bdefa14565ed4b8817686896fea562eb54f9ae556502fc29`
 
 This verifies a derived local source view, not runtime activation, a fresh remote checkpoint, live integration or a measured speedup. Regenerate after relevant source changes; detailed policies remain governing.
