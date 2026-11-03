@@ -1,0 +1,394 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ClaimEdge-dev/ai-os-hub/blob/main/schemas/debo_dashboard_snapshot_v0_3.schema.json",
+  "title": "DEBO dashboard snapshot v0.3 (derived control view only)",
+  "description": "Private data is excluded; every claim is grounded or UNKNOWN. This is a derived display format, not a new task/project/source-of-truth registry.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "snapshot_kind",
+    "mission_id",
+    "sources",
+    "cards",
+    "projects",
+    "capabilities",
+    "automations",
+    "ideas",
+    "thread_index"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.3"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "snapshot_kind": {
+      "enum": [
+        "OFFLINE_SNAPSHOT",
+        "VERIFIED_REFRESH"
+      ]
+    },
+    "mission_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "refresh_receipt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Source-backed readback pointer required for VERIFIED_REFRESH."
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "cards": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "now",
+        "money",
+        "blocked",
+        "done"
+      ],
+      "properties": {
+        "now": {
+          "$ref": "#/$defs/card"
+        },
+        "money": {
+          "$ref": "#/$defs/card"
+        },
+        "blocked": {
+          "$ref": "#/$defs/card"
+        },
+        "done": {
+          "$ref": "#/$defs/card"
+        }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/project"
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/capability"
+      }
+    },
+    "automations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/automation"
+      }
+    },
+    "ideas": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/idea"
+      }
+    },
+    "thread_index": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/thread"
+      }
+    }
+  },
+  "$defs": {
+    "truth": {
+      "enum": [
+        "VERIFIED",
+        "SOURCE_ONLY",
+        "SYNTHETIC_TESTED",
+        "BLOCKED",
+        "UNKNOWN",
+        "STALE",
+        "PROPOSED"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "uri",
+        "truth_state",
+        "checked_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "truth_state": {
+          "$ref": "#/$defs/truth"
+        },
+        "checked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "detail",
+        "truth_state",
+        "source_ids",
+        "next_action"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "truth_state": {
+          "$ref": "#/$defs/truth"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "next_action": {
+          "type": "string"
+        },
+        "project_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "label",
+        "readiness",
+        "source_ids",
+        "next_action",
+        "owner_gate"
+      ],
+      "properties": {
+        "project_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "readiness": {
+          "enum": [
+            "SOURCE_ONLY",
+            "SYNTHETIC_TESTED",
+            "AUTHENTICATED_TESTED",
+            "OWNER_APPROVED",
+            "LIVE_VERIFIED",
+            "BLOCKED",
+            "UNKNOWN"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "next_action": {
+          "type": "string"
+        },
+        "owner_gate": {
+          "enum": [
+            "REQUIRED",
+            "NOT_REQUIRED",
+            "UNVERIFIED"
+          ]
+        },
+        "authenticated_test": {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "blocker": {
+          "type": "string"
+        }
+      }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "kind",
+        "state",
+        "source_ids"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "SKILL",
+            "PLUGIN",
+            "BUILTIN"
+          ]
+        },
+        "state": {
+          "enum": [
+            "DISCOVERED",
+            "INSTALLED",
+            "CONNECTED",
+            "AUTHORIZED",
+            "WORKFLOW_TESTED",
+            "UNKNOWN",
+            "BLOCKED"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "version": {
+          "type": "string"
+        },
+        "next_action": {
+          "type": "string"
+        }
+      }
+    },
+    "automation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "enabled",
+        "truth_state",
+        "source_ids"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "truth_state": {
+          "$ref": "#/$defs/truth"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "last_run_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "idea": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "idea_id",
+        "project_id",
+        "title",
+        "disposition",
+        "source_ids",
+        "trigger"
+      ],
+      "properties": {
+        "idea_id": {
+          "type": "string"
+        },
+        "project_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "disposition": {
+          "enum": [
+            "USE_NOW",
+            "RESEARCH_LATER",
+            "WAIT",
+            "NOT_RELEVANT"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "trigger": {
+          "type": "string"
+        }
+      }
+    },
+    "thread": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "thread_id",
+        "label",
+        "purpose",
+        "status"
+      ],
+      "properties": {
+        "thread_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ACTIVE",
+            "BUILD",
+            "CHECKPOINT",
+            "HOLD",
+            "UNKNOWN"
+          ]
+        },
+        "checkpoint_url": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
