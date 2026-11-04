@@ -38,3 +38,13 @@ This public feed is **not** a private read-only Drive adapter. Later permissione
 - A passing PR workflow does not prove the dashboard works on an actual iPhone or that private sources are live.
 
 Mission: `DEBO-DASH-005`. Current status: public source adapter proposed until its PR is merged and end-to-end feed fetch is checked.
+
+## DEBO-MASTER-011 mission status integration (2026-11-04)
+Use the existing Dashboard v0.3 and its NOW / MONEY / BLOCKED / DONE snapshot contract. Do not build a second dashboard or put private task details in the public Core feed.
+
+- DONE: Controlled GitHub-connector mission completed, source checks passed, and [checkpoint](../checkpoints/DEBO_MASTER_011_CONTROLLED_MISSION_2026-11-04.md) saved/read back at commit `9d5c725e`.
+- NOW: Identify and test an independently executing queued worker. The repository's agent role register currently says worker status NOT_VERIFIED.
+- BLOCKED: Autonomous worker execution and private iPhone dashboard UI integration have not been demonstrated. The public feed is source-health only.
+- RELEASE GATE: Actual queued execution receipt, durable result, validated dashboard snapshot, private HTML update, and device test are required before LIVE.
+
+This section documents the dashboard handoff, not a live dashboard update or autonomous deployment.
