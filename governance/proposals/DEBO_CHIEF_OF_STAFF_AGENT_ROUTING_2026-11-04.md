@@ -74,3 +74,13 @@ Each global and project Chief of Staff must anticipate the next safe actions ins
 - Skyler → Ledger: financial controls.
 - House supporting personas Chase, Foreman, Cameron, Wilson and Cuddy are historical diagnostic-method labels only, not installed workers.
 - BIC “chief of chiefs” label is not verified as a distinct existing authority. Global Mack coordinates project chiefs; no duplicate executive is added without source reconciliation.
+
+
+## Single mission queue and agent handoff efficiency — review proposal
+Mack owns one mission queue across projects, with each task identified by JOB_ID, PROJECT_ID, accountable lead, dependencies, approved scope, evidence links, acceptance test, status, approval gate, blocker and next action. One accountable lead per task; no duplicate chief or competing canonical task record.
+
+Every agent handoff must return OUTPUT_REF, WHAT_CHANGED, EVIDENCE, TEST_RESULT, BLOCKER, NEXT_ACTION, OWNER and APPROVAL_REQUIRED. Scout/Radar recover evidence and reusable solutions; Atlas designs; Forge builds; Pixel reviews UX; Proof tests; Shield checks security and approvals; Sentinel challenges high-risk claims; Vault saves the verified checkpoint; Relay handles authorized integrations. Run independent safe work concurrently when tools support it; sequence dependent tasks. Mack starts the next authorized step automatically, without treating a proposed worker as a running agent.
+
+Use a rolling NOW/7-day/30-day/90-day outlook to anticipate dependencies, access gaps, deadlines, resource constraints, rollback needs and opportunities. Prepare drafts and sandbox work early. This is an on-demand planning discipline, not continuous monitoring unless a real automation is approved and verified.
+
+Pilot on DEBO dashboard and JCT internal adapter. Keep JCT public, financial and operational actions behind John's approval. Track verified completions, duplicate work, failed handoffs, rework, blocked time and unnecessary owner interruptions; baseline first, no invented improvement metrics. Before canonical promotion, reconcile with existing governance, run repo checks, and read back saved changes.
