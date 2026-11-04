@@ -66,7 +66,7 @@ The current agent authority remains in [agent board rules](../DEBO_AGENT_BOARD_R
 
 - `governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md`: `6f140de3a178aa50e51d4de7e2f571eb480b5a9f34e3509a902c2ca02f71b529`
 
-- `debo/policies/DEBO_JARVIS_AUTONOMOUS_V2.md`: `94401ae9aa0599126b6087213de5090f9b90216ab9c39b637e09f7e230280fed`
+- `debo/policies/DEBO_JARVIS_AUTONOMOUS_V2.md`: `ec71d2288b237ee4f2db05c64aae6583f9f1ac6ce4b8ebd46d57bba7303dd81a`
 
 - `governance/DEBO_COMMUNICATION_RECOVERY_STANDARD_v1.md`: `c0bdb2c816435bf9cd87c769027cbd562c218712f975d7491014a1190c5fda7b`
 
