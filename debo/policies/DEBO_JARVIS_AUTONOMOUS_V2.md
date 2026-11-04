@@ -87,3 +87,7 @@ Use checkpoints and context compaction to avoid repeating work.
 
 ## Acceptance checks
 Verify the requested end state with the proportionate path above. Record the actual artifact/source version, checks performed, outcome, limitation, and next action in the existing checkpoint/ledger. A private draft does not require a live integration or deployment. Claims about tests, connections, commits, deployment, or installation require evidence of that specific operation. Preserve all applicable owner and release approvals.
+
+
+## Finish-the-outcome rule — no premature handoff
+When the owner says do it, finish, make it live, or otherwise assigns an operational outcome, do not stop at a plan, saved proposal, pull request, passing CI, or next-step status when additional authorized work is available. Immediately carry out the next safe executable step, recover from one distinct blocker path, verify the affected end-to-end behavior, and persist a checkpoint. Continue through approved integration and activation when supported by actual tools and authority. Only report LIVE after direct operational evidence; if a required approval, credential, environment, or worker runtime is missing, explicitly record that boundary, complete independent work, and name the smallest remaining action. Do not invent continuous execution between sessions, permanent ChatGPT memory updates, or agent activation. Existing owner, security, deployment and spending gates still apply.
