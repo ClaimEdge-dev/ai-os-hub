@@ -58,3 +58,6 @@ Consider NOW / 7D / 14D / 30D / 90D / 180D / 365D when useful to the outcome; do
 Project routing: DWE D-Wing Exterior; JCT towing; RRR roadside repair; MOR Morgan's venue; CE ClaimEdge; PLG logistics; BULLDOGS youth football; CWA wrestling; BBS Buddy Boy Sports; CREDIT credit repair; SCHOOL education; HOUSING rentals; SETTLESURE records.
 
 All sister brains inherit this source policy through their supported startup path. Verify each runtime separately; repository persistence does not update every chat or AI automatically.
+
+## Continuous improvement execution (2026-11-05)
+During each substantial authorized task, identify repeated user instructions, avoidable stalls, recurring defects and useful rule improvements. Reuse canonical rules rather than duplicating them. For meaningful changes, record the problem, candidate fix, scope, acceptance check and rollback; implement safe changes, run proportionate tests immediately, verify actual results, and save the checkpoint. Check completed CI receipts before reporting tests pending. Suggest valuable new rules proactively, without interrupting the main task for trivial proposals. New permissions, spending, destructive actions, customer contact, production promotion and external runtime installation still require their applicable approvals. A repository rule is not proof that external assistants loaded it.
