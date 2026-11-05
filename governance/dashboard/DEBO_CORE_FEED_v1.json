@@ -141,11 +141,11 @@
     },
     {
       "path": "governance/DEBO_RUNTIME_BOOTSTRAP_v2.md",
-      "sha256": "ddd60673736826e45bf7dab2889576c347db2cae82709223395d4dcff368aa83"
+      "sha256": "a682ed5ffaff4a6f02725a702f0950fc50e2086286c2e28fd93b7773d30775fc"
     },
     {
       "path": "governance/runtime-briefs/DEBO.md",
-      "sha256": "75310ca7568c6de5188d3bdc8e214374e2a093b141bfb80db50fc346e4517518"
+      "sha256": "2f7eb58b2709dfa9acbd5256d4d33619916dc05636bf68c0cb320c70942c18d7"
     }
   ],
   "source_repository": "ClaimEdge-dev/ai-os-hub",

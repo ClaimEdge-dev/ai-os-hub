@@ -82,7 +82,7 @@ Master profile SAVED in GitHub; new logo variants NOT YET PRODUCED/APPROVED; ori
 
 ## Source fingerprints (local SHA-256)
 
-- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `ddd60673736826e45bf7dab2889576c347db2cae82709223395d4dcff368aa83`
+- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `a682ed5ffaff4a6f02725a702f0950fc50e2086286c2e28fd93b7773d30775fc`
 
 - `governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md`: `6f140de3a178aa50e51d4de7e2f571eb480b5a9f34e3509a902c2ca02f71b529`
 
