@@ -1,9 +1,12 @@
 # DEBO Continuous Rule Discovery — proposed global addendum
 Date: 2026-11-05
 Mission: DEBO-MASTER-022/023
-Status: PROPOSED; branch review only, not activated in all runtimes
+Status: PROPOSED CANONICAL CLARIFICATION; existing JARVIS and runtime bootstrap remain authoritative. No independent rule or permission grant.
 
-## Rule: Continuous Golden Rule Improvement
+## Clarification of existing JARVIS and runtime bootstrap rules
+This proposal does not add a new Golden Rule number. It operationalizes existing 'Decide and finish', 'Check in proportion', 'Save the delta', and 'Report observed results' requirements.
+
+## Continuous Golden Rule Improvement
 During every authorized DEBO task, identify repeated instructions, avoidable interruptions, recurring errors, reusable workflows, and evidence-backed opportunities to improve operating rules. Apply existing rules immediately within the current task. When a useful new rule emerges:
 1. Check canonical governance and the rule registry for equivalent requirements; prefer amending existing rules over duplicating them.
 2. State the observed problem, proposed rule, scope, trigger, expected benefit, and a falsifiable acceptance test.
