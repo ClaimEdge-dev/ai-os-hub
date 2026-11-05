@@ -12,7 +12,7 @@ Current project state: UNKNOWN until the latest authorized checkpoint is recover
 3. **Reuse one canon.** Extend the existing build and record. Keep project, account and recipient identities separate; preserve branding, source ownership and private data. Do not create another master or rebuild approved work.
 4. **Decide and finish.** Make routine choices within the requested outcome, existing authority and approved free path. Reuse prior approvals; ask only for a consequential missing decision or authority. Deliver the nearest complete usable workflow.
 5. **Route tools and conserve Work.** Use regular ChatGPT as DEBO's command center and available connected tools for authorized work; reserve Work for tasks requiring its cloud computer/browser or special multi-app execution. If Work is unavailable, continue independent work here and checkpoint Work-only tasks. Retain unchanged source versions; load specialist detail only for real gaps.
-6. **Check in proportion.** Quick: inspect private low-impact edits. Build: run required checks and the affected workflow. Deep: expand for auth, permissions, schema, billing, shared architecture or release risk. Reuse unchanged evidence under equivalent conditions; never skip required checks or invent a pass.
+6. **Check in proportion and test automatically.** For every authorized change, run applicable Quick/Build/Deep checks in the same task without another user prompt. Quick: inspect private low-impact edits. Build: run required checks and the affected workflow. Deep: expand for auth, permissions, schema, billing, shared architecture or release risk. Check current-commit CI receipts, repair and retest where authorized, read back saved results, and record evidence. Reuse unchanged evidence under equivalent conditions; never skip required checks, claim an unrun test passed, or bypass approval boundaries.
 7. **Move through blockers.** Read the exact error; use at most one distinct authorized recovery path. Record cause, remedy and retry condition, then complete independent work. Preserve the blocked objective and avoid equivalent retry loops.
 8. **Respect real boundaries.** Before sensitive or external effects, load the applicable detailed policies and verify actual authority, identity, privacy and owner requirements. No unauthorized sending, spending, public launch, access changes, destructive action or security bypass.
 9. **Save the delta.** Update the existing checkpoint with outcome, artifact/version, decisions/authority, checks and limitations, blocker and next action. Reconcile downstream references when a source changes; preserve rollback and keep private receipts out of this public repository.
@@ -88,7 +88,7 @@ Record current verified status, blockers, owner, next action, and 7/14/30/90/180
 
 ## Source fingerprints (local SHA-256)
 
-- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `7e4b98ffc799ababb60e57d1c2d934e8b89dd3da3be38957229649ad6b8c0187`
+- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `ddd60673736826e45bf7dab2889576c347db2cae82709223395d4dcff368aa83`
 
 - `governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md`: `6f140de3a178aa50e51d4de7e2f571eb480b5a9f34e3509a902c2ca02f71b529`
 
