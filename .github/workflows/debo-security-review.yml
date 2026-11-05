@@ -1,0 +1,30 @@
+name: DEBO Security Review
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-security-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate canonical DEBO bootstrap
+        run: python tools/debo_bootstrap_check.py
+      - name: Run existing DEBO regression suite
+        run: python -m unittest discover -s tests -p 'test_debo*.py' -v
+      - name: Compile tracked Python source
+        run: |
+          python - <<'PY'
+          import pathlib, subprocess, sys
+          files = subprocess.check_output(['git','ls-files','*.py'], text=True).splitlines()
+          for file in files:
+              compile(pathlib.Path(file).read_bytes(), file, 'exec')
+          print(f'Compiled {len(files)} tracked Python files')
+          PY
