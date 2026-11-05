@@ -88,7 +88,7 @@ Record current verified status, blockers, owner, next action, and 7/14/30/90/180
 
 ## Source fingerprints (local SHA-256)
 
-- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `609af533fe43128542a7aee11d8b06b698222a542025e23dd7a3f6afb0147ecd`
+- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `42c5e355aa555b3d8e5bba3372216621c2a52c2d7587b49eed3aa70242fd2dc7`
 
 - `governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md`: `6f140de3a178aa50e51d4de7e2f571eb480b5a9f34e3509a902c2ca02f71b529`
 
