@@ -28,3 +28,8 @@ Parent: R101 current CI green. Thread Index: R101 -> R102 signed-out gates/curre
 - Continue source-only tests on supported tool paths and update next verified checkpoint.
 
 Status: PARTIALLY TESTED; safety boundaries verified for sampled routes; release H0LD. This is not 50 completed batches and no background job was scheduled.
+
+## R104 | Floot quota-reset QA closure (2026-11-08)
+- Fresh original Floot incremental TypeScript `typecheck` returned `typecheck: clean` for Morgan's project `99e8b61e-01b9-46c7-bc9b-6a45383a6135` and preserved JCT Floot project `e36adc52-aec7-4231-a830-26273ac80ba5`. Both previously refused checks are now VERIFIED PASS.
+- No source edits in this run; the already-passing 32-file suite was intentionally not rerun. These typechecks do not validate live authentication, customer intake, D1/R2 operations, payments, mobile accessibility or owner approval. All R103 release holds remain in force.
+- No email, SMS, DM, customer contact, spending, publishing, deployment, production data/secrets/access changes, deletion, or new automation. This append is a documentation-only checkpoint on the existing recovery branch, not a merge or public release.
