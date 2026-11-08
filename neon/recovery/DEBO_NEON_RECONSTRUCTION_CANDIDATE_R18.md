@@ -89,3 +89,7 @@ CREATE TRIGGER trg_memory_updated_at BEFORE UPDATE ON claimedge_os.memory_lesson
 ```
 
 Acceptance: 8 tables; 24 indexes; 8 triggers; all trigger targets have updated_at; inspect SQL in PostgreSQL test database; verify inserts/updates/rollback with synthetic fixtures. No live acceptance performed.
+
+## R18 static acceptance receipt (2026-11-08)
+
+Read-back verified this file against the original historical receipt. Static checks: {"tables":8,"explicit_indexes":23,"triggers":8,"updated_at":8,"create_function":1}. The source's 24-index claim conflicts with its 23 explicit CREATE INDEX statements; PostgreSQL may create additional primary-key indexes, so total indexes must be checked on an actual isolated database. No PostgreSQL execution or rollback test has been performed. Original project ID returned HTTP 404 through the currently connected Neon accounts. No production mutations, no backup restoration, no database creation. Next: recover an actual backup or authorize an isolated PostgreSQL test target, execute schema, inspect catalog, test synthetic insert/update/rollback, and only then decide on replacement.
