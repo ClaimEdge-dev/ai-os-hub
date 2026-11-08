@@ -1,0 +1,6 @@
+# DEBO R91 | Three-batch continuation checkpoint
+Mission DEBO-MASTER-039. Date 2026-11-08.
+Checkpoint R91-THREE-BATCHES-CHECKPOINTED-NOT-RELEASED.
+Parent R88. R89 JCT private Floot source QA identified 7 passing specs and two type errors; R90 independent platform unpublished status across four Floot projects and Bulldogs sharing readback. Third batch: DEBO Control Center Floot project 81e1f098-46bd-4beb-9dd6-8be9a968a6f5 ran 1 standard themeMode spec pass and typecheck clean. Existing dashboard R69 is separate protected Vercel project; Floot control center does not replace canonical dashboard.
+Additional source review: pages/dispatch-lab.pageLayout.tsx in JCT Floot contains only PublicSiteLayout default export, associated layout type error. Source read, no modification. Full A-F mission still OPEN. Original GitHub rollback and source builds preserved.
+NEXT: inspect working Floot layout contract and fix JCT type errors safely; retest. Continue outstanding independent dashboard auth/mobile, Bulldogs sharing, business adapter E2E, memory/skills/plugin audits. No public deployments, spend, destructive changes, external sends, permissions or production writes.
