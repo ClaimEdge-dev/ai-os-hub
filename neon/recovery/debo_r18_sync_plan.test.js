@@ -19,8 +19,8 @@ test(()=>assert.equal(plan([verified],approval).counts.accept,1));
 test(()=>assert.equal(plan([verified],approval).entries[0].provenance.raw_source_state,base.state));
 test(()=>assert.equal(plan([verified],approval).write_eligible,false));
 test(()=>assert.equal(hashRow(verified),hashRow({...verified})));
-test(()=>assert.equal(reconcile([],plan([base]))[0].operation,'STAGE_NEW'));
-const p=plan([base]); const history=[{work_id:base.work_id,source_row_hash:p.entries[0].provenance.source_row_hash}];
+test(()=>assert.equal(reconcile([],plan([base]))[0].operation,'SKIP_UNAPPROVED'));
+const p=plan([verified],approval); const history=[{work_id:verified.work_id,source_row_hash:p.entries[0].provenance.source_row_hash}];
 test(()=>assert.equal(reconcile(history,p)[0].operation,'NOOP'));
 test(()=>assert.equal(reconcile([{...history[0],source_row_hash:'changed'}],p)[0].operation,'CONFLICT_REVIEW'));
 test(()=>assert.equal(validateApproval({raw_state:base.state,status:'Review',approved_by:'',approved_at:'2026-11-08T00:00:00Z'},base.state),false));
@@ -34,4 +34,10 @@ test(()=>assert.equal(plan([rentals],approvedReady).entries[0].decision,'HOLD_OW
 test(()=>assert.equal(plan([rentals],approvedReady).counts.accept,0));
 test(()=>assert.equal(plan([{...rentals,state:'IN PROGRESS'}]).entries[0].decision,'HOLD_OWNER'));
 test(()=>assert.equal(plan([{...verified,state:'READY'}],approvedReady).entries[0].decision,'ACCEPT'));
+// Regression: reconciliation must NEVER stage owner-held or unmapped source tasks.
+test(()=>assert.equal(reconcile([],plan([rentals],approvedReady))[0].operation,'SKIP_OWNER_HOLD'));
+test(()=>assert.equal(reconcile([{work_id:rentals.work_id,source_row_hash:'old'}],plan([rentals],approvedReady))[0].operation,'SKIP_OWNER_HOLD'));
+test(()=>assert.throws(()=>reconcile([history[0],history[0]],p),/Duplicate prior work_id/));
+test(()=>assert.throws(()=>reconcile([{}],p),/Invalid prior receipt/));
+test(()=>assert.throws(()=>reconcile(null,p),/Invalid reconciliation input/));
 console.log('PASS '+count+' nonproduction planner assertions');
