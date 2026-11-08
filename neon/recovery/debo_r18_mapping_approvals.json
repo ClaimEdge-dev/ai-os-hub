@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "mission": "DEBO-MASTER-024",
+  "approval_state": "NOT_APPROVED",
+  "mappings": {},
+  "note": "No source status has been approved for automatic normalization. Never populate mapping rules without explicit review. Owner-parked rows are always held."
+}
