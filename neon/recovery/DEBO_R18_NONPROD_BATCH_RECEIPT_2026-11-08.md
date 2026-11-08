@@ -20,9 +20,9 @@ Branch: `debo-r18-source-preserving-sync-20261108` (unmerged; production main un
 
 ## QA and rollback receipts
 - Python: 12 local `unittest` assertions passed. Git blob hashes of both public Python files matched bytes tested locally.
-- JavaScript: 20 planner assertions plus 5 dashboard-contract assertions passed in JavaScript validation harness using a deterministic hash shim in place of Node crypto. These are logic checks, not proof of exact runtime `node` execution; production cryptographic hashing remains the built-in Node SHA-256 implementation.
+- JavaScript: 20 planner assertions and 5 dashboard-contract assertions passed in actual Node.js 22. Git blob SHA-1 fingerprints for all four JavaScript files matched the locally tested bytes. An earlier validation harness with a hash shim also passed; the real Node run supersedes that limitation.
 - Explicit secondary branch, SQL `DO` nested-exception rollback: created one synthetic provenance fixture table/record with schema/hash/status checks, asserted in-block count=1 and intentionally rolled back. Tool returned success but did not expose intermediate assertion values. Two independent post-check SQL reads confirmed temporary fixture table absent, permanent provenance table absent, and `claimedge_os.tasks` still 0 rows.
-- GitHub readbacks of the six original JS/JSON/SQL files and two Python files succeeded.
+- GitHub readbacks of all eight JS/Python/JSON/SQL files succeeded. Local Git blob fingerprints also matched the JSON and SQL bytes. A 10-file nonproduction ZIP kit passed archive integrity and all 37 local unit tests; SHA-256 `27277f149260041ebe824a21192cfb179228d0e67a8184a170dda81f3ad3edfa`.
 - GitHub workflows latest successfully completed on separate R19 candidate branch and previous main commits; **no CI runs for this R18 feature branch** were found. Do not treat other branches' green checks as R18 acceptance.
 - Existing read-only public Core dashboard feed continues to label operational status UNKNOWN; no dashboard application E2E performed.
 - No real Drive source row was inserted into Neon. No new Neon project, no permanent schema change, no production mutation, no public deployment, no external sends or credentials accessed.
