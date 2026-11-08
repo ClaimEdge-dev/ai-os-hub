@@ -9,6 +9,7 @@ from engine import run, validate
 from debo_r31_decision_router import Task, decide
 
 LOCAL_ACTIONS = frozenset({"noop", "verify_text"})
+POLICY_ACTION = {"noop": "run_local_tests", "verify_text": "verify_readback"}
 
 def preflight(tasks):
     validate(tasks)
@@ -24,6 +25,11 @@ def preflight(tasks):
             continue
         # The engine's allowlist is narrower than the policy router.
         # Do not reclassify approvals or perform external effects.
+        policy = Task(task_id=tid, action=POLICY_ACTION[t.get("action", "noop")], dependencies=tuple(t.get("depends_on", ())))
+        decision, reason = decide(policy, ids, set())
+        if decision != "AUTO":
+            blocked.append(tid)
+            continue
         approved.append(t)
     return {"approved": approved, "held": held, "blocked": blocked}
 
