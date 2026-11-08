@@ -1,0 +1,6 @@
+# DEBO R59 | iPhone task-details acceptance
+2026-11-08 America/Chicago. Mission DEBO-MASTER-031.
+User supplied screenshots of protected R57 URL debo-private-command-r55-n6yrxw2z9-claimedge.vercel.app on iPhone, showing '14 tasks · Live read-only query', counts Review 5, Backlog 1, In Progress 4, Blocked 4; query timestamp 11/8/2026 6:19:44 AM; '14 of 14 tasks' and multiple task detail cards with titles, priority, owner, project, and blocked reasons. Evidence validates authenticated device view and read-only details API successful response. It does NOT establish denial of unauthenticated users, actual five-minute timer refresh, VoiceOver accessibility, or production task feed parity. Vercel SSO protection enabled readback at R58.
+Separate screenshot of DEBO_v0.2.2_PRIVATE_OFFLINE_... shows historical Nov 3 as-of, NOT LIVE-SYNCED, and stale ChatGPT export priority; retain as rollback, do not promote as live.
+Status: R57 LIVE for isolated-branch read-only task details on authenticated iPhone. No production customer data mutation. Pending: negative auth access test, timed refresh, accessibility, provenance reconciliation, stale offline historical sections.
+Checkpoint R59-IPHONELIVE-DETAILS-14OF14-PASS.
