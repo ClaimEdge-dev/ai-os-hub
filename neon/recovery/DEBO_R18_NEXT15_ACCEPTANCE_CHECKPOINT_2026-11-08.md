@@ -52,3 +52,17 @@ Checkpoint: **R18-NEXT15-SAFETY-GATES-TESTED**. Status: NONPRODUCTION CODE TESTE
 **Next executable dependency:** an authority-backed per-task status and required-field mapping, plus approved nonproduction storage and cost/isolation scope. Then run migration readback, import receipts and authenticated dashboard acceptance, keeping the owner-parked task excluded.
 
 Thread Index: DEBO-00 -> DEBO-MASTER-011 (Core sync acceptance) -> DEBO-05 (dashboard QA) -> R19 (continuity automation). One Core; no duplicate master.
+
+
+## R18 lookup retry and offline staging acceptance — 2026-11-08
+
+**RETRY RECOVERED:** Explicit read-only SQL succeeded on the original `slice-day1` branch (`br-sparkling-forest-a6n5v8rd`), returning `task_count=0` and `distinct_ids=0`. A direct public raw-file download failed due to container DNS resolution; the existing authenticated GitHub `fetch_file` source was already recovered, and its canonical blob SHA `e0a363c81b55b45aaa3b1b1d7369c79a8a0b634e` independently matched the exact dependency tested locally. No retry loop or access bypass.
+
+**NEW BRANCH-LOCAL CODE AND QA:**
+- Added `neon/recovery/debo_r18_stage_preview.js` (Git blob `c2c4aba0365f6f85a850bff36f000a9289b712cf`), pure JS, no SQL driver, network action or write eligibility. It rejects wrong/missing source provenance, rejects duplicate IDs/receipts, skips owner-held/unapproved rows, stages only reviewed valid rows, makes identical receipts NOOP, and routes changed source or mapping to CONFLICT_REVIEW.
+- Added `neon/recovery/debo_r18_stage_preview.test.js` (Git blob `a0520a78cc95652e348e6409006826a964bcb2d5`). **20 of 20 synthetic Node.js assertions PASS**, including missing approvals, hold override, duplicate rejection, repeated import, source mutation, mapping mutation, receipt corruption, and in-memory rollback simulation. `node --test` also passed. Both file Git hashes matched independently fetched GitHub files after commits `13e6a8044ec4f5c6c37f5323ed6bc1b62ce71120` and `fe331e689ea5fbceabc6f9c0da81505565043773`.
+- A passing **in-memory** rollback test is not a database transaction/rollback acceptance receipt. Historical isolated SQL rollback evidence remains separately documented. This addition does not implement a live authenticated sync adapter or approve the pending database migration.
+
+**UNCHANGED GATES:** 14 source tasks need owner-reviewed status and target-field mapping; 1 Rentals task remains on owner HOLD; five purported extra tasks are unresolved. Source data were not exported into public GitHub. There are still zero imported Core tasks and no persistent provenance tables. Production `main`, customer data, pricing, access, and public dashboard deployment remain untouched. Current branch is a **TESTED NONPRODUCTION CANDIDATE**, not approved, merged, installed or live. The owner/field/isolated-storage acceptance gates remain prerequisites for actual sync.
+
+**Checkpoint addendum:** `R18-OFFLINE-STAGING-RETRY-PASS`. Resume from existing gate 1/2 owner-reviewed status and target-field mappings, then authorized isolated migration and authenticated end-to-end readback. Reuse DEBO-00 -> Core acceptance -> DEBO-05 dashboard QA -> R19, no duplicate master.
