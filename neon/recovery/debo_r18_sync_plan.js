@@ -58,8 +58,16 @@ function plan(rows, approvals={mappings:{}}, source={}) {
   return {version:VERSION,counts,entries,write_eligible:false, note:'Dry-run only. No database mutation.'};
 }
 function reconcile(previous,planned){
-  const existing=new Map(previous.map(x=>[x.work_id,x.source_row_hash]));
+  if(!Array.isArray(previous)||!planned||!Array.isArray(planned.entries)) throw Error('Invalid reconciliation input');
+  const existing=new Map();
+  for(const x of previous){
+    if(!x||!x.work_id||typeof x.source_row_hash!=='string') throw Error('Invalid prior receipt');
+    if(existing.has(x.work_id)) throw Error('Duplicate prior work_id: '+x.work_id);
+    existing.set(x.work_id,x.source_row_hash);
+  }
   return planned.entries.map(x=>{
+    if(x.decision==='HOLD_OWNER') return {task_id:x.task_id,operation:'SKIP_OWNER_HOLD'};
+    if(x.decision!=='ACCEPT') return {task_id:x.task_id,operation:'SKIP_UNAPPROVED'};
     const old=existing.get(x.task_id);
     return {task_id:x.task_id,operation:old===undefined?'STAGE_NEW':old===x.provenance.source_row_hash?'NOOP':'CONFLICT_REVIEW'};
   });
