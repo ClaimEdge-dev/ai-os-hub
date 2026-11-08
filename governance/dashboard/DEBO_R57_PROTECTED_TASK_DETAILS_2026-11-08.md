@@ -1,0 +1,7 @@
+# DEBO R57 | Protected task detail upgrade
+2026-11-08 America/Chicago. Mission DEBO-MASTER-031.
+Recovered isolated Neon task rows read-only: 14 rows, statuses Backlog 1, Blocked 4, In Progress 4, Review 5. Includes task_id,title,status,priority,assignee_role,pillar,blocked_reason. Four blocked tasks include D-Wing, JCT, P Logistics, WrestlingOS. No Rentals held row.
+Built Vercel deployment dpl_G4gF8sGjqV4HrqyMXmLJjYfY6Gm2 at https://debo-private-command-r55-n6yrxw2z9-claimedge.vercel.app. Vercel deployment READY, project SSO protection enabled for all, confirmed readback. Uses server-side encrypted DEBO_NEON_READONLY_DSN restricted role; API GET /api/summary returns private task detail fields; UI search, status filter, priority ordering, manual and five-minute refresh. No mutation endpoint. Existing R56 deployment retained as fallback.
+Verification: Vercel build READY and project protection readback PASS; isolated Neon source SELECT PASS. Authenticated deployed R57 API GET and mobile render NOT YET READ BACK. Cannot claim new details live functional until authenticated response verified; R56 aggregate endpoint previously verified by user's iPhone screenshot.
+Security caution: R57 details are sensitive and should only be served behind Vercel SSO. Test anonymous denial before wider use. No public unprotected URL or customer contact.
+Checkpoint R57-PROTECTED-DETAILS-DEPLOYMENT-READY-AUTH-READBACK-PENDING.
