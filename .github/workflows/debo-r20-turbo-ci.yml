@@ -8,6 +8,8 @@ on:
       - 'neon/recovery/r20_turbo/**'
       - 'neon/recovery/r21_task_dashboard_offline_test.py'
       - 'neon/recovery/r25_source_mapping_offline_test.py'
+      - 'tools/debo_r26_capsule_validator.py'
+      - 'tools/test_debo_r26_capsule_validator.py'
       - 'governance/dashboard/r21_receipt_adapter.py'
       - 'governance/dashboard/test_r21_receipt_adapter.py'
       - 'governance/dashboard/r21_task_flow_acceptance.py'
@@ -35,6 +37,8 @@ jobs:
         run: python governance/dashboard/test_r21_task_flow_acceptance.py
       - name: Run R25 source fingerprint and mapping safety tests
         run: python neon/recovery/r25_source_mapping_offline_test.py
+      - name: Run R26 continuity capsule validator tests
+        run: python tools/test_debo_r26_capsule_validator.py
       - name: Run isolated smoke test
         run: python neon/recovery/r20_turbo/ci_smoke.py
 
