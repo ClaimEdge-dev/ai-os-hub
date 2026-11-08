@@ -85,3 +85,13 @@ NEXT_ACTION: reconcile original 20-task source against 15 stable IDs; run existi
 **One best next action:** **DEBO-MASTER-011** should resolve the existing authorized isolated Core task-store identity and branch scope; perform two **read-only Core** list refreshes and stable-ID/duplicate comparison with an independently saved receipt. **Then** DEBO-05 checks v0.3.3 against that proven source and runs five physical iPhone/VoiceOver tasks. Archive no thread and merge no data based only on the pasted R4.3 report.
 
 **Thread Index:** DEBO-00 command → DEBO-MASTER-011 isolated Core acceptance → DEBO-05 dashboard QA; JCT-00 retains separate owner-controlled native operations. This is a documentation delta, not a new production state.
+
+
+## R18 execution delta — 2026-11-08
+
+- Recovered and read back this existing canonical mission handoff and `DEBO_BOOTSTRAP.md` plus generated `governance/runtime-briefs/DEBO.md`.
+- Latest indexed commit at inspection: `f0af1c3845b4ad1d8bd4b275f414df9847ec1b7c`. Legacy combined statuses returned empty; PR-triggered workflow lookup returned empty. Neither result verifies push-triggered CI.
+- Queried Neon project listings read-only across all four available connections (Primary, ClaimEdge, rob, Neon); all returned empty lists. This establishes a connector-visibility blocker, not proof of deletion, absence of the database, or a failed Core duplicate test.
+- Existing Drive Work Stack evidence remains 15 distinct IDs from prior readback; 5 reported tasks unresolved. No fresh Core list refresh, dashboard end-to-end acceptance, v0.3.3 iPhone acceptance, JCT hosted auth, or public deployment was performed.
+- No customer data, credentials, private task records or billing information saved in this public checkpoint. No production mutations.
+- NEXT ACTION: restore authorized visibility of the isolated Core task-store project/branch (or provide a permissioned source receipt), then run two read-only Core refreshes with stable-ID comparison. Independently verify current push CI and candidate source before any release decision.
