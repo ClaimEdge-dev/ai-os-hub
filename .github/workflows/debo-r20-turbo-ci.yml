@@ -22,3 +22,5 @@ jobs:
         run: python -m unittest discover -s neon/recovery/r20_turbo -p 'test_*.py' -v
       - name: Run isolated smoke test
         run: python neon/recovery/r20_turbo/ci_smoke.py
+
+# R20 CI verification request: nonproduction branch push trigger; no production jobs.
