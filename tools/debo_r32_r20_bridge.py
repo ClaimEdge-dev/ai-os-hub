@@ -14,7 +14,6 @@ POLICY_ACTION = {"noop": "run_local_tests", "verify_text": "verify_readback"}
 def preflight(tasks):
     validate(tasks)
     approved, held, blocked = [], [], []
-    ids = {t["id"] for t in tasks}
     for t in tasks:
         tid = t["id"]
         if t.get("owner_hold") or t.get("approval_required"):
@@ -26,7 +25,10 @@ def preflight(tasks):
         # The engine's allowlist is narrower than the policy router.
         # Do not reclassify approvals or perform external effects.
         policy = Task(task_id=tid, action=POLICY_ACTION[t.get("action", "noop")], dependencies=tuple(t.get("depends_on", ())))
-        decision, reason = decide(policy, ids, set())
+        # Dependency readiness belongs to R20 at execution time, not this static preflight.
+        # Check action authorization independently; do not pretend dependencies completed.
+        authorization_only = Task(task_id=tid, action=policy.action)
+        decision, reason = decide(authorization_only, set(), set())
         if decision != "AUTO":
             blocked.append(tid)
             continue
