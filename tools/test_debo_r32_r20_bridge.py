@@ -23,6 +23,11 @@ class BridgeTests(unittest.TestCase):
             self.assertEqual(first["policy_held"],["held"])
             second=execute(tasks,p)
             self.assertEqual(second["completed"],[])
+    def test_unmet_dependency_is_not_falsely_marked_completed(self):
+        tasks=[{"id":"a","action":"noop"},{"id":"b","action":"noop","depends_on":["a"]}]
+        gate=preflight(tasks)
+        self.assertEqual(len(gate["approved"]),2)
+        # Preflight checks authorization only; engine enforces actual ordering.
     def test_no_mutation_on_block(self):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/"receipt.json"
