@@ -1,0 +1,24 @@
+name: DEBO R20 Turbo Nonproduction CI
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - debo-r18-source-preserving-sync-20261108
+    paths:
+      - 'neon/recovery/r20_turbo/**'
+      - '.github/workflows/debo-r20-turbo-ci.yml'
+permissions:
+  contents: read
+jobs:
+  r20-local-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Run unit tests
+        run: python -m unittest discover -s neon/recovery/r20_turbo -p 'test_*.py' -v
+      - name: Run isolated smoke test
+        run: python neon/recovery/r20_turbo/ci_smoke.py
