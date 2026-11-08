@@ -7,6 +7,9 @@ on:
     paths:
       - 'neon/recovery/r20_turbo/**'
       - 'neon/recovery/r21_task_dashboard_offline_test.py'
+      - 'governance/dashboard/r21_receipt_adapter.py'
+      - 'governance/dashboard/test_r21_receipt_adapter.py'
+      - 'governance/dashboard/R21_R20_EXECUTION_RECEIPTS_v1.json'
       - '.github/workflows/debo-r20-turbo-ci.yml'
 permissions:
   contents: read
@@ -23,6 +26,8 @@ jobs:
         run: python -m unittest discover -s neon/recovery/r20_turbo -p 'test_*.py' -v
       - name: Run R21 task and dashboard offline acceptance
         run: python neon/recovery/r21_task_dashboard_offline_test.py
+      - name: Run R21 dashboard receipt adapter acceptance
+        run: python governance/dashboard/test_r21_receipt_adapter.py
       - name: Run isolated smoke test
         run: python neon/recovery/r20_turbo/ci_smoke.py
 
