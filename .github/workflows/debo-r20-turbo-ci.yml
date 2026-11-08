@@ -20,6 +20,8 @@ on:
       - 'tools/test_debo_r31_decision_router.py'
       - 'tools/debo_r32_r20_bridge.py'
       - 'tools/test_debo_r32_r20_bridge.py'
+      - 'tools/debo_private_task_snapshot.py'
+      - 'tools/test_debo_private_task_snapshot.py'
       - 'governance/dashboard/r21_receipt_adapter.py'
       - 'governance/dashboard/test_r21_receipt_adapter.py'
       - 'governance/dashboard/r21_task_flow_acceptance.py'
@@ -60,6 +62,8 @@ jobs:
         run: python tools/test_debo_r31_decision_router.py
       - name: Run R32 local execution bridge acceptance
         run: python tools/test_debo_r32_r20_bridge.py
+      - name: Run private task snapshot fail-closed tests
+        run: python tools/test_debo_private_task_snapshot.py
       - name: Run isolated smoke test
         run: python neon/recovery/r20_turbo/ci_smoke.py
 
