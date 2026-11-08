@@ -29,6 +29,13 @@ class EngineTests(unittest.TestCase):
     def test_parallel(self): self.assertEqual(len(run([{'id':str(i)} for i in range(6)],self.receipt,workers=3)['completed']),6)
     def test_limit(self):
         with self.assertRaises(ValueError): run([{'id':'A'}],self.receipt,workers=100)
+    def test_failed_task_not_retried_across_batches(self):
+        tasks=[{'id':'A'},{'id':'B','action':'verify_text','path':'/missing/debo/r20','sha256':'0'*64},{'id':'C','depends_on':['A']}]
+        result=run(tasks,self.receipt,attempts=2)
+        self.assertEqual(result['completed'],['A','C'])
+        events=json.loads(self.receipt.read_text())['events']
+        self.assertEqual([e['id'] for e in events].count('B'),1)
+        self.assertEqual(next(e for e in events if e['id']=='B')['result']['attempts'],2)
     def test_duplicate(self):
         with self.assertRaises(ValueError): plan([{'id':'A'},{'id':'A'}],{})
     def test_unknown_dependency(self):
