@@ -3,12 +3,12 @@
   "classification": "PUBLIC_GOVERNANCE_METADATA_ONLY",
   "mode": "READ_ONLY_NONPRODUCTION",
   "source": "github_actions",
-  "source_url": "https://github.com/ClaimEdge-dev/ai-os-hub/actions/runs/42471509569",
-  "commit": "52d6c29b1d4babcb4cc701f4300a6e392946514d",
+  "source_url": "https://github.com/ClaimEdge-dev/ai-os-hub/actions/runs/42472030602",
+  "commit": "32098fd812dfc0845022074a124bbff5035571e2",
   "workflow": "DEBO R20 Turbo Nonproduction CI",
-  "run_number": 5,
+  "run_number": 7,
   "ci_conclusion": "success",
-  "verification_basis": "public GitHub Actions run #5 successful job steps; isolated Neon branch read-only inspection",
+  "verification_basis": "GitHub Actions run #7 public success, full offline task-to-dashboard acceptance step successful",
   "execution_receipts_connected": false,
   "neon_acceptance": "ISOLATED_READ_ONLY_VERIFIED",
   "real_task_imports": 0,
@@ -17,5 +17,5 @@
   ],
   "production_writes": false,
   "task_mappings_approved": false,
-  "notes": "R21 offline acceptance step passed in CI run #5; no live dashboard sync or real task import. Original 15 source IDs reconciled at identity level only; 14 status mappings quarantined and Rentals owner-held."
+  "notes": "15 source IDs, 14 quarantined, Rentals owner hold; offline source-to-dashboard acceptance passed. No live connection or import."
 }
