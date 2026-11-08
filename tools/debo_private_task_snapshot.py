@@ -5,6 +5,8 @@ Output is PRIVATE_SNAPSHOT, not a public governance feed or live sync claim.
 """
 from collections import Counter
 from datetime import datetime, timezone
+import json
+import sys
 
 ALLOWED = {"Backlog", "In Progress", "Blocked", "Review", "Done"}
 FIELDS = ("task_id", "title", "status", "priority", "assignee_role", "pillar")
@@ -40,3 +42,34 @@ def build_private_snapshot(rows, *, authenticated, source_branch, verified_at=No
         "status_counts": dict(Counter(r["status"] for r in output)),
         "tasks": output,
     }
+
+def safe_summary(snapshot):
+    """Display-safe counts; never include task titles, people or project details."""
+    if snapshot.get("classification") != "PRIVATE_AUTHENTICATED":
+        raise ValueError("not a private snapshot")
+    return {
+        "schema_version": snapshot["schema_version"],
+        "mode": snapshot["mode"],
+        "live_sync": False,
+        "task_count": snapshot["task_count"],
+        "status_counts": snapshot["status_counts"],
+        "checked_at": snapshot["checked_at"],
+    }
+
+def main(argv=None):
+    """Offline file adapter. No network, no credential storage, no automatic publishing."""
+    import argparse
+    p=argparse.ArgumentParser(description="Private offline task snapshot validation")
+    p.add_argument("source_json",help="locally authorized JSON array of task rows")
+    p.add_argument("--authenticated",action="store_true",help="assert source was retrieved with authorized access")
+    p.add_argument("--branch",required=True,help="nonproduction source branch name")
+    p.add_argument("--summary-only",action="store_true",help="omit private task fields from stdout")
+    args=p.parse_args(argv)
+    with open(args.source_json,encoding="utf-8") as stream:
+        rows=json.load(stream)
+    snapshot=build_private_snapshot(rows,authenticated=args.authenticated,source_branch=args.branch)
+    print(json.dumps(safe_summary(snapshot) if args.summary_only else snapshot,sort_keys=True))
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())
