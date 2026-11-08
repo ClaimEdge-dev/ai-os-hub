@@ -27,4 +27,33 @@ class SyncPreviewTests(unittest.TestCase):
     def test_no_write(self): self.assertFalse(plan([BASE],APP)['write_eligible'])
     def test_determinism(self): self.assertEqual(plan([BASE]),plan([{**BASE}]))
 
+    def test_rentals_id_hold_after_state_drift(self):
+        row = {**BASE, 'work_id':'WORK-RENTALS-001', 'state':'READY',
+               'assignee_role':'Proof', 'pillar':'SYSTEMS'}
+        approval = {'mappings':{'READY':{'raw_state':'READY',
+                     'status':'In Progress', 'approved_by':'Owner',
+                     'approved_at':'2026-11-08T03:00:00-06:00'}}}
+        self.assertEqual(plan([row], approval)['rows'][0]['decision'], 'HOLD_OWNER')
+
+    def test_rentals_id_never_accepted(self):
+        row = {**BASE, 'work_id':'WORK-RENTALS-001', 'state':'READY',
+               'assignee_role':'Proof', 'pillar':'SYSTEMS'}
+        approval = {'mappings':{'READY':{'raw_state':'READY',
+                     'status':'In Progress', 'approved_by':'Owner',
+                     'approved_at':'2026-11-08T03:00:00-06:00'}}}
+        self.assertEqual(plan([row], approval)['decisions'].get('ACCEPT', 0), 0)
+
+    def test_rentals_id_hold_without_parked_wording(self):
+        row = {**BASE, 'work_id':'WORK-RENTALS-001', 'state':'IN PROGRESS'}
+        self.assertEqual(plan([row])['decisions']['HOLD_OWNER'], 1)
+
+    def test_other_id_can_accept_reviewed_ready_state(self):
+        row = {**BASE, 'work_id':'WORK-TEST-001', 'state':'READY',
+               'assignee_role':'Proof', 'pillar':'SYSTEMS'}
+        approval = {'mappings':{'READY':{'raw_state':'READY',
+                     'status':'In Progress', 'approved_by':'Owner',
+                     'approved_at':'2026-11-08T03:00:00-06:00'}}}
+        self.assertEqual(plan([row], approval)['decisions']['ACCEPT'], 1)
+
+
 if __name__=='__main__': unittest.main()
