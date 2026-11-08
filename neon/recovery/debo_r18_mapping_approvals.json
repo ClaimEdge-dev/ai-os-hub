@@ -1,7 +1,130 @@
 {
-  "schema_version": 1,
-  "mission": "DEBO-MASTER-024",
-  "approval_state": "NOT_APPROVED",
-  "mappings": {},
-  "note": "No source status has been approved for automatic normalization. Never populate mapping rules without explicit review. Owner-parked rows are always held."
+  "schema_version": 2,
+  "mission": "DEBO-MASTER-031",
+  "approval_state": "OWNER_APPROVED_FOR_ISOLATED_INTERNAL_MAPPING",
+  "approval_basis": "User explicitly said Yes do that and authorized continuation of DEBO Core / Neon mappings, with no external contact or publication",
+  "approved_by": "DEBO owner (chat instruction)",
+  "approved_on": "2026-11-08",
+  "mapping_rule_version": "R35-EXACT-SOURCE-REVIEW",
+  "mappings": {
+    "WORK-DEBO-001": {
+      "raw_source_state": "CHECKPOINT / EXECUTION CONTINUES IN PROJECT LANES",
+      "target_status": "In Progress",
+      "assignee_role": "DEBO",
+      "pillar": "DEBO",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-JCT-001": {
+      "raw_source_state": "NATIVE BACKEND DEPLOYED PRIVATE / DATA SCHEMA VERIFIED / E2E HELD",
+      "target_status": "Blocked",
+      "assignee_role": "JCT-OPS",
+      "pillar": "JCT",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-CE-001": {
+      "raw_source_state": "SOURCE RECOVERED / GOVERNANCE & LIVE E2E OPEN",
+      "target_status": "In Progress",
+      "assignee_role": "ClaimEdge",
+      "pillar": "CE-OS",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-DWING-001": {
+      "raw_source_state": "PRIVATE V13 TESTED / V12 INTEGRATION BLOCKED",
+      "target_status": "Blocked",
+      "assignee_role": "D-Wing",
+      "pillar": "DWING",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-SETTLE-001": {
+      "raw_source_state": "EXISTING EVIDENCE LEDGER / PRIMARY PROOF & DEDUPE OPEN",
+      "target_status": "In Progress",
+      "assignee_role": "Records Recovery",
+      "pillar": "SETTLE",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-PLOG-001": {
+      "raw_source_state": "SOURCE RECONCILED / PRIMARY LEGAL AUTHORITY UNVERIFIED",
+      "target_status": "Blocked",
+      "assignee_role": "PLG-OPS",
+      "pillar": "PLOG",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-RRR-001": {
+      "raw_source_state": "EXISTING BUILD VERIFIED / LIVE PUBLIC INTAKE UNVERIFIED",
+      "target_status": "Review",
+      "assignee_role": "RRR-OPS",
+      "pillar": "RRR",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-MOL-001": {
+      "raw_source_state": "PRIVATE SOURCE DEMO / CANONICAL SITE-CRM UNVERIFIED",
+      "target_status": "Review",
+      "assignee_role": "MOL",
+      "pillar": "MORGANS",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-BBS-001": {
+      "raw_source_state": "READY",
+      "target_status": "Review",
+      "assignee_role": "BBS",
+      "pillar": "BBS",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-WRESTLE-001": {
+      "raw_source_state": "STAGED RECOVERY / LIVE DB ACCESS BLOCKED",
+      "target_status": "Blocked",
+      "assignee_role": "WrestlingOS",
+      "pillar": "WRESTLE",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-ATHLETE-001": {
+      "raw_source_state": "PRIVATE PREVIEW SOURCE / PRODUCTION AUTH UNVERIFIED",
+      "target_status": "Review",
+      "assignee_role": "AthleteOS",
+      "pillar": "ATHLETE",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-BASEBALL-001": {
+      "raw_source_state": "WAITING",
+      "target_status": "Backlog",
+      "assignee_role": "BaseballOS",
+      "pillar": "BASEBALL",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-NEON-001": {
+      "raw_source_state": "BLOCKED — CONNECTED NEON HAS ZERO VISIBLE PROJECTS",
+      "target_status": "Review",
+      "assignee_role": "DEBO Systems",
+      "pillar": "NEON",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    },
+    "WORK-TPB-001": {
+      "raw_source_state": "RECOVERY + MEDIA QA OPEN",
+      "target_status": "In Progress",
+      "assignee_role": "DEBO-TPB-OS",
+      "pillar": "DEBO-TPB-OS",
+      "approval_scope": "isolated-development-internal-only",
+      "source": "DEBO_R34_MAPPING_BATCH_AND_MIGRATION_RECEIPT_2026-11-08.md"
+    }
+  },
+  "exclusions": [
+    "WORK-RENTALS-001",
+    "No public release",
+    "No external communications",
+    "No production sync"
+  ],
+  "note": "Exact source states preserved; statuses approved only for isolated internal development. Required title/parent provenance and authenticated import/readback must be verified before importing."
 }
