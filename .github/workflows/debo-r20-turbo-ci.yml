@@ -21,6 +21,7 @@ on:
       - 'governance/dashboard/r21_task_flow_acceptance.py'
       - 'governance/dashboard/test_r21_task_flow_acceptance.py'
       - 'governance/dashboard/R21_R20_EXECUTION_RECEIPTS_v1.json'
+      - 'neon/recovery/DEBO_R31_15_TASK_MAPPING_REVIEW_2026-11-08.md'
       - '.github/workflows/debo-r20-turbo-ci.yml'
 permissions:
   contents: read
