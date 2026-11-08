@@ -1,0 +1,6 @@
+# DEBO R66 | Integrated Mission Control deployment
+2026-11-08 America/Chicago. Mission DEBO-MASTER-032.
+New deployment dpl_GMQBTrYYPDTmRUjmgakp4L6fncqn at https://debo-private-command-r55-b600khhfn-claimedge.vercel.app; Vercel READY, build completed, deployment completed, SSO protection enabled for all deployments verified by project readback.
+Restored original offline v0.2.2 navigation concepts: Start here, Overview, Brains, Learn, History. Added project-lane directory, DEBO terminology details and explicit historical snapshot warnings. Kept existing server-side read-only Neon API shape (schema debo.private.tasks.r60), 14-task card/search/filter/priority UI, manual and 5-minute refresh logic, 500-row/duplicate/held Rentals fail-closed checks, encrypted environment credential. No production data mutations or public access relaxation.
+The original v0.2.2 offline file remains separate rollback. R61 remains authenticated iPhone accepted rollback at R65. R66 authenticated device readback and VoiceOver NOT verified; do not label R66 accepted until evidence. No browser regression test was run on R66 in this turn; build READY is not equivalent to interaction QA.
+Checkpoint R66-NAVIGATION-INTEGRATED-PROTECTED-READY-DEVICE-ACCEPTANCE-PENDING.
