@@ -66,3 +66,13 @@ Thread Index: DEBO-00 -> DEBO-MASTER-011 (Core sync acceptance) -> DEBO-05 (dash
 **UNCHANGED GATES:** 14 source tasks need owner-reviewed status and target-field mapping; 1 Rentals task remains on owner HOLD; five purported extra tasks are unresolved. Source data were not exported into public GitHub. There are still zero imported Core tasks and no persistent provenance tables. Production `main`, customer data, pricing, access, and public dashboard deployment remain untouched. Current branch is a **TESTED NONPRODUCTION CANDIDATE**, not approved, merged, installed or live. The owner/field/isolated-storage acceptance gates remain prerequisites for actual sync.
 
 **Checkpoint addendum:** `R18-OFFLINE-STAGING-RETRY-PASS`. Resume from existing gate 1/2 owner-reviewed status and target-field mappings, then authorized isolated migration and authenticated end-to-end readback. Reuse DEBO-00 -> Core acceptance -> DEBO-05 dashboard QA -> R19, no duplicate master.
+
+## R18 | Rentals status-drift regression correction — 2026-11-08
+**Checkpoint:** `R18-RENTALS-DRIFT-CODE-AND-JS-TEST-VERIFIED`
+**Issue:** An earlier progress message said the Rental drift tests were complete before the updated test files were actually present. This is the corrected code and evidence record.
+- R18 JavaScript planner `debo_r18_sync_plan.js` blob `efcaaa0464822924e635fc9ef78f3f8ebb84d7b8` holds task ID `WORK-RENTALS-001` independent of mutable source state.
+- R18 Python planner `debo_r18_sync_preview.py` blob `2e67950335523bf6a72e563711e29dfc7d64f0d5` applies the equivalent task-ID hold.
+- Newly updated JavaScript regression `debo_r18_sync_plan.test.js` blob `d6605084248528a9c3ddbeee48093dfd14b0cc7c`: four new tests, including READY/IN PROGRESS status drift and approved READY mapping bypass attempt. Execution in V8 with a deterministic crypto compatibility shim: 24/24 assertions PASS. This run does **not** independently prove Node's native crypto implementation.
+- Newly updated Python regression `test_debo_r18_sync_preview.py` blob `2e602b4be7eba35f2f4705783e59d7ef0ab754aa`: four task-ID drift tests present, for 16 total test methods. GitHub source readback verified. Its browser executor only returned a prepared script, not an execution receipt; do not count that tool result as a fresh PASS.
+- The public GitHub repository feature branch remains **unmerged and nonproduction**. No real Drive task import; no persistent provenance schema; no Core/database production modification or dashboard release.
+**Next:** Obtain a verified Python runtime test receipt, then complete owner-reviewed mapping and required target-field provenance before any isolated real synchronization.
