@@ -53,9 +53,12 @@ def run(tasks, receipt_path, workers=3, attempts=2):
     state = json.loads(receipt_path.read_text()) if receipt_path.exists() else {'verified': {}, 'events': []}
     if not isinstance(state.get('verified'), dict): raise ValueError('invalid receipts')
     completed = []
+    attempted = set()
     while True:
-        ready, _ = plan(tasks, state['verified'])
+        candidates, _ = plan(tasks, state['verified'])
+        ready = [t for t in candidates if t['id'] not in attempted]
         if not ready: break
+        attempted.update(t['id'] for t in ready)
         results = {}
         with ThreadPoolExecutor(max_workers=workers) as pool:
             future_map = {pool.submit(_retry, t, attempts): t for t in ready}
