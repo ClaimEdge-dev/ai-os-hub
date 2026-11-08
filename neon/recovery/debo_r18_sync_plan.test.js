@@ -27,4 +27,11 @@ test(()=>assert.equal(validateApproval({raw_state:base.state,status:'Review',app
 test(()=>assert.equal(parseSheet([['work_id','project_id','project_name','objective','state','priority','owner'],['x','p','t','o','s','P2','u']]).length,1));
 test(()=>assert.throws(()=>parseSheet([['work_id'],['x']]),/Missing column/));
 test(()=>assert.equal(plan([base]).entries[0].status,null));
+// Regression: Rentals hold attaches to stable identity, not a mutable state description.
+const rentals={...verified,work_id:'WORK-RENTALS-001',state:'READY'};
+const approvedReady={mappings:{READY:{raw_state:'READY',status:'In Progress',approved_by:'owner',approved_at:'2026-11-08T03:00:00-06:00'}}};
+test(()=>assert.equal(plan([rentals],approvedReady).entries[0].decision,'HOLD_OWNER'));
+test(()=>assert.equal(plan([rentals],approvedReady).counts.accept,0));
+test(()=>assert.equal(plan([{...rentals,state:'IN PROGRESS'}]).entries[0].decision,'HOLD_OWNER'));
+test(()=>assert.equal(plan([{...verified,state:'READY'}],approvedReady).entries[0].decision,'ACCEPT'));
 console.log('PASS '+count+' nonproduction planner assertions');
