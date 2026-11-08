@@ -1,0 +1,5 @@
+# DEBO R89 | JCT Floot QA
+Mission DEBO-MASTER-039. Date 2026-11-08.
+Checkpoint R89-JCT-7-PASS-2-TYPE-ERRORS.
+Existing Floot JCT project e36adc52-aec7-4231-a830-26273ac80ba5 is unpublished, free plan. Seven standard spec files pass with zero failures: themeMode, jctPhotoUpload, jctCanonicalUrl, jctPublicSafety, jctProxyEndpoints, jctPreviewHold, jctJobLifecycle. Typecheck FAILS with two reported layout typing issues at pages/dispatch-lab.pageLayout.tsx. Readback source at that file shows import PublicSiteLayout and default export; no edit performed pending comparison to Floot page-layout contract. Source-level tests do not establish authenticated native D1/R2 backend E2E. Current JCT main website remains Higgsfield V2; Floot is separate and must not displace it. No deployment.
+Next: repair page-layout type contract in existing private Floot app only after comparing correct working page layout and rerun typecheck, tests, rollback.
