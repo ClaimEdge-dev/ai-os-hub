@@ -95,3 +95,10 @@ NEXT_ACTION: reconcile original 20-task source against 15 stable IDs; run existi
 - Existing Drive Work Stack evidence remains 15 distinct IDs from prior readback; 5 reported tasks unresolved. No fresh Core list refresh, dashboard end-to-end acceptance, v0.3.3 iPhone acceptance, JCT hosted auth, or public deployment was performed.
 - No customer data, credentials, private task records or billing information saved in this public checkpoint. No production mutations.
 - NEXT ACTION: restore authorized visibility of the isolated Core task-store project/branch (or provide a permissioned source receipt), then run two read-only Core refreshes with stable-ID comparison. Independently verify current push CI and candidate source before any release decision.
+
+
+### R18 additional read-only acceptance — 2026-11-08
+- Neon organization lookup across four configured connections resolved the same Claim Edge organization (`org-raspy-bonus-49968131`). Explicit-org project listings returned zero for all four; independent project-count calls also returned zero. Existing Core database remains inaccessible, not proven deleted.
+- Located original company Drive `CURRENT — DEBO Live Project Index — v1.0` (spreadsheet ID `1T1udeSNxYEOU5HrS79V4hX6BTEw8XIfXB06-wUf8Gm8`); metadata confirms `Portfolio Work Stack` tab (sheet ID 220005).
+- Two fresh bounded read-only reads of `Portfolio Work Stack!A1:H60` returned identical 16 rows (one header + 15 work records), 15 distinct stable work IDs and no duplicates. These are Drive-source reads, not Neon Core or dashboard E2E tests. The five reported missing tasks remain unresolved.
+- No new database, spreadsheet, public deploy, external message, or owner-gated mutation. Next: regain authorized Core project visibility; validate Core IDs twice; then compare dashboard candidate against actual Core source and perform physical iPhone QA.
