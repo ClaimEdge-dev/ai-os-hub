@@ -6,6 +6,7 @@ on:
       - debo-r18-source-preserving-sync-20261108
     paths:
       - 'neon/recovery/r20_turbo/**'
+      - 'neon/recovery/r21_task_dashboard_offline_test.py'
       - '.github/workflows/debo-r20-turbo-ci.yml'
 permissions:
   contents: read
@@ -20,6 +21,8 @@ jobs:
           python-version: '3.13'
       - name: Run unit tests
         run: python -m unittest discover -s neon/recovery/r20_turbo -p 'test_*.py' -v
+      - name: Run R21 task and dashboard offline acceptance
+        run: python neon/recovery/r21_task_dashboard_offline_test.py
       - name: Run isolated smoke test
         run: python neon/recovery/r20_turbo/ci_smoke.py
 
