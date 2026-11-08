@@ -76,3 +76,14 @@ Thread Index: DEBO-00 -> DEBO-MASTER-011 (Core sync acceptance) -> DEBO-05 (dash
 - Newly updated Python regression `test_debo_r18_sync_preview.py` blob `2e602b4be7eba35f2f4705783e59d7ef0ab754aa`: four task-ID drift tests present, for 16 total test methods. GitHub source readback verified. Its browser executor only returned a prepared script, not an execution receipt; do not count that tool result as a fresh PASS.
 - The public GitHub repository feature branch remains **unmerged and nonproduction**. No real Drive task import; no persistent provenance schema; no Core/database production modification or dashboard release.
 **Next:** Obtain a verified Python runtime test receipt, then complete owner-reviewed mapping and required target-field provenance before any isolated real synchronization.
+
+
+## R18 | Python runtime retry independently verified — 2026-11-08
+**Checkpoint:** `R18-RENTALS-DRIFT-PYTHON-RUNTIME-PASS`.
+- The earlier Python browser-executor response only prepared code and was **not execution evidence**. Retried using a local Python 3.13.5 runtime.
+- The exact existing nonproduction branch contents were reconstructed locally and independently validated against Git blob SHA-1: `debo_r18_sync_preview.py` = `2e67950335523bf6a72e563711e29dfc7d64f0d5`; `test_debo_r18_sync_preview.py` = `2e602b4be7eba35f2f4705783e59d7ef0ab754aa`. Both hashes MATCH the authenticated GitHub file readbacks, so the tests ran against the same bytes as the committed Python sources.
+- Command: `python -m unittest -v test_debo_r18_sync_preview.py`. Result: **16/16 tests PASS, zero failures, zero errors**. Includes the four stable-task-ID regression checks: Rentals status READY with reviewed mapping still HOLD_OWNER; Rentals never ACCEPT; Rentals IN PROGRESS without parked wording still HOLD_OWNER; non-Rentals reviewed READY still ACCEPT.
+- The companion JavaScript planner regression was previously executed in V8 with a crypto compatibility shim: **24/24 PASS**. Do not relabel that check as native Node crypto acceptance.
+- The direct raw GitHub download had a local DNS resolution failure; the authenticated GitHub connector recovered the exact sources, and the Git blob hashes independently verified the reconstructed bytes. No new connector permissions, paid resources or account changes were required.
+- **Scope:** offline regression tests only; no permanent provenance table, real Drive import, authenticated sync, production changes, or dashboard release. All prior owner mapping, required-field, isolated storage, release/security and physical iPhone acceptance gates remain open. Rentals owner hold remains enforced.
+**Next:** Obtain verified mappings and target-field provenance for the 14 non-Rentals source tasks. After authorized nonproduction storage review, exercise an authenticated Core sync and independent post-import readbacks. Keep production on hold.
