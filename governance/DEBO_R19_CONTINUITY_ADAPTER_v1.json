@@ -1,0 +1,21 @@
+{
+  "schema": "debo.r19.adapter.v1",
+  "mission_id": "DEBO-MASTER-025",
+  "parent_mission_id": "DEBO-MASTER-024",
+  "canonical_core": "ClaimEdge-dev/ai-os-hub",
+  "bootstrap": "DEBO_BOOTSTRAP.md",
+  "runtime_brief": "governance/runtime-briefs/DEBO.md",
+  "existing_thread_skill": "skills/thread-ops/SKILL.md",
+  "existing_anti_repeat_policy": "governance/DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md",
+  "version": "r19-candidate-1",
+  "default_data_scope": "private",
+  "production_writes_enabled": false,
+  "scheduled_runners_enabled": false,
+  "public_project_data_enabled": false,
+  "cross_thread_auto_activation_claimed": false,
+  "decision_authority": "Human project owner and existing source-specific gates",
+  "status_levels": ["UNKNOWN", "PROPOSED", "BUILT", "TESTED", "APPROVED", "DEPLOYED", "LIVE", "BLOCKED"],
+  "event_types": ["TASK_VERIFIED", "SOURCE_SAVED", "TEST_FAILED", "BLOCKER_RESOLVED", "VERSION_APPROVED", "CHECKPOINT_ADVANCED"],
+  "storage_rule": "Store private capsules only in the pre-existing authorized project checkpoint source. This adapter does not write to third-party systems.",
+  "rollout_gates": ["existing source diff review", "offline test", "private persistence readback", "fresh-thread recovery", "approved runner smoke test", "release approval"]
+}
