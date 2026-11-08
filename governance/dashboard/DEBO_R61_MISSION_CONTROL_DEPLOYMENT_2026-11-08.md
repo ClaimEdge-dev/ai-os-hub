@@ -1,0 +1,6 @@
+# DEBO R61 | Mission Control protected deployment
+2026-11-08 America/Chicago.
+R60 source candidate browser tests re-run locally PASS at 320, 390, 430, 768 px (synthetic fixture, task rendering, filter, no horizontal overflow). Deployed R60 source (index.html, style.css, app.js, package.json, api/summary.js) to existing Vercel project prj_fyUuTo8CKOat0jqynSCorVpG7OiI, deployment dpl_HxeuwmVQXnqrKQJm4UigxKV9XoV7, https://debo-private-command-r55-mr0aex73x-claimedge.vercel.app.
+Vercel deployment READY; build logs 'Build Completed' and 'Deployment completed'; project SSO protection enabled for all deployments readback. Server-side Neon read-only DSN remains encrypted, no credential in HTML. API returns private isolated-branch task details with unique-ID/held-row validation; UI filter, search, priority sort, manual and 5-minute refresh. Existing R57 deployment remains rollback, with iPhone 14/14 readback previously accepted at R59.
+Unverified: R61 authenticated API query from iPhone, negative anonymous access check, 5-minute timed refresh, VoiceOver. Do not claim all-project production sync or acceptance without readback.
+Checkpoint R61-PROTECTED-MISSION-CONTROL-DEPLOYMENT-READY-DEVICE-READBACK-PENDING.
