@@ -63,3 +63,25 @@ MERGE_BACK_TARGET: existing DEBO Thread Registry, Work Stack, checkpoint, Resume
 SAVED_LOCATION: governance/dashboard/DEBO_MASTER_024_THREAD_HANDOFF_2026-11-07.md (only after verified readback)
 READBACK_VERIFICATION: pending until fetch succeeds
 NEXT_ACTION: reconcile original 20-task source against 15 stable IDs; run existing skills delta; inspect dashboard candidate source and first real private read-only refresh
+
+## R4.3 source-aware delta — 2026-11-07
+
+**Classification:** selective integration of an additional *user-supplied* 2026-11-07 thread-recovery handoff (16,944-byte uploaded text, SHA-256 `14d3975ea8c1067365e6991b7937b1cb900586744633995db39e6a819989cfea`). The pasted handoff's `NOT_SAVED` designation described *that earlier execution*. This existing GitHub R1 handoff was independently found and read back during the present audit; do not retroactively claim the pasted material itself had already been merged. Reuse DEBO Core, the existing Task/Thread Registry, and owner-gated sister-brain adapters. No new master or duplicate dashboard.
+
+### Current source comparisons and delta routing
+
+- **Task source**: Two fresh read-only reads on 2026-11-07 of the **existing Google Drive Live Project Index → Portfolio Work Stack** each returned 15 nonempty, distinct `work_id` values, no duplicates, with identical ID sequences. This corroborates the newer November 7 Notion Control & Index checkpoint. It establishes **15 Drive parent task rows only**. The reported 20-task set is **not recovered**; five purported tasks, six mappings and 13 historical IDs remain unresolved without inventing records. This does **not** prove two reads of the separate private Neon Core task store or a dashboard end-to-end refresh.
+- **Latest dashboard**: November 7 existing Notion Scorecard Keeper labels **v0.3.3** the latest documented candidate, with exact source hash and physical iPhone Safari/VoiceOver acceptance still outstanding. Preserve v0.2.2, v0.3.1 and v0.3.2 as rollbacks. The uploaded R4.3 narrative mentions a historical unmatched navigation target / Chromium defect, but provides no target ID or reproducible current-v0.3.3 test. Classify **HISTORICAL UNVERIFIED ON CURRENT BUILD**; only patch after exact reproduction, no speculative UI edit or release. The public Core feed remains source-metadata-only.
+- **Skills**: Existing `tools/debo_skill_delta.py` remains the audit implementation for GitHub/Notion inventory conflict comparison; it is not an installer. Existing eight ChatGPT DEBO Core adapters were previously runtime-read in a particular conversation; no blanket future-chat or cross-AI activation claim. Do not build another skill manager.
+- **JCT adapter**: The newer [existing JCT project checkpoint](https://app.notion.com/p/3e6b37124b67815abaeed010648d49b1) already records the November 7 provider/source recheck, 35/35 **fresh source audit**, historical 125/125 synthetic tests, hosted/auth proof gap and owner gates. Higgsfield V2 native D1/R2 is the implementation target; Lovable remains a preserved legacy reference. The uploaded JCT-024 appendix is **not** new deploy or authentication evidence. Reuse the JCT checkpoint and `projects/jcs-towing/AGENT_SYSTEM.md`, not a second CRM or 50 independently running agents.
+- **Launch/readiness**: The pasted "30 launch requirements / 13 blocker groups" remains a **historical reported inventory** without a current source-by-source reproduction in this run. No promotion. John's approval remains required for JCT public operations; DEBO production promotion is on hold.
+
+### Latest completion gate
+
+**Done in this delta:** recognized the uploaded R4.3/JCT-024 handoffs; checked canonical GitHub bootstrap, runtime brief, skill-audit source, existing GitHub handoff and November 7 private Notion control/JCT records; conducted two fresh authorized Google Drive Work Stack reads with a 15/15 stable-ID agreement and zero duplicates; preserved differences from a *private* Core read/write acceptance test.
+
+**Still gated:** authorized isolated task-store identity/branch and permissions (previous Neon target reported *not visible in current connections*, not deleted); current v0.3.3 source/hash, real authenticated task-to-dashboard readback, physical iPhone acceptance; five missing tasks, six mappings and 13 IDs; JCT owner-auth and production-safe native end-to-end receipts. No new public deploy, billing, customer communication, new schedule, security bypass, or production data mutation.
+
+**One best next action:** **DEBO-MASTER-011** should resolve the existing authorized isolated Core task-store identity and branch scope; perform two **read-only Core** list refreshes and stable-ID/duplicate comparison with an independently saved receipt. **Then** DEBO-05 checks v0.3.3 against that proven source and runs five physical iPhone/VoiceOver tasks. Archive no thread and merge no data based only on the pasted R4.3 report.
+
+**Thread Index:** DEBO-00 command → DEBO-MASTER-011 isolated Core acceptance → DEBO-05 dashboard QA; JCT-00 retains separate owner-controlled native operations. This is a documentation delta, not a new production state.
