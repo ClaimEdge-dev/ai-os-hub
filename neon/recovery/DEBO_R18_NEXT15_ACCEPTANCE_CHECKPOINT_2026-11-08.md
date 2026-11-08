@@ -87,3 +87,37 @@ Thread Index: DEBO-00 -> DEBO-MASTER-011 (Core sync acceptance) -> DEBO-05 (dash
 - The direct raw GitHub download had a local DNS resolution failure; the authenticated GitHub connector recovered the exact sources, and the Git blob hashes independently verified the reconstructed bytes. No new connector permissions, paid resources or account changes were required.
 - **Scope:** offline regression tests only; no permanent provenance table, real Drive import, authenticated sync, production changes, or dashboard release. All prior owner mapping, required-field, isolated storage, release/security and physical iPhone acceptance gates remain open. Rentals owner hold remains enforced.
 **Next:** Obtain verified mappings and target-field provenance for the 14 non-Rentals source tasks. After authorized nonproduction storage review, exercise an authenticated Core sync and independent post-import readbacks. Keep production on hold.
+
+
+## R18 single-pass consolidated acceptance — 2026-11-08
+**Mission:** DEBO-MASTER-024. **Checkpoint:** `R18-ONE-RUN-SAFE-CLOSEOUT`. **Suggested thread:** `DEBO-00 | Neon Connection Recovery & Core Acceptance`. **Classification:** offline implementation tested, owner review prepared, live sync NOT INSTALLED.
+
+### Fresh authoritative readback
+- Original Google Drive `Portfolio Work Stack` was re-read: **15 source tasks, 15 distinct stable `work_id`, 0 duplicate IDs, 15 detailed states**. Reported 20-task history still lacks evidence for five purported rows.
+- Existing Neon `snowy-block-04251510`: primary `main` and secondary `slice-day1` separately identified; explicit read-only query gave **0 tasks on main**, **0 tasks and 0 unique IDs on secondary**, and confirmed `task_source_provenance` / `task_sync_receipts` **not installed**. This is a live readback of database *emptiness*, not an integration pass.
+- Current approvals JSON on existing feature branch has `approval_state: NOT_APPROVED` and `mappings: {}`. Drive source lacks target `assignee_role` and `pillar`. Preserve exact raw states; **14 QUARANTINE, 1 owner-HOLD Rentals, 0 ACCEPT**; no guessed mappings.
+- A scoped Drive search for a separately authoritative 20-task inventory found no verified missing-five source; no rows invented. Original `WORK-NEON-001` descriptor about zero visible projects is **historical/stale** relative to the newly verified connection, and was deliberately not rewritten without project-source review.
+
+### Change implemented on the existing nonproduction feature branch
+- Found and corrected a fail-closed bug in `neon/recovery/debo_r18_sync_plan.js`: older `reconcile` labeled unapproved and owner-held rows `STAGE_NEW`. New behavior: `SKIP_UNAPPROVED`, `SKIP_OWNER_HOLD`, and reject duplicate/malformed prior receipts. No database driver or write path is added.
+- Changed source Git blob: `a725ef07cfcebe6dd5de67dc6636879948d2b96e` (commit `f6d244f3a06a79bd414f4389253506d110cf0106`). Corresponding modified regression Git blob: `e0ae09aee82dd1696ac4925dd431f4af29a292a6` (commit `37e2209e32c81e5f86096702273e1fa146bcf638`). Authenticated GitHub readbacks and local Git blob comparison verify the tested planner source identity.
+
+### Tested in this execution
+- Existing Python mapping + immutable Rentals hold: **16/16 PASS** (native Python 3.13.5).
+- Offline stage/idempotency/rollback simulation: **20/20 PASS** (native Node.js 22).
+- Synthetic in-memory sync/conflict/owner hold: **25/25 PASS** (native Node.js 22).
+- Dashboard release/readiness guards: **20/20 PASS** (native Node.js 22).
+- Corrected JavaScript planner regression: **29/29 PASS** under V8 with deterministic cryptographic-hash compatibility shim; not a native Node crypto receipt. Targeted new reconciliation checks: **8/8 PASS** under native Node 22 with actual SHA-256.
+- Nine locally tested source/test files matched the corresponding Git blob hashes from authenticated GitHub readbacks. Tests overlap; do not sum them as 118 independent requirements.
+- The private owner-mapping workbook contains all 15 original statuses with review decisions left blank for 14 tasks; Rentals held by owner. The workbook re-import and ZIP integrity checks passed. **This private workbook was not uploaded to public GitHub.**
+- Combined GitHub status/PR-triggered workflow lookups for the feature-branch commit had no CI evidence. **CI UNVERIFIED**, not GREEN. No external QA runner, actual dashboard E2E or physical iPhone QA claimed.
+
+### 28-action one-run gate matrix
+1 recover bootstrap PASS; 2 runtime brief PASS; 3 latest R18 checkpoint PASS; 4 reuse one feature branch PASS; 5 read source PASS; 6 15 stable IDs/0 duplicates PASS; 7 original statuses preserved PASS; 8 20-task total UNRESOLVED (5 missing); 9 Rentals HOLD PASS; 10 approvals manifest read PASS (0); 11 normalized mapping BLOCKED; 12 target role/pillar mapping BLOCKED; 13 stale Neon source descriptor flagged PASS; 14 Neon identity PASS; 15 branch isolation names PASS (no write authorization implied); 16 primary task count PASS (0); 17 secondary task count PASS (0); 18 provenance-state check PASS (absent); 19 schema reviewed CANDIDATE, NOT APPLIED; 20 Python tests PASS (16); 21 stage tests PASS (20); 22 synthetic sync tests PASS (25); 23 dashboard guard tests PASS (20); 24 reconcile fail-closed fix BUILT; 25 planner + native smoke PASS (29 V8 + 8 Node); 26 code hash/readback PASS; 27 private review workbook BUILT/TESTED; 28 checkpoint/file integrity verified, CI UNVERIFIED.
+
+### Limitations and resume
+NOT APPLIED: permanent provenance SQL migration, original Drive imports, authenticated sync writes, actual Core post-import readback, v0.3.3 dashboard source-to-screen test, real iPhone Safari+VoiceOver, security or owner launch approval. Primary database, source Sheet, access controls, paid compute, public dashboards and existing rollback versions remained unchanged.
+
+**Next action:** owner-review 14 exact mappings plus verified assignee_role/pillar and authoritative source versions in the private review workbook; keep `WORK-RENTALS-001` held. Secure explicit isolated storage/cost scope before installing provenance on the nonproduction target. Then implement authenticated import acceptance, independent database receipts, dashboard source verification, physical mobile/security gate, and only separately approved promotion.
+
+**Thread Index:** DEBO-00 → DEBO-MASTER-011 Core integration → DEBO-05 Dashboard QA → R19 Memory & Automation. One canonical DEBO Core; this feature branch is not a live installation or automatic cross-thread activation.
