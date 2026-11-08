@@ -1,0 +1,25 @@
+name: DEBO R50 Private Endpoint CI
+on:
+  push:
+    branches:
+      - debo-r18-source-preserving-sync-20261108
+    paths:
+      - 'tools/debo_private_snapshot_server.py'
+      - 'tools/test_debo_private_snapshot_server.py'
+      - 'tools/debo_private_task_snapshot.py'
+      - '.github/workflows/debo-r50-private-endpoint-ci.yml'
+  workflow_dispatch:
+jobs:
+  security-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Private endpoint security tests
+        run: python -m unittest discover -s tools -p 'test_debo_private_snapshot_server.py' -v
+      - name: Existing snapshot validation tests
+        run: python -m unittest discover -s tools -p 'test_debo_private_task_snapshot.py' -v
