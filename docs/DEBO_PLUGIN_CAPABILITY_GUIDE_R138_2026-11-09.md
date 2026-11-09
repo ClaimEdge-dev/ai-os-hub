@@ -41,7 +41,7 @@
 | WPVibe | Maintain self-hosted WordPress content and themes | Approved WordPress business sites | Tools exposed; account/scope varies |
 | MagicPath | Interactive prototypes and UI plans | Dashboard mobile flow exploration | Tools exposed; account/scope varies |
 | Figma | Editable design system components and mockups | Mobile dashboard design audit; current seat View | Directory: installed; tools exposed |
-| Superpowers | Test-driven engineering and structured debugging | Debug DEBO editor security/CI failures | Catalog/source check needed |
+| Superpowers | Test-driven engineering and structured debugging | Debug DEBO editor security/CI failures | DIRECTORY_INSTALLED, ENABLED; no task-specific action tested here |
 | Remote Desktop Commander | Authorized remote desktop file/terminal operations | Recover original sources on an authorized computer | Tools exposed; account/scope varies |
 | Code Tytor | Python assistance, debugging and practice | Regression scripts and beginner coding lessons | Tools exposed; account/scope varies |
 | aictrl dev | Governed versioned workflow execution and checks | Governed internal automation pilot | Tools exposed; account/scope varies |
@@ -109,7 +109,7 @@
 | Adobe | Creative Cloud and Acrobat tasks | Brand collateral and controlled media edits | Directory: installed; tools exposed |
 | Adobe Acrobat | Edit, redact, merge and convert PDFs | Claims evidence packets and private binder QA | Directory: installed; tools exposed |
 | Adobe Express | Branded templates and quick social designs | Business marketing graphics | Tools exposed; account/scope varies |
-| AnyPDF   Your PDF Converter | Convert/compress/merge PDFs | Claims and operations file workflows | Catalog/source check needed |
+| AnyPDF   Your PDF Converter | Convert/compress/merge PDFs | Claims and operations file workflows | Tool exposed; no task-specific action tested here |
 | Canva | Templates, graphics, documents and presentations | D-Wing, JCT, Bulldogs approved branded assets | Directory: installed; tools exposed |
 | Gamma | Generate presentations and documents | Owner review decks and strategy briefings | Tools exposed; account/scope varies |
 | Higgsfield | Generate/manage visual websites, images and video | JCT approved V2 review and brand concepts | Tools exposed; account/scope varies |
@@ -184,6 +184,24 @@
 | Indeed Job Search | Search active roles and job postings | Recruiting and personal work searches, where approved | Tool exposed; account/session not tested |
 | OpenAI Platform | API-key setup and developer platform onboarding | Engineering tasks explicitly needing a paid/API key | Tool exposed; no key accessed or created |
 | Eve Cortex | Separate persistent memory service | Evaluate only if canonical Notion/DEBO recovery proves insufficient | Tool exposed; avoid competing memory systems |
+
+## R138.1 | Installation identity and capability readback (November 9, 2026)
+
+**Independent checks performed:** Re-fetched this complete 108-row base guide (26 engineering + 22 knowledge + 16 research + 14 creative + 11 marketing + 19 finance/legal/personal entries). The guide separately lists five catalog/private identities, seven additional tools/adapters and twelve unresolved voice-name groups. These counts are **guide rows, not unique installed apps, authenticated connections or working end-to-end integrations**.
+
+| Exact target | New observed evidence | Correct DEBO action |
+| --- | --- | --- |
+| Superpowers | Plugin directory returned installed=true, status=ENABLED | Reuse before proposing another software-engineering skill/app; no project workflow tested |
+| Metabase | Directory returned installed=true, status=ENABLED; no matching callable tool present in this conversation | Keep as installed but **not currently executable here**; do not promise a dashboard query |
+| monday.com | Directory returned installed=false | Available, not installed; do **not** create a competing project/task register |
+| Plaud | Directory returned installed=false | Available for meeting capture, but do not confuse an npm MCP installation command with a completed ChatGPT plugin install |
+| Docusign | Directory returned installed=false | Candidate for owner-approved signature workflow; no connection or envelope/send authorized |
+| PostHog | Directory returned installed=true and action family exposed | Analytics only after verifying actual DEBO project and privacy-safe events; no tracking enabled |
+| GitHub, Notion, Vercel, Neon, Airtable | Each directory returned installed=true, status=ENABLED | Existing tools first; account, workspace, seat, target project and read/write rights still require task-specific checks |
+| CompanyCam | Public plugin search for this exact label returned no result; two separate **owned PRIVATE** Plugin Creator records each return v1.0.0 metadata | Do not assume either has the correct ClaimEdge/D-Wing tenant or that they are interchangeable |
+| DEBO Core, WrestlingOS, Bulldogs Film OS, Violete Investigation Command | Private Plugin Creator personal inventory returned four distinct source-linked private records, current versions 0.2.0 / 0.1.0 / 1.0.3 / 1.1.2 | Retain as existing project-specific resources; ownership and release metadata do not prove task execution |
+
+**Safe routing order:** (1) source-verified existing plugin, (2) exact task-specific login/role/capability test, (3) least-cost reversible execution, (4) independent readback and existing Notion checkpoint, (5) new app only if the capability gap remains. Priority remains DEBO-05 protected original-source recovery and owner-only editor security. No app installed, changed, billed, connected or invoked for business writes by this addendum.
 
 ## Names to reconcile from the spoken list
 
