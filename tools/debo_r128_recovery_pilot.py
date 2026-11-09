@@ -12,9 +12,17 @@ import re
 from pathlib import Path
 from typing import Any
 
-from debo_r31_decision_router import Task, batch
+from debo_r31_decision_router import APPROVAL_ACTIONS, Task, batch
 
 PASS_TYPES = frozenset({"source_readback", "test_receipt", "runtime_probe", "owner_approval"})
+ACTION_EVIDENCE = {
+    "read_source": {"source_readback"}, "compare_fingerprints": {"source_readback"},
+    "run_local_tests": {"test_receipt"}, "fix_nonproduction_code": {"test_receipt"},
+    "write_dev_checkpoint": {"source_readback"}, "verify_readback": {"source_readback", "runtime_probe"},
+    "prepare_migration": {"source_readback"}, "prepare_mapping_review": {"source_readback"},
+    "retry_read_only": {"runtime_probe", "source_readback"},
+}
+
 ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{3,95}$")
 MAX_TASKS = 50
 
@@ -72,7 +80,19 @@ def plan(document: dict) -> dict:
     source_revision = data["source_revision"]
     matching = {r["task_id"]: r for r in data["receipts"]
                 if r["source_revision"] == source_revision}
-    verified = {t for t, r in matching.items() if r["state"] == "PASS"}
+    actions = {t["id"]: t["action"] for t in data["tasks"]}
+    # Typed refs are an offline candidate gate, never a substitute for real approvals.
+    verified = {task_id for task_id, receipt in matching.items()
+                if receipt["state"] == "PASS"
+                and actions[task_id] not in APPROVAL_ACTIONS
+                and receipt.get("evidence_type") in ACTION_EVIDENCE.get(actions[task_id], set())}
+    ignored_approval_receipts = sorted(
+        task_id for task_id, receipt in matching.items()
+        if receipt["state"] == "PASS" and actions[task_id] in APPROVAL_ACTIONS)
+    mismatched_proof_receipts = sorted(
+        task_id for task_id, receipt in matching.items()
+        if receipt["state"] == "PASS" and actions[task_id] not in APPROVAL_ACTIONS
+        and receipt.get("evidence_type") not in ACTION_EVIDENCE.get(actions[task_id], set()))
     failed = {t for t, r in matching.items() if r["state"] in ("FAILED", "BLOCKED")}
     stale = sorted(r["task_id"] for r in data["receipts"] if r["source_revision"] != source_revision)
     tasks = [Task(row["id"], row["action"], tuple(row.get("depends_on", []))) for row in data["tasks"]]
@@ -84,6 +104,8 @@ def plan(document: dict) -> dict:
         "project_id": data["project_id"],
         "source_revision": source_revision,
         "skipped_verified": sorted(verified),
+        "ignored_approval_receipts": ignored_approval_receipts,
+        "ignored_mismatched_proof_receipts": mismatched_proof_receipts,
         "stale_receipts_need_reverification": stale,
         "route": decisions,
         "metrics_fixture": {
@@ -109,7 +131,11 @@ def mack_forge_proof_pilot(values: list[int]) -> dict:
     trace.append({"role": "Mack", "action": "route_pure_math", "to": "Forge"})
     result = sum(values)
     trace.append({"role": "Forge", "action": "compute_sum", "output": result, "to": "Proof"})
-    passed = result == sum(values) and all(-10**9 <= v <= 10**9 for v in values)
+    # Independent-style verification using a second implementation, not a second agent.
+    independent_total = 0
+    for value in values:
+        independent_total += value
+    passed = result == independent_total and all(-10**9 <= v <= 10**9 for v in values)
     trace.append({"role": "Proof", "action": "verify_output", "passed": passed})
     return {"status": "TESTED" if passed else "BLOCKED",
             "trace": trace, "independent_agents_running": False}
