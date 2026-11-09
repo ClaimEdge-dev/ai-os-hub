@@ -17,7 +17,7 @@ class R127TaskEditorReview(unittest.TestCase):
         proc=subprocess.run([node,"--test",str(APP/"tests/test-editor.mjs")],
                             capture_output=True,text=True,timeout=30)
         self.assertEqual(proc.returncode,0,proc.stdout + "\n" + proc.stderr)
-        self.assertIn("# pass 18",proc.stdout)
+        self.assertIn("# pass 22",proc.stdout)
 
     def test_read_role_stays_separate_from_owner_editor(self):
         api=(APP/"src/api/task-editor.js").read_text(encoding="utf-8")
