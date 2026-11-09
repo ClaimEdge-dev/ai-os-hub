@@ -14,8 +14,44 @@
   "public_project_data_enabled": false,
   "cross_thread_auto_activation_claimed": false,
   "decision_authority": "Human project owner and existing source-specific gates",
-  "status_levels": ["UNKNOWN", "PROPOSED", "BUILT", "TESTED", "APPROVED", "DEPLOYED", "LIVE", "BLOCKED"],
-  "event_types": ["TASK_VERIFIED", "SOURCE_SAVED", "TEST_FAILED", "BLOCKER_RESOLVED", "VERSION_APPROVED", "CHECKPOINT_ADVANCED"],
+  "status_levels": [
+    "UNKNOWN",
+    "PROPOSED",
+    "BUILT",
+    "TESTED",
+    "APPROVED",
+    "DEPLOYED",
+    "LIVE",
+    "BLOCKED"
+  ],
+  "event_types": [
+    "TASK_VERIFIED",
+    "SOURCE_SAVED",
+    "TEST_FAILED",
+    "BLOCKER_RESOLVED",
+    "VERSION_APPROVED",
+    "CHECKPOINT_ADVANCED"
+  ],
   "storage_rule": "Store private capsules only in the pre-existing authorized project checkpoint source. This adapter does not write to third-party systems.",
-  "rollout_gates": ["existing source diff review", "offline test", "private persistence readback", "fresh-thread recovery", "approved runner smoke test", "release approval"]
+  "rollout_gates": [
+    "existing source diff review",
+    "offline test",
+    "private persistence readback",
+    "fresh-thread recovery",
+    "approved runner smoke test",
+    "release approval"
+  ],
+  "source_installation": {
+    "state": "SOURCE_MERGED_CI_PASS",
+    "merge_pr": 39,
+    "merge_sha": "456f5240ac8892ead8cd14c0eb48b8ef314140b0",
+    "main_bootstrap_run": 42690638285,
+    "main_runtime_briefs_run": 42690638152,
+    "external_chat_loader_installed": false,
+    "external_agent_runtime_installed": false,
+    "authenticated_private_store_connector_installed": false,
+    "offline_cross_process_test": "TEST_SOURCE_ADDED_PENDING_EXACT_CI",
+    "actual_cross_chat_readback": "NOT_VERIFIED",
+    "source_reversible": true
+  }
 }
