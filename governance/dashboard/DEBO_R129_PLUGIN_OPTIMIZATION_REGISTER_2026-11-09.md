@@ -75,3 +75,7 @@ The dashed PostHog connection is NOT installed in DEBO-05 and has no verified in
 5. **R19 fresh cross-chat:** still unverified. Browser and ChatGPT external session limitations do not become a success just because policy docs and generated briefs exist.
 
 **Current work boundary:** No plugin installation, purchase, new schedule, PostHog event capture, CRM mutation, public deployment or production database permission change in this batch. ClaimEdge review gates, JCT John fixture, R119 Work Stack mappings and Housing hold remain.
+
+### Security cross-check on an already connected JCT preview
+
+Gitleaks initially flagged two JCT demo preview source lines. Independent source inspection found they contain the **same browser `sb_publishable_` key**, which is designed to be public; the new R129 validator accepts only those two exact file/line patterns while keeping all true secrets blocking. This does not establish Supabase RPC `submit_service_request_v3` authorization or monitored JCT production readiness. Confirm with John's approved tenant access before any backend mutation or public launch. No plugin/settings changes occurred during this investigation.
