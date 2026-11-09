@@ -14,7 +14,20 @@ function makeReq(overrides={}) {
  return {method:'POST',headers:{origin:env.DEBO_EDITOR_ALLOWED_ORIGIN,'sec-fetch-site':'same-origin','x-debo-editor-key':secret,'content-type':'application/json','idempotency-key':'3fddbd83-1b3e-40b2-bf55-312b2f0967b6'},body:{task_id:'DEBO-LOCAL-TEST-001',fields:{title:'Demo Task',status:'Backlog',priority:'P2',assignee_role:'Mack',pillar:'DEBO'}},...overrides};
 }
 function makeRes(){return{code:0,body:null,headers:{},setHeader(k,v){this.headers[k]=v;return this},status(n){this.code=n;return this},json(obj){this.body=obj;return obj}}}
-async function run(overrides={},opts={}){const res=makeRes();let calls=0;const sql=async()=>{calls++;return[{result:{task_id:'DEBO-LOCAL-TEST-001',revision:0,archived:false}}]};await handleEditor(makeReq(overrides),res,{env:{...env,...(opts.env||{})},sql:opts.sql||sql});return {...res,calls}}
+async function run(overrides={},opts={}){
+ const res=makeRes(),req=makeReq(overrides);let calls=0;
+ const sql=async()=>{
+  calls++;
+  return [{result:{
+   task_id:req.body.task_id,
+   action:{POST:'create',PATCH:'update',DELETE:'archive'}[req.method],
+   revision:req.method==='POST'?0:req.body.expected_revision+1,
+   archived:req.method==='DELETE'
+  }}];
+ };
+ await handleEditor(req,res,{env:{...env,...(opts.env||{})},sql:opts.sql||sql});
+ return {...res,calls};
+}
 test('disabled editor rejects changes without database call',async()=>{const r=await run({}, {env:{DEBO_TASK_EDITOR_ENABLED:'false'}});assert.equal(r.code,503);assert.equal(r.calls,0)});
 test('authenticated new local task may use transactional function',async()=>{const r=await run();assert.equal(r.code,201);assert.equal(r.calls,1);assert.equal(r.body.record.revision,0)});
 test('wrong key is denied',async()=>{const r=await run({headers:{...makeReq().headers,'x-debo-editor-key':'wrong'}});assert.equal(r.code,403);assert.equal(r.calls,0)});
@@ -33,3 +46,8 @@ test('missing editor DSN rejects writes',async()=>{const r=await run({}, {env:{D
 test('database conflict returns sanitized 409',async()=>{const r=await run({}, {sql:async()=>{throw Object.assign(new Error('private task details'),{code:'P0001'})}});assert.equal(r.code,409);assert.ok(!JSON.stringify(r.body).includes('private task'))});
 test('unexpected DB error returns sanitized 503',async()=>{const r=await run({}, {sql:async()=>{throw new Error('db secret')}});assert.equal(r.code,503);assert.ok(!JSON.stringify(r.body).includes('db secret'))});
 test('missing schema disallowed to client',async()=>{const body=makeReq().body;const r=await run({body:{...body,fields:{...body.fields,status:'Done',meta:'override'}}});assert.equal(r.code,400)});
+
+test('empty SQL result cannot claim write success',async()=>{const r=await run({}, {sql:async()=>[]});assert.equal(r.code,503);assert.equal(r.body.error,'editor_confirmation_unavailable');assert.notEqual(r.body.ok,true)});
+test('mismatched task identity is rejected after SQL result',async()=>{const r=await run({}, {sql:async()=>[{result:{task_id:'DEBO-LOCAL-OTHER-001',action:'create',revision:0,archived:false}}]});assert.equal(r.code,503);assert.notEqual(r.body.ok,true)});
+test('update must confirm exact next revision',async()=>{const req={method:'PATCH',body:{task_id:'DEBO-LOCAL-TEST-001',expected_revision:2,fields:{status:'Review'}}};const r=await run(req,{sql:async()=>[{result:{task_id:'DEBO-LOCAL-TEST-001',action:'update',revision:2,archived:false}}]});assert.equal(r.code,503);assert.notEqual(r.body.ok,true)});
+test('archive must confirm archived flag and revision',async()=>{const req={method:'DELETE',body:{task_id:'DEBO-LOCAL-TEST-001',expected_revision:1}};const r=await run(req,{sql:async()=>[{result:{task_id:'DEBO-LOCAL-TEST-001',action:'archive',revision:2,archived:false}}]});assert.equal(r.code,503);assert.notEqual(r.body.ok,true)});
