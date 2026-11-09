@@ -1,6 +1,6 @@
 # DEBO-05 R127 | Task editor for the EXISTING private Mission Control
 
-**Status:** REVIEW CANDIDATE; not live or granted production writer access.
+**Status:** REVIEW CANDIDATE. Isolated Neon backend schema/function installed and tested via rolled-back fixture; live editor UI and editor LOGIN remain disabled/unprovisioned.
 **Mission:** DEBO-MASTER-042 / R127. **Owner instruction:** enable task create, update, and delete from the dashboard.
 **Canonical app:** Vercel `debo-private-command-r55`, protected by Vercel Authentication; latest authenticated task feed passed at R126.
 **Current DB:** isolated Neon branch `br-sparkling-forest-a6n5v8rd`, existing `claimedge_os.tasks`, 14 mapped task rows. Current role `debo_dashboard_ro_r55` has SELECT but no INSERT/UPDATE/DELETE.
@@ -20,6 +20,6 @@
 
 The existing deployed API source is readable via the Vercel connector. The larger original `src/index.html`, `src/app.js`, `src/style.css` files returned **truncated contents**. Do not reconstruct or overwrite these original UI assets from truncated output. Obtain the complete editable originals first, apply the in-page patch and versioned summary change, then test in private preview before any production release.
 
-Current R127 offline candidate has local Node unit tests and Python policy checks; uploaded to GitHub in this review branch only when exact source is present and verified. Database migrations and editor auth are **NOT** applied. User request to make tasks editable is an authorization to build this capability, not permission to silently expand everyone else's access, erase imported source rows, or bypass existing R119/John/Housing gates.
+Current R127 offline candidate has local Node unit tests and Python policy checks; uploaded to GitHub in this review branch only when exact source is present and verified. **Schema installed on isolated slice-day1 branch (November 9, 2026):** 9-statement additive migration committed, function+NOLOGIN group role read back. Original read-only role still cannot write; 14 existing tasks untouched. Transactional create → update → archive fixture passed and was rolled back to zero residual rows/audits. Imported WORK edit and held Rentals negative checks passed. No writer login, Vercel secret or UI release has been installed. User request to make tasks editable is an authorization to build this capability, not permission to silently expand everyone else's access, erase imported source rows, or bypass existing R119/John/Housing gates.
 
 **Next action:** review exact existing UI source and owner write-key provisioning, then use an isolated branch for SQL + end-to-end authenticated write and rollback tests. Do not flip the live read-only DSN permissions as a shortcut.
