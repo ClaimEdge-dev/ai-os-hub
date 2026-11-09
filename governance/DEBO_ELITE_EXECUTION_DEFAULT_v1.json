@@ -10,9 +10,13 @@
   "runtime_bootstrap": "governance/DEBO_RUNTIME_BOOTSTRAP_v2.md",
   "canonical_agent_board": "governance/DEBO_AGENT_BOARD_ROLE_MAP_v1.md",
   "existing_router_candidate": {
-    "branch": "debo-r18-source-preserving-sync-20261108",
     "path": "tools/debo_r31_decision_router.py",
-    "status": "source_candidate_not_installed"
+    "status": "SOURCE_INSTALLED_TESTED",
+    "source_branch": "main",
+    "source_promotion": "DEBO-R128 / abce4c2bf5a639221a8fcca019c0c583554df305",
+    "execution_scope": "DETERMINISTIC_OFFLINE_ONLY",
+    "new_chat_autoload_verified": false,
+    "external_agent_runtime_verified": false
   },
   "work_sequence": [
     "RECOVER",
@@ -137,5 +141,12 @@
     "scheduler_activation_and_material_schedule_changes": "OWNER_APPROVAL",
     "unsupported_setting": "REPORT_NOT_INSTALLED",
     "success_claim_requires": "TARGET_SYSTEM_READBACK"
+  },
+  "verified_r129": {
+    "verification_batch_preflight": "SOURCE_MERGED_CI_PASS_R129",
+    "verification_pr": 40,
+    "external_security_tools": "PILOT_ONLY_UNTIL_CI_READBACK",
+    "db_task_editor": "ISOLATED_BACKEND_TESTED_UI_NOT_LIVE",
+    "security_review_required": true
   }
 }
