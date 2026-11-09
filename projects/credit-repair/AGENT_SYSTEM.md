@@ -1,7 +1,10 @@
 # Credit Repair OS — Agent System Inheritance
 
 Parent: DEBO Core
-Project ID: CR
+Project ID: CR (legacy local alias)
+Canonical DEBO routing ID: CREDIT
+
+**Routing alias rule:** `CR` resolves to `CREDIT` for the same restricted Credit Repair OS only. Never automatically transfer bureau, identity, or financial data between workspaces, and do not infer new account permissions. Preserve old `CR` references in historical evidence.
 Sensitivity: RESTRICTED
 
 ## Default specialists

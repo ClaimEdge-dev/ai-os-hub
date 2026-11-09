@@ -1,0 +1,94 @@
+{
+  "schema": "debo.r128.pilot.v1",
+  "project_id": "DEBO",
+  "source_revision": "synthetic-rev-1",
+  "tasks": [
+    {
+      "id": "DEBO-R128-SOURCE",
+      "project_id": "DEBO",
+      "action": "read_source"
+    },
+    {
+      "id": "DEBO-R128-AUTH",
+      "project_id": "DEBO",
+      "action": "verify_readback",
+      "depends_on": [
+        "DEBO-R128-SOURCE"
+      ]
+    },
+    {
+      "id": "DEBO-R128-NEXT",
+      "project_id": "DEBO",
+      "action": "run_local_tests",
+      "depends_on": [
+        "DEBO-R128-SOURCE",
+        "DEBO-R128-AUTH"
+      ]
+    },
+    {
+      "id": "DEBO-R128-OWNER",
+      "project_id": "DEBO",
+      "action": "approve_mapping"
+    },
+    {
+      "id": "DEBO-R128-DOWNSTREAM",
+      "project_id": "DEBO",
+      "action": "write_dev_checkpoint",
+      "depends_on": [
+        "DEBO-R128-OWNER"
+      ]
+    },
+    {
+      "id": "DEBO-R128-STALE",
+      "project_id": "DEBO",
+      "action": "verify_readback"
+    },
+    {
+      "id": "DEBO-R128-FAILED",
+      "project_id": "DEBO",
+      "action": "retry_read_only"
+    }
+  ],
+  "receipts": [
+    {
+      "task_id": "DEBO-R128-SOURCE",
+      "project_id": "DEBO",
+      "state": "PASS",
+      "evidence_type": "source_readback",
+      "evidence_ref": "fixture:source-v1",
+      "source_revision": "synthetic-rev-1"
+    },
+    {
+      "task_id": "DEBO-R128-AUTH",
+      "project_id": "DEBO",
+      "state": "PASS",
+      "evidence_type": "runtime_probe",
+      "evidence_ref": "fixture:auth-probe",
+      "source_revision": "synthetic-rev-1"
+    },
+    {
+      "task_id": "DEBO-R128-OWNER",
+      "project_id": "DEBO",
+      "state": "PASS",
+      "evidence_type": "owner_approval",
+      "evidence_ref": "fixture:not-real-owner-approval",
+      "source_revision": "synthetic-rev-1"
+    },
+    {
+      "task_id": "DEBO-R128-STALE",
+      "project_id": "DEBO",
+      "state": "PASS",
+      "evidence_type": "source_readback",
+      "evidence_ref": "fixture:old-source",
+      "source_revision": "synthetic-rev-0"
+    },
+    {
+      "task_id": "DEBO-R128-FAILED",
+      "project_id": "DEBO",
+      "state": "FAILED",
+      "evidence_type": "test_receipt",
+      "evidence_ref": "fixture:timeout",
+      "source_revision": "synthetic-rev-1"
+    }
+  ]
+}
