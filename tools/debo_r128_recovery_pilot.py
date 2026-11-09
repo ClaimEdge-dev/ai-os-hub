@@ -61,7 +61,9 @@ def validate(document: object) -> dict:
     for row in receipts:
         if not isinstance(row, dict) or row.get("task_id") not in ids or row.get("project_id") != document["project_id"]:
             raise ValueError("unrecognized or cross-project receipt")
-        receipt_ids.append(row["task_id"])
+        # The same task may have receipts for successive source revisions.
+        # A duplicate for the same task AND revision remains an error.
+        receipt_ids.append((row["task_id"], row.get("source_revision")))
         if row.get("state") not in ("PASS", "FAILED", "BLOCKED"):
             raise ValueError("unknown receipt state")
         if row["state"] == "PASS":

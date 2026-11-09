@@ -1,0 +1,83 @@
+name: DEBO R129 Security and Agent Execution Pilot
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  secret-scan:
+    name: Gitleaks v8.30.1 (pinned OCI image, redacted)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      # Standalone MIT CLI; no Gitleaks Action licensing or external API key.
+      # Linux/amd64 v8.30.1 manifest digest from public GHCR package.
+      - name: Scan checked-out source with redacted private report
+        shell: bash
+        run: |
+          set -uo pipefail
+          # Report stays in transient runner temp and is NEVER uploaded as an artifact.
+          set +e
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE:/source:ro" \
+            -v "$RUNNER_TEMP:/private-report" \
+            ghcr.io/gitleaks/gitleaks@sha256:b109bc5f8f76a38196a3e413704fc5b9e3c32360bce4e4b603bd6f45b3721dbb \
+            dir --no-banner --redact --report-format json \
+            --report-path /private-report/r129-findings.json /source \
+            > "$RUNNER_TEMP/r129-private-scan.log" 2>&1
+          result=$?
+          set -e
+          # The report contains sensitive finding values and remains private.
+          # Validate ONLY the known public Supabase publishable key locations.
+          if [ "$result" -gt 1 ]; then
+            echo "Gitleaks could not complete; no waiver is possible."
+            exit "$result"
+          fi
+          python security/r129_gitleaks/classify_findings.py \
+            "$RUNNER_TEMP/r129-findings.json" "$GITHUB_WORKSPACE" "$result"
+
+  deterministic-agent-handoff:
+    name: Agents SDK 0.24.0 (scripted, no model calls)
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned SDK in ephemeral runner only
+        run: python -m pip install --disable-pip-version-check 'openai-agents==0.24.0'
+      - name: Test actual scripted SDK handoffs
+        env:
+          OPENAI_AGENTS_DISABLE_TRACING: '1'
+          OPENAI_API_KEY: ''
+        run: python -m unittest discover -s security/r129_agents_sdk -p 'test_*.py' -v
+
+  promptfoo-policy-eval:
+    name: Promptfoo 0.125.1 (offline deterministic provider)
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run pinned local-only synthetic policy cases
+        env:
+          PROMPTFOO_DISABLE_TELEMETRY: '1'
+          PROMPTFOO_DISABLE_UPDATE: '1'
+          PROMPTFOO_DISABLE_REMOTE_GENERATION: 'true'
+          PROMPTFOO_DISABLE_SHARING: '1'
+          PROMPTFOO_SELF_HOSTED: '1'
+          OPENAI_API_KEY: ''
+        run: npx --yes promptfoo@0.125.1 eval -c security/r129_promptfoo/promptfooconfig.yaml
