@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {handleEditor} from '../src/api/task-editor.js';
 const secret = 'A'.repeat(48);
+// Synthetic fixture values: generated in tests, never credentials.
+const idempotencyFixture = 'test-' + '0'.repeat(32);
 const env = {
   DEBO_TASK_EDITOR_ENABLED:'true',
   DEBO_EDITOR_ALLOWED_ORIGIN:'https://debo-private-command-r55-claimedge.vercel.app',
@@ -11,7 +13,7 @@ const env = {
   DEBO_EDITOR_ACTOR:'DEBO_OWNER'
 };
 function makeReq(overrides={}) {
- return {method:'POST',headers:{origin:env.DEBO_EDITOR_ALLOWED_ORIGIN,'sec-fetch-site':'same-origin','x-debo-editor-key':secret,'content-type':'application/json','idempotency-key':'3fddbd83-1b3e-40b2-bf55-312b2f0967b6'},body:{task_id:'DEBO-LOCAL-TEST-001',fields:{title:'Demo Task',status:'Backlog',priority:'P2',assignee_role:'Mack',pillar:'DEBO'}},...overrides};
+ return {method:'POST',headers:{origin:env.DEBO_EDITOR_ALLOWED_ORIGIN,'sec-fetch-site':'same-origin','x-debo-editor-key':secret,'content-type':'application/json','idempotency-key':idempotencyFixture},body:{task_id:'DEBO-LOCAL-TEST-001',fields:{title:'Demo Task',status:'Backlog',priority:'P2',assignee_role:'Mack',pillar:'DEBO'}},...overrides};
 }
 function makeRes(){return{code:0,body:null,headers:{},setHeader(k,v){this.headers[k]=v;return this},status(n){this.code=n;return this},json(obj){this.body=obj;return obj}}}
 async function run(overrides={},opts={}){
