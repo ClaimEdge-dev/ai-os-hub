@@ -145,8 +145,27 @@
   "verified_r129": {
     "verification_batch_preflight": "SOURCE_MERGED_CI_PASS_R129",
     "verification_pr": 40,
-    "external_security_tools": "PILOT_ONLY_UNTIL_CI_READBACK",
+    "external_security_tools": "EPHEMERAL_CI_TESTED_ONLY",
     "db_task_editor": "ISOLATED_BACKEND_TESTED_UI_NOT_LIVE",
-    "security_review_required": true
+    "security_review_required": true,
+    "merge_commit": "6eba4c636bf6ee7457ba7eab166a52db0faf262c",
+    "pr": 46,
+    "evidence": {
+      "security_ci_run": 42684260985,
+      "security_regression_tests_passed": 164,
+      "pilot_ci_run": 42684260441,
+      "pilot_ci_status": "PASS",
+      "gitleaks_result": "PASS_PUBLIC_PUBLISHABLE_KEY_ONLY",
+      "gitleaks_findings_classified": 2,
+      "gitleaks_other_secrets_exempted": 0,
+      "promptfoo_synthetic_cases_passed": 8,
+      "agents_sdk_scripted_tests_passed": 2,
+      "postmerge_bootstrap_run": 42684584885,
+      "postmerge_runtime_briefs_run": 42684584744
+    },
+    "actual_live_independent_agents": false,
+    "cross_thread_cold_start_proved": false,
+    "external_plugin_installations_this_batch": 0,
+    "notes": "CI runner installation only: no hosted agents, model calls, real plugin installations, PostHog telemetry, public deploy or DEBO-05 editor UI."
   }
 }
