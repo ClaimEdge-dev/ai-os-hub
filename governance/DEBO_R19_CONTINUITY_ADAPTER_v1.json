@@ -50,7 +50,7 @@
     "external_chat_loader_installed": false,
     "external_agent_runtime_installed": false,
     "authenticated_private_store_connector_installed": false,
-    "offline_cross_process_test": "CI_PENDING",
+    "offline_cross_process_test": "TEST_SOURCE_ADDED_PENDING_EXACT_CI",
     "actual_cross_chat_readback": "NOT_VERIFIED",
     "source_reversible": true
   }
