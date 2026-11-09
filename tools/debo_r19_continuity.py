@@ -59,6 +59,8 @@ def _valid_proofs(proofs: object) -> list[dict]:
 def validate_capsule(c: dict) -> dict:
     if not isinstance(c, dict):
         raise ValueError("capsule must be an object")
+    if c.get("schema") != "debo.r19.capsule.v1":
+        raise ValueError("invalid capsule schema")
     for field in ("project_id", "mission_id", "objective", "checkpoint", "next_action"):
         normalize(c.get(field))
     if c.get("status") not in STATUS:
@@ -73,7 +75,7 @@ def validate_capsule(c: dict) -> dict:
         raise ValueError("private data cannot be put in public metadata")
     if c.get("status") in EVIDENCE_REQUIRED and not evidence:
         raise ValueError("evidence required for status")
-    if "task_id" in c and not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{3,127}", c["task_id"]):
+    if not isinstance(c.get("task_id"), str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:-]{3,127}", c["task_id"]):
         raise ValueError("invalid task_id")
     return c
 
