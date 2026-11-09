@@ -78,9 +78,24 @@
   }
   unlock.onclick=async()=>{
     if(keyInput.value.length<32){status.textContent='Editor key must be at least 32 characters.';return;}
-    editorKey=keyInput.value;keyInput.value='';
-    keyLabel.hidden=true;unlock.hidden=true;lock.hidden=false;form.hidden=false;
-    await refresh();
+    // Never show write controls based only on key length. The isolated server
+    // must confirm this exact credential; unexpected 200s and SSO redirects fail.
+    const candidate=keyInput.value;keyInput.value='';
+    unlock.disabled=true;status.textContent='Checking owner editor access…';
+    try{
+      const reply=await fetch('/api/task-editor',{
+        method:'HEAD',credentials:'same-origin',cache:'no-store',redirect:'error',
+        headers:{'X-DEBO-Editor-Key':candidate}
+      });
+      if(reply.status!==204)throw Error('editor_access_not_confirmed');
+      editorKey=candidate;
+      keyLabel.hidden=true;unlock.hidden=true;lock.hidden=false;form.hidden=false;
+      status.textContent='Editor credential accepted. Source-owner holds still apply.';
+      await refresh();
+    }catch{
+      editorKey=null;form.hidden=true;keyLabel.hidden=false;unlock.hidden=false;lock.hidden=true;
+      status.textContent='Editor remains locked. Credential rejected or owner service unavailable.';
+    }finally{unlock.disabled=false;}
   };
   lock.onclick=()=>{editorKey=null;form.hidden=true;keyLabel.hidden=false;unlock.hidden=false;lock.hidden=true;status.textContent='Editor key discarded from volatile page memory.';};
   taskPick.onchange=choose;reload.onclick=refresh;
