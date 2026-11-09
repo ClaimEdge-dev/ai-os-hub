@@ -30,19 +30,14 @@ jobs:
             > "$RUNNER_TEMP/r129-private-scan.log" 2>&1
           result=$?
           set -e
-          python - <<'PY'
-          import json,os,pathlib
-          p=pathlib.Path(os.environ["RUNNER_TEMP"])/"r129-findings.json"
-          findings=json.loads(p.read_text()) if p.exists() else []
-          print("Gitleaks findings:",len(findings))
-          for item in findings:
-              path=str(item.get("File","")).replace("/source/","")
-              print("Potential finding:",path,"line",item.get("StartLine"),"rule",item.get("RuleID"))
-          PY
-          if [ "$result" -ne 0 ]; then
-            echo "Secret scan blocked; investigate file/rule locations. No secrets shown or exemptions granted."
+          # The report contains sensitive finding values and remains private.
+          # Validate ONLY the known public Supabase publishable key locations.
+          if [ "$result" -gt 1 ]; then
+            echo "Gitleaks could not complete; no waiver is possible."
             exit "$result"
           fi
+          python security/r129_gitleaks/classify_findings.py \
+            "$RUNNER_TEMP/r129-findings.json" "$GITHUB_WORKSPACE" "$result"
 
   deterministic-agent-handoff:
     name: Agents SDK 0.24.0 (scripted, no model calls)
