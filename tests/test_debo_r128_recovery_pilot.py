@@ -80,6 +80,15 @@ class RecoveryPilotTests(unittest.TestCase):
         self.data["receipts"].append(deepcopy(self.data["receipts"][0]))
         with self.assertRaises(ValueError): validate(self.data)
 
+    def test_same_task_on_new_revision_preserves_prior_receipt(self):
+        old=self.data["receipts"][0].copy()
+        old["source_revision"]="synthetic-rev-0"
+        self.data["receipts"].append(old)
+        self.assertEqual(plan(self.data)["skipped_verified"],
+                         ["DEBO-R128-AUTH", "DEBO-R128-SOURCE"])
+        self.assertIn("DEBO-R128-SOURCE",
+                      plan(self.data)["stale_receipts_need_reverification"])
+
     def test_cross_project_task_is_rejected(self):
         self.data["tasks"][0]["project_id"]="JCT"
         with self.assertRaises(ValueError): validate(self.data)
