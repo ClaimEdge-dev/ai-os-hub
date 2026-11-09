@@ -1,0 +1,125 @@
+{
+  "schema_version": "debo.execution-default.v1",
+  "mode": "documented_governance_only",
+  "mission": "DEBO-MASTER-041",
+  "checkpoint_baseline": "R122",
+  "effective_on_source_merge": false,
+  "active_runtime_verified": false,
+  "source_prompt": "prompts/DEBO_ELITE_EXECUTION_PROMPT_v2.md",
+  "recovery_entrypoint": "DEBO_BOOTSTRAP.md",
+  "runtime_bootstrap": "governance/DEBO_RUNTIME_BOOTSTRAP_v2.md",
+  "canonical_agent_board": "governance/DEBO_AGENT_BOARD_ROLE_MAP_v1.md",
+  "existing_router_candidate": {
+    "branch": "debo-r18-source-preserving-sync-20261108",
+    "path": "tools/debo_r31_decision_router.py",
+    "status": "source_candidate_not_installed"
+  },
+  "work_sequence": [
+    "RECOVER",
+    "DEFINE",
+    "ROUTE",
+    "EXECUTE",
+    "VERIFY",
+    "FILE",
+    "CHECKPOINT"
+  ],
+  "task_states": [
+    "EXECUTE_NOW",
+    "VERIFY",
+    "REPAIR",
+    "WAITING",
+    "OWNER_APPROVAL",
+    "PARKED",
+    "COMPLETE"
+  ],
+  "implementation_states": [
+    "PROPOSED",
+    "BUILT",
+    "TESTED",
+    "INSTALLED",
+    "APPROVED",
+    "LIVE"
+  ],
+  "agent_board": [
+    "Mack",
+    "Atlas",
+    "Forge",
+    "Scout",
+    "Proof",
+    "Vault",
+    "Shield",
+    "Ledger",
+    "Radar",
+    "Relay",
+    "Pixel",
+    "Sweep",
+    "Sentinel"
+  ],
+  "project_adapters": [
+    "DEBO",
+    "DWE",
+    "JCT",
+    "RRR",
+    "MOR",
+    "CE",
+    "PLG",
+    "BULLDOGS",
+    "CWA",
+    "BBS",
+    "CREDIT",
+    "SCHOOL",
+    "HOUSING",
+    "SETTLESURE"
+  ],
+  "approval_required_actions": [
+    "spend",
+    "public_deploy",
+    "production_write",
+    "schema_migration",
+    "delete_data",
+    "change_access",
+    "contact_customer",
+    "release_customer_intake",
+    "change_billing",
+    "modify_owner_hold",
+    "approve_mapping",
+    "share_restricted_data"
+  ],
+  "known_active_holds": [
+    "DEBO-05_SSO_AND_HTTP_FEED",
+    "DEBO-05_PHYSICAL_IPHONE_VOICEOVER",
+    "R119_OWNER_MAPPING",
+    "JCT_JOHN_FIXTURE",
+    "HOUSING_OWNER_HOLD"
+  ],
+  "no_automatic_actions": [
+    "external_ai_auto_install",
+    "new_schedule",
+    "public_deployment",
+    "plugin_install",
+    "permission_change",
+    "production_write",
+    "billing_change",
+    "autonomous_agent_launch"
+  ],
+  "tool_status_policy": [
+    "EXPOSED",
+    "INSTALLED",
+    "CONNECTED",
+    "AUTHENTICATED",
+    "AUTHORIZED",
+    "TASK_TESTED",
+    "LIVE"
+  ],
+  "scorecard_acceptance_gates": [
+    "SOURCE_OWNER_VERIFIED",
+    "EXISTING_BUILD_RECOVERED",
+    "EXACT_VERSION_TESTED",
+    "AUTHENTICATED_RUNTIME_VERIFIED",
+    "BUSINESS_OWNER_APPROVED"
+  ],
+  "metric_policy": "Never claim gains without a measured baseline; count verified applicable gates only.",
+  "privacy": "Public repository contains policy and public identifiers only. Private project evidence stays in its access-controlled source.",
+  "checkpoint_destination": "existing authorized DEBO-00 Notion Master + current project adapter; no duplicate master",
+  "activation_note": "Merged GitHub policy is only a source rule. A runtime must fetch and execute an acceptance test to establish activation."
+}
