@@ -39,7 +39,8 @@ def batch(tasks: list[Task], completed: set[str], failed: set[str]) -> dict:
         raise ValueError("duplicate task IDs")
     result = {"auto": [], "approval": [], "blocked": []}
     for t in tasks:
-        if t.task_id in completed:
+        # Never let a completion marker bypass an owner approval decision.
+        if t.task_id in completed and t.action not in APPROVAL_ACTIONS:
             continue
         decision, reason = decide(t, completed, failed)
         result[{"AUTO":"auto","APPROVAL":"approval","BLOCKED":"blocked"}[decision]].append(
