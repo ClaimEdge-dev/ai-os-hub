@@ -52,6 +52,7 @@ These policies remain governing; load their full detail when the task reaches th
 | [Tool selection and plugin governor](DEBO_TOOL_SELECTION_REGISTER_v1.md#plugin-selection-governor-v11--2026-11-03-debo-wide-inherited-through-an-actual-loader) | Choosing, automatically invoking, suggesting, updating or retiring apps/plugins; compare installed, authorized and tested state and check cost/privacy/duplicate alternatives. |
 | [Self-improvement and anti-repeat](DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md) | Duplicate/repeated work, conflicting history, recurring failures, or a reusable process change. |
 | [Elite execution-first governor](../prompts/DEBO_ELITE_EXECUTION_PROMPT_v2.md) and [machine-readable settings guard](DEBO_ELITE_EXECUTION_DEFAULT_v1.json) | Substantial project execution, agent delegation, account settings or workflow optimization; confirm supported tools, actual desired state and protected approval gates before changes. |
+| [R19 optional continuity adapter](../docs/DEBO_R19_CONTINUITY_ADAPTER.md) and [scope/rollout contract](DEBO_R19_CONTINUITY_ADAPTER_v1.json) | Interrupted tasks, task fingerprints, private offline Resume Capsules or read-only checkpoint events. Source merged/tested on main; not a ChatGPT auto-loader, external vault connector, scheduler or independent running worker. Require separately verified fresh-chat readback. |
 
 Consider NOW / 7D / 14D / 30D / 90D / 180D / 365D when useful to the outcome; do not make every small edit a planning report.
 
