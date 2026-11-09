@@ -121,6 +121,15 @@ class R131FreshProcessTests(unittest.TestCase):
         self.assertNotEqual(failed.returncode,0)
         self.assertFalse(self.saved.exists())
 
+    def test_runtime_generator_inherits_r19_without_live_runtime_claim(self):
+        runtime=(ROOT/"governance"/"DEBO_RUNTIME_BOOTSTRAP_v2.md").read_text(encoding="utf-8")
+        bootstrap=(ROOT/"DEBO_BOOTSTRAP.md").read_text(encoding="utf-8")
+        prompt=(ROOT/"prompts"/"DEBO_ELITE_EXECUTION_PROMPT_v2.md").read_text(encoding="utf-8")
+        self.assertIn("R19 optional continuity adapter",runtime)
+        self.assertIn("not a ChatGPT auto-loader",runtime)
+        self.assertIn("R19 private-first offline capsule/event adapter",bootstrap)
+        self.assertIn("R19 source-installed offline continuity adapter",prompt)
+
     def test_source_status_is_not_global_activation(self):
         contract=json.loads(GOV.read_text(encoding="utf-8"))
         self.assertEqual(contract["source_installation"]["state"],"SOURCE_MERGED_CI_PASS")

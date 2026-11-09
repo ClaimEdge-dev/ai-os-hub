@@ -75,7 +75,7 @@ Role skill stack:
 
 | Scoped lane | Reuse/extend existing sources | Next evidence gate |
 | --- | --- | --- |
-| DEBO-00 / ThreadOps | GitHub bootstrap, runtime briefs, Notion master, original work stack, private resume capsules, R19 continuity draft and R31 source-installed deterministic router | Cold-start cross-thread readback, verified loader, no phantom memories |
+| DEBO-00 / ThreadOps | GitHub bootstrap, runtime briefs, Notion master, original work stack, private resume capsules, R19 source-installed offline continuity adapter and R31 source-installed deterministic router | Cold-start cross-thread readback, verified loader, no phantom memories |
 | DEBO-05 / Dashboard | Existing private Action-First builds, Vercel and isolated Neon; keep v0.2.2 rollback | Real signed-in SSO, HTTP task-feed test, iPhone VoiceOver; no public promotion |
 | Neon / Core | Existing isolated source/provenance map, restricted read role and 14 imported task records | Owner accepts exact R119 mappings; validate deployed branch target |
 | JCT | Native Higgsfield V2, existing staff/dispatch/CRM/owner binder and 50 specialist skills | John's isolated fixture and signed-in staff/mobile acceptance |
@@ -136,7 +136,7 @@ Official architectural references: OpenAI Agents SDK (developers.openai.com), La
 
 ## 6. Minimal execution contract for Python, JS and JSON
 
-Use this type of contract, mapped to the existing R31 source-installed router and R19 continuity draft. Do not launch a second queue or database.
+Use this type of contract, mapped to the existing R31 source-installed router and R19 source-installed offline continuity adapter. Do not launch a second queue or database.
 
 ~~~json
 {
@@ -177,7 +177,7 @@ Display numeric readiness only as **number of verified applicable gates / applic
 
 ## 8. Realistic 30-day mission: 2026-11-09 to 2026-12-09
 
-**Days 1–7 | Stabilize the path to real execution:** load this default via the canonical bootstrap; preserve prior v1 and R19/R31 was merged in R128 and R122 verification preflight was merged in R129. Inspect current GitHub main and newer draft PRs before building. Prove one real cold-start recovery using a fresh supported session. Resolve exact branch, SSO/HTTP 200 and user role for DEBO-05 with an authorized signed-in browser. Prepare R119 owner mapping packet for 14 tasks, no canonical promotion without owner decision.
+**Days 1–7 | Stabilize the path to real execution:** load this default via the canonical bootstrap; preserve prior v1 and R19 was merged as optional source-only continuity in R131; R31 was merged with R128, and R122 preflight was merged in R129. Inspect current GitHub main and newer draft PRs before building. Prove one real cold-start recovery using a fresh supported session. Resolve exact branch, SSO/HTTP 200 and user role for DEBO-05 with an authorized signed-in browser. Prepare R119 owner mapping packet for 14 tasks, no canonical promotion without owner decision.
 
 **Days 8–14 | Prove service workflows:** with John, perform JCT isolated signed-in staff/print/backend fixture tests, then file the actual pass/fail and pending owner business facts. With RRR owner, select D1 authority and test isolated request-to-dispatch. Recover D-Wing true source/tenant and ClaimEdge Susan review materials without merging or sending unapproved customer data.
 
