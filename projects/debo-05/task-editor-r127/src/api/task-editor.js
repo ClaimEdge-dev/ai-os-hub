@@ -49,14 +49,17 @@ export async function handleEditor(req, res, { env, sql }) {
   res.setHeader('Content-Security-Policy', "default-src 'none'");
   const send = (status, obj) => res.status(status).json(obj);
   if (env.DEBO_TASK_EDITOR_ENABLED !== 'true') return send(503, fail(503,'editor_not_enabled'));
-  if (!['POST','PATCH','DELETE'].includes(req.method)) return send(405, fail(405,'method_not_allowed'));
+  if (!['POST','PATCH','DELETE','HEAD'].includes(req.method)) return send(405, fail(405,'method_not_allowed'));
   if (typeof env.DEBO_EDITOR_ALLOWED_ORIGIN !== 'string' || !env.DEBO_EDITOR_ALLOWED_ORIGIN.startsWith('https://') ||
       req.headers.origin !== env.DEBO_EDITOR_ALLOWED_ORIGIN || req.headers['sec-fetch-site'] === 'cross-site')
     return send(403, fail(403,'origin_denied'));
   if (!secureMatch(req.headers['x-debo-editor-key'], env.DEBO_EDITOR_KEY_SHA256))
     return send(403, fail(403,'editor_auth_required'));
-  if (!env.DEBO_NEON_EDITOR_DSN || !env.DEBO_EDITOR_ACTOR || !/^[A-Za-z0-9_-]{3,50}$/.test(env.DEBO_EDITOR_ACTOR))
+  if (!env.DEBO_NEON_EDITOR_DSN || !sql || !env.DEBO_EDITOR_ACTOR || !/^[A-Za-z0-9_-]{3,50}$/.test(env.DEBO_EDITOR_ACTOR))
     return send(503, fail(503,'editor_not_configured'));
+  // HEAD validates the server-side editor credential and configuration without
+  // creating, changing, deleting or even reading a task. Never cache this result.
+  if (req.method === 'HEAD') return res.status(204).end();
   if (!req.headers['content-type']?.toLowerCase().startsWith('application/json'))
     return send(415, fail(415,'json_required'));
   if (Number(req.headers['content-length'] || 0) > 8192) return send(413, fail(413,'body_too_large'));
