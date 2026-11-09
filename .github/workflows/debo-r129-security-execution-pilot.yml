@@ -20,6 +20,7 @@ jobs:
         run: |
           set -uo pipefail
           # Report stays in transient runner temp and is NEVER uploaded as an artifact.
+          set +e
           docker run --rm \
             -v "$GITHUB_WORKSPACE:/source:ro" \
             -v "$RUNNER_TEMP:/private-report" \
@@ -28,6 +29,7 @@ jobs:
             --report-path /private-report/r129-findings.json /source \
             > "$RUNNER_TEMP/r129-private-scan.log" 2>&1
           result=$?
+          set -e
           python - <<'PY'
           import json,os,pathlib
           p=pathlib.Path(os.environ["RUNNER_TEMP"])/"r129-findings.json"
