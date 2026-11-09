@@ -81,5 +81,48 @@ class GateTests(unittest.TestCase):
         self.assertEqual(result["status"], "BLOCKED")
         self.assertEqual([r["exit_code"] for r in result["results"]], [0, 1])
 
+
+    def test_duplicate_pair_is_preflight_blocked_without_gate_calls(self):
+        proc, result = self.run_batch([self.entry(), self.entry(id="second")])
+        self.assertEqual(proc.returncode, 1)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertEqual(result["gate_invocations"], 0)
+        self.assertEqual(result["results"], [])
+        self.assertTrue(any("duplicate original/readback pair" in s for s in result["preflight_issues"]))
+
+    def test_duplicate_id_is_preflight_blocked(self):
+        other = self.root / "other.zip"
+        other.write_bytes(self.readback.read_bytes())
+        proc, result = self.run_batch([self.entry(), self.entry(readback=str(other))])
+        self.assertEqual(proc.returncode, 1)
+        self.assertEqual(result["gate_invocations"], 0)
+        self.assertTrue(any("duplicate artifact id" in s for s in result["preflight_issues"]))
+
+    def test_duplicate_destination_is_preflight_blocked(self):
+        other = self.root / "other.zip"
+        other.write_bytes(self.readback.read_bytes())
+        proc, result = self.run_batch([self.entry(destination="approved/repo"),
+                                       self.entry(id="second", readback=str(other), destination="approved/repo")])
+        self.assertEqual(proc.returncode, 1)
+        self.assertEqual(result["gate_invocations"], 0)
+        self.assertTrue(any("duplicate destination" in s for s in result["preflight_issues"]))
+
+    def test_invalid_hash_is_preflight_blocked(self):
+        proc, result = self.run_batch([self.entry(expected_sha256="NOT_SHA")])
+        self.assertEqual(proc.returncode, 1)
+        self.assertEqual(result["gate_invocations"], 0)
+        self.assertTrue(any("expected_sha256" in s for s in result["preflight_issues"]))
+
+    def test_invalid_json_fails_closed_with_receipt(self):
+        self.manifest.write_text("{")
+        proc = subprocess.run([sys.executable, str(RUNNER), str(self.manifest),
+                               "--gate", str(GATE), "--receipt", str(self.receipt)],
+                              capture_output=True, text=True)
+        result = json.loads(proc.stdout)
+        self.assertEqual(proc.returncode, 1)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertEqual(result["gate_invocations"], 0)
+        self.assertEqual(json.loads(self.receipt.read_text()), result)
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
