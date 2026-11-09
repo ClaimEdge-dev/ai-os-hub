@@ -45,6 +45,10 @@ class R131FreshProcessTests(unittest.TestCase):
             "scope":"private",
             "evidence":[{"type":"test_receipt","ref":self.source_ref}],
         }
+        # Generate a real R19 source-scoped fingerprint in a separate process.
+        self.data["task_id"]=python_tool(
+            "fingerprint","DEBO",self.data["objective"],"--source-key","r131-synthetic-001"
+        ).stdout.strip()
         self.capsule.write_text(json.dumps(self.data),encoding="utf-8")
 
     def test_process_restarts_with_byte_identical_receipt(self):
@@ -101,6 +105,20 @@ class R131FreshProcessTests(unittest.TestCase):
         b=python_tool("fingerprint","JCT","The same objective", "--source-key", "task-001").stdout.strip()
         self.assertNotEqual(a,b)
         self.assertTrue(a.startswith("DEBO-TASK-"))
+
+    def test_missing_task_id_rejected_without_writing(self):
+        del self.data["task_id"]
+        self.capsule.write_text(json.dumps(self.data),encoding="utf-8")
+        failed=python_tool("checkpoint","--input",self.capsule,"--output",self.saved,expected=1)
+        self.assertNotEqual(failed.returncode,0)
+        self.assertFalse(self.saved.exists())
+
+    def test_wrong_capsule_schema_rejected_without_writing(self):
+        self.data["schema"]="debo.r19.other.v1"
+        self.capsule.write_text(json.dumps(self.data),encoding="utf-8")
+        failed=python_tool("checkpoint","--input",self.capsule,"--output",self.saved,expected=1)
+        self.assertNotEqual(failed.returncode,0)
+        self.assertFalse(self.saved.exists())
 
     def test_source_status_is_not_global_activation(self):
         contract=json.loads(GOV.read_text(encoding="utf-8"))
