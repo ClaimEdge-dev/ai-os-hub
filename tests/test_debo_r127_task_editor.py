@@ -49,7 +49,8 @@ class R127TaskEditorReview(unittest.TestCase):
     def test_existing_deployment_is_not_silently_mutated(self):
         readme=(APP/"README.md").read_text(encoding="utf-8")
         self.assertIn("REVIEW CANDIDATE",readme)
-        self.assertIn("NOT",readme)
+        self.assertIn("live editor UI and editor LOGIN remain disabled/unprovisioned",readme)
+        self.assertIn("No writer login, Vercel secret or UI release has been installed",readme)
         self.assertIn("separate",readme.lower())
 
 if __name__=="__main__":
