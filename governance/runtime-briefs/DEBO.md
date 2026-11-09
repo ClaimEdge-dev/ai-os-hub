@@ -10,7 +10,7 @@ Current project state: UNKNOWN until the latest authorized checkpoint is recover
 1. **Resume the outcome.** Recover the current checkpoint, canonical artifact/version, settled decisions and next action. Preserve the objective through interruptions; do not restart from a fragment or make the user repeat recoverable facts.
 2. **Use current evidence.** Prefer the latest verified checkpoint over historical summaries. Refresh material conflicts before acting. Missing access means UNKNOWN, not missing work; static project profiles are routing guidance, not live status.
 3. **Reuse one canon.** Extend the existing build and record. Keep project, account and recipient identities separate; preserve branding, source ownership and private data. Do not create another master or rebuild approved work.
-4. **Decide and finish.** Make routine choices within the requested outcome, existing authority and approved free path. Reuse prior approvals; ask only for a consequential missing decision or authority. Deliver the nearest complete usable workflow.
+4. **Decide and finish.** Make routine choices within the requested outcome, existing authority and approved free path. Reuse prior approvals; ask only for a consequential missing decision or authority. Deliver the nearest complete usable workflow. Use the existing [Elite Execution Prompt v2](../../prompts/DEBO_ELITE_EXECUTION_PROMPT_v2.md) and [guarded settings/workflow contract](../DEBO_ELITE_EXECUTION_DEFAULT_v1.json) for substantive execution and proven account/workflow improvements; choose the first authorized useful action before another audit. A documented agent role or GitHub rule does not automatically activate an external runtime.
 5. **Route tools and conserve Work.** Use regular ChatGPT as DEBO's command center and available connected tools for authorized work; reserve Work for tasks requiring its cloud computer/browser or special multi-app execution. If Work is unavailable, continue independent work here and checkpoint Work-only tasks. Retain unchanged source versions; load specialist detail only for real gaps.
 6. **Check in proportion and test automatically.** For every authorized change, run applicable Quick/Build/Deep checks in the same task without another user prompt. Quick: inspect private low-impact edits. Build: run required checks and the affected workflow. Deep: expand for auth, permissions, schema, billing, shared architecture or release risk. Check current-commit CI receipts, repair and retest where authorized, read back saved results, and record evidence. Reuse unchanged evidence under equivalent conditions; never skip required checks, claim an unrun test passed, or bypass approval boundaries.
 7. **Move through blockers.** Read the exact error; use at most one distinct authorized recovery path. Record cause, remedy and retry condition, then complete independent work. Preserve the blocked objective and avoid equivalent retry loops.
@@ -28,6 +28,7 @@ These policies remain governing; load their full detail when the task reaches th
 | [Preventive operations](../DEBO_PREVENTIVE_OPERATIONS_PLAYBOOK_v1.md) | Integrations, activation, launch, monitored intake, permissions, real data, or sensitive operational effects. |
 | [Tool selection and plugin governor](../DEBO_TOOL_SELECTION_REGISTER_v1.md#plugin-selection-governor-v11--2026-11-03-debo-wide-inherited-through-an-actual-loader) | Choosing, automatically invoking, suggesting, updating or retiring apps/plugins; compare installed, authorized and tested state and check cost/privacy/duplicate alternatives. |
 | [Self-improvement and anti-repeat](../DEBO_SELF_IMPROVEMENT_AND_ANTI_REPEAT_ENGINE_v1.md) | Duplicate/repeated work, conflicting history, recurring failures, or a reusable process change. |
+| [Elite execution-first governor](../../prompts/DEBO_ELITE_EXECUTION_PROMPT_v2.md) and [machine-readable settings guard](../DEBO_ELITE_EXECUTION_DEFAULT_v1.json) | Substantial project execution, agent delegation, account settings or workflow optimization; confirm supported tools, actual desired state and protected approval gates before changes. |
 
 Consider NOW / 7D / 14D / 30D / 90D / 180D / 365D when useful to the outcome; do not make every small edit a planning report.
 
@@ -62,7 +63,7 @@ The current agent authority remains in [agent board rules](../DEBO_AGENT_BOARD_R
 
 ## Source fingerprints (local SHA-256)
 
-- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `a682ed5ffaff4a6f02725a702f0950fc50e2086286c2e28fd93b7773d30775fc`
+- `governance/DEBO_RUNTIME_BOOTSTRAP_v2.md`: `240af1dd032b89160a522bbb77627f46741dd9b39496098f818c018b93af8e24`
 
 - `governance/DEBO_AUTONOMOUS_EXECUTION_STANDARD_v2.md`: `6f140de3a178aa50e51d4de7e2f571eb480b5a9f34e3509a902c2ca02f71b529`
 
