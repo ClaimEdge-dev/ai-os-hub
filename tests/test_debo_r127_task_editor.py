@@ -17,7 +17,7 @@ class R127TaskEditorReview(unittest.TestCase):
         proc=subprocess.run([node,"--test",str(APP/"tests/test-editor.mjs")],
                             capture_output=True,text=True,timeout=30)
         self.assertEqual(proc.returncode,0,proc.stdout + "\n" + proc.stderr)
-        self.assertIn("# pass 22",proc.stdout)
+        self.assertIn("# pass 28",proc.stdout)
 
     def test_read_role_stays_separate_from_owner_editor(self):
         api=(APP/"src/api/task-editor.js").read_text(encoding="utf-8")
@@ -45,6 +45,9 @@ class R127TaskEditorReview(unittest.TestCase):
         self.assertNotIn("innerHTML",ui)
         self.assertIn("type='password'",ui)
         self.assertIn("window.confirm(",ui)
+        self.assertIn("method:\u0027HEAD\u0027",ui)
+        self.assertIn("reply.status!==204",ui)
+        self.assertIn("redirect:\u0027error\u0027",ui)
 
     def test_existing_deployment_is_not_silently_mutated(self):
         readme=(APP/"README.md").read_text(encoding="utf-8")
