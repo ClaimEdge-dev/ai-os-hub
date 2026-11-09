@@ -81,6 +81,26 @@ def main() -> None:
         except (ValueError, OSError, UnicodeError):
             outcome = {"status": "BLOCKED", "reason": "invalid_report_or_files"}
     print(json.dumps(outcome, sort_keys=True))
+    if outcome["status"] == "BLOCKED" and a.report.exists():
+        # The scan report itself remains private. Surface only sanitized public
+        # source locations, never Secret, Match, Context, Commit, or entropy.
+        try:
+            raw = json.loads(a.report.read_text(encoding="utf-8"))
+            if isinstance(raw, list):
+                locations = []
+                for entry in raw[:20]:
+                    if not isinstance(entry, dict):
+                        continue
+                    filename = str(entry.get("File", "")).removeprefix("/source/")[:180]
+                    filename = re.sub(r"[^A-Za-z0-9_./-]", "?", filename)
+                    rule = re.sub(r"[^A-Za-z0-9_-]", "?", str(entry.get("RuleID", ""))[:80])
+                    line = entry.get("StartLine")
+                    if not isinstance(line, int):
+                        line = 0
+                    locations.append({"file":filename,"line":line,"rule":rule})
+                print(json.dumps({"redacted_finding_locations":locations},sort_keys=True))
+        except (ValueError, OSError, UnicodeError):
+            print("Finding metadata unreadable; scanner remains blocking.")
     raise SystemExit(0 if str(outcome["status"]).startswith("PASS_") else 1)
 
 
