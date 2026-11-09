@@ -50,8 +50,20 @@
     "external_chat_loader_installed": false,
     "external_agent_runtime_installed": false,
     "authenticated_private_store_connector_installed": false,
-    "offline_cross_process_test": "TEST_SOURCE_ADDED_PENDING_EXACT_CI",
+    "offline_cross_process_test": "EXACT_HEAD_CI_PASS",
     "actual_cross_chat_readback": "NOT_VERIFIED",
-    "source_reversible": true
+    "source_reversible": true,
+    "offline_cross_process_evidence": {
+      "pr": 48,
+      "merged_source_sha": "d2ca352264cd4da6b5aa0de5d07ec36a5a56df52",
+      "reviewed_head": "e1b4a1f614cca80e9eec5b2668a2edfc2d822b7f",
+      "python_security_run": 42692298025,
+      "python_tests_passed": 199,
+      "pinned_gitleaks_promptfoo_agents_run": 42692297891,
+      "postmerge_bootstrap_run": 42692487553,
+      "postmerge_runtime_brief_run": 42692487619,
+      "local_storage_only": true,
+      "separate_chat_thread_tested": false
+    }
   }
 }
