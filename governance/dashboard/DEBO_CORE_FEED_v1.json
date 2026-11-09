@@ -137,7 +137,7 @@
   "source_files": [
     {
       "path": "DEBO_BOOTSTRAP.md",
-      "sha256": "9a14b2355b32d80714099bb0a6049fa566a6f41cc3e83dd1cc40d3c50cdd9515"
+      "sha256": "64b68202ebe236d60638aae527fe9e054d46466c94278bd6ba56f3eff3cd6ca7"
     },
     {
       "path": "governance/DEBO_RUNTIME_BOOTSTRAP_v2.md",
