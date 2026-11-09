@@ -46,3 +46,11 @@ Input is a project-scoped private file provided by the owning project. The check
 Review diffs against current ThreadOps and anti-repeat policies, run isolated tests, open a draft PR, verify branch files, and add one R19 entry to the existing DEBO-00 index. Only then consider a real private project checkpoint connector and a fresh-thread acceptance test. Project owner gates remain intact.
 
 Rollback: Leave the draft unmerged, or revert the adapter commits if ever merged later. The candidate creates no schedule, webhook, production endpoint, or database migration.
+
+## R131 Source Merge and Separate-Process Acceptance (2026-11-09)
+
+This section supersedes the old *candidate/not merged* heading above **only for GitHub source status**. [R19 PR #39](https://github.com/ClaimEdge-dev/ai-os-hub/pull/39) is MERGED into main at commit `456f5240ac8892ead8cd14c0eb48b8ef314140b0`. Original exact PR-head source security review ran 102 Python tests OK; postmerge main Bootstrap Integrity [run 42690638285](https://github.com/ClaimEdge-dev/ai-os-hub/actions/runs/42690638285) and Runtime Brief [run 42690638152](https://github.com/ClaimEdge-dev/ai-os-hub/actions/runs/42690638152) passed, with source contract and CLI file read back directly from main.
+
+R131 adds `tests/test_debo_r131_process_recovery.py` to test **independent local Python subprocesses**, identical checkpoint readbacks, unchanged-write deduplication, cross-project fingerprint isolation, fail-closed missing evidence and optional Node read-only event duplicate suppression. The test receives ONLY synthetic fixture contents; the local file is isolated within the CI runner. **A process restart is NOT a fresh ChatGPT thread**. Actual ChatGPT cold-start connector recovery, authenticated external store writeback, persisted events, real owners and a live scheduler remain unverified and need separate supported tool evidence.
+
+Neither the merge nor the test overrides the private project source policy, JCT John acceptance, Claims Susan review, DEBO-05 editor live-login gate, or user authorization for any sensitive action. Rollback remains a Git revert; user/production data never entered the test.
