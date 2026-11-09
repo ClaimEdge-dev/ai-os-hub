@@ -1,7 +1,10 @@
 # Morgan's of Lockport — Agent System Inheritance
 
 Parent: DEBO Core
-Project ID: MOL
+Project ID: MOL (legacy local alias)
+Canonical DEBO routing ID: MOR
+
+**Routing alias rule:** `MOL` resolves to `MOR` for this same Morgan's of Lockport project only. It must never create another independent project/tenant, change customer records, or imply that linked services are authorized. Preserve `MOL` in historical source receipts.
 
 ## Default specialists
 Business Truth / Licensing
