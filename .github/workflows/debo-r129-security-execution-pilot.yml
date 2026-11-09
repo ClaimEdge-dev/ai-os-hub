@@ -15,10 +15,32 @@ jobs:
           persist-credentials: false
       # Standalone MIT CLI; no Gitleaks Action licensing or external API key.
       # Linux/amd64 v8.30.1 manifest digest from public GHCR package.
-      - name: Scan checked-out public source without revealing matches
-        uses: docker://ghcr.io/gitleaks/gitleaks@sha256:b109bc5f8f76a38196a3e413704fc5b9e3c32360bce4e4b603bd6f45b3721dbb
-        with:
-          args: dir --no-banner --redact /github/workspace
+      - name: Scan checked-out source with redacted private report
+        shell: bash
+        run: |
+          set -uo pipefail
+          # Report stays in transient runner temp and is NEVER uploaded as an artifact.
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE:/source:ro" \
+            -v "$RUNNER_TEMP:/private-report" \
+            ghcr.io/gitleaks/gitleaks@sha256:b109bc5f8f76a38196a3e413704fc5b9e3c32360bce4e4b603bd6f45b3721dbb \
+            dir --no-banner --redact --report-format json \
+            --report-path /private-report/r129-findings.json /source \
+            > "$RUNNER_TEMP/r129-private-scan.log" 2>&1
+          result=$?
+          python - <<'PY'
+          import json,os,pathlib
+          p=pathlib.Path(os.environ["RUNNER_TEMP"])/"r129-findings.json"
+          findings=json.loads(p.read_text()) if p.exists() else []
+          print("Gitleaks findings:",len(findings))
+          for item in findings:
+              path=str(item.get("File","")).replace("/source/","")
+              print("Potential finding:",path,"line",item.get("StartLine"),"rule",item.get("RuleID"))
+          PY
+          if [ "$result" -ne 0 ]; then
+            echo "Secret scan blocked; investigate file/rule locations. No secrets shown or exemptions granted."
+            exit "$result"
+          fi
 
   deterministic-agent-handoff:
     name: Agents SDK 0.24.0 (scripted, no model calls)
