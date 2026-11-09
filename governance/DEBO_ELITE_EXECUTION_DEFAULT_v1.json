@@ -121,5 +121,21 @@
   "metric_policy": "Never claim gains without a measured baseline; count verified applicable gates only.",
   "privacy": "Public repository contains policy and public identifiers only. Private project evidence stays in its access-controlled source.",
   "checkpoint_destination": "existing authorized DEBO-00 Notion Master + current project adapter; no duplicate master",
-  "activation_note": "Merged GitHub policy is only a source rule. A runtime must fetch and execute an acceptance test to establish activation."
+  "activation_note": "Merged GitHub policy is only a source rule. A runtime must fetch and execute an acceptance test to establish activation.",
+  "account_workflow_governor": {
+    "enabled": true,
+    "mode": "evaluate_then_act_only_with_authorized_scope",
+    "prefer_existing_settings_and_workflows": true,
+    "require_current_state_read": true,
+    "require_defined_benefit": true,
+    "require_independent_readback": true,
+    "allow_unambiguous_low_risk_reversible_change": true,
+    "unspecified_personalization": "NO_CHANGE_RECOMMENDED",
+    "security_and_oauth_expansion": "OWNER_APPROVAL",
+    "spending_and_paid_features": "OWNER_APPROVAL",
+    "production_and_public_changes": "OWNER_APPROVAL",
+    "scheduler_activation_and_material_schedule_changes": "OWNER_APPROVAL",
+    "unsupported_setting": "REPORT_NOT_INSTALLED",
+    "success_claim_requires": "TARGET_SYSTEM_READBACK"
+  }
 }
