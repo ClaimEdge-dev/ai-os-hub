@@ -79,3 +79,10 @@ The dashed PostHog connection is NOT installed in DEBO-05 and has no verified in
 ### Security cross-check on an already connected JCT preview
 
 Gitleaks initially flagged two JCT demo preview source lines. Independent source inspection found they contain the **same browser `sb_publishable_` key**, which is designed to be public; the new R129 validator accepts only those two exact file/line patterns while keeping all true secrets blocking. This does not establish Supabase RPC `submit_service_request_v3` authorization or monitored JCT production readiness. Confirm with John's approved tenant access before any backend mutation or public launch. No plugin/settings changes occurred during this investigation.
+
+## R129 plugin audit closure (2026-11-09)
+
+- Existing **GitHub** connection provided actual PR merge/CI evidence: [PR #46](https://github.com/ClaimEdge-dev/ai-os-hub/pull/46), main merge SHA `6eba4c636bf6ee7457ba7eab166a52db0faf262c`, 164 regression tests and 8 Promptfoo + 2 SDK checks passing in ephemeral CI; scoped Gitleaks public-key classifier passed.
+- Existing **PostHog** connected session returned a default project with **no ingested events**, and no evidence that this project belongs to DEBO-05. No capture flags, project settings, SDKs or data streams were changed.
+- Existing **TinyFish/Vercel/Neon** R126 positive protected 14-task feed and R127 isolated database function accepted earlier; rechecking without a new goal would be duplication.
+- User's plugin ranking is a prioritization **proposal**, not a verified connection matrix for all 25 providers or all sister tenants. No new ChatGPT plugins were installed, no subscriptions purchased and no ownership permissions broadened.
