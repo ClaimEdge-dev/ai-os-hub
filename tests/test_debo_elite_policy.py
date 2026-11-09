@@ -53,6 +53,31 @@ class EliteExecutionPolicyTests(unittest.TestCase):
             "RECOVER", "DEFINE", "ROUTE", "EXECUTE", "FILE", "VERIFY", "CHECKPOINT"
         ]))
 
+    def test_account_governor_current_state_cannot_be_skipped(self):
+        cfg = deepcopy(self.original)
+        cfg["account_workflow_governor"]["require_current_state_read"] = False
+        self.assertTrue(validate(cfg, ROOT))
+
+    def test_account_governor_requires_readback(self):
+        cfg = deepcopy(self.original)
+        cfg["account_workflow_governor"]["require_independent_readback"] = False
+        self.assertTrue(validate(cfg, ROOT))
+
+    def test_account_governor_cannot_silently_expand_oauth(self):
+        cfg = deepcopy(self.original)
+        cfg["account_workflow_governor"]["security_and_oauth_expansion"] = "AUTO"
+        self.assertTrue(validate(cfg, ROOT))
+
+    def test_account_governor_cannot_activate_schedule_without_approval(self):
+        cfg = deepcopy(self.original)
+        cfg["account_workflow_governor"]["scheduler_activation_and_material_schedule_changes"] = "AUTO"
+        self.assertTrue(validate(cfg, ROOT))
+
+    def test_account_governor_unknown_personalization_no_change(self):
+        cfg = deepcopy(self.original)
+        cfg["account_workflow_governor"]["unspecified_personalization"] = "RANDOMIZE"
+        self.assertTrue(validate(cfg, ROOT))
+
     def test_requires_real_status_provenance(self):
         self.assertTrue(self.changed("implementation_states", ["LIVE", "DONE"]))
 

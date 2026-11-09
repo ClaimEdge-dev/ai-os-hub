@@ -77,6 +77,31 @@ def validate(data: object, root: Path = ROOT) -> list[str]:
         elif len(values) != len(set(values)) or not required.issubset(values):
             errors.append("Missing or duplicated required controls in " + label)
 
+    governor = data.get("account_workflow_governor")
+    if not isinstance(governor, dict):
+        errors.append("Missing account/workflow governor")
+    else:
+        required = {
+            "enabled": True,
+            "mode": "evaluate_then_act_only_with_authorized_scope",
+            "prefer_existing_settings_and_workflows": True,
+            "require_current_state_read": True,
+            "require_defined_benefit": True,
+            "require_independent_readback": True,
+            "unspecified_personalization": "NO_CHANGE_RECOMMENDED",
+            "security_and_oauth_expansion": "OWNER_APPROVAL",
+            "spending_and_paid_features": "OWNER_APPROVAL",
+            "production_and_public_changes": "OWNER_APPROVAL",
+            "scheduler_activation_and_material_schedule_changes": "OWNER_APPROVAL",
+            "unsupported_setting": "REPORT_NOT_INSTALLED",
+            "success_claim_requires": "TARGET_SYSTEM_READBACK",
+        }
+        for key, expected in required.items():
+            if governor.get(key) != expected:
+                errors.append("Account governor missing/unsafe control: " + key)
+        if governor.get("allow_unambiguous_low_risk_reversible_change") is not True:
+            errors.append("Account governor lacks narrow reversible-change permission")
+
     if data.get("work_sequence") != SEQUENCE:
         errors.append("Workflow sequence changed")
     if data.get("implementation_states") != REQUIRED_DEPLOYMENT_STATES:
