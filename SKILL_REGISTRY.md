@@ -1,7 +1,7 @@
 # Skill Registry — 72 catalogued skills
 
 **Historical catalog originally generated from Kimi work; source and runtime state must be independently verified**  
-**Last updated:** 2026-11-03 (17 historical lifecycle statuses reconciled; 72 numbered entries preserved)  
+**Last updated:** 2026-11-09 (72 historical numbered entries retained: 55 ACTIVE labels, 17 DEPRECATED labels; no runtime installation implied)  
 **Source locations:** GitHub `skills/`, project-local skill folders, and the live Notion Skill Registry. This numbered catalog is not a full inventory and not evidence of runtime installation.
 
 ---
@@ -146,9 +146,9 @@
 | Metric | Count |
 |---|---|
 | Total Skills | 72 |
-| Source-labelled Active | 72 |
+| Source-labelled Active | 55 |
 | Draft | 0 |
-| Deprecated | 0 |
+| Deprecated | 17 |
 | Archived | 0 |
 | By Domain | ClaimEdge: 14, Huuso: 10, Wrestling: 14, Buddy Boy: 2, AI-Meta: 27, Research: 5 |
 
