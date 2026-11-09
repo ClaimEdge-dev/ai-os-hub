@@ -45,9 +45,10 @@ class R131FreshProcessTests(unittest.TestCase):
             "scope":"private",
             "evidence":[{"type":"test_receipt","ref":self.source_ref}],
         }
-        # Generate a real R19 source-scoped fingerprint in a separate process.
+        # Generate a real R19 project-scoped objective fingerprint in a separate process.
+        # Keep this synthetic fixture free of unnecessary API-key-shaped literals.
         self.data["task_id"]=python_tool(
-            "fingerprint","DEBO",self.data["objective"],"--source-key","r131-synthetic-001"
+            "fingerprint","DEBO",self.data["objective"]
         ).stdout.strip()
         self.capsule.write_text(json.dumps(self.data),encoding="utf-8")
 
