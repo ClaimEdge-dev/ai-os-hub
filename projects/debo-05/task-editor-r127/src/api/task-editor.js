@@ -76,7 +76,19 @@ export async function handleEditor(req, res, { env, sql }) {
       ${action === 'create' ? null : data.expected_revision}::integer,
       ${env.DEBO_EDITOR_ACTOR}::text, ${key}::text
     ) AS result`;
-    return send(action === 'create' ? 201 : 200, {ok: true, record: records[0]?.result});
+    // A successful SQL call is not sufficient evidence of a committed task change.
+    // Require an exact, typed confirmation from the existing audited function.
+    const confirmed = records?.[0]?.result;
+    if (!confirmed || typeof confirmed !== 'object' ||
+        confirmed.action !== action || confirmed.task_id !== data.task_id ||
+        !Number.isSafeInteger(confirmed.revision) || confirmed.revision < 0 ||
+        confirmed.archived !== (action === 'archive') ||
+        (action === 'create'
+          ? confirmed.revision !== 0
+          : confirmed.revision !== data.expected_revision + 1)) {
+      return send(503, fail(503,'editor_confirmation_unavailable'));
+    }
+    return send(action === 'create' ? 201 : 200, {ok: true, record: confirmed});
   } catch (e) {
     // Do not disclose SQL, credentials or user data to the caller.
     const code = e?.code;
