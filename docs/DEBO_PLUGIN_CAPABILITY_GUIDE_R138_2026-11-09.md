@@ -173,6 +173,18 @@
 
 **Private-plugin note:** DEBO Core, WrestlingOS, Bulldogs Film OS and Violete Investigation Command were confirmed via the owner's private plugin inventory. Two additional owner-created CompanyCam adapter records exist; treat them as overlapping adapters until the exact tenant and intended role are reconciled. No private plugin IDs, credentials or user emails are included here.
 
+## Additional exposed tools and overlapping adapters
+
+| Plugin/tool | What it does | Relevant DEBO use | Status |
+| --- | --- | --- | --- |
+| Automations | Runs saved reminders, scheduled reviews and conditional checks | Reuse the enabled Monday DEBO System Scout; no duplicate schedule | Native action exposed; existing Scout readback verified |
+| Manus | Delegated multi-step research and finished deliverables | Consider only for authorized substantial project execution with cost/privacy review | Tool exposed; account/session not tested |
+| Alpaca | Market quotes, portfolios and trade-related tools | Personal market research only; no trading without explicit approval | Tool exposed; account/session not tested |
+| CompanyCam private duplicate adapter | Second CompanyCam connector identity with possible overlap | Verify ClaimEdge account and avoid cross-business photo access | Tool exposed; duplicate identity needs tenant check |
+| Indeed Job Search | Search active roles and job postings | Recruiting and personal work searches, where approved | Tool exposed; account/session not tested |
+| OpenAI Platform | API-key setup and developer platform onboarding | Engineering tasks explicitly needing a paid/API key | Tool exposed; no key accessed or created |
+| Eve Cortex | Separate persistent memory service | Evaluate only if canonical Notion/DEBO recovery proves insufficient | Tool exposed; avoid competing memory systems |
+
 ## Names to reconcile from the spoken list
 
 | Spoken name(s) | Status and safest interpretation |
