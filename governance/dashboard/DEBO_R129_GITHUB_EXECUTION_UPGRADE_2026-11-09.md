@@ -43,3 +43,11 @@ External primary references:
 - https://github.com/github/spec-kit
 - https://github.com/modelcontextprotocol/inspector
 - https://github.com/dbos-inc/dbos-transact-py
+
+### Gitleaks review and typed publishable-key exception
+
+The initial pinned v8.30.1 Gitleaks source scan found exactly two `generic-api-key` candidate locations: `projects/jcs-towing/website-v2-preview/app.js` line 2 and `projects/jcs-towing/website-v2-preview/preview-standalone.html` line 203. The two lines use a **Supabase browser publishable key** with prefix `sb_publishable_`, not an admin or secret key. Supabase's API-key documentation explicitly classifies this key type as safe for frontend/public source **provided RLS and RPC permissions are properly restricted**: https://supabase.com/docs/guides/getting-started/api-keys . The exact key is not disclosed in this checkpoint.
+
+The scanner has NOT been disabled, and no broad project path ignore was added. `security/r129_gitleaks/classify_findings.py` permits a scan to succeed only if all reported candidate matches are at those two exact source locations, use the `generic-api-key` rule, and the source line is solely a same-value `sb_publishable_` key assignment. All unexpected findings, new paths, secret/admin prefixes, mismatched publishable keys, missing reports or scanner failures remain BLOCKED. Tests cover this control. **This is a scan false-positive classification, not JCT backend acceptance.** John-approved review of JCT public RPC `submit_service_request_v3`, anonymous grants, RLS, anti-spam, consent and receiver monitoring is still required before live intake. Do not rotate the browser publishable key merely because it is public, and never presume the endpoint safe without backend evidence.
+
+**CI status:** classifier and workflow are under exact-head PR verification; do not claim merged or passed until all checks complete.
