@@ -50,8 +50,17 @@ export async function handleEditor(req, res, { env, sql }) {
   const send = (status, obj) => res.status(status).json(obj);
   if (env.DEBO_TASK_EDITOR_ENABLED !== 'true') return send(503, fail(503,'editor_not_enabled'));
   if (!['POST','PATCH','DELETE','HEAD'].includes(req.method)) return send(405, fail(405,'method_not_allowed'));
-  if (typeof env.DEBO_EDITOR_ALLOWED_ORIGIN !== 'string' || !env.DEBO_EDITOR_ALLOWED_ORIGIN.startsWith('https://') ||
-      req.headers.origin !== env.DEBO_EDITOR_ALLOWED_ORIGIN || req.headers['sec-fetch-site'] === 'cross-site')
+  // Browsers may omit Origin on a same-origin HEAD credential preflight.
+  // Only HEAD may use Sec-Fetch-Site + exact protected Host as the fallback.
+  // All mutating requests still require the exact Origin header.
+  const allowedOrigin = env.DEBO_EDITOR_ALLOWED_ORIGIN;
+  const safeBrowserHead = req.method === 'HEAD' &&
+    !req.headers.origin && req.headers['sec-fetch-site'] === 'same-origin' &&
+    typeof req.headers.host === 'string' &&
+    'https://' + req.headers.host === allowedOrigin;
+  if (typeof allowedOrigin !== 'string' || !allowedOrigin.startsWith('https://') ||
+      (req.headers.origin !== allowedOrigin && !safeBrowserHead) ||
+      req.headers['sec-fetch-site'] === 'cross-site')
     return send(403, fail(403,'origin_denied'));
   if (!secureMatch(req.headers['x-debo-editor-key'], env.DEBO_EDITOR_KEY_SHA256))
     return send(403, fail(403,'editor_auth_required'));
