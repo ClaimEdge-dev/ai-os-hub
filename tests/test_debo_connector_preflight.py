@@ -84,5 +84,33 @@ class TestConnectorPreflight(unittest.TestCase):
         with self.assertRaises(TypeError):
             evaluate_route(None)
 
+
+    def test_external_data_requires_explicit_classification(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": True,
+                            "data_classes": [], "destination_verified": True})
+        self.assertIn("DATA_CLASS_UNVERIFIED", r["reason_codes"])
+
+    def test_external_data_requires_known_destination(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": True,
+                            "data_classes": [], "data_classes_verified": True})
+        self.assertIn("DESTINATION_NOT_VERIFIED", r["reason_codes"])
+
+    def test_unclassified_external_transfer_fails_closed(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": True,
+                            "data_classes_verified": True,
+                            "destination_verified": True})
+        self.assertIn("DATA_CLASS_UNVERIFIED", r["reason_codes"])
+
+    def test_free_classified_external_transfer_is_allowed_as_policy_only(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": True, "data_classes": [],
+                            "data_classes_verified": True, "destination_verified": True})
+        self.assertEqual(r["decision"], "ALLOW_READ_ONLY")
+
+    def test_private_write_requires_numeric_cost_even_when_not_marked_metered(self):
+        p = {**PRIVATE, "operation": "write", "required_scope": "write",
+             "granted_scopes": ["write"]}
+        p.pop("estimated_cost_usd")
+        self.assertIn("COST_NOT_VERIFIED", evaluate_route(p)["reason_codes"])
+
 if __name__ == "__main__":
     unittest.main()
