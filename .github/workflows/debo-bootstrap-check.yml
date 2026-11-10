@@ -60,3 +60,30 @@ jobs:
         run: |
           python tools/debo_skill_delta.py --output /tmp/debo-skill-delta.json
           python -c 'import json; r=json.load(open("/tmp/debo-skill-delta.json")); print("GitHub-only DEBO skill audit:", r["summary"]); assert r["summary"]["github_catalog_rows"] == 72'
+- name: Audit project skill sources and metadata contracts (source-only)
+        run: |
+          python tools/debo_skill_delta.py --include-projects --validate-contracts --output /tmp/debo-skill-source-contracts.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('/tmp/debo-skill-source-contracts.json').read_text(encoding='utf-8'))
+          summary = report['summary']
+          contract = report['contract_audit']
+          assert report['mode'] == 'READ_ONLY_LOCAL'
+          assert summary['project_skill_sources'] > 0
+          assert contract['checked'] > 0
+          assert contract['checked'] == contract['pass'] + contract['needs_review']
+          assert all(s['runtime_installed'] == 'UNVERIFIED' for s in report['skills'])
+          print('Real project skills and Agent Skills contract audit:', {
+              'github_catalog_rows': summary['github_catalog_rows'],
+              'project_skill_sources': summary['project_skill_sources'],
+              'contract_checked': contract['checked'],
+              'contract_pass': contract['pass'],
+              'contract_needs_review': contract['needs_review'],
+          })
+          if contract['needs_review']:
+              print('Source-only metadata follow-up paths:', sorted(
+                  item['source_path'] for item in contract['entries']
+                  if item['status'] != 'PASS'))
+          PY
+
