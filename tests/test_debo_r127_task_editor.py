@@ -6,6 +6,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import unittest
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 APP = ROOT / "projects" / "debo-05" / "task-editor-r127"
@@ -17,7 +18,12 @@ class R127TaskEditorReview(unittest.TestCase):
         proc=subprocess.run([node,"--test",str(APP/"tests/test-editor.mjs")],
                             capture_output=True,text=True,timeout=30)
         self.assertEqual(proc.returncode,0,proc.stdout + "\n" + proc.stderr)
-        self.assertIn("# pass 28",proc.stdout)
+        total=re.search(r"^# tests (\\d+)$",proc.stdout,re.MULTILINE)
+        passed=re.search(r"^# pass (\\d+)$",proc.stdout,re.MULTILINE)
+        self.assertIsNotNone(total,"No Node TAP test count")
+        self.assertIsNotNone(passed,"No Node TAP pass count")
+        self.assertGreaterEqual(int(total.group(1)),28)
+        self.assertEqual(total.group(1),passed.group(1))
 
     def test_read_role_stays_separate_from_owner_editor(self):
         api=(APP/"src/api/task-editor.js").read_text(encoding="utf-8")
