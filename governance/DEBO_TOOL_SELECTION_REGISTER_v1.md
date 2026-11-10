@@ -259,3 +259,29 @@ Status: source routing standard, NOT account-wide installation or proof of signe
 **Decision gate:** connector → public research → authorized desktop browser (Manus My Browser as separate UI option) → approved metered browser tool → Work if uniquely required. Pick the cheapest reliable compliant route, not all routes at once. For any route record AVAILABLE / EXPOSED / INSTALLED / CONNECTED / AUTHENTICATED / AUTHORIZED / TESTED / LIVE independently, including specific errors and current measured cost.
 
 **DEBO CAREER application:** Notion registry and GitHub skill sources already exist; do not make a new master hub. Private ChatGPT Project creation, instructions import, and native chat-thread creation are still pending authenticated readback. Prepare a single Command Center, not empty placeholder threads. No job applications, employer contacts, sharing, payments or security/permission changes without corresponding owner approval.
+
+
+## R150 | Perplexity Pro iPhone model and execution router (2026-11-10)
+
+**Checkpoint:** \`DEBO-R150-PERPLEXITY-PRO-MOBILE-ROUTER\`. **Owner's current setup:** Perplexity Pro on iPhone; no available Mac or other desktop computer. This is a reversible tool-selection preference, not an entitlement guarantee, performance benchmark, global ChatGPT memory update, or automatic Perplexity integration.
+
+**Correct important distinction:** Perplexity **Computer** is a cloud workflow mode available to Pro subscribers on iPhone and web (actual availability/credits/account permissions must be checked). **Personal Computer** is a separate local-device mode that requires a supported Mac. An iPhone-only Pro user does not need to buy or connect a Mac to use eligible cloud Computer workflows. Source: https://www.perplexity.ai/changelog/what-we-shipped---march-13-2026 and https://www.perplexity.ai/personal-computer-setup.
+
+### Source- and task-aware model choice
+
+| Task | First route on Pro | Thinking/effort | Practical fallback |
+| --- | --- | --- | --- |
+| R149 Skills Factory and source-rich external research | **Research mode** for multi-source citations; alternatively **Kimi K3** from the user-visible Pro model picker | Kimi **Thinking ON** for skills, security and architecture comparisons; Research auto-routes | Claude Sonnet 5.5 for independent critique |
+| Architectural conflicts, licensing and security analysis | Kimi K3 | Thinking ON when supported, otherwise model default | Claude Sonnet 5.5 |
+| Code/skill implementation spec and QA | Claude Sonnet 5.5 | Standard/default; deeper reasoning only when necessary and offered | Kimi K3 Thinking ON |
+| Quick questions, simple citation checks, browsing | **Best** or GPT-6.1 Sol | OFF/default | Gemini 3.8 Flash |
+| Repetitive summaries or straightforward extraction | Gemini 3.8 Flash | OFF/default | Best |
+| Actual authorized Notion/GitHub writeback from iPhone | **Perplexity Computer (cloud) on Pro iOS**, only when the owner account exposes it and connectors are authenticated with proper scopes | Appropriate effort, cost-aware; don't guess effort labels on mobile | Research + copy-ready findings packet marked NOT_SAVED |
+
+**User-visible model evidence:** The user's current model-picker screenshot distinguishes Max-badged GPT-6 Astra, Gemini Argon, Claude Opus/Fable from unbadged Kimi K3, Claude Sonnet 5.5, GPT-6.1 Sol and Gemini 3.8 Flash. Do **not** recommend Max-badged models as the default Pro option, or upsell Max without verified availability, marginal value and owner approval. These are routing judgments, not measured head-to-head model rankings. Recheck actual model labels and quota at each new research task.
+
+**Thinking switch:** ON for complex multi-step decisions, reconciling conflicting sources, sophisticated skill design, security/license reviews and difficult coding. OFF/default for short lookups, routine summaries, simple formatting and low-stakes drafting. Never invent a Thinking switch for a model where the current interface doesn't show one.
+
+**Execution:** For cited research use Perplexity Research (auto-model routing) where available, or Pro Search with chosen model. For Notion/GitHub read/write require Perplexity's own Computer connector authorization and actual round-trip readback; a ChatGPT-connected Notion account does not automatically transfer. Keep R149 research handoff in the existing Notion page https://app.notion.com/p/414b37124b6781ba8248ea0285bc8ece; preserve original source, scope and privacy controls. Do not create another skill registry, prompt engine or master brain. No private customer, youth, financial or medical data in external-AI handoffs.
+
+**Official references:** https://www.perplexity.ai/products/computer ; https://www.perplexity.ai/pro ; https://www.perplexity.ai/help-center/en/articles/10352901-what-is-perplexity-pro ; https://www.perplexity.ai/changelog/what-we-shipped---march-13-2026. **Live activation:** source rule only until this review branch is approved/merged and the relevant AI runtime independently confirms adoption. Notion source and checkpoint: https://app.notion.com/p/3c6b37124b678135b3aef57e65354ea2.
