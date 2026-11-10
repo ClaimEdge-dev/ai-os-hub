@@ -108,6 +108,14 @@ Official references:
 - https://google.github.io/adk-docs/tutorials/coding-with-ai/
 - https://google.github.io/agents-cli/guide/use-cases/
 
+### Perplexity Pro-only inventory and model selector (R144)
+
+The owner reports **Perplexity Pro only, without usable Perplexity Computer access**. Respect that account observation over public feature marketing. Invoke the source-only \`perplexity-pro-research-router\` when choosing between Best, Pro Search, Reasoning (if shown), and Research. Its \`tools/debo_perplexity_pro_route.py\` helper picks only models from an observed menu, never from an assumed plan. Use \`cross-ai-artifact-inventory\` for account data rather than attempting to search private Perplexity history using public web search. Source skill: \`skills/perplexity-pro-research-router/SKILL.md\`; compare against current Perplexity official docs. The owner has not connected a Perplexity account-inventory API to this conversation.
+
+### Manus project and account inventory (R144)
+
+Use \`manus-debo-research-adapter\` plus \`cross-ai-artifact-inventory\` for Manus Projects, Task outputs, Skills and Connectors when actually accessible. The exposed Manus research-initiation tool is *not* evidence of account-wide task listing or finished research. Reuse the existing R148 dashboard task, not a duplicate new task. New tasks need correct owner, cost/credit and readback gates. Source skill: \`skills/manus-debo-research-adapter/SKILL.md\`.
+
 ### Perplexity
 Use for:
 - current-source discovery
