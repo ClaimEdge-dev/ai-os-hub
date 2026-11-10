@@ -56,6 +56,25 @@ test('mismatched task identity is rejected after SQL result',async()=>{const r=a
 test('update must confirm exact next revision',async()=>{const req={method:'PATCH',body:{task_id:'DEBO-LOCAL-TEST-001',expected_revision:2,fields:{status:'Review'}}};const r=await run(req,{sql:async()=>[{result:{task_id:'DEBO-LOCAL-TEST-001',action:'update',revision:2,archived:false}}]});assert.equal(r.code,503);assert.notEqual(r.body.ok,true)});
 test('archive must confirm archived flag and revision',async()=>{const req={method:'DELETE',body:{task_id:'DEBO-LOCAL-TEST-001',expected_revision:1}};const r=await run(req,{sql:async()=>[{result:{task_id:'DEBO-LOCAL-TEST-001',action:'archive',revision:2,archived:false}}]});assert.equal(r.code,503);assert.notEqual(r.body.ok,true)});
 
+test('same-origin browser HEAD without Origin passes only with exact protected Host',async()=>{
+ const headers={...makeReq().headers,host:'debo-private-command-r55-claimedge.vercel.app'};
+ delete headers.origin;
+ const r=await run({method:'HEAD',headers});
+ assert.equal(r.code,204);assert.equal(r.calls,0);
+});
+test('HEAD without Origin rejects a mismatched Host',async()=>{
+ const headers={...makeReq().headers,host:'attacker.example'};
+ delete headers.origin;
+ const r=await run({method:'HEAD',headers});
+ assert.equal(r.code,403);assert.equal(r.calls,0);
+});
+test('POST without Origin stays denied even with a matching Host',async()=>{
+ const headers={...makeReq().headers,host:'debo-private-command-r55-claimedge.vercel.app'};
+ delete headers.origin;
+ const r=await run({headers});
+ assert.equal(r.code,403);assert.equal(r.calls,0);
+});
+
 test('valid HEAD preflight confirms credential without a database call or mutation',async()=>{
  const r=await run({method:'HEAD'});
  assert.equal(r.code,204);assert.equal(r.body,null);assert.equal(r.calls,0);
