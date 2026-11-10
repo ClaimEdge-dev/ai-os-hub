@@ -8,7 +8,6 @@ not recovered. Validation uses ZIP CRC32, not cryptographic authenticity.
 from __future__ import annotations
 import argparse
 import json
-import shutil
 import struct
 import zipfile
 from pathlib import Path
@@ -16,12 +15,17 @@ from pathlib import Path
 LOCAL_FMT = '<IHHHHHIIIHH'
 CD_FMT = '<IHHHHHHIIIHHHHHII'
 EOCD_FMT = '<IHHHHIIH'
+MAX_MEMBER_UNCOMPRESSED = 512 * 1024 * 1024
+MAX_TOTAL_UNCOMPRESSED = 1536 * 1024 * 1024
+MAX_ENTRIES = 10_000
 
 
 def scan_local_headers(path: Path):
     out = []
     stop = None
     size = path.stat().st_size
+    total_uncompressed = 0
+    seen_names = set()
     with path.open('rb') as f:
         while True:
             offset = f.tell()
@@ -40,6 +44,17 @@ def scan_local_headers(path: Path):
                 stop = f'truncated_filename_or_extra_at_{offset}'
                 break
             name = name_raw.decode('utf-8' if flags & 0x800 else 'cp437', 'replace')
+            parts = name.replace('\\', '/').split('/')
+            if (name.startswith(('/', '\\')) or '..' in parts or ':' in parts[0]):
+                stop = f'unsafe_member_path_at_{offset}'
+                break
+            if name in seen_names:
+                stop = f'duplicate_member_at_{offset}'
+                break
+            if (len(out) >= MAX_ENTRIES or uncompressed > MAX_MEMBER_UNCOMPRESSED
+                    or total_uncompressed + uncompressed > MAX_TOTAL_UNCOMPRESSED):
+                stop = f'archive_safety_limit_at_{offset}'
+                break
             if flags & 1:
                 stop = f'encrypted_entry_{name}'
                 break
@@ -53,6 +68,8 @@ def scan_local_headers(path: Path):
                 stop = f'partial_member_{name}'
                 break
             f.seek(compressed, 1)
+            seen_names.add(name)
+            total_uncompressed += uncompressed
             out.append({'name':name, 'rawname':name_raw, 'offset':offset,
                         'end':f.tell(), 'version':version, 'flags':flags,
                         'method':method,'mtime':mtime,'mdate':mdate,'crc':crc,
