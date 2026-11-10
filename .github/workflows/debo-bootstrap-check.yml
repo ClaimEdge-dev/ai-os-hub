@@ -60,7 +60,7 @@ jobs:
         run: |
           python tools/debo_skill_delta.py --output /tmp/debo-skill-delta.json
           python -c 'import json; r=json.load(open("/tmp/debo-skill-delta.json")); print("GitHub-only DEBO skill audit:", r["summary"]); assert r["summary"]["github_catalog_rows"] == 72'
-- name: Audit project skill sources and metadata contracts (source-only)
+      - name: Audit project skill sources and metadata contracts (source-only)
         run: |
           python tools/debo_skill_delta.py --include-projects --validate-contracts --output /tmp/debo-skill-source-contracts.json
           python - <<'PY'
