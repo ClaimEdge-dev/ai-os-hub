@@ -24,7 +24,7 @@ class TestReferenceIntelligencePrompt(unittest.TestCase):
 
     def test_weights_total_100(self):
         section = self.prompt.split("## Value rubric", 1)[1].split("## Default", 1)[0]
-        points = [int(n) for n in re.findall(r"^\\| [^\\n]+ \\| (\\d+) \\|", section, re.M)]
+        points = [int(n) for n in re.findall(r"^\| [^|\n]+ \| (\d+) \|", section, re.M)]
         self.assertEqual(points, [25, 20, 15, 15, 10, 10, 5])
         self.assertEqual(sum(points), 100)
 
