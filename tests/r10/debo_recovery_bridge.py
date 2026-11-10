@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Read-only bridge for DEBO R4 local recovery reports + canonical skill delta reports.
 
-Companion report only. Does not modify canonical tool or infer installation.
+IMPORTANT: This is a COMPANION REPORT. It never turns local files into Notion rows,
+never asserts that a SKILL.md is installed, and does not modify DEBO's canonical
+`tools/debo_skill_delta.py` or its output. Python stdlib only.
 """
 from __future__ import annotations
 import argparse
@@ -15,12 +17,14 @@ from pathlib import Path, PurePosixPath
 CANONICAL_SCHEMA = 'DEBO-SKILL-DELTA-v1'
 
 def key(name: str) -> str:
+    """Same normalization as canonical skill delta key(name)."""
     return re.sub(r'[^a-z0-9]+', '-', str(name or '').casefold()).strip('-')
 
 def validate_sha(value):
     return isinstance(value, str) and bool(re.fullmatch(r'[a-fA-F0-9]{64}', value))
 
 def source_id(relpath):
+    """Identity is scoped by path; similar filenames are not automatic mergers."""
     if not isinstance(relpath, str) or '\\' in relpath or relpath.startswith('/'):
         return None
     p = PurePosixPath(relpath)
