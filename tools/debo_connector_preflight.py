@@ -10,7 +10,7 @@ from collections.abc import Mapping
 OPERATIONS = frozenset({"public_read", "private_read", "write", "send", "deploy", "delete", "access_change"})
 PRIVATE_OPERATIONS = frozenset({"private_read", "write", "send", "deploy", "delete", "access_change"})
 HIGH_IMPACT = frozenset({"send", "deploy", "delete", "access_change"})
-SENSITIVE = frozenset({"secret", "client", "minor", "health", "financial"})
+SENSITIVE = frozenset({"secret", "client", "minor", "health", "financial", "internal"})
 
 def evaluate_route(request):
     """Return only a sanitized decision, never the original inputs.
@@ -64,23 +64,34 @@ def evaluate_route(request):
     if operation == "send" and request.get("customer_contact_allowed") is not True:
         reasons.append("CUSTOMER_CONTACT_HELD")
 
-    external = request.get("external_transfer") is True
-    classes = request.get("data_classes")
-    if classes is None and not external:
-        classes = ()
-    if isinstance(classes, str) or not isinstance(classes, (tuple, list, set, frozenset)):
+    # Caller assertion is not proof: require a boolean transfer intent and
+    # an explicit, recognized, nonempty classification for each export.
+    transfer_flag = request.get("external_transfer", False)
+    if not isinstance(transfer_flag, bool):
+        reasons.append("EXTERNAL_TRANSFER_UNVERIFIED")
+        external = False
+    else:
+        external = transfer_flag
+    raw_classes = request.get("data_classes")
+    allowed_classes = SENSITIVE | frozenset({"public"})
+    if raw_classes is None:
+        classes = frozenset()
+    elif (isinstance(raw_classes, (tuple, list, set, frozenset))
+          and all(isinstance(item, str) and item in allowed_classes
+                  for item in raw_classes)):
+        classes = frozenset(raw_classes)
+    else:
         reasons.append("DATA_CLASS_UNVERIFIED")
-        classes = ()
-    # Sending data to another tool/AI requires explicit classification
-    # evidence, even when caller believes the content is public.
+        classes = frozenset()
+    # Do not treat an empty or unknown class list as public information.
     if external:
-        if request.get("data_classes_verified") is not True:
+        if not classes or request.get("data_classes_verified") is not True:
             reasons.append("DATA_CLASS_UNVERIFIED")
         if request.get("destination_verified") is not True:
             reasons.append("DESTINATION_NOT_VERIFIED")
     if "secret" in classes:
         reasons.append("SECRET_TRANSFER_PROHIBITED")
-    if external and (set(classes) & SENSITIVE):
+    if external and (classes & SENSITIVE):
         if request.get("data_release_approved") is not True or request.get("destination_verified") is not True:
             reasons.append("SENSITIVE_TRANSFER_NOT_AUTHORIZED")
 
