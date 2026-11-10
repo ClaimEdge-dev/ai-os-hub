@@ -53,7 +53,7 @@ def github_statuses(markdown):
     return items
 
 
-def build_report(markdown, notion_rows=None, skills_root=None, previous=None, automations=None):
+def build_report(markdown, notion_rows=None, skills_root=None, previous=None, automations=None, projects_root=None):
     base = audit(markdown)
     gh = github_statuses(markdown)
     rows = notion_rows or []
@@ -66,10 +66,28 @@ def build_report(markdown, notion_rows=None, skills_root=None, previous=None, au
                             'version': str(row.get('Version') or row.get('version') or '')}
     root = Path(skills_root) if skills_root else None
     sources = {}
+    source_paths = {}
     if root and root.is_dir():
         for folder in root.iterdir():
             if folder.is_dir() and (folder / 'SKILL.md').is_file():
-                sources[key(folder.name)] = hashlib.sha256((folder / 'SKILL.md').read_bytes()).hexdigest()
+                skill_id = key(folder.name)
+                sources[skill_id] = hashlib.sha256((folder / 'SKILL.md').read_bytes()).hexdigest()
+                source_paths[skill_id] = f'skills/{folder.name}/SKILL.md'
+
+    # Opt-in project adapters use a scoped ID. Never shadow a DEBO Core skill.
+    project_count = 0
+    if projects_root and Path(projects_root).is_dir():
+        for skill_file in sorted(Path(projects_root).glob('*/skills/*/SKILL.md')):
+            project_name = skill_file.parents[2].name
+            skill_name = skill_file.parent.name
+            project_id, adapter_id = key(project_name), key(skill_name)
+            if not project_id or not adapter_id:
+                continue
+            skill_id = f'project/{project_id}/{adapter_id}'
+            sources[skill_id] = hashlib.sha256(skill_file.read_bytes()).hexdigest()
+            source_paths[skill_id] = f'projects/{project_name}/skills/{skill_name}/SKILL.md'
+            project_count += 1
+
     old = {row['id']: row.get('fingerprint') for row in (previous or {}).get('skills', [])}
     records = []
     for name in sorted(set(gh) | set(notion) | set(sources)):
@@ -83,18 +101,21 @@ def build_report(markdown, notion_rows=None, skills_root=None, previous=None, au
         records.append({'id': name, 'priority': PRIORITY.get(name, 50),
                         'github_status': gs, 'notion_status': ns,
                         'source_sha256': sources.get(name),
+                        'source_path': source_paths.get(name),
                         'catalog_conflict': conflict, 'fingerprint': fingerprint,
                         'delta': ('NEW' if name not in old else
                                   'CHANGED' if fingerprint != old[name] else 'UNCHANGED'),
                         'runtime_installed': 'UNVERIFIED'})
     seen_auto = Counter(key(a.get('title') or a.get('Title')) for a in (automations or []))
     return {'schema': 'DEBO-SKILL-DELTA-v1', 'mode': 'READ_ONLY_LOCAL',
-            'scope': 'GitHub registry and optional exported snapshots; root skills only',
+            'scope': ('GitHub registry and optional exported snapshots; root plus scoped project sources'
+                      if projects_root else 'GitHub registry and optional exported snapshots; root skills only'),
             'summary': {'github_catalog_rows': base['row_count'],
                         'github_duplicate_numbers': base['duplicate_numbers'],
                         'notion_rows': len(rows), 'notion_unique': len(notion),
                         'notion_duplicate_names': sorted(k for k, v in ncounts.items() if k and v > 1),
                         'catalog_conflicts': sum(r['catalog_conflict'] for r in records),
+                        'project_skill_sources': project_count,
                         'new_skills': sum(r['delta'] == 'NEW' for r in records),
                         'changed_skills': sum(r['delta'] == 'CHANGED' for r in records),
                         'removed_skills': sorted(set(old) - {r['id'] for r in records}),
@@ -103,7 +124,8 @@ def build_report(markdown, notion_rows=None, skills_root=None, previous=None, au
             'skills': sorted(records, key=lambda r: (-r['priority'], r['id'])),
             'limitations': ['ACTIVE is not an installation receipt',
                             'No automatic Notion or Kimi access',
-                            'No project-local skill inventory',
+                            ('Project-local sources are an inventory, not runtime installation proof'
+                             if projects_root else 'Project-local inventory requires --include-projects'),
                             'No installs, scheduling changes, external writes or deployment']}
 
 
@@ -114,10 +136,13 @@ def main():
     parser.add_argument('--automations', type=Path)
     parser.add_argument('--previous', type=Path)
     parser.add_argument('--output', type=Path)
+    parser.add_argument('--include-projects', action='store_true',
+                        help='Include scoped projects/*/skills/*/SKILL.md sources (read-only)')
     args = parser.parse_args()
     previous = json.loads(args.previous.read_text(encoding='utf-8')) if args.previous else None
     report = build_report((args.repo / 'SKILL_REGISTRY.md').read_text(encoding='utf-8'),
-                          load_rows(args.notion), args.repo / 'skills', previous, load_rows(args.automations))
+                          load_rows(args.notion), args.repo / 'skills', previous, load_rows(args.automations),
+                          projects_root=(args.repo / 'projects' if args.include_projects else None))
     content = json.dumps(report, indent=2) + '\n'
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
