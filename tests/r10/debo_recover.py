@@ -34,6 +34,8 @@ def collect(root: Path, max_file_bytes: int = DEFAULT_MAX_MB * 1024 * 1024):
     if not root.is_dir():
         raise ValueError('root must be a directory')
     records, skipped = [], []
+    # rglob enumerates symlinks but won't recursively traverse directory symlinks;
+    # explicitly reject symlinks at every level and refuse path escapes.
     for path in sorted(root.rglob('*')):
         if path.is_symlink():
             skipped.append({'path': str(path.relative_to(root)), 'reason': 'symlink'})
@@ -63,6 +65,7 @@ def analyze(records, similarity_threshold: float = 0.83):
     exact = [{'sha256': digest, 'paths': sorted(paths), 'decision': 'REVIEW_ONLY_NO_DELETE'}
              for digest, paths in byhash.items() if len(paths) > 1]
     possible = []
+    # Avoid treating same-content pairs as fuzzy duplicates.
     for i, a in enumerate(records):
         for b in records[i+1:]:
             if a['sha256'] == b['sha256']:
