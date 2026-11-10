@@ -344,3 +344,18 @@ Before sending work to another AI, check whether the job is actually better solv
 - a scheduled/event-triggered Work task
 
 Use the external AI only when its material advantage exceeds the handoff cost.
+
+## R149-001 | Verified permission, tenant and cost preflight
+
+**Checkpoint:** \`DEBO-R149-001-PREFLIGHT\`. Update this existing router rather than creating a second plugin router. Before an account-bound, paid, write, browser, or external-AI action, use the **pure, fail-closed** decision helper \`tools/debo_connector_preflight.py\` or follow its equivalent checklist in runtimes where Python cannot execute. This helper neither connects nor authorizes tools.
+
+1. Verify the action exists in this **current runtime**, not merely in the catalog. Record actual supported operation and whether it is metered; static plugin names, MCP annotations and prior installation status are not authorization.
+2. Require proof of **current account/identity and exact tool permission**, required OAuth/API scope where applicable, and matching verified tenant before private reads, writes, or external effects. Unknown tenant or unknown scope means BLOCK.
+3. Require observed cost bounds and task-specific spending approval before any metered or nonzero-cost action. Missing cost estimate means hold. Auto-reload, vendor billing and new subscriptions always require independent permission.
+4. For sends, deployments, deletions and access changes, require separate owner approval **and** any standing restrictions on customer contact, production, sharing, data privacy and minor records. The helper is not authorization to take those actions.
+5. Never transmit secrets, customer, minor, personal health or financial information in external-AI/browser handoffs without a distinct, authorized data-release gate and verified destination. Never serialize credentials, account IDs or private record content in preflight logs.
+6. For any external AI/data transfer, verify the destination and explicitly classify the data before taking action, including when the payload is believed to be nonsensitive. Side-effecting operations require a bounded numeric cost estimate (including explicit $0 for confirmed no-cost operations). If evidence is missing, hold the operation.
+7. If a preferred route fails, try a truly verified, independent **read-only** fallback; do not silently downgrade a write into an unrelated read or treat a read test as a write test.
+8. Preserve a concise receipt: \`tool, operation, allowed, reason_codes, source/checkpoint, test_status, next_safe_action\`. Keep \`AUTHORIZED\`, \`TESTED\`, \`INSTALLED\` and \`LIVE\` distinct. If source data may be stale, recheck before any action.
+
+**Test contract:** \`tests/test_debo_connector_preflight.py\` covers public reads, private identity/tenant/scope failures, no-cost versus metered browser runs, unapproved external contact, sensitive data transfers, and permission escalation. Test fixtures are synthetic. Runtime acceptance still requires actual authorized connector readback. This router's output must never be called a real credential or OAuth token validation.
