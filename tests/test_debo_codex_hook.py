@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import subprocess
 import tempfile
 import unittest
 from unittest import mock
@@ -167,6 +168,68 @@ class ConfigurationTests(unittest.TestCase):
             result = json.loads(output.getvalue())
         self.assertEqual(
             result["hookSpecificOutput"]["permissionDecision"], "deny")
+
+
+
+class SubprocessEntrypointTests(unittest.TestCase):
+    """Execute checked-in hook commands as subprocesses; not Codex trust tests."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.repo_root = Path(__file__).resolve().parents[1]
+        cls.config = json.loads(
+            (cls.repo_root / ".codex/hooks.json").read_text(encoding="utf-8"))
+
+    def invoke(self, event_name, event, cwd=None):
+        groups = self.config["hooks"][event_name]
+        command = groups[0]["hooks"][0]["command"]
+        result = subprocess.run(
+            ["bash", "-lc", command],
+            input=json.dumps(event),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            cwd=str(cwd or self.repo_root),
+            timeout=25,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr[-800:])
+        return json.loads(result.stdout)
+
+    def test_real_command_subprocess_session_start_from_subdirectory(self):
+        result = self.invoke("SessionStart", {
+            "hook_event_name": "SessionStart", "source": "startup",
+        }, cwd=self.repo_root / "tools")
+        context = result["hookSpecificOutput"]["additionalContext"]
+        self.assertIn("project=DEBO", context)
+        self.assertIn("private checkpoint", context)
+        self.assertNotIn("LIVE_VERIFIED", context)
+
+    def test_real_command_subprocess_pretool_denies_merge(self):
+        response = self.invoke("PreToolUse", {
+            "hook_event_name": "PreToolUse",
+            "tool_name": "Bash",
+            "tool_input": {"command": "gh pr merge 55"},
+        })
+        self.assertEqual(response["hookSpecificOutput"]["permissionDecision"], "deny")
+
+    def test_real_command_subprocess_safe_tool_does_not_grant_permission(self):
+        response = self.invoke("PreToolUse", {
+            "hook_event_name": "PreToolUse",
+            "tool_name": "Bash",
+            "tool_input": {"command": "python -m unittest"},
+        })
+        self.assertEqual(response, {})
+
+    def test_real_command_subprocess_posttool_failure_no_secret_echo(self):
+        response = self.invoke("PostToolUse", {
+            "hook_event_name": "PostToolUse",
+            "tool_name": "Bash",
+            "tool_response": {"exit_code": 1, "stderr": "API_KEY=synthetic"},
+        })
+        self.assertIn("one distinct authorized recovery",
+                      response["hookSpecificOutput"]["additionalContext"])
+        self.assertNotIn("API_KEY", json.dumps(response))
 
 
 if __name__ == "__main__":
