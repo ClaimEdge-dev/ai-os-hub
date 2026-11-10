@@ -40,7 +40,7 @@ class TestR8PinnedSourceAcceptance(unittest.TestCase):
             self.assertEqual(checked(["git", "rev-parse", "HEAD"], cwd=checkout), PIN)
             self.assertEqual(checked(["git", "status", "--porcelain"], cwd=checkout), "")
             output = result_dir / "canonical.json"
-            checked([sys.executable, str(checkout / "tools/debo_skill_delta.py"),
+            checked([sys.executable, "-B", str(checkout / "tools/debo_skill_delta.py"),
                      "--repo", str(checkout), "--include-projects",
                      "--validate-contracts", "--output", str(output)])
             canonical = json.loads(output.read_text(encoding="utf-8"))
