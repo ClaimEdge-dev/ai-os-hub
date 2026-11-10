@@ -58,10 +58,13 @@ def build_report(markdown, notion_rows=None, skills_root=None, previous=None, au
     gh = github_statuses(markdown)
     rows = notion_rows or []
     ncounts = Counter(key(r.get('Name') or r.get('name') or r.get('Skill')) for r in rows)
+    # Never let the last row win when multiple Notion names normalize to one ID.
+    # Until a stable source identity is verified, quarantine the alias instead.
+    ambiguous_aliases = {name for name, count in ncounts.items() if name and count > 1}
     notion = {}
     for row in rows:
         name = key(row.get('Name') or row.get('name') or row.get('Skill'))
-        if name:
+        if name and name not in ambiguous_aliases:
             notion[name] = {'status': str(row.get('Status') or row.get('status') or 'UNSPECIFIED').upper(),
                             'version': str(row.get('Version') or row.get('version') or '')}
     root = Path(skills_root) if skills_root else None
@@ -90,10 +93,12 @@ def build_report(markdown, notion_rows=None, skills_root=None, previous=None, au
 
     old = {row['id']: row.get('fingerprint') for row in (previous or {}).get('skills', [])}
     records = []
-    for name in sorted(set(gh) | set(notion) | set(sources)):
+    for name in sorted(set(gh) | set(notion) | set(sources) | ambiguous_aliases):
         gs = gh.get(name, 'NOT_CATALOGUED')
-        ns = notion.get(name, {}).get('status', 'NOT_IN_SNAPSHOT')
-        conflict = name in gh and name in notion and gs != ns
+        is_ambiguous = name in ambiguous_aliases
+        ns = ('AMBIGUOUS_NOTION_ALIAS' if is_ambiguous else
+              notion.get(name, {}).get('status', 'NOT_IN_SNAPSHOT'))
+        conflict = not is_ambiguous and name in gh and name in notion and gs != ns
         evidence = {'github': gs, 'notion': ns,
                     'notion_version': notion.get(name, {}).get('version', ''),
                     'sha256': sources.get(name)}
@@ -102,7 +107,8 @@ def build_report(markdown, notion_rows=None, skills_root=None, previous=None, au
                         'github_status': gs, 'notion_status': ns,
                         'source_sha256': sources.get(name),
                         'source_path': source_paths.get(name),
-                        'catalog_conflict': conflict, 'fingerprint': fingerprint,
+                        'catalog_conflict': conflict,
+                        'notion_alias_ambiguous': is_ambiguous, 'fingerprint': fingerprint,
                         'delta': ('NEW' if name not in old else
                                   'CHANGED' if fingerprint != old[name] else 'UNCHANGED'),
                         'runtime_installed': 'UNVERIFIED'})
@@ -112,8 +118,8 @@ def build_report(markdown, notion_rows=None, skills_root=None, previous=None, au
                       if projects_root else 'GitHub registry and optional exported snapshots; root skills only'),
             'summary': {'github_catalog_rows': base['row_count'],
                         'github_duplicate_numbers': base['duplicate_numbers'],
-                        'notion_rows': len(rows), 'notion_unique': len(notion),
-                        'notion_duplicate_names': sorted(k for k, v in ncounts.items() if k and v > 1),
+                        'notion_rows': len(rows), 'notion_unique': sum(bool(k) for k in ncounts),
+                        'notion_duplicate_names': sorted(ambiguous_aliases),
                         'catalog_conflicts': sum(r['catalog_conflict'] for r in records),
                         'project_skill_sources': project_count,
                         'new_skills': sum(r['delta'] == 'NEW' for r in records),
