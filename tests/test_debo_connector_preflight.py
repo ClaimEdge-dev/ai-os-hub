@@ -94,6 +94,29 @@ class TestConnectorPreflight(unittest.TestCase):
                 self.assertFalse(result["allowed"])
                 self.assertIn("METERED_STATUS_UNVERIFIED", result["reason_codes"])
 
+    def test_malformed_required_scope_not_stringified_into_authorization(self):
+        for malformed in (["read"], {"scope": "read"}, 42):
+            with self.subTest(scope_type=type(malformed).__name__):
+                result = evaluate_route({**PRIVATE, "required_scope": malformed,
+                                         "granted_scopes": [str(malformed)]})
+                self.assertFalse(result["allowed"])
+                self.assertIn("SCOPE_NOT_VERIFIED", result["reason_codes"])
+
+    def test_granted_scopes_reject_malformed_members(self):
+        for granted in (["read", None], ["read", {}], ["read", ""]):
+            with self.subTest(grants=repr(granted)):
+                result = evaluate_route({**PRIVATE, "granted_scopes": granted})
+                self.assertFalse(result["allowed"])
+                self.assertIn("SCOPE_NOT_VERIFIED", result["reason_codes"])
+
+    def test_malformed_tenant_ids_not_stringified_into_match(self):
+        for malformed in (["authorized-demo"], {"tenant": "authorized-demo"}, 42):
+            with self.subTest(tenant_type=type(malformed).__name__):
+                result = evaluate_route({**PRIVATE, "expected_tenant": malformed,
+                                         "observed_tenant": malformed})
+                self.assertFalse(result["allowed"])
+                self.assertIn("TENANT_NOT_VERIFIED", result["reason_codes"])
+
     def test_non_mapping_rejected(self):
         with self.assertRaises(TypeError):
             evaluate_route(None)
