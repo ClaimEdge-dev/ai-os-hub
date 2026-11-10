@@ -37,12 +37,22 @@ def evaluate_route(request):
             reasons.append("IDENTITY_UNVERIFIED")
         if request.get("authorization_verified") is not True:
             reasons.append("AUTHORIZATION_UNVERIFIED")
-        required_scope = str(request.get("required_scope") or "").strip()
+        # Only exact typed scope and tenant identifiers can satisfy the gate.
+        raw_scope = request.get("required_scope")
+        required_scope = raw_scope.strip() if isinstance(raw_scope, str) else ""
         granted_scopes = request.get("granted_scopes")
-        if not required_scope or not isinstance(granted_scopes, (tuple, list, set, frozenset)) or required_scope not in granted_scopes:
+        if (not required_scope
+                or not isinstance(granted_scopes, (tuple, list, set, frozenset))
+                or not all(isinstance(scope, str) and bool(scope.strip())
+                           for scope in granted_scopes)
+                or required_scope not in granted_scopes):
             reasons.append("SCOPE_NOT_VERIFIED")
-        expected_tenant = str(request.get("expected_tenant") or "").strip()
-        observed_tenant = str(request.get("observed_tenant") or "").strip()
+        raw_expected_tenant = request.get("expected_tenant")
+        raw_observed_tenant = request.get("observed_tenant")
+        expected_tenant = (raw_expected_tenant.strip()
+                           if isinstance(raw_expected_tenant, str) else "")
+        observed_tenant = (raw_observed_tenant.strip()
+                           if isinstance(raw_observed_tenant, str) else "")
         if not expected_tenant or not observed_tenant or expected_tenant != observed_tenant:
             reasons.append("TENANT_NOT_VERIFIED")
 
