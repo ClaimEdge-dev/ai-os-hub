@@ -1,0 +1,53 @@
+name: DEBO Public-Metadata Audit Sync
+on:
+  pull_request:
+    paths:
+      - 'tools/debo_audit_sync.py'
+      - 'tests/test_debo_audit_sync.py'
+      - '.github/workflows/debo-audit-sync.yml'
+  push:
+    branches: [main]
+  release:
+    types: [published]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 13 * * 0'
+permissions:
+  contents: read
+concurrency:
+  group: debo-audit-sync
+  cancel-in-progress: false
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s tests -p test_debo_audit_sync.py -v
+      - run: python tools/debo_audit_sync.py --dry-run
+  archive:
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.11'
+      - name: Archive approved public metadata and read back both destinations
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NOTION_TOKEN: ${{ secrets.DEBO_NOTION_AUDIT_TOKEN }}
+          DEBO_NOTION_AUDIT_PAGE_ID: '3c6b3712-4b67-81f8-b6da-f738609e7120'
+        run: python tools/debo_audit_sync.py
