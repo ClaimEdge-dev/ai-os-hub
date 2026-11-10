@@ -16,7 +16,7 @@ class R146PluginReview(unittest.TestCase):
         data = (P / "plugin-intelligence-data.js").read_text()
         prefix = "window.DEBO_R146_CATALOG="
         assert data.startswith(prefix)
-        cls.catalog = json.loads(data[len(prefix):].rstrip(";\\n"))
+        cls.catalog = json.loads(data[len(prefix):].strip().removesuffix(";"))
     def test_source_count(self):
         self.assertEqual(len(self.catalog), 147)
         self.assertEqual(len({x["name"] for x in self.catalog}),147)
