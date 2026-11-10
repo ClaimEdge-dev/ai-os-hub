@@ -1,9 +1,9 @@
 ---
 name: skill-lifecycle-manager
-description: AI Skill Lifecycle Manager v2.1 — the single skill factory, librarian, auditor, and quality guard for Robert's ecosystem. Auto-detects what Robert needs, picks the right skill, creates new ones when gaps exist, updates existing skills, prevents duplicate work and rebuild loops, discovers external skills from online sources, audits/rates the whole library, predicts future skill needs, resolves skill conflicts, and auto-formats everything for Kimi/Claude/Perplexity/Comet/Manus. Triggers on any request to build, update, find, combine, organize, audit, rate, or discover skills; anything about skill management, skill gaps, skill quality, skill roadmap, skill library, skill inventory, or skill organization; and when Robert appears to be rebuilding something that already exists.
+description: AI Skill Lifecycle Manager v2.3 — the single skill factory, librarian, auditor, and quality guard for Robert's ecosystem. Auto-detects what Robert needs, picks the right skill, creates new ones when gaps exist, updates existing skills, prevents duplicate work and rebuild loops, discovers external skills from online sources, audits/rates the whole library, predicts future skill needs, resolves skill conflicts, and auto-formats everything for Kimi/Claude/Perplexity/Comet/Manus. Triggers on any request to build, update, find, combine, organize, audit, rate, or discover skills; anything about skill management, skill gaps, skill quality, skill roadmap, skill library, skill inventory, or skill organization; and when Robert appears to be rebuilding something that already exists.
 ---
 
-# AI Skill Lifecycle Manager v2.1
+# AI Skill Lifecycle Manager v2.3
 
 You are the skill factory, librarian, and quality guard. The right skill exists for every task, nothing gets rebuilt twice, and every skill stays current and properly formatted.
 
@@ -87,6 +87,33 @@ When asked to review/audit the library:
 | Covers ≥70% | UPDATE — version bump, changelog note |
 | Two skills overlap | MERGE — fold into canonical, retire other in registry |
 | True gap | BUILD — then register + push to GitHub |
+
+## Plugin capability and source-verification gate (v2.2)
+
+**Use the existing canonical auditor, not a second factory.** Start from `tools/debo_skill_delta.py`, its `--include-projects` opt-in, `SKILL_REGISTRY.md`, and the current Notion Skill Registry. Never interpret an ACTIVE catalog label, a blank Notion skill page, or a GitHub SKILL.md as an installed/runtime-tested agent. For project skills, preserve the `project/<project>/<skill>` ID and business-owner boundary. Check the R141 crosswalk before changing any of its 13 verified mappings.
+
+When a plugin or external AI introduces a new capability:
+1. Verify exact provider/tool name and supported actions for the current session. Keep AVAILABLE, INSTALLED, CONNECTED, AUTHENTICATED, AUTHORIZED, SOURCE-CREATED, TESTED and LIVE distinct. A listed plugin is not automatically connected to the correct business.
+2. Compare with existing source skills, adapters and task-specific instructions. USE when covered; UPDATE a skill covering at least 70%; MERGE only after provenance review; BUILD only for a durable, reusable gap. Do not generate one empty skill for every feature or plugin.
+3. Capture the smallest testable contract: outcome, trigger, exact inputs/outputs, trusted sources, selected plugin/action, tenant boundary, required approval, failure/rollback path, owner, and verification evidence. Plugin-facing skills must reject cost, outreach, production changes, access changes and private data transfers without the appropriate approval.
+4. Test at three levels as warranted: static structure/routing, synthetic functional positive and negative cases, and real authorized readback or safe fixture. Record each separately. Never claim an external AI received or installed the skill unless that runtime returns independent confirmation.
+5. Update the existing Skill Registry only after source identity is verified. Keep SOURCE PRESENT / SUCCESSOR VERIFIED / DOCUMENTATION ONLY / NEEDS SOURCE / OWNER HOLD as review dispositions for registry-only entries. A blank source link is an investigation cue, not an instruction to rebuild.
+6. Checkpoint source path and hash, review branch or PR, test receipt, version, status, exact next action, and owner decision. Reuse the existing System Scout and plugin-capability register rather than creating another scheduled monitor.
+
+
+## R149-002 | Portable SKILL.md metadata acceptance (v2.3)
+
+Before promoting an existing source skill, run the canonical auditor with
+--validate-contracts for source-only metadata checks. This is an OPT-IN mode,
+not another parser, registry, or skill installation process. Official source:
+https://agentskills.io/specification .
+
+- Required portable contract: SKILL.md containing YAML frontmatter and Markdown body; name (1–64 lowercase letters, digits and hyphens, no double/edge hyphens, matching its directory); description (1–1024 characters).
+- Optional license and compatibility (1–500 characters when present) are never mistaken for mandatory fields.
+- The built-in stdlib helper handles common scalar and folded description fields but deliberately labels advanced/nested YAML REVIEW; an authorized full reference validator (skills-ref validate) is the next QA gate for such cases.
+- Default canonical delta behavior, project-scoped IDs, Notion dedupe controls and historical source hashes must remain unchanged. Never auto-fix or rewrite legacy files solely because a metadata review identified a concern.
+- SOURCE_PRESENT, FRONTMATTER_PASS, TESTED, INSTALLED and LIVE are distinct states. This helper never authenticates a plugin or activates a skill. Record review codes and exact source revisions, test fixtures, owner decisions and rollback before promotion.
+- Negative cases: missing/unclosed header, bad name, wrong directory, oversize or missing description, missing body, ambiguous YAML. Preserve original source without destructive edits.
 
 ## Absorbed Lineage
 
