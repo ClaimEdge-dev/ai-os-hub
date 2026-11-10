@@ -80,6 +80,20 @@ class TestConnectorPreflight(unittest.TestCase):
     def test_no_boolean_cost_bypass(self):
         self.assertIn("COST_NOT_VERIFIED", evaluate_route({**PUBLIC, "metered": True, "estimated_cost_usd": True})["reason_codes"])
 
+    def test_malformed_operation_type_fails_closed_without_exception(self):
+        for malformed in ([], {"operation": "public_read"}, True, 123):
+            with self.subTest(operation_type=type(malformed).__name__):
+                result = evaluate_route({**PUBLIC, "operation": malformed})
+                self.assertFalse(result["allowed"])
+                self.assertIn("INVALID_OPERATION", result["reason_codes"])
+
+    def test_metered_flag_rejects_non_boolean_values(self):
+        for malformed in ("true", "false", 1, None, []):
+            with self.subTest(metered_type=type(malformed).__name__):
+                result = evaluate_route({**PUBLIC, "metered": malformed})
+                self.assertFalse(result["allowed"])
+                self.assertIn("METERED_STATUS_UNVERIFIED", result["reason_codes"])
+
     def test_non_mapping_rejected(self):
         with self.assertRaises(TypeError):
             evaluate_route(None)

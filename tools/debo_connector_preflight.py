@@ -22,7 +22,7 @@ def evaluate_route(request):
         raise TypeError("route request must be a mapping")
 
     operation = request.get("operation")
-    if operation not in OPERATIONS:
+    if not isinstance(operation, str) or operation not in OPERATIONS:
         return {"allowed": False, "decision": "BLOCK", "reason_codes": ["INVALID_OPERATION"],
                 "tool": str(request.get("tool") or "")[:80], "operation": "UNKNOWN"}
     tool = str(request.get("tool") or "").strip()[:80]
@@ -46,7 +46,12 @@ def evaluate_route(request):
         if not expected_tenant or not observed_tenant or expected_tenant != observed_tenant:
             reasons.append("TENANT_NOT_VERIFIED")
 
-    metered = request.get("metered") is True
+    metered_flag = request.get("metered", False)
+    if not isinstance(metered_flag, bool):
+        reasons.append("METERED_STATUS_UNVERIFIED")
+        metered = False
+    else:
+        metered = metered_flag
     cost = request.get("estimated_cost_usd")
     # Non-public side effects must include a verified bounded cost estimate,
     # including an explicit numeric zero when the operation is confirmed free.
