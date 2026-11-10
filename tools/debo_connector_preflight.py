@@ -48,7 +48,12 @@ def evaluate_route(request):
 
     metered = request.get("metered") is True
     cost = request.get("estimated_cost_usd")
-    if metered or cost is not None:
+    # Non-public side effects must include a verified bounded cost estimate,
+    # including an explicit numeric zero when the operation is confirmed free.
+    cost_needed = (metered or operation in {"write", "send", "deploy",
+                                           "delete", "access_change"}
+                   or request.get("external_transfer") is True)
+    if cost_needed or cost is not None:
         if isinstance(cost, bool) or not isinstance(cost, (int, float)) or cost < 0 or cost != cost or cost == float("inf"):
             reasons.append("COST_NOT_VERIFIED")
         elif cost > 0 and request.get("spend_approved") is not True:
@@ -59,13 +64,23 @@ def evaluate_route(request):
     if operation == "send" and request.get("customer_contact_allowed") is not True:
         reasons.append("CUSTOMER_CONTACT_HELD")
 
-    classes = request.get("data_classes") or ()
+    external = request.get("external_transfer") is True
+    classes = request.get("data_classes")
+    if classes is None and not external:
+        classes = ()
     if isinstance(classes, str) or not isinstance(classes, (tuple, list, set, frozenset)):
         reasons.append("DATA_CLASS_UNVERIFIED")
         classes = ()
+    # Sending data to another tool/AI requires explicit classification
+    # evidence, even when caller believes the content is public.
+    if external:
+        if request.get("data_classes_verified") is not True:
+            reasons.append("DATA_CLASS_UNVERIFIED")
+        if request.get("destination_verified") is not True:
+            reasons.append("DESTINATION_NOT_VERIFIED")
     if "secret" in classes:
         reasons.append("SECRET_TRANSFER_PROHIBITED")
-    if request.get("external_transfer") is True and (set(classes) & SENSITIVE):
+    if external and (set(classes) & SENSITIVE):
         if request.get("data_release_approved") is not True or request.get("destination_verified") is not True:
             reasons.append("SENSITIVE_TRANSFER_NOT_AUTHORIZED")
 
