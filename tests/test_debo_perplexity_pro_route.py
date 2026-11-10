@@ -58,12 +58,42 @@ class TestPerplexityProRouter(unittest.TestCase):
             with self.subTest(task=task):
                 result = route(task)
                 self.assertNotIn("Computer", result["mode"])
-                self.assertEqual(result["computer"], "UNAVAILABLE_PER_OWNER")
+                self.assertEqual(result["computer"], "NOT_VERIFIED")
 
     def test_unknown_task_fails_closed(self):
         with self.assertRaises(ValueError):
             route("secret_account_scrape")
 
+    def test_pro_iphone_computer_observed_not_inferred(self):
+        result = route("quick_fact", computer_observed=True)
+        self.assertEqual(result["computer"], "AVAILABLE_OBSERVED")
+        self.assertEqual(result["mode"], "Best")
+
+    def test_notion_writeback_defaults_to_unsaved(self):
+        result = route("notion_writeback")
+        self.assertEqual(result["status"], "NOT_SAVED")
+        self.assertEqual(result["mode"], "Copy-ready Notion handoff")
+
+    def test_notion_writeback_three_independent_gates(self):
+        for flags in ({"computer_observed": True},
+                      {"computer_observed": True, "connector_scope_verified": True},
+                      {"computer_observed": True, "account_write_authorized": True}):
+            with self.subTest(flags=flags):
+                self.assertEqual(route("notion_writeback", **flags)["status"], "NOT_SAVED")
+
+    def test_notion_computer_never_claims_writeback(self):
+        result = route("notion_writeback", computer_observed=True,
+                       connector_scope_verified=True, account_write_authorized=True)
+        self.assertEqual(result["mode"], "Computer")
+        self.assertEqual(result["status"], "SUGGESTION_ONLY_NOT_EXECUTED")
+
+    def test_private_account_read_not_equivalent_to_computer_connection(self):
+        result = route("private_account_inventory", account_read_authorized=True)
+        self.assertNotEqual(result["mode"], "Computer")
+        result = route("private_account_inventory", computer_observed=True,
+                       connector_scope_verified=True, account_read_authorized=True)
+        self.assertEqual(result["mode"], "Computer")
+        self.assertEqual(result["account_read_state"], "AUTHORIZED_ROUTE_REQUIRES_READBACK")
 
 if __name__ == "__main__":
     unittest.main()

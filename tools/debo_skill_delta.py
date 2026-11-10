@@ -53,6 +53,74 @@ def github_statuses(markdown):
     return items
 
 
+
+# R149-002: optional constrained metadata preflight, not a general YAML parser.
+def validate_skill_contract(markdown, directory_name):
+    """Inspect basic Agent Skills metadata without installing or modifying skills.
+
+    Complex YAML is marked REVIEW rather than falsely passing validation.
+    """
+    lines = markdown.splitlines()
+    issues = []
+    if not lines or lines[0].strip() != '---':
+        return {'status': 'REVIEW', 'issues': ['FRONTMATTER_MISSING'],
+                'name': None, 'runtime_installed': 'UNVERIFIED'}
+    try:
+        end = lines.index('---', 1)
+    except ValueError:
+        return {'status': 'REVIEW', 'issues': ['FRONTMATTER_UNCLOSED'],
+                'name': None, 'runtime_installed': 'UNVERIFIED'}
+    fields = {}
+    index = 1
+    while index < end:
+        line = lines[index]
+        if not line.strip() or line.lstrip().startswith('#'):
+            index += 1
+            continue
+        match = re.fullmatch(r'([A-Za-z][A-Za-z0-9_-]*):[ \t]*(.*)', line)
+        if not match:
+            issues.append('COMPLEX_YAML_REQUIRES_REFERENCE_VALIDATOR'
+                          if line.startswith((' ', '\t')) else 'YAML_SYNTAX_UNVERIFIED')
+            index += 1
+            continue
+        field, value = match.groups()
+        if field in fields:
+            issues.append('DUPLICATE_FIELD')
+        if value in ('>', '>-', '|', '|-'):
+            body = []
+            next_index = index + 1
+            while next_index < end and (not lines[next_index].strip()
+                                         or lines[next_index][0].isspace()):
+                body.append(lines[next_index].strip())
+                next_index += 1
+            fields[field] = (' '.join(part for part in body if part)
+                             if value.startswith('>') else '\n'.join(body).strip())
+            index = next_index
+        else:
+            if value.startswith(('"', "'")):
+                if len(value) < 2 or value[-1] != value[0]:
+                    issues.append('SCALAR_YAML_UNVERIFIED')
+                else:
+                    value = value[1:-1]
+            fields[field] = value.strip()
+            index += 1
+    name = fields.get('name', '')
+    if len(name) > 64 or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', name):
+        issues.append('NAME_INVALID')
+    if directory_name and name != directory_name:
+        issues.append('NAME_DIRECTORY_MISMATCH')
+    description = fields.get('description', '')
+    if not (1 <= len(description) <= 1024):
+        issues.append('DESCRIPTION_LENGTH_INVALID')
+    if 'compatibility' in fields and not (1 <= len(fields['compatibility']) <= 500):
+        issues.append('COMPATIBILITY_LENGTH_INVALID')
+    if not any(x.strip() for x in lines[end + 1:]):
+        issues.append('SKILL_BODY_MISSING')
+    return {'status': 'PASS' if not issues else 'REVIEW',
+            'issues': sorted(set(issues)), 'name': name or None,
+            'runtime_installed': 'UNVERIFIED'}
+
+
 def build_report(markdown, notion_rows=None, skills_root=None, previous=None, automations=None, projects_root=None):
     base = audit(markdown)
     gh = github_statuses(markdown)
@@ -144,11 +212,33 @@ def main():
     parser.add_argument('--output', type=Path)
     parser.add_argument('--include-projects', action='store_true',
                         help='Include scoped projects/*/skills/*/SKILL.md sources (read-only)')
+    parser.add_argument('--validate-contracts', action='store_true',
+                        help='Opt-in source-only SKILL.md metadata preflight')
     args = parser.parse_args()
     previous = json.loads(args.previous.read_text(encoding='utf-8')) if args.previous else None
     report = build_report((args.repo / 'SKILL_REGISTRY.md').read_text(encoding='utf-8'),
                           load_rows(args.notion), args.repo / 'skills', previous, load_rows(args.automations),
                           projects_root=(args.repo / 'projects' if args.include_projects else None))
+    if args.validate_contracts:
+        entries = []
+        for item in report['skills']:
+            source_path = item.get('source_path')
+            if not source_path:
+                continue
+            skill_file = args.repo / source_path
+            if not skill_file.is_file():
+                continue
+            check = validate_skill_contract(skill_file.read_text(encoding='utf-8'),
+                                            skill_file.parent.name)
+            entries.append({'id': item['id'], 'source_path': source_path, **check})
+        report['contract_audit'] = {
+            'mode': 'SOURCE_ONLY_OPT_IN_REVIEW',
+            'checked': len(entries),
+            'pass': sum(v['status'] == 'PASS' for v in entries),
+            'needs_review': sum(v['status'] != 'PASS' for v in entries),
+            'entries': entries,
+            'limitation': 'Partial YAML preflight; use official skills-ref in an authorized sandbox; no runtime installation evidence.'
+        }
     content = json.dumps(report, indent=2) + '\n'
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
