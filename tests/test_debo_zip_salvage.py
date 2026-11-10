@@ -24,6 +24,23 @@ class SalvageTests(unittest.TestCase):
    original=src.read_bytes();r=rebuild(src,out)
    self.assertTrue(r['crc_all_complete_members_pass'])
    self.assertEqual(src.read_bytes(),original)
+ def test_rejects_unsafe_archive_paths(self):
+  with tempfile.TemporaryDirectory() as d:
+   src=Path(d)/'unsafe.zip';out=Path(d)/'clean.zip'
+   with zipfile.ZipFile(src,'w',compression=zipfile.ZIP_DEFLATED) as z:z.writestr('../escape.txt','payload')
+   with self.assertRaises(ValueError):rebuild(src,out)
+   self.assertFalse(out.exists())
+ def test_duplicate_name_stops_recovery(self):
+  with tempfile.TemporaryDirectory() as d:
+   src=Path(d)/'dupe.zip';out=Path(d)/'dupe_out.zip'
+   import warnings
+   with warnings.catch_warnings():
+    warnings.simplefilter('ignore',UserWarning)
+    with zipfile.ZipFile(src,'w') as z:
+     z.writestr('same.txt','first');z.writestr('same.txt','second')
+   r=rebuild(src,out)
+   self.assertEqual(r['complete_members'],1)
+   self.assertIn('duplicate_member',r['stopped_because'])
  def test_does_not_overwrite_source(self):
   with tempfile.TemporaryDirectory() as d:
    src=Path(d)/'a.zip';src.write_bytes(b'x')
