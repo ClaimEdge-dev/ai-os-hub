@@ -71,5 +71,37 @@ class TestDEBOSkillDelta(unittest.TestCase):
             self.assertEqual(changed['project/rapid-roadside-repair/jct-dispatch-intake']['delta'], 'UNCHANGED')
 
 
+    def test_duplicate_notion_aliases_are_quarantined_regardless_of_row_order(self):
+        rows = [{'Name': 'Thread Ops', 'Status': 'ACTIVE', 'Version': '1'},
+                {'Name': 'thread-ops', 'Status': 'DEPRECATED', 'Version': '0'}]
+        first = build_report(REGISTRY, rows)
+        reverse = build_report(REGISTRY, list(reversed(rows)))
+        self.assertEqual(first['summary']['notion_rows'], 2)
+        self.assertEqual(first['summary']['notion_unique'], 1)
+        self.assertEqual(first['summary']['notion_duplicate_names'], ['thread-ops'])
+        self.assertEqual(first['summary']['catalog_conflicts'], 0)
+        record = next(s for s in first['skills'] if s['id'] == 'thread-ops')
+        other = next(s for s in reverse['skills'] if s['id'] == 'thread-ops')
+        self.assertTrue(record['notion_alias_ambiguous'])
+        self.assertEqual(record['notion_status'], 'AMBIGUOUS_NOTION_ALIAS')
+        self.assertEqual(record['fingerprint'], other['fingerprint'])
+        self.assertEqual(record['delta'], 'NEW')
+        self.assertEqual(build_report(REGISTRY, rows, previous=first)['summary']['changed_skills'], 0)
+        resolved = build_report(REGISTRY, [rows[0]], previous=first)
+        fixed = next(s for s in resolved['skills'] if s['id'] == 'thread-ops')
+        self.assertFalse(fixed['notion_alias_ambiguous'])
+        self.assertEqual(fixed['notion_status'], 'ACTIVE')
+        self.assertEqual(fixed['delta'], 'CHANGED')
+
+    def test_duplicate_only_notion_alias_is_not_dropped(self):
+        rows = [{'Name': 'Orphan Skill', 'Status': 'DRAFT'},
+                {'Name': 'orphan-skill', 'Status': 'ACTIVE'}]
+        report = build_report(REGISTRY, rows)
+        records = [s for s in report['skills'] if s['id'] == 'orphan-skill']
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0]['notion_status'], 'AMBIGUOUS_NOTION_ALIAS')
+        self.assertTrue(records[0]['notion_alias_ambiguous'])
+
+
 if __name__ == '__main__':
     unittest.main()
