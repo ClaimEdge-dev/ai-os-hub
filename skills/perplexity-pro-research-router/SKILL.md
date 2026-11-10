@@ -8,7 +8,7 @@ description: Select the appropriate Perplexity Pro search mode and available AI 
 Owner: DEBO / Scout. Source candidate only. Canon: \`DEBO_BOOTSTRAP.md\`, \`skills/multi-ai-router/SKILL.md\`, and the latest project checkpoint. This is an adapter, **not** a second AI router.
 
 ## Account facts for this mission
-The owner reports **Perplexity Pro**, **without access to Perplexity Computer**. Treat Computer as UNAVAILABLE for this workflow regardless of marketing, until the owner reports a change and the actual session independently verifies it. Do not route to Computer, its Light/Standard/High/Ultra controls, or Max-exclusive options. Do not buy or upgrade plans.
+The owner uses **Perplexity Pro on iPhone**, with no Mac/desktop currently available. Cloud Computer may be offered to Pro in the mobile app, while Personal Computer is a separate Mac feature. Treat actual Computer availability, account sign-in, Notion/GitHub scope, and credits as UNVERIFIED until independently observed. Use Computer Effort Mode (Light/Standard/High/Ultra) only if the authenticated iPhone Computer UI actually exposes it. Never infer Max Search entitlement or buy/upgrade plans.
 
 ## Select the task first, model second
 Use \`tools/debo_perplexity_pro_route.py\` to obtain a source-only decision card. Confirm available models in the user's current model dropdown before choosing any named model; if not seen, use Best/automatic and mark unverified. Choose one primary model and an independent verification pass only for material conclusions. Never claim one model is universally "best".
@@ -37,7 +37,7 @@ Specific model names and access can change; verify official current docs and in-
 Use the separate \`cross-ai-artifact-inventory\` skill. With a real authenticated account session, enumerate only visible search threads, Projects (or legacy Spaces), user-uploaded files, generated artifacts, settings, preferences, memories, model list, quota and enabled integrations. Where supported, the owner can request a first-party data export from https://www.perplexity.ai/account/details; classify data as PRIVATE, collect only needed fields, and redact before cross-system handoff. Without such access, mark scope NOT READ rather than "empty". Do not create connectors, move data or change memory/settings without scope approval.
 
 ## Negative tests
-- User reports Pro but no Computer: never recommend Computer as the execution mode.
+- Cloud Computer is a candidate, not an authenticated fact: recommend it only after observed Pro iPhone access, authorized connector identity/scope and usage-cost checks. Otherwise use Research plus copy-ready handoff marked NOT_SAVED.
 - No Perplexity account connector: do not claim private account inventory.
 - Model missing from user menu: use Best/automatic rather than insist on a named model.
 - One trivial question: do not burn a Research run.
