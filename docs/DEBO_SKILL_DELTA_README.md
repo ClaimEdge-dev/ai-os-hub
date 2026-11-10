@@ -32,3 +32,17 @@ python -m unittest discover -s tests -p 'test_debo*.py' -v
 Use a GitHub review branch, run the repo's existing CI and synthetic tests, inspect real-source conflicts, then approve promotion. Keep 403 Google Sheets and 404 event-trigger capability separate. Do not create another ChatGPT scheduler or merge the unreviewed R9/PR #17 as a side effect.
 
 Related: `tools/debo_registry_audit.py`, `tools/debo_bootstrap_check.py`, `governance/runtime-briefs/DEBO.md`, and the existing Notion 07 ThreadOps checkpoint.
+
+## Opt-in project-adapter source inventory (R144)
+
+Run `python tools/debo_skill_delta.py --include-projects --output /tmp/debo-all-skill-sources.json` to include existing `projects/*/skills/*/SKILL.md` adapters alongside root skills. The default remains root-only for backward compatibility. The read-only scanner emits stable scoped IDs such as `project/jcs-towing/jct-dispatch-intake`, source paths and SHA-256 fingerprints. Identically named skills in two projects stay separate; they cannot shadow a root DEBO Core skill. Synthetic regression tests cover opt-in behavior, scope separation and changed-source detection.
+
+This is a source file inventory only. It does not activate skills in ChatGPT, Kimi, Notion or other systems, and does not prove tenant authorization, production installation or workflow testing. The source glob intentionally does not include standalone `plugins/` packages or nested legacy ClaimEdge skills; keep those separate until the canonical auditor explicitly adopts their scope. Reconcile new evidence with the *existing* Notion Skill Registry and R141 crosswalk; do not create another register or fill blank source links by guessing.
+
+
+## R149-002 | Optional SKILL.md metadata preflight
+
+Run: python tools/debo_skill_delta.py --include-projects --validate-contracts --output /tmp/debo-skill-contracts.json
+
+The existing canonical auditor's optional contract_audit block checks basic Agent Skills SKILL.md metadata and reports PASS/REVIEW; the default report is unchanged. Required fields are name and description; license is optional. A lightweight stdlib reader cannot fully parse complex YAML, so those cases are explicitly marked REVIEW and should use the official skills-ref validator in an isolated authorized environment. Legacy missing headers remain review candidates, not an installed-skill failure. This command reads files and writes only the specified local report; no Notion or GitHub mutations, deployments or account permissions.
+Source: https://agentskills.io/specification .
