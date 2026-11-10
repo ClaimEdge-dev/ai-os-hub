@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "audit_id": "commit-04c0071e8c732492bbe32cf7f7fd8a133de983f4",
+  "repository": "ClaimEdge-dev/ai-os-hub",
+  "source_branch": "main",
+  "source_type": "commit",
+  "source": "04c0071e8c732492bbe32cf7f7fd8a133de983f4",
+  "source_commit_sha": "04c0071e8c732492bbe32cf7f7fd8a133de983f4",
+  "source_url": "https://github.com/ClaimEdge-dev/ai-os-hub/commit/04c0071e8c732492bbe32cf7f7fd8a133de983f4",
+  "tree_url": "https://github.com/ClaimEdge-dev/ai-os-hub/tree/04c0071e8c732492bbe32cf7f7fd8a133de983f4",
+  "source_tree_sha": "352231554a90a531de6573875f037e0add2b2025",
+  "inventory": {
+    "file_count": 375,
+    "listed_bytes": 2286634,
+    "categories": {
+      "source": 44,
+      "documentation": 279,
+      "tests": 31,
+      "workflows": 5,
+      "assets_or_builds": 0,
+      "other": 16
+    }
+  },
+  "event": "manual_authorized_pilot",
+  "last_run_id": "DEBO-AUDIT-SYNC-PR65-MANUAL-PILOT-20261110",
+  "last_observed_utc": "2026-11-10T23:20:45.697Z",
+  "private_material_status": "EXCLUDED_NOT_EXPORTED",
+  "external_chat_threads": "NOT_VERIFIED_NO_AUTHORIZED_EXPORT",
+  "redaction": "No private files, credentials, source bytes, or ChatGPT exports copied",
+  "inventory_status": "VERIFIED_PUBLIC_GITHUB_METADATA"
+}
