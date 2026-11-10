@@ -18,8 +18,8 @@ class R127TaskEditorReview(unittest.TestCase):
         proc=subprocess.run([node,"--test",str(APP/"tests/test-editor.mjs")],
                             capture_output=True,text=True,timeout=30)
         self.assertEqual(proc.returncode,0,proc.stdout + "\n" + proc.stderr)
-        total=re.search(r"^# tests (\\d+)$",proc.stdout,re.MULTILINE)
-        passed=re.search(r"^# pass (\\d+)$",proc.stdout,re.MULTILINE)
+        total=re.search(r"^# tests (\d+)$",proc.stdout,re.MULTILINE)
+        passed=re.search(r"^# pass (\d+)$",proc.stdout,re.MULTILINE)
         self.assertIsNotNone(total,"No Node TAP test count")
         self.assertIsNotNone(passed,"No Node TAP pass count")
         self.assertGreaterEqual(int(total.group(1)),28)
