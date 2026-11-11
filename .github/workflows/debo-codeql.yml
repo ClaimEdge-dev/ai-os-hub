@@ -1,0 +1,41 @@
+name: DEBO CodeQL Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      language:
+        description: "CodeQL language (for example: javascript-typescript, python)"
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      language:
+        description: "CodeQL language (for example: javascript-typescript, python)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  security-events: write
+  packages: read
+
+jobs:
+  codeql:
+    name: CodeQL
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ inputs.language }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v4
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@v4
