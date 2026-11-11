@@ -7,7 +7,7 @@ description: >
   inefficient for the requested outcome. Optimizes usage, context, and duplication.
 ---
 
-# ChatGPT Surface Router v1.0
+# ChatGPT Surface Router v1.1
 
 ## Mandatory Mode Card
 
@@ -119,20 +119,37 @@ If a file is reusable:
 
 Save high-value ChatGPT responses into the Project sources when they are durable decisions, summaries, specifications, or handoffs.
 
-## Usage governor
+## Usage governor (v1.1 — existing skill extension, 2026-11-11)
 
-1. Reuse existing project/thread before creating another.
-2. Retrieve only the smallest relevant context.
-3. Ask specialist agents for DELTAS, not repeated full project history.
-4. Use Instant/Medium for ordinary work.
-5. Use High for difficult reasoning, architecture, reconciliation, legal/technical analysis, or high-stakes QA.
-6. Use Pro only for the hardest tasks when available and materially useful.
-7. Use Search before Deep Research for quick current facts.
-8. Use Work only when execution depth justifies it.
-9. Use Kimi Swarm only for genuinely independent parallel branches.
-10. Preserve results so the same analysis is not paid for twice in time/context.
+**Owner:** This `chatgpt-surface-router` skill is the canonical ChatGPT-surface and usage policy. `chatgpt-mode-router` supplies supporting mode cues; `multi-ai-router` handles cross-provider routing. Do not create an independent usage-governor skill, dashboard, registry, or scheduled poll.
 
-Consumer ChatGPT usage is governed by plan limits rather than a per-message token bill. Optimize scarce usage and context, not imaginary token accounting.
+### Budget and evidence boundaries
+
+- **ChatGPT plan allowance is not an OpenAI API token balance.** Use the actual signed-in ChatGPT usage/settings view for plan-specific allowance, reset, or rate limits, if accessible. Without a direct read, mark them UNKNOWN; never invent numbers or promise extra quota.
+- **OpenAI API usage is separately billed/managed.** For authorized API applications, use the matching project's real API usage/cost records and model-specific pricing before calculating dollars. Never use API usage records as proof of ChatGPT Plus consumption.
+- Feature eligibility, model availability, token accounting and limits change. Check up-to-date official documentation when the choice materially depends on them; do not hardcode future plan announcements into a current routing decision.
+- No API key inspection, account connection, telemetry installation, credit purchase, subscription upgrade, billing change, or export of private usage data without the appropriate authorization. Never put customer or minor information into public metrics.
+
+### Choose the smallest capable route
+
+1. **RECOVER** the current project checkpoint and only the relevant source slices; avoid repasting whole threads, repos, or large file batches.
+2. **QUICK/ROUTINE:** Chat + Instant when sufficient. Do not invoke Work, Deep Research or a second AI for a short answer.
+3. **MODERATE REASONING:** Use Medium when a better structured decision or comparison is needed. Select High or Extra High (when accessible) for genuinely difficult analysis, security-sensitive review, conflicting evidence or complicated code. Do not downgrade accuracy to save an unmeasured allowance.
+4. **ACTION/TOOLS:** Select Work for substantial app/file/browser execution; Codex for repository coding/testing. Surface and tools are chosen by the *work required*, not a claimed token price.
+5. **RESEARCH:** Begin with targeted connected-source reads or Search. Use Deep Research only when multiple sources, conflicts, and sustained investigation justify it.
+6. **CONTEXT:** Use short source-backed Resume Capsules, file ranges, delta prompts, and cacheable shared instructions when supported. Preserve exact identifiers, approvals, relevant citations, and rollback information. Never compress away material evidence.
+7. **DELEGATION:** Send a narrow structured task with a source pointer and return contract. Spawn another worker only when independence, isolation, connector access, or independent QA creates measurable value; do not perform ceremonial multi-agent loops.
+8. **RETRIES:** After a repeated failed call, diagnose and change the authorized method once rather than continuing identical requests. Do not bypass approval or security controls to save time.
+9. **QA RESERVE:** If Bobby states a finite usage/time budget, provisionally keep about 15–20% for verification and checkpointing unless the task's risk requires more; this is a planning heuristic, **not** an observed account balance.
+10. **EVIDENCE:** Record model/surface chosen, task outcome, material tool calls, duplicative retrievals, observed usage/cost *if actually available*, source freshness, tests, and the next action in the existing checkpoint. Label any proposed savings ESTIMATE until measured.
+
+### Routing fallback and acceptance
+
+- If account allowance/plan meter is unavailable: continue on the smallest capable authorized route; report **USAGE UNKNOWN** rather than a fabricated remaining percentage.
+- If an observed allowance is low: prioritize high-value completion, concise handoffs and reuse of existing results. Never silently switch tenants, create billable API jobs or reduce necessary safeguards.
+- For API agents only, evaluate prompt caching, bounded outputs and usage telemetry with real before/after measurements, cost checks and approved secret handling; these do not alter ChatGPT's included allowance.
+- Before adoption, compare three representative DEBO workflows: routine answer, multi-source research, and repo/tool execution. Require completed correct outputs, no new sensitive transfers, no duplicated master skills, and no increase in blocked actions. Measure improvements only with available comparable data.
+- See `references/usage-governor-v1.md` for small examples and static contract checks. A passing document check is not proof of runtime routing or a measured decrease in usage.
 
 ## Current official references
 
