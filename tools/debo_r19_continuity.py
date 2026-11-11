@@ -124,7 +124,16 @@ def atomic_write_readback(path: Path, data: dict) -> dict:
             fh.write(content)
             fh.flush()
             os.fsync(fh.fileno())
-        os.replace(temp, path)
+        try:
+            os.link(temp, path)
+        except FileExistsError:
+            if path.is_symlink() or any(parent.is_symlink() for parent in path.parents):
+                raise ValueError("symlink destination refused")
+            previous = path.read_bytes()
+            if previous != content:
+                raise FileExistsError("checkpoint differs; preserve old and choose a versioned path")
+            return {"path": str(path), "sha256": hashlib.sha256(previous).hexdigest(),
+                    "bytes": len(previous), "readback": "PASS", "unchanged": True}
         verified = path.read_bytes()
         if verified != content:
             raise IOError("checkpoint readback mismatch")
