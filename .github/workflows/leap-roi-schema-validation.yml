@@ -1,0 +1,88 @@
+name: Leap ROI schema validation
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "projects/claimedge/leap-roi-audit/neon/**"
+      - ".github/workflows/leap-roi-schema-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  postgres-schema-test:
+    name: PostgreSQL migration + rollback fixture
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: leap_roi_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d leap_roi_test"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+
+    env:
+      PGHOST: localhost
+      PGPORT: "5432"
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: leap_roi_test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Apply base migration
+        run: |
+          psql -v ON_ERROR_STOP=1             -f projects/claimedge/leap-roi-audit/neon/migration_v1.sql
+
+      - name: Apply canonical hardening migration
+        run: |
+          psql -v ON_ERROR_STOP=1             -f projects/claimedge/leap-roi-audit/neon/migration_v2_event_history.sql
+
+      - name: Run read-only validation pack
+        run: |
+          psql -v ON_ERROR_STOP=1             -f projects/claimedge/leap-roi-audit/neon/validation_v1.sql
+
+      - name: Run rollback-safe synthetic fixture
+        run: |
+          psql -v ON_ERROR_STOP=1             -f projects/claimedge/leap-roi-audit/neon/temporary_test_fixture.sql
+
+      - name: Prove fixture rolled back
+        run: |
+          test "$(psql -Atqc "SELECT count(*) FROM leap_roi.claims WHERE external_job_id='TEST-LEAP-JOB-001';")" = "0"
+          test "$(psql -Atqc "SELECT count(*) FROM leap_roi.audit_runs WHERE run_key='TEST-FIXTURE-AUDIT-001';")" = "0"
+          test "$(psql -Atqc "SELECT count(*) FROM leap_roi.sync_runs WHERE run_key='TEST-FIXTURE-SYNC-001';")" = "0"
+
+      - name: Confirm canonical views exist
+        run: |
+          psql -Atqc "
+            SELECT table_name
+            FROM information_schema.views
+            WHERE table_schema='leap_roi'
+              AND table_name IN (
+                'v_latest_field_audit',
+                'v_time_savings',
+                'v_financial_summary',
+                'v_claim_completeness',
+                'v_stage_durations',
+                'v_sync_health',
+                'v_owner_summary'
+              )
+            ORDER BY table_name;
+          "
