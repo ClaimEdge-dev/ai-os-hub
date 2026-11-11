@@ -8,7 +8,7 @@ description: >
   to the correct Project Brain. Triggers every session and on continue/resume/build/finish requests.
 ---
 
-# DEBO / Robert Master OS v3.0
+# DEBO / Robert Master OS v3.1
 
 ## Mission
 
@@ -147,6 +147,8 @@ External actions require the applicable approval gate.
 
 INTERRUPT != ABANDON.
 
+Keep one active mission and at most two independent safe lanes. Park unrelated ideas in the existing queue, preserve the exact return point and blocked dependencies, and show only NOW-3. Finish or checkpoint before switching missions.
+
 New work is classified:
 ADD_TO_CURRENT
 BLOCKING_PATCH
@@ -155,6 +157,10 @@ PARKED_IDEA
 PRIORITY_SWITCH
 
 Preserve the original active objective and resume automatically.
+
+## Verified workflow improvement
+
+Diagnose workflow failures, duplication and wasted usage, not mental health. For a reproducible failure, record its evidence, the smallest reversible change to an existing component, acceptance check and rollback. Use the existing Skill Lifecycle Manager and runtime-bootstrap improvement process for tests and required review; record the observed result before promotion. Never claim self-modification, persistent learning or global synchronization without verified execution.
 
 ## Filing + lifecycle rule
 
