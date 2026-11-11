@@ -80,6 +80,43 @@ class TestConnectorPreflight(unittest.TestCase):
     def test_no_boolean_cost_bypass(self):
         self.assertIn("COST_NOT_VERIFIED", evaluate_route({**PUBLIC, "metered": True, "estimated_cost_usd": True})["reason_codes"])
 
+    def test_malformed_operation_type_fails_closed_without_exception(self):
+        for malformed in ([], {"operation": "public_read"}, True, 123):
+            with self.subTest(operation_type=type(malformed).__name__):
+                result = evaluate_route({**PUBLIC, "operation": malformed})
+                self.assertFalse(result["allowed"])
+                self.assertIn("INVALID_OPERATION", result["reason_codes"])
+
+    def test_metered_flag_rejects_non_boolean_values(self):
+        for malformed in ("true", "false", 1, None, []):
+            with self.subTest(metered_type=type(malformed).__name__):
+                result = evaluate_route({**PUBLIC, "metered": malformed})
+                self.assertFalse(result["allowed"])
+                self.assertIn("METERED_STATUS_UNVERIFIED", result["reason_codes"])
+
+    def test_malformed_required_scope_not_stringified_into_authorization(self):
+        for malformed in (["read"], {"scope": "read"}, 42):
+            with self.subTest(scope_type=type(malformed).__name__):
+                result = evaluate_route({**PRIVATE, "required_scope": malformed,
+                                         "granted_scopes": [str(malformed)]})
+                self.assertFalse(result["allowed"])
+                self.assertIn("SCOPE_NOT_VERIFIED", result["reason_codes"])
+
+    def test_granted_scopes_reject_malformed_members(self):
+        for granted in (["read", None], ["read", {}], ["read", ""]):
+            with self.subTest(grants=repr(granted)):
+                result = evaluate_route({**PRIVATE, "granted_scopes": granted})
+                self.assertFalse(result["allowed"])
+                self.assertIn("SCOPE_NOT_VERIFIED", result["reason_codes"])
+
+    def test_malformed_tenant_ids_not_stringified_into_match(self):
+        for malformed in (["authorized-demo"], {"tenant": "authorized-demo"}, 42):
+            with self.subTest(tenant_type=type(malformed).__name__):
+                result = evaluate_route({**PRIVATE, "expected_tenant": malformed,
+                                         "observed_tenant": malformed})
+                self.assertFalse(result["allowed"])
+                self.assertIn("TENANT_NOT_VERIFIED", result["reason_codes"])
+
     def test_non_mapping_rejected(self):
         with self.assertRaises(TypeError):
             evaluate_route(None)
@@ -101,8 +138,8 @@ class TestConnectorPreflight(unittest.TestCase):
                             "destination_verified": True})
         self.assertIn("DATA_CLASS_UNVERIFIED", r["reason_codes"])
 
-    def test_free_classified_external_transfer_is_allowed_as_policy_only(self):
-        r = evaluate_route({**PRIVATE, "external_transfer": True, "data_classes": [],
+    def test_public_only_classified_transfer_is_allowed_as_policy_only(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": True, "data_classes": ["public"],
                             "data_classes_verified": True, "destination_verified": True})
         self.assertEqual(r["decision"], "ALLOW_READ_ONLY")
 
@@ -111,6 +148,46 @@ class TestConnectorPreflight(unittest.TestCase):
              "granted_scopes": ["write"]}
         p.pop("estimated_cost_usd")
         self.assertIn("COST_NOT_VERIFIED", evaluate_route(p)["reason_codes"])
+
+    def test_verified_empty_classification_does_not_authorize_export(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": True, "data_classes": [],
+                            "data_classes_verified": True, "destination_verified": True})
+        self.assertIn("DATA_CLASS_UNVERIFIED", r["reason_codes"])
+        self.assertFalse(r["allowed"])
+
+    def test_unknown_classification_fails_closed(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": True,
+                            "data_classes": ["unclassified"], "data_classes_verified": True,
+                            "destination_verified": True})
+        self.assertIn("DATA_CLASS_UNVERIFIED", r["reason_codes"])
+
+    def test_uppercase_secret_does_not_bypass_classifier(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": True,
+                            "data_classes": ["Secret"], "data_classes_verified": True,
+                            "destination_verified": True})
+        self.assertFalse(r["allowed"])
+        self.assertIn("DATA_CLASS_UNVERIFIED", r["reason_codes"])
+
+    def test_unhashable_classification_blocks_without_exception(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": True,
+                            "data_classes": ["client", {"nested": "unsafe"}],
+                            "data_classes_verified": True, "destination_verified": True})
+        self.assertFalse(r["allowed"])
+        self.assertIn("DATA_CLASS_UNVERIFIED", r["reason_codes"])
+
+    def test_external_flag_requires_literal_boolean(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": "true",
+                            "data_classes": ["client"], "data_classes_verified": True,
+                            "destination_verified": True})
+        self.assertFalse(r["allowed"])
+        self.assertIn("EXTERNAL_TRANSFER_UNVERIFIED", r["reason_codes"])
+
+    def test_internal_transfer_needs_separate_data_release(self):
+        r = evaluate_route({**PRIVATE, "external_transfer": True,
+                            "data_classes": ["internal"], "data_classes_verified": True,
+                            "destination_verified": True})
+        self.assertFalse(r["allowed"])
+        self.assertIn("SENSITIVE_TRANSFER_NOT_AUTHORIZED", r["reason_codes"])
 
 if __name__ == "__main__":
     unittest.main()
