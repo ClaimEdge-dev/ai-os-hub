@@ -1,0 +1,9 @@
+[
+  {
+    "skill_id": "jct-approval-gatekeeper",
+    "version": "unverified",
+    "source_path": "projects/jcs-towing/skills/jct-approval-gatekeeper",
+    "status": "DISCOVERED",
+    "approval_required": true
+  }
+]

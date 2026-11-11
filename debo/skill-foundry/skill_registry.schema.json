@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DEBO Skill Registry",
+  "type": "object",
+  "required": [
+    "skill_id",
+    "version",
+    "source_path",
+    "status"
+  ],
+  "properties": {
+    "skill_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "version": {
+      "type": "string"
+    },
+    "source_path": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "DISCOVERED",
+        "DRAFT",
+        "TESTED",
+        "APPROVED",
+        "PACKAGED",
+        "INSTALLED",
+        "VERIFIED",
+        "BLOCKED",
+        "RETIRED"
+      ]
+    },
+    "runtime": {
+      "type": "string"
+    },
+    "evidence_url": {
+      "type": "string"
+    },
+    "approval_required": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}
