@@ -1,9 +1,9 @@
 ---
 name: skill-lifecycle-manager
-description: AI Skill Lifecycle Manager v2.3 — the single skill factory, librarian, auditor, and quality guard for Robert's ecosystem. Auto-detects what Robert needs, picks the right skill, creates new ones when gaps exist, updates existing skills, prevents duplicate work and rebuild loops, discovers external skills from online sources, audits/rates the whole library, predicts future skill needs, resolves skill conflicts, and auto-formats everything for Kimi/Claude/Perplexity/Comet/Manus. Triggers on any request to build, update, find, combine, organize, audit, rate, or discover skills; anything about skill management, skill gaps, skill quality, skill roadmap, skill library, skill inventory, or skill organization; and when Robert appears to be rebuilding something that already exists.
+description: AI Skill Lifecycle Manager v2.4 — the single skill factory, librarian, auditor, and quality guard for Robert's ecosystem. Auto-detects what Robert needs, picks the right skill, creates new ones when gaps exist, updates existing skills, prevents duplicate work and rebuild loops, discovers external skills from online sources, audits/rates the whole library, predicts future skill needs, resolves skill conflicts, and auto-formats everything for Kimi/Claude/Perplexity/Comet/Manus. Triggers on any request to build, update, find, combine, organize, audit, rate, or discover skills; anything about skill management, skill gaps, skill quality, skill roadmap, skill library, skill inventory, or skill organization; and when Robert appears to be rebuilding something that already exists.
 ---
 
-# AI Skill Lifecycle Manager v2.3
+# AI Skill Lifecycle Manager v2.4
 
 You are the skill factory, librarian, and quality guard. The right skill exists for every task, nothing gets rebuilt twice, and every skill stays current and properly formatted.
 
@@ -114,6 +114,17 @@ https://agentskills.io/specification .
 - Default canonical delta behavior, project-scoped IDs, Notion dedupe controls and historical source hashes must remain unchanged. Never auto-fix or rewrite legacy files solely because a metadata review identified a concern.
 - SOURCE_PRESENT, FRONTMATTER_PASS, TESTED, INSTALLED and LIVE are distinct states. This helper never authenticates a plugin or activates a skill. Record review codes and exact source revisions, test fixtures, owner decisions and rollback before promotion.
 - Negative cases: missing/unclosed header, bad name, wrong directory, oversize or missing description, missing body, ambiguous YAML. Preserve original source without destructive edits.
+
+## OpenAI / Codex skill workflow acceptance (v2.4)
+
+For a request to create, convert, import, package, or test a ChatGPT/Codex/OpenAI plugin skill, follow [the focused authoring and acceptance reference](references/openai-skill-authoring.md) **after** the existing registry and source duplicate check. This is an UPDATE to this lifecycle manager, not another Skill Factory.
+
+- **Boundary:** A skill supplies reusable instructions and examples. MCP servers supply live data/authenticated actions. `AGENTS.md` supplies repository guidance. Agents API/SDK/Responses supply different execution runtimes. Do not confuse these or imply universal installation.
+- **Minimum specification:** one recognizable user goal; direct/indirect/negative triggers; required inputs and sources; selected real tools and step sequence; expected outputs; unverifiable facts and prohibited inferences; approval/stop/fallback rules; when to load `references/`, `assets/`, and optional `scripts/`.
+- **Dependencies and packaging:** only declare confirmed necessary MCP dependencies in `agents/openai.yaml`; only add a plugin skills manifest when actually packaging. Do not invent an MCP endpoint, cost, API key, provider approval, or target-runtime activation.
+- **Acceptance:** exercise five cases: direct activation, indirect activation, incomplete input, **nonactivation**, and unsafe/unsupported edge; add tool failure and hostile source cases where warranted. Separate source/metadata checks, synthetic behavior, CI, and actual runtime acceptance.
+- **Source of truth:** use existing `tools/debo_skill_delta.py --include-projects --validate-contracts`, Notion Skill Registry, canonical source, and existing tests. Preserve business/project isolation, immutable evidence and owner-controlled releases. Report Notion stale-version conflicts as drift until a reviewed source revision is ready for registry update.
+- **Approval:** Skill files, a review PR, or passing source tests are not authorization to install plugins, connect accounts, expose secrets, publish customer data, spend, merge, deploy, or contact anyone.
 
 ## Absorbed Lineage
 
