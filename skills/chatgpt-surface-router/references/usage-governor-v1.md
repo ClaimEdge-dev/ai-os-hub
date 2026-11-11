@@ -11,6 +11,7 @@
 | Multi-step comparison using known source files | Chat + targeted files; Medium if needed | Full library rescan or repeated giant context |
 | Conflicting public-source investigation | Search first; Deep Research for truly extended evidence | Unnecessary long research on one fact |
 | Authenticated multi-app records and completed artifact | Work + supported permissioned connectors | Pretending ordinary chat has browser session access |
+| Read-only GitHub PR/CI status check | Chat + connected GitHub plugin, targeted PR and workflow reads | Spinning up Work/Codex or installing another connector just to inspect status |
 | Repository refactor with tests | Codex or GitHub-approved development workflow; QA/checkpoint | Calling browser agents for every edit |
 | Hard risk/architecture decision | High reasoning if available and justified | Defaulting to costly/slowest mode for routine work |
 | API workflow with observed usage metrics | Approved telemetry, per-project scope, model-aware costs | Treating API tokens as ChatGPT Plus consumption |
