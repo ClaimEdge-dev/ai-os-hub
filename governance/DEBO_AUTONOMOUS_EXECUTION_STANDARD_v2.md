@@ -15,6 +15,16 @@ Inspect routine private edits and finish. Functional changes require applicable 
 ## Anti-blocker policy
 If a dependency fails, perform every independent safe step; stage mocks explicitly; log exactly one actionable dependency. No repetitive confirmation for reversible, private, non-destructive changes. No bypass of access controls, identity, legal obligations, privacy, public deployment authorization, external communications, or money movement.
 
+## Owner-delegated optional review fast lane (2026-11-11)
+Owner instruction: do not let ceremonial or self-imposed independent-human-review requests stall routine DEBO execution. This is a standing process decision for the owner's own DEBO projects, not a grant of authority over other organizations, customers or platforms.
+
+- **Default:** for private, low-risk, reversible work, documentation, prompts, skill-routing text and narrowly tested internal changes, an independent human approval is OPTIONAL. Proceed under existing owner delegation without searching for an unrelated reviewer or repeatedly asking the owner to re-approve the same task.
+- **Evidence instead of theater:** apply scope-appropriate automated/static or affected-workflow checks, inspect current-source diffs, record the exact revision and test outcomes, preserve rollback, and checkpoint once. An owner waiver never counts as a passed CI run, completed independent review, permission grant, or live deployment.
+- **Queued checks:** when GitHub Actions is queued with no failed jobs, record CI as PENDING/UNKNOWN rather than treating it as a failed test. A low-risk docs/skill-source-only PR may proceed on the owner's specific execution direction if repository rules permit, source and regression checks pass, the affected runtime is not changed, and no applicable policy requires a running check. Never describe it as CI-cleared. Functional, security-sensitive or production changes still require their applicable checks.
+- **Real boundaries remain:** never disable platform-enforced rules or bypass legal, contractual, tenant, security, privacy or external owner obligations. Changes to authentication, access, permissions, secrets, protected or youth/customer information, money movement, external communications, destructive data, production release and security controls must retain the specific approval and verification required for that action. Independent review is used when actually mandated or clearly valuable, not invented as a universal prerequisite.
+- **Conflict routing:** when prior project instructions say every PR requires independent approval, use this later owner directive for discretionary DEBO-only reviews, while retaining stronger requirements that arise from law, contractual obligations, actual provider enforcement or an affected third-party owner. Report the remaining real dependency precisely and continue independent safe work.
+- **Scope truth:** updating this GitHub source and the existing Notion checkpoint does not rewrite all historic docs, other tools' platform rules, installed private-plugin packages or active chats. Verify downstream loads before claiming system-wide activation.
+
 ## Anticipation horizons
 NOW: next executable action and immediate bottleneck.
 THIS WEEK: deadlines, follow-ups, evidence, outstanding approvals.
