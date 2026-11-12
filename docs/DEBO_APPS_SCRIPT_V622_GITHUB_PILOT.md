@@ -6,6 +6,12 @@ This is a guarded `workflow_dispatch` action for an authorized, *previously crea
 
 The GitHub workflow uses the existing canonical DEBO repository, not a new master. It cannot bypass Google sign-in or OAuth consent.
 
+## Additional safeguards (PR #71 review)
+- The installer pins the reviewed private v6.2.2 `Code.gs` SHA-256 in code. A caller-controlled secret hash alone cannot authorize an arbitrary replacement. Regular expressions are only defense-in-depth checks, not a source security proof. Any scanner update requires a new source review and explicit pinned-digest code change.
+- The target is required to be a previously created empty Apps Script project **bound to the approved host**. A double-read before preflight and another double-read immediately before installation stop if source/metadata changes during either check.
+- **Remaining limitation:** Google Apps Script `projects.updateContent` does not provide an atomic compare-and-swap precondition in this implementation. A concurrent external edit in the final tiny gap could still be overwritten. Therefore installation is held until the owner confirms this is an isolated project with no other editors, automation, or active workflows. Do not describe this as race-free or production-safe merely because tests pass.
+- Run independent CI on the checked-in test suite and inspect the diff before enabling installation. Deployment remains HOLD until OAuth and project isolation are confirmed.
+
 ## Security and setup
 An administrator must explicitly configure GitHub environment `debo-google-pilot` and make its install operation approval-gated when supported. Configure the following as encrypted **environment secrets**, never as committed values:
 
