@@ -159,6 +159,55 @@ def prepare_event(event_type: str, capsule: dict, source_revision: str) -> dict:
     return payload
 
 
+def resume_summary(capsules: list[dict]) -> dict:
+    """Read-only, single-task handoff and repeated-blocked-checkpoint audit.
+
+    Inputs must be explicitly ordered oldest to newest. A BLOCKED checkpoint
+    count is not a count of distinct incidents or proof of a common root cause.
+    A cleared BLOCKED state resets the consecutive streak.
+    Typed proof references are not authenticated by this offline helper.
+    """
+    if not capsules:
+        raise ValueError("at least one capsule required")
+    for capsule in capsules:
+        validate_capsule(capsule)
+    latest = capsules[-1]
+    for earlier in capsules[:-1]:
+        if normalize(earlier["project_id"]) != normalize(latest["project_id"]):
+            raise ValueError("cross-project resume comparison refused")
+        if earlier["task_id"] != latest["task_id"]:
+            raise ValueError("different task_id; provide only one task lineage")
+    blocked_count = sum(c["status"] == "BLOCKED" for c in capsules)
+    consecutive_blocked_count = 0
+    for capsule in reversed(capsules):
+        if capsule["status"] != "BLOCKED":
+            break
+        consecutive_blocked_count += 1
+    repeated_stall = consecutive_blocked_count >= 2
+    return {
+        "schema": "debo.r19.resume.v1",
+        "project_id": latest["project_id"],
+        "mission_id": latest["mission_id"],
+        "task_id": latest["task_id"],
+        "objective": latest["objective"],
+        "checkpoint": latest["checkpoint"],
+        "reported_status": latest["status"],
+        "next_action": latest["next_action"],
+        "blocked_checkpoint_count": blocked_count,
+        "consecutive_blocked_checkpoint_count": consecutive_blocked_count,
+        "repeated_stall": repeated_stall,
+        "recovery_note": (
+            "Review the exact prior error, try one distinct authorized recovery path, "
+            "otherwise keep BLOCKED; do not repeat the same failed attempt."
+            if repeated_stall else
+            "Resume the recorded next action; verify in the owning source before marking complete."
+        ),
+        "evidence_assurance": "TYPED_REFERENCES_ONLY_NOT_AUTHENTICATED",
+        "cross_chat_activation": "NOT_VERIFIED",
+        "writes": 0,
+    }
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="DEBO R19 offline continuity helper (never contacts network)")
     sub = ap.add_subparsers(dest="command", required=True)
@@ -173,9 +222,21 @@ def main() -> None:
     event.add_argument("--input", type=Path, required=True)
     event.add_argument("--type", required=True)
     event.add_argument("--revision", required=True)
+    resume = sub.add_parser("resume", help="Read-only handoff; repeat --input oldest to newest for the same task")
+    resume.add_argument("--input", type=Path, action="append", required=True)
+    resume.add_argument("--json", action="store_true", help="Print a machine-readable report")
     args = ap.parse_args()
     if args.command == "fingerprint":
         print(stable_task_id(args.project_id, args.objective, args.source_key))
+    elif args.command == "resume":
+        report = resume_summary([json.loads(path.read_text(encoding="utf-8")) for path in args.input])
+        if args.json:
+            print(json.dumps(report, indent=2, ensure_ascii=False))
+        else:
+            for field in ("project_id", "mission_id", "objective", "reported_status", "checkpoint",
+                          "blocked_checkpoint_count", "repeated_stall", "next_action", "recovery_note",
+                          "evidence_assurance", "cross_chat_activation"):
+                print(f"{field}: {report[field]}")
     else:
         data = json.loads(args.input.read_text(encoding="utf-8"))
         if args.command == "validate":
