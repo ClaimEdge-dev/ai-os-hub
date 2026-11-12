@@ -9,5 +9,9 @@
   "allowed_extract_selectors": [
     "title",
     "h1"
-  ]
+  ],
+  "allowed_path_prefixes": [
+    "/"
+  ],
+  "allow_query_params": false
 }

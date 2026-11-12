@@ -51,6 +51,30 @@
         "minLength": 1,
         "maxLength": 128
       }
+    },
+    "allowed_path_prefixes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^/",
+        "maxLength": 128
+      }
+    },
+    "allow_query_params": {
+      "type": "boolean"
+    },
+    "allowed_query_keys": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-zA-Z][a-zA-Z0-9_]{0,31}$"
+      }
     }
   },
   "allOf": [
@@ -74,6 +98,40 @@
             "const": true
           }
         }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "read_only"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "then": {
+        "required": [
+          "allowed_path_prefixes"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "allow_query_params": {
+            "const": true
+          }
+        },
+        "required": [
+          "allow_query_params"
+        ]
+      },
+      "then": {
+        "required": [
+          "allowed_query_keys"
+        ]
       }
     }
   ]
