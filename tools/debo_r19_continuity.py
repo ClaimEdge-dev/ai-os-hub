@@ -164,6 +164,7 @@ def resume_summary(capsules: list[dict]) -> dict:
 
     Inputs must be explicitly ordered oldest to newest. A BLOCKED checkpoint
     count is not a count of distinct incidents or proof of a common root cause.
+    A cleared BLOCKED state resets the consecutive streak.
     Typed proof references are not authenticated by this offline helper.
     """
     if not capsules:
@@ -177,7 +178,12 @@ def resume_summary(capsules: list[dict]) -> dict:
         if earlier["task_id"] != latest["task_id"]:
             raise ValueError("different task_id; provide only one task lineage")
     blocked_count = sum(c["status"] == "BLOCKED" for c in capsules)
-    repeated_stall = latest["status"] == "BLOCKED" and blocked_count >= 2
+    consecutive_blocked_count = 0
+    for capsule in reversed(capsules):
+        if capsule["status"] != "BLOCKED":
+            break
+        consecutive_blocked_count += 1
+    repeated_stall = consecutive_blocked_count >= 2
     return {
         "schema": "debo.r19.resume.v1",
         "project_id": latest["project_id"],
@@ -188,6 +194,7 @@ def resume_summary(capsules: list[dict]) -> dict:
         "reported_status": latest["status"],
         "next_action": latest["next_action"],
         "blocked_checkpoint_count": blocked_count,
+        "consecutive_blocked_checkpoint_count": consecutive_blocked_count,
         "repeated_stall": repeated_stall,
         "recovery_note": (
             "Review the exact prior error, try one distinct authorized recovery path, "
