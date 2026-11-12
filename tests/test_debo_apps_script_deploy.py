@@ -1,3 +1,4 @@
+import base64
 import importlib.util
 import json
 import os
@@ -62,3 +63,33 @@ class AppsScriptPilotGuardTests(TestCase):
         with mock.patch.dict(os.environ, {"DEBO_SCANNER_SOURCE_B64": ""}):
             with self.assertRaises(ValueError):
                 m.source_and_manifest()
+
+    def test_reject_unapproved_source_even_matching_supplied_hash(self):
+        from hashlib import sha256
+        source = SOURCE.encode("utf-8")
+        with mock.patch.dict(os.environ, {
+            "DEBO_SCANNER_SOURCE_B64": base64.b64encode(source).decode("ascii"),
+            "DEBO_SCANNER_SHA256": sha256(source).hexdigest(),
+        }):
+            with self.assertRaisesRegex(ValueError, "independently approved"):
+                m.source_and_manifest()
+
+    def test_stable_remote_state(self):
+        with mock.patch.dict(os.environ, {"DEBO_HOST_SPREADSHEET_ID": "host"}):
+            with mock.patch.object(m, "request", side_effect=[
+                {"parentId": "host"}, {"files": []},
+                {"parentId": "host"}, {"files": []},
+            ]) as req:
+                self.assertEqual(m.checked_remote_state("api", "token", SOURCE, MANIFEST),
+                                 "ELIGIBLE_EMPTY_PROJECT")
+                self.assertEqual(req.call_count, 4)
+
+    def test_remote_change_prevents_install(self):
+        with mock.patch.dict(os.environ, {"DEBO_HOST_SPREADSHEET_ID": "host"}):
+            with mock.patch.object(m, "request", side_effect=[
+                {"parentId": "host"}, {"files": []},
+                {"parentId": "host"}, {"files": [
+                    {"name": "Code", "type": "SERVER_JS", "source": "function other() {}"}]},
+            ]):
+                with self.assertRaisesRegex(ValueError, "changed"):
+                    m.checked_remote_state("api", "token", SOURCE, MANIFEST)
