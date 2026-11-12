@@ -359,3 +359,15 @@ Use the external AI only when its material advantage exceeds the handoff cost.
 8. Preserve a concise receipt: \`tool, operation, allowed, reason_codes, source/checkpoint, test_status, next_safe_action\`. Keep \`AUTHORIZED\`, \`TESTED\`, \`INSTALLED\` and \`LIVE\` distinct. If source data may be stale, recheck before any action.
 
 **Test contract:** \`tests/test_debo_connector_preflight.py\` covers public reads, private identity/tenant/scope failures, no-cost versus metered browser runs, unapproved external contact, sensitive data transfers, and permission escalation. Test fixtures are synthetic. Runtime acceptance still requires actual authorized connector readback. This router's output must never be called a real credential or OAuth token validation.
+
+## Three-AI command preference | v1 REVIEW CANDIDATE (2026-11-12)
+
+**Canonical extension:** `skills/multi-ai-router/references/three-ai-command-protocol-v1.md`. This extension does not replace the routing matrix above, add a second router, guarantee external account access, or activate autonomous inter-AI messaging.
+
+- **ChatGPT / DEBO / Mack:** accountable orchestrator, scope control, canonical truth and final integration/review. Prefer connected app source reads and real receipts.
+- **Perplexity / Scout + Radar:** preferred research specialist for time-sensitive, source-heavy public discovery when independent research materially helps. Return citations with dates, competing evidence and uncertainty. Reuse `perplexity-pro-research-router`; no assumed private account connector.
+- **Gemini / Forge under Atlas:** preferred first-pass coder for suitable GitHub/Google Workspace/Apps Script/integration implementation *when actual access, cost and measured QA justify it*. Use the thin `gemini-engineering-adapter`; no duplicate permanent builder role.
+- **Proof + Shield (+ Sentinel on risk):** independent evidence/QA/security review before protected merge. Same worker cannot self-certify.
+- **Shared return:** require `MISSION_ID | PROJECT_ID | SOURCE_REF_SHA | OUTPUT_REF | ACTUAL_TESTS | EVIDENCE | RISKS | APPROVAL_REQUIRED | BLOCKER | NEXT_ACTION | RETURN_TO_DEBO`. If direct verified delivery is absent, return `COPY_PACKET_TO_EXISTING_DEBO_THREAD` and label `NOT_SENT`.
+
+**Priority:** DEBO-05 real sync remains the primary mission. Draft browser PR #74 stays SECURITY HOLD; no production integration until confirmed acceptance. No unapproved spending, exposure of secret/customer/youth data, permission escalation, external communication or protected merges. Saved policy != installed plugin, global ChatGPT instruction or remote worker.
