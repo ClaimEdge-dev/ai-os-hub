@@ -1,0 +1,24 @@
+name: DEBO Browser Adapter QA
+on:
+  pull_request:
+    paths:
+      - 'adapters/browser/**'
+      - 'schemas/browser_workflow.schema.json'
+      - 'fixtures/browser/**'
+      - 'tests/browser/**'
+      - 'requirements-browser-qa.txt'
+      - '.github/workflows/debo-browser-qa.yml'
+permissions:
+  contents: read
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements-browser-qa.txt
+      - run: python -m playwright install chromium --with-deps
+      - run: PYTHONPATH=. pytest tests/browser/test_adapter_routing.py -v
