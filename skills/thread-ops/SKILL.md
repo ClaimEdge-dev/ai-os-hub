@@ -3,7 +3,7 @@ name: thread-ops
 description: Thread operations system v2.1 (formerly thread-handoff-manager) — the single skill for thread audits, sidebar organization, context preservation, and cross-session handoffs. Scans current and recent threads, classifies each (continue / save & close / archive / merge), auto-generates descriptive names for unnamed threads, builds a priority dashboard with next-step recommendations, creates master project files and new-thread starter packs, monitors context limits, and prevents error propagation and data loss between sessions. Triggers when user says "audit my threads", "organize threads", "rename threads", "what should I do with this thread", "clean up threads", "thread status", "sidebar is messy", "save context", "handoff", "where were we", "continue later", "start a new thread", "where did we leave off", "catch me up", or references previous work without specific context. Also triggers at session end with unfinished work and when context preservation between AI sessions is needed.
 ---
 
-# Thread Ops v2.1
+# Thread Ops v2.2
 
 One skill for the whole thread lifecycle: audit → decide → name → hand off → recover.
 
@@ -28,6 +28,13 @@ One skill for the whole thread lifecycle: audit → decide → name → hand off
 1. Read the latest canonical project checkpoint and decision log first, from the project's actual approved source.
 2. Recap in ≤8 lines: where we were, what's done, what's next.
 3. Resume safe reversible work automatically when the current objective and verified checkpoint are clear. Ask only for truly missing critical facts or protected approval-gated actions; mark stale sources for re-verification.
+
+## Continuation fidelity (v2.2)
+
+- **Identifier safety.** Quote exact identifiers verbatim from source: commit/blob SHAs, file paths, task and work IDs, checkpoint IDs, URLs, commands and regexes. Never round, shorten, translate or reformat them; after any save or handoff, read them back and compare. One wrong character is a broken resume, not a typo.
+- **Error decoding.** On any error during resume or context-reentry: quote the exact error text, state the plain cause, the single remedy attempted (bootstrap rule 7: at most one distinct authorized recovery path), and the retry condition. Keep BLOCKED and FAILED as distinct states.
+- **Verified versus next steps.** During multi-step execution keep completed-and-verified steps visibly separate from proposed next steps. Reuse the existing NOW / DONE / NEXT fast-response pattern and status vocabulary from the communication standard — no second tracker.
+- **NOT_SAVED.** If a checkpoint or preference write is unsupported or fails, report NOT_SAVED with the exact store and missing access per the communication standard. A NOT_SAVED line is evidence of the blocker, never a substitute for the save.
 
 ## Mode 4: Context Guard (during long sessions)
 
