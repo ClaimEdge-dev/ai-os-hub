@@ -30,6 +30,7 @@ class ResumeContractTests(unittest.TestCase):
     def test_repeated_blocked_checkpoints_trigger_distinct_path(self):
         report = r19.resume_summary([self.make(), self.make(), self.make()])
         self.assertEqual(report["blocked_checkpoint_count"], 3)
+        self.assertEqual(report["consecutive_blocked_checkpoint_count"], 3)
         self.assertTrue(report["repeated_stall"])
         self.assertIn("distinct authorized recovery path", report["recovery_note"])
 
@@ -42,6 +43,20 @@ class ResumeContractTests(unittest.TestCase):
         report = r19.resume_summary([self.make(), self.make(status="PROPOSED")])
         self.assertFalse(report["repeated_stall"])
         self.assertEqual(report["blocked_checkpoint_count"], 1)
+
+    def test_nonblocked_checkpoint_resets_current_stall_streak(self):
+        report = r19.resume_summary([self.make(), self.make(status="PROPOSED"), self.make()])
+        self.assertEqual(report["blocked_checkpoint_count"], 2)
+        self.assertEqual(report["consecutive_blocked_checkpoint_count"], 1)
+        self.assertFalse(report["repeated_stall"])
+
+    def test_recent_repeated_blocked_streak_after_reset(self):
+        report = r19.resume_summary([
+            self.make(), self.make(), self.make(status="PROPOSED"), self.make(), self.make()
+        ])
+        self.assertEqual(report["blocked_checkpoint_count"], 4)
+        self.assertEqual(report["consecutive_blocked_checkpoint_count"], 2)
+        self.assertTrue(report["repeated_stall"])
 
     def test_cross_project_rejected(self):
         with self.assertRaisesRegex(ValueError, "cross-project"):
