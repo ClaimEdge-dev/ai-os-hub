@@ -14,9 +14,9 @@ spec.loader.exec_module(r19)
 
 
 class ResumeContractTests(unittest.TestCase):
-    def make(self, status="BLOCKED", project="DEBO", objective="Restore focus", next_action="Review PR #73 at 6a2f9b4e"):
+    def make(self, status="BLOCKED", project="DEBO", objective="Restore focus", next_action="Review PR #73 at 6a2f9b4e", source_key="fixture-task-1"):
         return r19.new_capsule(project, "DEBO-MASTER-025", objective, status,
-                               "SYNTHETIC-FIXTURE", next_action, source_key="fixture-task-1")
+                               "SYNTHETIC-FIXTURE", next_action, source_key=source_key)
 
     def test_exact_resume_and_no_live_claim(self):
         current = self.make(status="PROPOSED", next_action="Run: npx skills add addyosmani/agent-skills (AUDIT ONLY)")
@@ -49,7 +49,7 @@ class ResumeContractTests(unittest.TestCase):
 
     def test_cross_task_rejected(self):
         with self.assertRaisesRegex(ValueError, "different task_id"):
-            r19.resume_summary([self.make(objective="Other objective"), self.make()])
+            r19.resume_summary([self.make(objective="Other objective", source_key="fixture-task-2"), self.make()])
 
     def test_empty_and_invalid_capsules_rejected(self):
         with self.assertRaises(ValueError):
