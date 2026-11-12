@@ -4,6 +4,7 @@ import os
 import tempfile
 from dataclasses import dataclass
 from urllib.parse import urlsplit
+from adapters.browser.path_policy import is_path_permitted
 
 @dataclass(frozen=True)
 class ReadOnlyResult:
@@ -29,8 +30,7 @@ def _allowed(url: str, hosts: frozenset[str], paths: tuple[str, ...], allow_quer
         return False
     if p.query and not allow_query:
         return False
-    return any(p.path == prefix or (prefix.endswith("/") and p.path.startswith(prefix))
-               or p.path.startswith(prefix + "/") for prefix in paths)
+    return is_path_permitted(p.path or "/", paths)
 
 def execute_readonly_playwright(target_url: str, allowed_hosts: frozenset[str],
                                 timeout_ms: int = 8000,
