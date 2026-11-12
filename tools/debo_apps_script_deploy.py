@@ -11,6 +11,8 @@ import urllib.parse
 import urllib.request
 
 API = "https://script.googleapis.com/v1/projects/"
+# SHA-256 of the independently reviewed 15,143-byte private scanner artifact.
+APPROVED_SOURCE_SHA256 = "a4ec85bf14f42f6fe04293c1edbdf1f6a922370110773c01e225d58294122abf"
 REQUIRED_SCOPES = {
     "https://www.googleapis.com/auth/drive.metadata.readonly",
     "https://www.googleapis.com/auth/spreadsheets.currentonly",
@@ -54,6 +56,8 @@ def source_and_manifest():
         "oauthScopes": sorted(REQUIRED_SCOPES),
     }
     digest = validate_source(source, manifest)
+    if digest != APPROVED_SOURCE_SHA256:
+        reject("Scanner source does not match the independently approved v6.2.2 artifact")
     if not os.environ.get("DEBO_SCANNER_SHA256") or digest.lower() != os.environ["DEBO_SCANNER_SHA256"].lower():
         reject("Scanner SHA256 does not match expected private hash")
     return source, manifest, digest
@@ -108,6 +112,19 @@ def plan_deployment(project, remote, source, manifest):
                  json.loads(by_name.get("appsscript", {}).get("source") or "{}") == manifest)
     return "ALREADY_INSTALLED" if installed else "ELIGIBLE_EMPTY_PROJECT"
 
+def checked_remote_state(base, token, source, manifest):
+    """Read source twice for a stable preflight. Not an atomic write lock."""
+    p1 = request(base, token=token)
+    r1 = request(base + "/content", token=token)
+    state = plan_deployment(p1, r1, source, manifest)
+    p2 = request(base, token=token)
+    r2 = request(base + "/content", token=token)
+    if p1 != p2 or r1 != r2:
+        reject("Remote project changed during guarded preflight; refusing deployment")
+    if plan_deployment(p2, r2, source, manifest) != state:
+        reject("Remote project preflight changed")
+    return state
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--deploy", action="store_true")
@@ -118,9 +135,7 @@ def main():
         reject("Missing private target Apps Script project ID")
     token = oauth_access_token()
     base = API + urllib.parse.quote(project_id, safe="")
-    project = request(base, token=token)
-    remote = request(base + "/content", token=token)
-    state = plan_deployment(project, remote, source, manifest)
+    state = checked_remote_state(base, token, source, manifest)
     print("Preflight:", state, "scanner_sha256:", digest)
     if state == "ALREADY_INSTALLED":
         print("No-op: scanner source already matches")
@@ -130,6 +145,10 @@ def main():
         return
     if os.environ.get("DEBO_DEPLOY_CONFIRM") != "INSTALL_V622":
         reject("Missing explicit installation confirmation")
+    # Additional last-second check narrows but cannot eliminate updateContent races.
+    state = checked_remote_state(base, token, source, manifest)
+    if state != "ELIGIBLE_EMPTY_PROJECT":
+        reject("Remote project no longer eligible; refusing deployment")
     # The project was confirmed empty. This API replaces all files; never use on active code.
     payload = {"files": [
         {"name": "Code", "type": "SERVER_JS", "source": source},
