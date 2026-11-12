@@ -1,0 +1,43 @@
+name: DEBO Apps Script v6.2.2 Source Pilot
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Inspect only by default; source installation requires owner-governed authorization'
+        required: true
+        default: preflight
+        type: choice
+        options: [preflight, install]
+permissions:
+  contents: read
+concurrency:
+  group: debo-apps-script-pilot
+  cancel-in-progress: false
+jobs:
+  guarded-source-install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: debo-google-pilot
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check deployment prerequisites
+        env:
+          DEBO_SCANNER_SOURCE_B64: ${{ secrets.DEBO_SCANNER_SOURCE_B64 }}
+          DEBO_SCANNER_SHA256: ${{ secrets.DEBO_SCANNER_SHA256 }}
+          DEBO_SCRIPT_PROJECT_ID: ${{ secrets.DEBO_SCRIPT_PROJECT_ID }}
+          DEBO_HOST_SPREADSHEET_ID: ${{ secrets.DEBO_HOST_SPREADSHEET_ID }}
+          DEBO_GOOGLE_CLIENT_ID: ${{ secrets.DEBO_GOOGLE_CLIENT_ID }}
+          DEBO_GOOGLE_CLIENT_SECRET: ${{ secrets.DEBO_GOOGLE_CLIENT_SECRET }}
+          DEBO_GOOGLE_REFRESH_TOKEN: ${{ secrets.DEBO_GOOGLE_REFRESH_TOKEN }}
+          DEBO_DEPLOY_CONFIRM: ${{ github.event.inputs.mode == 'install' && 'INSTALL_V622' || 'PREFLIGHT_ONLY' }}
+        run: |
+          if [ '${{ github.event.inputs.mode }}' = install ]; then
+            python tools/debo_apps_script_deploy.py --deploy
+          else
+            python tools/debo_apps_script_deploy.py
+          fi
