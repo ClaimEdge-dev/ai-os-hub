@@ -32,9 +32,9 @@ def validate_source(source, manifest):
     if not any(s.get("serviceId") == "drive" and s.get("version") == "v3" for s in services):
         reject("Advanced Drive API v3 missing")
     for name in FUNCTIONS:
-        if not re.search(r"function\\s+" + re.escape(name) + r"\\s*\\(", source):
+        if not re.search(r"function\s+" + re.escape(name) + r"\s*\(", source):
             reject("Missing scanner function: " + name)
-    if re.search(r"\\b(?:Drive\\.Files\\.(?:delete|update|create|copy)|GmailApp|MailApp|UrlFetchApp)\\s*\\(", source):
+    if re.search(r"\b(?:Drive\.Files\.(?:delete|update|create|copy)|GmailApp|MailApp|UrlFetchApp)\s*\(", source):
         reject("Disallowed Drive mutation, mail, or network operation")
     if "PILOT_FOLDER_ID" not in source or "PAGE_SIZE: 50" not in source:
         reject("Missing direct-folder pilot scope or batch bound")
