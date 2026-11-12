@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "workflow_id",
+    "version",
+    "entity_scope",
+    "mode",
+    "target_url",
+    "timeout_ms",
+    "allowed_extract_selectors"
+  ],
+  "properties": {
+    "workflow_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{3,63}$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "entity_scope": {
+      "type": "string",
+      "minLength": 2
+    },
+    "mode": {
+      "enum": [
+        "read_only",
+        "interactive_write"
+      ]
+    },
+    "target_url": {
+      "type": "string",
+      "pattern": "^https://"
+    },
+    "timeout_ms": {
+      "type": "integer",
+      "minimum": 500,
+      "maximum": 15000
+    },
+    "requires_write_token": {
+      "type": "boolean"
+    },
+    "allowed_extract_selectors": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "interactive_write"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "then": {
+        "required": [
+          "requires_write_token"
+        ],
+        "properties": {
+          "requires_write_token": {
+            "const": true
+          }
+        }
+      }
+    }
+  ]
+}
