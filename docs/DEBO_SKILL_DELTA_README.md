@@ -46,3 +46,24 @@ Run: python tools/debo_skill_delta.py --include-projects --validate-contracts --
 
 The existing canonical auditor's optional contract_audit block checks basic Agent Skills SKILL.md metadata and reports PASS/REVIEW; the default report is unchanged. Required fields are name and description; license is optional. A lightweight stdlib reader cannot fully parse complex YAML, so those cases are explicitly marked REVIEW and should use the official skills-ref validator in an isolated authorized environment. Legacy missing headers remain review candidates, not an installed-skill failure. This command reads files and writes only the specified local report; no Notion or GitHub mutations, deployments or account permissions.
 Source: https://agentskills.io/specification .
+
+## Optional Notion identity completeness review
+
+Add `--audit-identities` alongside an authorized `--notion` export to include an
+`identity_audit` block. It retains every exported row, including blank names and
+duplicate titles, and reports missing IDs/links, duplicate declared IDs, local
+source scope gaps and mismatched source-link paths. The default report remains
+unchanged when this flag is absent.
+
+Source paths must match the complete repository-relative path after the Git ref;
+an archived or nested copy is not accepted because its URL ends with the scanned
+path. Ambiguous slash-containing refs are flagged
+`SOURCE_LINK_REF_OR_PATH_UNVERIFIED` for source review rather than guessed.
+
+Only an explicitly supplied, unique `skill_id` can look up a scanned local path;
+the review never invents IDs from titles or URLs. A matching source pointer is
+not verification of the linked bytes, version, tenant permission or installed
+runtime. Out-of-scope repositories and unscanned packages require separate source
+recovery; they are not declared nonexistent. Keep exports and reports in the
+owning private project, outside public GitHub commits. This mode does not update
+Notion, resolve aliases, promote statuses or install anything.
