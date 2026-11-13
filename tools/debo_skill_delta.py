@@ -7,6 +7,7 @@ import json
 import re
 from collections import Counter
 from pathlib import Path
+from urllib.parse import urlsplit
 
 try:
     from .debo_registry_audit import audit
@@ -51,6 +52,64 @@ def github_statuses(markdown):
             name = fields[1].strip('`')
             items[key(name)] = fields[-1].upper()
     return items
+
+
+def audit_notion_identities(rows, source_paths):
+    """Report incomplete source pointers without resolving names or writing rows.
+
+    An explicit, unique skill_id may look up an already scanned local path.
+    Neither that lookup nor a matching URL verifies linked bytes or installation.
+    """
+    declared_ids = Counter(str(row.get('skill_id') or '').strip() for row in rows)
+    duplicates = {sid for sid, count in declared_ids.items() if sid and count > 1}
+    entries = []
+    for number, row in enumerate(rows, 1):
+        name = str(row.get('Name') or row.get('name') or row.get('Skill') or '').strip()
+        skill_id = str(row.get('skill_id') or '').strip()
+        link = str(row.get('GitHub Link') or '').strip()
+        issues = []
+        if not name:
+            issues.append('NAME_MISSING')
+        if not skill_id:
+            issues.append('SKILL_ID_MISSING')
+        elif skill_id in duplicates:
+            issues.append('DUPLICATE_SKILL_ID')
+        if not link:
+            issues.append('SOURCE_LINK_MISSING')
+        source_path = source_paths.get(skill_id) if skill_id not in duplicates else None
+        if skill_id and skill_id not in duplicates and source_path is None:
+            issues.append('LOCAL_SOURCE_NOT_IN_SCAN')
+        if link:
+            try:
+                parsed = urlsplit(link)
+                parts = parsed.path.strip('/').split('/')
+                local_link = (parsed.scheme == 'https' and parsed.hostname == 'github.com'
+                              and not parsed.username and not parsed.password
+                              and len(parts) >= 5 and parts[0].casefold() == 'claimedge-dev'
+                              and parts[1].casefold() == 'ai-os-hub' and parts[2] == 'blob')
+            except ValueError:
+                local_link = False
+            if not local_link:
+                issues.append('SOURCE_LINK_OUTSIDE_LOCAL_REPOSITORY')
+            elif source_path and not parsed.path.endswith('/' + source_path):
+                issues.append('SOURCE_LINK_ID_MISMATCH')
+        entries.append({'row_number': number, 'notion_url': row.get('url'),
+                        'name': name or None, 'skill_id': skill_id or None,
+                        'version': row.get('Version') or row.get('version'),
+                        'source_link': link or None, 'source_path': source_path,
+                        'issues': issues, 'runtime_installed': 'UNVERIFIED'})
+    return {'mode': 'SOURCE_POINTER_REVIEW_ONLY',
+            'summary': {'rows': len(entries),
+                        'missing_names': sum(not e['name'] for e in entries),
+                        'missing_skill_ids': sum(not e['skill_id'] for e in entries),
+                        'missing_source_links': sum(not e['source_link'] for e in entries),
+                        'duplicate_skill_ids': sorted(duplicates),
+                        'rows_needing_review': sum(bool(e['issues']) for e in entries)},
+            'entries': entries,
+            'limitations': ['No title-to-ID inference, row edits or status promotion',
+                            'Local source scope excludes unscanned packages and repositories',
+                            'URL/path checks do not fetch or verify linked bytes or versions',
+                            'No runtime installation evidence']}
 
 
 
@@ -214,11 +273,19 @@ def main():
                         help='Include scoped projects/*/skills/*/SKILL.md sources (read-only)')
     parser.add_argument('--validate-contracts', action='store_true',
                         help='Opt-in source-only SKILL.md metadata preflight')
+    parser.add_argument('--audit-identities', action='store_true',
+                        help='Opt-in review of exported Notion IDs and source links; no matching or writes')
     args = parser.parse_args()
+    if args.audit_identities and args.notion is None:
+        parser.error('--audit-identities requires an authorized --notion export')
     previous = json.loads(args.previous.read_text(encoding='utf-8')) if args.previous else None
+    notion_rows = load_rows(args.notion)
     report = build_report((args.repo / 'SKILL_REGISTRY.md').read_text(encoding='utf-8'),
-                          load_rows(args.notion), args.repo / 'skills', previous, load_rows(args.automations),
+                          notion_rows, args.repo / 'skills', previous, load_rows(args.automations),
                           projects_root=(args.repo / 'projects' if args.include_projects else None))
+    if args.audit_identities:
+        report['identity_audit'] = audit_notion_identities(
+            notion_rows, {s['id']: s['source_path'] for s in report['skills'] if s['source_path']})
     if args.validate_contracts:
         entries = []
         for item in report['skills']:
