@@ -70,6 +70,34 @@ class TestSkillIdentityAudit(unittest.TestCase):
         self.assertIn('LOCAL_SOURCE_NOT_IN_SCAN', entry['issues'])
         self.assertIsNone(entry['source_path'])
 
+    def test_archived_or_nested_copy_is_not_the_scanned_source(self):
+        for prefix in ('archived/', 'backups/2026-11-12/'):
+            with self.subTest(prefix=prefix):
+                report = delta.audit_notion_identities(
+                    [{'Name': 'Thread Ops', 'skill_id': 'thread-ops',
+                      'GitHub Link': LINK + prefix + SOURCES['thread-ops']}], SOURCES)
+                self.assertIn('SOURCE_LINK_ID_MISMATCH', report['entries'][0]['issues'])
+                self.assertEqual(report['summary']['rows_needing_review'], 1)
+
+    def test_exact_paths_accept_commit_and_single_component_refs(self):
+        for ref in ('main', 'v2.2', 'd4a3c9307448155c8f7a1d0f268a42fb90ed6e38'):
+            for skill_id, source in SOURCES.items():
+                with self.subTest(ref=ref, skill_id=skill_id):
+                    link = LINK.replace('/main/', '/' + ref + '/') + source
+                    entry = delta.audit_notion_identities(
+                        [{'Name': 'Display title', 'skill_id': skill_id,
+                          'GitHub Link': link}], SOURCES)['entries'][0]
+                    self.assertEqual(entry['issues'], [])
+
+    def test_slash_ref_boundary_needs_review_without_guessing(self):
+        link = LINK.replace('/main/', '/feature/review/') + SOURCES['thread-ops']
+        report = delta.audit_notion_identities(
+            [{'Name': 'Thread Ops', 'skill_id': 'thread-ops', 'GitHub Link': link}],
+            SOURCES)
+        self.assertIn('SOURCE_LINK_REF_OR_PATH_UNVERIFIED', report['entries'][0]['issues'])
+        self.assertEqual(report['summary']['rows_needing_review'], 1)
+        self.assertEqual(report['entries'][0]['runtime_installed'], 'UNVERIFIED')
+
     def test_optional_cli_leaves_default_report_unchanged(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
