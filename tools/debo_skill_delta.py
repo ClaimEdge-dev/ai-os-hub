@@ -91,8 +91,14 @@ def audit_notion_identities(rows, source_paths):
                 local_link = False
             if not local_link:
                 issues.append('SOURCE_LINK_OUTSIDE_LOCAL_REPOSITORY')
-            elif source_path and not parsed.path.endswith('/' + source_path):
-                issues.append('SOURCE_LINK_ID_MISMATCH')
+            elif source_path and '/'.join(parts[4:]) != source_path:
+                # A suffix can hide archived copies or an unresolved slash ref.
+                # Never guess the ref boundary and silently accept either one.
+                ambiguous_ref = (parts[3] not in ('main', 'master', 'HEAD')
+                                 and not re.fullmatch(r'[0-9a-fA-F]{40}', parts[3])
+                                 and '/'.join(parts[4:]).endswith('/' + source_path))
+                issues.append('SOURCE_LINK_REF_OR_PATH_UNVERIFIED' if ambiguous_ref
+                              else 'SOURCE_LINK_ID_MISMATCH')
         entries.append({'row_number': number, 'notion_url': row.get('url'),
                         'name': name or None, 'skill_id': skill_id or None,
                         'version': row.get('Version') or row.get('version'),
