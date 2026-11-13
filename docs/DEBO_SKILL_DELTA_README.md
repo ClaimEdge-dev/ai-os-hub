@@ -55,6 +55,11 @@ duplicate titles, and reports missing IDs/links, duplicate declared IDs, local
 source scope gaps and mismatched source-link paths. The default report remains
 unchanged when this flag is absent.
 
+Source paths must match the complete repository-relative path after the Git ref;
+an archived or nested copy is not accepted because its URL ends with the scanned
+path. Ambiguous slash-containing refs are flagged
+`SOURCE_LINK_REF_OR_PATH_UNVERIFIED` for source review rather than guessed.
+
 Only an explicitly supplied, unique `skill_id` can look up a scanned local path;
 the review never invents IDs from titles or URLs. A matching source pointer is
 not verification of the linked bytes, version, tenant permission or installed
