@@ -25,7 +25,7 @@ tests = {
     "valid car navigation action": "CarContext.ACTION_NAVIGATE" in source and "geo:0,0?q=" in source,
     "release host validation": "if (debug)" in source and "hosts_allowlist_sample" in source,
     "no fraudulent NAVIGATION category": "androidx.car.app.category.NAVIGATION" not in ET.tostring(manifest, encoding="unicode"),
-    "not claiming live store app": "not compiled" in readme and "not guaranteed" not in ""  # claim is status-gated in README
+    "not claiming live store app": "not compiled" in readme.lower() and "not installed" in readme.lower()  # claim is status-gated in README
 }
 for name, value in tests.items(): print(("PASS" if value else "FAIL") + " " + name)
 print(f"{sum(tests.values())}/{len(tests)} static source checks")
