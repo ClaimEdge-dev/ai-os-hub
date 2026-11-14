@@ -1,6 +1,6 @@
 # DEBO Roadside | Android Automotive OS POI companion v0.1
 
-Source pilot only. Not built into an APK, not emulator-tested, not approved for Google Play, and not installed in a vehicle.
+Source pilot only. Not compiled into an APK, not emulator-tested, not approved for Google Play, and not installed in a vehicle.
 
 Purpose: a legitimate in-car points-of-interest companion that uses Google built-in's car templates to find fuel, tire services, auto repair, and auto parts by handing navigation queries to the car host. This is NOT the private DEBO Colorado maintenance dashboard, which remains the separate v0.2 iPhone/PWA application.
 
