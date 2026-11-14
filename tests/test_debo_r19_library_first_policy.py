@@ -46,7 +46,7 @@ class LibraryFirstR19PolicyTests(unittest.TestCase):
     def test_preserves_legacy_capsule_schema(self):
         self.assertIn("debo.r19.handoff.v1", self.r19)
         self.assertIn("debo.r19.capsule.v1", self.r19)
-        self.assertIn("not a second memory or registry", self.r19)
+        self.assertIn("create a second memory or registry", self.r19)
 
     def test_cannot_claim_live_activation(self):
         self.assertIn("not an external runtime activation", self.r19)
