@@ -1,0 +1,33 @@
+name: DEBO Colorado AAOS | Source & build check
+on:
+  pull_request:
+    paths:
+      - "adapters/debo-colorado-roadside-aaos/**"
+      - ".github/workflows/debo-colorado-aaos-ci.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  static-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Source safety checks
+        run: python3 adapters/debo-colorado-roadside-aaos/tests/static_qa.py
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+      - name: Install Android SDK platform
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+      - name: Compile debug Android Automotive app
+        run: gradle -p adapters/debo-colorado-roadside-aaos :app:assembleDebug --no-daemon --stacktrace
+      - name: Confirm APK exists (not published)
+        run: test -f adapters/debo-colorado-roadside-aaos/app/build/outputs/apk/debug/app-debug.apk
