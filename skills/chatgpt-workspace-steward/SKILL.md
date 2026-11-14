@@ -97,3 +97,18 @@ Prefer:
 Shared projects are collaboration surfaces, not private-memory dumping grounds.
 Only include project-appropriate material.
 Use project-only memory/isolation where available.
+## Library-first cleanup mission (2026-11-14)
+
+When Bobby requests global storage cleanup, use the **existing** ChatGPT Library, Thread Index, Drive/Notion/GitHub references and R19 capsules. Priority is:
+
+1. **ChatGPT Library:** inventory accessible current files/folders, compare verified prior audit receipts, group exact-hash matches only when actual bytes/hashes are available, identify high-value code/project evidence and protected originals; draft an itemized keeper/duplicate/rollback manifest.
+2. **ChatGPT export and conversations:** verify whether a real owner export is accessible, reconcile files and chats with existing thread/project indexes without assuming exhaustive account access.
+3. **Gmail:** read-only inventory of storage candidates, attachments, exports and protected billing/legal/business records through the actual authorized account.
+4. **Google Drive:** reuse the existing scanner, Pilot_* staging results and Trace Run Ledger; inspect current storage and source-file identities, not unverified same-name/same-size guesses.
+5. **Other connected storage:** Dropbox, GitHub/Notion references, other approved cloud stores, then local/iCloud sources when accessible.
+
+Do not represent a historical Library count, storage estimate, old export, same-title file, or plugin listing as a current verified account-wide audit. If a surface is unavailable, record UNKNOWN coverage and carry on with other independent safe reads.
+
+**Safety:** Default to read-only. KEEP / PROTECTED / REVIEW / ARCHIVE-CANDIDATE / DELETE-CANDIDATE are proposals, not authorized mutations. No file/chat/email deletion, archiving, moving, label changes, emptying Trash, unsubscribe, sensitive transfer, or access change without its required explicit approval and verification of recoverability. Keep private evidence out of public GitHub. Do not alter DEBO-05 acceptance gates.
+
+At the end of each verified stage, hand off a concise scoped evidence packet to the existing R19 adapter. Record only observed stable IDs, version/hash if accessible, dated source references, counts with coverage boundaries, change proposals, test receipts, blockers, and next action. Require same-project dedupe, conflict resolution, and readback before claiming a canonical checkpoint update. GitHub source instructions do not themselves activate a ChatGPT UI or third-party app.

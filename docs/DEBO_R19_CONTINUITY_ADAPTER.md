@@ -54,3 +54,38 @@ This section supersedes the old *candidate/not merged* heading above **only for 
 R131 adds eight source-verified tests in `tests/test_debo_r131_process_recovery.py` to test **independent local Python subprocesses**, identical checkpoint readbacks, unchanged-write deduplication, cross-project fingerprint isolation, fail-closed missing evidence/task IDs/schema and optional Node read-only event duplicate suppression. The first test run exposed a missing-task-id event failure; R131 hardened the existing adapter to reject malformed capsule identity before any checkpoint or event is processed. The test receives ONLY synthetic fixture contents; the local file is isolated within the CI runner. **A process restart is NOT a fresh ChatGPT thread**. Actual ChatGPT cold-start connector recovery, authenticated external store writeback, persisted events, real owners and a live scheduler remain unverified and need separate supported tool evidence.
 
 Neither the merge nor the test overrides the private project source policy, JCT John acceptance, Claims Susan review, DEBO-05 editor live-login gate, or user authorization for any sensitive action. Rollback remains a Git revert; user/production data never entered the test.
+## 2026-11-14 R19 Library-First and Cross-AI Evidence Handoff
+
+**Scope:** Source-policy extension to the existing R19 offline/private-first adapter. This section does not change the adapter's capsule schema, create a second memory or registry, connect another AI, authorize destructive cleanup, or establish real ChatGPT fresh-thread recovery.
+
+**Task order:** ChatGPT Library read-only inventory and proposed cleanup manifest first; then an accessible ChatGPT export/conversation audit; then Gmail; then Google Drive; then other authorized stores. Independent read-only checks may run in separate safe lanes without displacing Library-first. Preserve originals, protected records, restore paths and the DEBO-05 HOLD. Historical Library audit figures and scanner staging reports are leads requiring fresh readback, never present-tense truth.
+
+**Use existing specialist routing, not new agents:**
+- **ChatGPT / DEBO Core:** own the project objective, tool/tenant authorization, dedupe, conflict adjudication, review gates, current canonical source readback, and R19 checkpoint preparation.
+- **Gemini:** when independently connected/authorized, recover Google Workspace metadata/ledger/scanner and prepare reviewable engineering deltas. Supply original IDs, precise source versions, timestamps and actual test receipts. Do not assume it sees ChatGPT Library or private threads.
+- **Perplexity:** when available, perform public external research and independent source/date checks using **sanitized packets**. Never transmit private files, customer/youth/financial/claims details, credentials, or account metadata without specific approval.
+
+**Handoff packet contract (inside the owning private project, not committed to this public repository):**
+
+```json
+{
+  "schema": "debo.r19.handoff.v1",
+  "mission_id": "SOURCE-VERIFIED-MISSION",
+  "project_id": "DEBO",
+  "task_id": "SOURCE-VERIFIED-TASK",
+  "provider": "ChatGPT|Gemini|Perplexity",
+  "source_scope": "ChatGPT Library|ChatGPT export|Gmail|Drive|public research|other",
+  "coverage": "VERIFIED_PARTIAL|VERIFIED_COMPLETE|UNKNOWN",
+  "sources": [{"source_id": "VERIFIED-PRIVATE-ID", "version_or_hash": "OBSERVED-OR-UNKNOWN", "observed_at": "ISO8601"}],
+  "findings": [],
+  "proposed_changes": [],
+  "tests": [{"name": "ACTUAL-CHECK", "result": "PASS|FAIL|NOT_RUN", "receipt": "PRIVATE-REFERENCE-OR-NONE"}],
+  "conflicts": [],
+  "blockers": [],
+  "next_action": "CONCRETE-SAFE-ACTION"
+}
+```
+
+**Ingestion and status gate:** Resolve exact owning tenant/project and authentic source identity. Keep evidence links in their approved private location. Deduplicate only stable IDs/hashes in the same ownership scope; same-name and same-size are candidates, not exact copies. On source conflict, preserve both, prefer the latest verified authorized source, and hold irreconcilable material changes. Convert a verified accepted handoff into the **existing** `debo.r19.capsule.v1` only through its validator and existing approved private destination; follow duplicate-safe readback and evidence/status requirements. A typed citation alone is not authenticated proof. No automatic writeback, cross-platform sync, schedule, memory installation or LIVE assertion without separate connector and runtime receipts.
+
+**Acceptance:** Existing R19 regression tests continue passing; Library-first order, no-destructive-cleanup default, tenant isolation, unverified-coverage behavior, conflict hold, and no-false-LIVE status are tested; exact-head CI and any existing independent security review pass before promotion. A GitHub merge is **SOURCE MERGED**, not an external runtime activation.
