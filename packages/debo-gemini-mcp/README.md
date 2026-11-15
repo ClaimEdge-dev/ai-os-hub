@@ -35,3 +35,9 @@ New `src/interactions_mapper.mjs` uses `validateInput` from PR #81 to build a **
 `test/interactions_mapper.test.mjs` adds 18 no-network tests (36 total with existing pilot). There is **no** `@google/genai` dependency or API call in this package yet. The unit does not modify `src/pilot.mjs` or fabricate real-token usage, spend or durable remote receipts. A real adapter must supply securely configured SDK/auth, approval, validated project-to-caller identity, network controls, provider accounting and distributed idempotency.
 
 Official docs: https://ai.google.dev/gemini-api/docs/interactions-overview and https://ai.google.dev/gemini-api/docs/structured-output
+
+## Endpoint policy cleanup (Interactions API)
+
+The shared `validateEndpoint` helper now allows **only** the official HTTPS Gemini Interactions create URLs `https://generativelanguage.googleapis.com/v1/interactions` and `https://generativelanguage.googleapis.com/v1beta/interactions`. It rejects legacy `generateContent` paths, unrecognized routes, non-Google hosts, query strings (including API-key parameters), URL fragments, and embedded credentials. This is URL-policy validation only: it does **not** execute HTTP or verify an MCP transport. A future live adapter must enforce POST, use approved server-side credentials in headers, and prove tenant authorization, billing limits, and egress restrictions.
+
+Google primary REST references: https://ai.google.dev/api/interactions-api-v1 and https://ai.google.dev/api/interactions-api
