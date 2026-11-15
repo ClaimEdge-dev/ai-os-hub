@@ -1,0 +1,10 @@
+{
+  "name": "@debo/gemini-mcp-policy-pilot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {"test": "node --test test/*.test.mjs"},
+  "description": "No-network policy/idempotency pilot for DEBO Gemini MCP; NOT a deployed MCP server",
+  "dependencies": {}
+}
