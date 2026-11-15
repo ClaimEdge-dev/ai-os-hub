@@ -1,0 +1,9 @@
+-- SUPERSEDED / DO NOT RUN
+--
+-- Original preserved at:
+--   ../archive/validation_queries.superseded.sql
+--
+-- Canonical validation pack:
+--   validation_v1.sql
+--
+-- Canonical migration order is documented in MIGRATION_ORDER.md.

@@ -1,0 +1,17 @@
+-- SUPERSEDED / DO NOT RUN
+--
+-- This parallel hardening migration conflicted with the canonical v2 schema
+-- because both versions created webhook_events and sync_runs with different
+-- columns. Running both could leave a partially migrated schema.
+--
+-- Original preserved at:
+--   ../archive/migration_v1_1_hardening.superseded.sql
+--
+-- Canonical migration order:
+--   1) migration_v1.sql
+--   2) migration_v2_event_history.sql
+--   3) validation_v1.sql
+--   4) temporary_test_fixture.sql (temporary Neon branch only)
+--
+-- Production apply still requires read-only overlap audit, temporary-branch
+-- validation, and explicit human approval.
