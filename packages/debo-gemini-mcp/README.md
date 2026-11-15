@@ -142,3 +142,20 @@ tests. The browser test can check live identity, replay, scope, extra input and
 header-spoof rejection; those remote checks are not established by local tests.
 Private synthetic publication was specifically authorized by the owner. This
 does not authorize paid provider usage, mainline merge or live Gemini activation.
+
+## Mobile verification route repair (R6)
+
+The private test page now posts to its authenticated `/api/fixture` route. That
+route invokes the existing MCP handler internally with the same owner identity,
+project ACL, limits and receipt checks. `/mcp` remains the plugin endpoint.
+The browser reports HTTP context for non-JSON responses instead of exposing a
+browser-specific JSON parser error.
+
+Evidence: hosted owner identity checks return HTTP 200, but the failing browser
+verification calls do not appear in Worker request logs. The pre-Worker MCP
+transport mismatch is the working diagnosis; the precise rejected response was
+not captured on the user's phone. An executable page regression models that
+boundary with a non-JSON transport rejection and fails before the repair.
+After the repair, the actual shipped page script plus Worker and SQLite save
+and replay one receipt. The full local suite passes **79/79** tests. Live iPhone
+button acceptance still requires a fresh owner-session run after publication.

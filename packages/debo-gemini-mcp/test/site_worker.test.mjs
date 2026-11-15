@@ -52,3 +52,9 @@ test('private adapter cannot widen the single-project tool scope', () => local(a
   const r = await callTool(worker, env, 'debo_get_receipt', { project_id: 'JCT', idempotency_key: 'private-runtime-verification-v1' }, options);
   assert.equal(r.value.error.code, 'SCOPE_DENIED');
 }));
+test('browser verification API rejects missing owner identity before storing a receipt', () => local(async (db, env) => {
+  const req = new Request('https://synthetic.invalid/api/fixture', { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' });
+  const r = await worker.fetch(req, env);
+  assert.equal(r.status, 401);
+  assert.equal(db.database.prepare('SELECT count(*) AS n FROM bridge_fixture_receipts').get().n, 0);
+}));
