@@ -133,7 +133,13 @@ export async function postSyntheticInteraction(rawInput, options = {}) {
       const output = parseSyntheticInteractionResult(interaction, expectedKeys);
       return validateSyntheticTransportResult({ interaction_id: interaction.id, model: body.model, output, usage: reportedUsage(interaction.usage), provider_requests: 1, billing_verified: false }, request);
     })();
-    return await Promise.race([operation, deadline]);
+    const result = await Promise.race([operation, deadline]);
+    // A fulfilled fetch/body promise can outrun a due timer after synchronous
+    // work. Keep the deadline/cancellation listeners armed through a timer
+    // turn before accepting success. This is not Worker CPU-time accounting.
+    await new Promise(resolve => setTimeout(resolve, 0));
+    if (controller.signal.aborted) fail(timedOut ? 'PROVIDER_TIMEOUT' : 'REQUEST_CANCELLED');
+    return result;
   } catch (error) {
     const code = error instanceof PolicyError ? error.code : 'PROVIDER_NETWORK_ERROR';
     throw new ProviderAttemptError(code, attempted ? 'unknown' : 'not_started');

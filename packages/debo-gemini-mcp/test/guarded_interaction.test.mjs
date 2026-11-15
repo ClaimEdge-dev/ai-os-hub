@@ -236,3 +236,14 @@ test('queued cancellation runs before dispatch after synchronous authorization w
   assert.deepEqual(await executor.execute(input), { status: 'UNCERTAIN', code: 'EXECUTION_UNCERTAIN' });
   assert.equal(state(local), 'UNCERTAIN'); assert.equal(calls, 0);
 });
+
+test('synchronously slow provider completion stays uncertain and cannot redispatch', async t => {
+  const local = executionD1(); t.after(local.close); let calls = 0;
+  const executor = createStagedSyntheticExecutor(config(local, { transportOptions: { apiKey: credential, timeoutMs: 15, fetchImpl: async () => {
+    calls++; blockTurn(40); return response(interaction());
+  } } }));
+  assert.deepEqual(await executor.execute(input), { status: 'UNCERTAIN', code: 'EXECUTION_UNCERTAIN' });
+  assert.equal(state(local), 'UNCERTAIN');
+  assert.deepEqual(await executor.execute(input), { status: 'UNCERTAIN', code: 'EXECUTION_UNCERTAIN' });
+  assert.equal(calls, 1); assert.equal(count(local), 1);
+});

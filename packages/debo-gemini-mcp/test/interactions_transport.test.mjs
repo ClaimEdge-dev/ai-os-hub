@@ -7,6 +7,9 @@ const key = 'SYNTHETIC_TEST_CREDENTIAL_NOT_REAL';
 const interaction = () => ({ id: 'synthetic-interaction-1', status: 'completed', model: 'gemini-3.8-flash', steps: [{ type: 'model_output', content: [{ type: 'text', text: '{"finding":"PASS"}' }] }], usage: { total_input_tokens: 20, total_output_tokens: 5, total_tokens: 25, total_tool_use_tokens: 0 } });
 const response = value => new Response(JSON.stringify(value), { headers: { 'content-type': 'application/json' } });
 const options = overrides => ({ apiKey: key, fetchImpl: async () => response(interaction()), ...overrides });
+// One occupied local JS turn exposes a due timer being overtaken by promise
+// continuations. This does not model deployed Worker CPU-time accounting.
+const blockTurn = ms => { const end = performance.now() + ms; while (performance.now() < end) {} };
 
 test('candidate transport requires an explicitly supplied HTTP implementation', async () => {
   await assert.rejects(postSyntheticInteraction(input, { apiKey: key }), e => e.code === 'TRANSPORT_UNCONFIGURED' && e.outcome === 'not_started');
@@ -121,4 +124,32 @@ test('requires bounded reported token usage without guessing dollar cost', async
   for (const usage of [undefined, { total_input_tokens: -1, total_output_tokens: 1, total_tokens: 0 }, { total_input_tokens: 1, total_output_tokens: 1025, total_tokens: 1026 }, { total_input_tokens: 1, total_output_tokens: 1, total_tokens: '2' }, { total_input_tokens: 1, total_output_tokens: 1, total_tokens: 2, total_tool_use_tokens: 1 }]) {
     await assert.rejects(postSyntheticInteraction(input, options({ fetchImpl: async () => response({ ...interaction(), usage }) })), e => e.code === 'PROVIDER_INVALID_USAGE');
   }
+});
+
+test('synchronously slow fetch cannot clear an already-due transport deadline', async () => {
+  let calls = 0;
+  await assert.rejects(postSyntheticInteraction(input, options({ timeoutMs: 15, fetchImpl: async () => {
+    calls++; blockTurn(40); return response(interaction());
+  } })), e => e.code === 'PROVIDER_TIMEOUT' && e.outcome === 'unknown');
+  assert.equal(calls, 1);
+});
+test('synchronously slow response reading cannot clear an already-due transport deadline', async () => {
+  let calls = 0;
+  await assert.rejects(postSyntheticInteraction(input, options({ timeoutMs: 15, fetchImpl: async () => {
+    calls++;
+    const body = new ReadableStream({ pull(controller) {
+      blockTurn(40);
+      controller.enqueue(new TextEncoder().encode(JSON.stringify(interaction())));
+      controller.close();
+    } });
+    return new Response(body, { headers: { 'content-type': 'application/json' } });
+  } })), e => e.code === 'PROVIDER_TIMEOUT' && e.outcome === 'unknown');
+  assert.equal(calls, 1);
+});
+test('queued cancellation after a blocking fetch is honored before transport success', async () => {
+  const controller = new AbortController(); let calls = 0;
+  await assert.rejects(postSyntheticInteraction(input, options({ signal: controller.signal, fetchImpl: async () => {
+    calls++; setTimeout(() => controller.abort(), 0); blockTurn(20); return response(interaction());
+  } })), e => e.code === 'REQUEST_CANCELLED' && e.outcome === 'unknown');
+  assert.equal(calls, 1);
 });

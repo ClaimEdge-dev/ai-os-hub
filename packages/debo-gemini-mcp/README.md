@@ -1,6 +1,6 @@
 # DEBO Gemini bridge — private MCP and free web workflow
 
-**R15 checkpoint: PRIVATE MCP + PRIOR FREE WEB ACCEPTED / QUEUED-DEADLINE FIX TESTED / LIVE API BLOCKED / DRAFT.**
+**R17 checkpoint: PRIVATE MCP + FREE WEB HANDOFF ACCEPTED / TRANSPORT COMPLETION DEADLINE FIX TESTED / LIVE API BLOCKED / DRAFT.**
 
 The owner-private synthetic Worker and saved receipt are hosted and its existing
 ChatGPT plugin has successfully returned the original receipt through an actual
@@ -404,3 +404,40 @@ during prompt entry and remained so after one reload attempt. No Send action
 was issued and no review response was obtained. Delivery is unconfirmed; this
 local correction is not attributed to Gemini or treated as release approval.
 The Google API free-tier gate and all existing production holds remain in place.
+
+## Free website continuity handoff (R16)
+
+A compact public-metadata task completed in the existing Gemini website
+conversation using its available Flash-Lite mode. The returned R19 capsule
+passed the existing validator and was saved/read back in the owning private
+checkpoint. This was a browser-assisted handoff, not a live provider API call,
+independent review, automatic loader or fresh separate ChatGPT-session test.
+The earlier R15 packet was recovered as an unsent editor draft and replaced.
+No private capsule, account details or receipt identifiers are stored here.
+
+## Transport completion deadline correction (R17 — offline)
+
+Four local regressions reproduced another queued-timer gap: a synchronously
+slow injected fetch or response stream could finish through promise
+continuations and clear an already-due transport timeout. A queued cancellation
+could also be lost. The staged executor could then persist a completed receipt
+for an operation that should have remained uncertain.
+
+Before accepting a successful result, the transport now yields one timer turn
+with its deadline and cancellation listener still armed, then checks whether
+it was stopped. Timed-out/cancelled results remain uncertain and a duplicate
+does not make a second simulated provider request. No retry, lease reclaim,
+authorization relaxation or activation path was introduced.
+
+The four new cases failed against R15, then passed after the correction. The
+integrated package passes **159/159** locally and the build still copies only
+the same four Worker modules. The transport/executor remain excluded from
+both deployed entry points. All HTTP responses were injected synthetic data;
+no Gemini API request, remote migration, key provisioning or release occurred.
+
+Gemini supplied supporting analysis through the existing website workflow.
+Its sample test had syntax/fixture errors; the regression tests were adapted
+to the actual package and executed locally. Its response is neither a test
+receipt nor independent security/release approval. As with R15, this fixes the
+demonstrated local event-loop race; hosted timer/cancellation and actual
+identity, billing and provider acceptance still require separate evidence.
