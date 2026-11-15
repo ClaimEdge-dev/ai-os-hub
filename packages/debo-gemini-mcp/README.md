@@ -1,10 +1,26 @@
-# DEBO Gemini bridge — synthetic MCP prototype
+# DEBO Gemini bridge — private MCP and free web workflow
 
-**R4 checkpoint: BUILT / TESTED OFFLINE / DRAFT / DEPLOYMENT HOLD.**
+**R8 checkpoint: PRIVATE MCP READBACK PASS / FREE WEB ROUND TRIP PASS / DRAFT.**
 
-This package contains a stateless JSON-RPC Worker candidate and the original
-policy/Interactions mapping fixtures. It has no outbound provider implementation.
-It is not hosted, installed, connected to Gemini, or approved for production.
+The owner-private synthetic Worker and saved receipt are hosted and its existing
+ChatGPT plugin has successfully returned the original receipt through an actual
+authenticated `debo_get_receipt` call. R7 package verification passed **87/87**
+tests locally and in GitHub CI. The existing receipt survived private
+redeployments unchanged. The MCP tools remain fixed synthetic fixtures, with no
+outbound Gemini API implementation.
+
+The existing private plugin also carries the browser-assisted workflow at
+`plugin/skills/debo-gemini-free-web/SKILL.md`. A real coding handoff through the
+free Gemini website completed; the returned URL validator passed **20/20** local
+cases and matched the canonical endpoint policy on all 20. This is a website
+route operated by ChatGPT's browser controls, distinct from the synthetic MCP
+executor. No sign-in, purchase or API key was used for that observed task.
+
+Gemini API activation, mainline merge and protected release remain **HOLD**.
+Free website availability and quotas are provider-controlled; existing
+ChatGPT/Work usage still applies. The historical R4-R7 sections below describe
+their original source milestones; current operational evidence is recorded in
+the existing PR #81 checkpoint rather than private receipt data in this repository.
 
 ## Run locally
 
@@ -51,29 +67,29 @@ The tool name describes the future bridge role; its current executor only
 returns server-owned fixture data. `network_calls: 0` and `actual_cost_usd: 0`
 refer to that fixed synthetic execution, not to an unimplemented provider call.
 
-## Exact acceptance boundary
+## Current acceptance boundary
 
 | Requirement | Verified evidence | Still required |
 |---|---|---|
-| Transport | In-process Request/Response tests; Worker artifact builds | Real Sites protocol/tool discovery acceptance |
-| Authentication | Simulated transport headers plus server ACL tests | Verify owner-private Site policy and dispatch header provenance; bind actual Site-scoped caller ID |
-| Persistence | Actual SQLite SQL; 6 independent worker isolates produce one row; later worker reads/replays identical receipt | Approve and bind the private hosted store; verify D1 semantics, migration packaging and hosted restart/readback |
+| Transport | Worker build, MCP2 wire tests and an actual authenticated ChatGPT `debo_get_receipt` call | Revalidate materially changed transport or host behavior |
+| Authentication | Owner-private Site, actual Site-scoped caller receipt, project ACL tests and owner-supplied six-check browser PASS | Independent release/security approval remains separate |
+| Persistence | SQLite concurrency/restart tests plus one hosted D1 receipt row recovered unchanged after private redeployments and through ChatGPT | Canonical task/R19 storage remains separate from fixture storage |
 | Validation | Closed tool input contracts; exact bounded server fixture outputs; tampering rejected even after output hashes are recomputed | Full future live-task/provider JSON Schema validation |
-| Provider | Offline Interactions mapper; outbound fetch disabled in a transport test; no provider SDK in Worker build | Model/version, credentials, quotas, billing approval, timeout/429/401/403/cancellation/usage tests |
-| Continuity | Synthetic receipt schema `debo.gemini.fixture_receipt.v1` only | Existing authorized R19 store integration and authenticated fresh-chat readback |
+| Provider | Offline Interactions mapper; no provider SDK in Worker; separate free website coding task completed and locally checked | Gemini API credentials/free-tier/billing, model/version and bounded provider error/usage handling before API activation |
+| Continuity | Existing synthetic receipt recovered through the current ChatGPT plugin connection | Existing authorized R19 integration for real tasks; browser answers are not stored in the fixture table |
 | Release | Existing draft PR; generic source and synthetic tests only | Required independent review, current-head CI and owner release gates |
 
 The identity boundary flag is a configuration guard, **not** authentication by
 itself. Trust `oai-authenticated-user-id` only behind a verified Sites dispatch
 that authenticates the caller and protects identity headers. Do not expose this
-Worker directly or infer security from locally supplied headers. No bypass token,
-OAuth server, user ACL, Site permission, or production secret was created.
+Worker directly or infer security from locally supplied headers. The configured
+owner-private Site and private runtime owner allowlist remain the trusted
+boundary; do not replace them with a public route or a client identity claim.
 
-`migrations/0001_synthetic_receipts.sql` is a candidate schema applied only to
-temporary local test databases. Request handlers do not create tables. Hosted
-Sites migration metadata, DB binding and manifest must be prepared through the
-supported deployment workflow after the private destination is approved. No
-canonical R19 data belongs in this fixture table.
+`migrations/0001_synthetic_receipts.sql` supplies the local test schema. Request
+handlers do not create tables. The hosted Site's migration metadata, DB binding
+and manifest were prepared through the supported deployment workflow for the
+approved private destination. No canonical R19 data belongs in this fixture table.
 
 Atomic fixture persistence does **not** establish exactly-once paid execution:
 there is no provider call here. A live adapter still needs durable pre-call
@@ -96,7 +112,7 @@ previous-interaction ID; these settings are not a universal data-retention claim
 Its example model remains unverified for live availability and its response
 mapping requires live API-version verification before activation.
 
-## R4 verification and resume
+## Historical R4 verification and resume
 
 - Original R3 baseline reproduced: **39/39 individual tests pass**.
 - RED: new transport suite fails because `src/mcp_worker.mjs` does not exist.
@@ -107,7 +123,7 @@ mapping requires live API-version verification before activation.
 - Existing security workflow gains a Node 24 job to build/test this package;
   its Python checks and permissions are preserved. Verify the final head's CI.
 
-**Next action:** review this exact source and resolve actual trusted caller
+**R4 next action (historical):** review this exact source and resolve actual trusted caller
 binding plus the authorized hosted persistence/migration contract. Preserve
 deployment/merge/live-provider HOLD until those requirements and owner gates are
 satisfied. No independent review, fresh ChatGPT thread acceptance, Site/plugin
@@ -124,7 +140,7 @@ R3 source rollback: `0d0e53de3936f66f759f60c477c5b611d194234b`.
 
 These are interface references, not evidence of this prototype's hosted runtime.
 
-## Owner-private verification adapter (R5)
+## Historical owner-private verification adapter (R5)
 
 `src/site_worker.mjs` adds an owner-private test page and an identity readback
 endpoint. The owner allowlist is a private runtime email value supplied from the
@@ -143,7 +159,7 @@ header-spoof rejection; those remote checks are not established by local tests.
 Private synthetic publication was specifically authorized by the owner. This
 does not authorize paid provider usage, mainline merge or live Gemini activation.
 
-## Mobile verification route repair (R6)
+## Historical mobile verification route repair (R6)
 
 The private test page now posts to its authenticated `/api/fixture` route. That
 route invokes the existing MCP handler internally with the same owner identity,
@@ -158,7 +174,8 @@ not captured on the user's phone. An executable page regression models that
 boundary with a non-JSON transport rejection and fails before the repair.
 After the repair, the actual shipped page script plus Worker and SQLite save
 and replay one receipt. The full local suite passes **79/79** tests. Live iPhone
-button acceptance still requires a fresh owner-session run after publication.
+button acceptance was subsequently confirmed by the owner's R6_PRIVATE_C
+six-check PASS result; the same receipt was later recovered through the plugin.
 
 ## MCP client handshake repair (R7)
 
@@ -176,7 +193,37 @@ full suite passes **87/87** individual tests. Missing transport identity still
 fails closed, metadata cannot widen project ACLs, and native receipt reads do
 not create another record. Republishing refreshes the existing Site-owned App;
 do not replace its identity, connection or sharing to repair registration.
-Hosted ChatGPT tool invocation remains a separate acceptance check.
+Hosted ChatGPT tool invocation was subsequently accepted: the actual read tool
+returned the existing receipt, with every field matching the owner's R7 result.
 
 Primary wire reference:
 https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/schema/2026-07-28/schema.ts
+
+## Free browser workflow (R8)
+
+The private plugin's added workflow reuses the existing App connection and MCP
+tools. It routes only public or deliberately synthetic tasks to the visible
+Gemini website, reads the completed answer, inspects generated code and verifies
+the work locally before acceptance. It does not add a new API connection or
+change Site access, provider flags, schemas or the existing fixture receipt.
+
+Acceptance evidence: the public synthetic task `gemini-free-web-code-v1` asked
+Gemini's observed Flash-Lite guest interface to implement a pure JavaScript
+Interactions endpoint validator. The completed code was returned to ChatGPT,
+inspected and run against 20 bounded local cases, including normalized host and
+default port, approved v1/v1beta paths, legacy paths, lookalike hosts, URL-carried
+synthetic credentials, queries, fragments and malformed input. All 20 matched
+the existing canonical contract. The check performed no network calls; no
+Gemini API call, purchase or key setup occurred.
+
+The workflow also passed offline routing exercises for a public coding task,
+sensitive insurance records and an exhausted free quota. Sensitive material
+stays local without specific destination/data authorization; quota exhaustion
+does not authorize payment, account rotation or safeguard evasion.
+
+A saved workflow is reusable guidance, not an unattended server worker. It needs
+a ChatGPT host with browser controls and an available free website session.
+Do not claim automatic activation in every conversation, unlimited free usage,
+an API-backed service or a durable browser-result MCP receipt. Keep the fixture
+and browser result labels separate. Use the existing PR checkpoint for sanitized
+public completion evidence; do not create another record system.
