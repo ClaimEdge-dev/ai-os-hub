@@ -103,3 +103,17 @@ Report **completed result / verification / saved checkpoint / remaining gate**
 briefly. Do not promise background operation, infinite free access, automatic
 activation in every chat or a live Gemini API. A saved plugin instruction still
 requires a host with browser controls and the plugin's workflow available.
+
+## Compact task templates and draft protection (GB-082 / GB-090 / GB-111)
+
+For a public coding handoff, use one task, one exact public repository/commit path, a minimal synthetic input, and tests for expected behavior plus failure cases. Ask for a file-level patch with unsupported assumptions identified. Accept only after local or trusted CI tests.
+
+For schema work, provide a versioned input and output example with explicit prohibited fields; ask for a minimal schema, valid fixture, invalid fixture and precise error messages. Never send private exports as examples.
+
+For source verification, provide the precise public link, revision and one material claim; ask for the official primary source, observation date, relevant quoted field, contradiction or limitation, and how to reproduce the check. Do not turn a marketing claim into a runtime acceptance receipt.
+
+Before entering a browser composer, inspect for existing unsent material. Replace it only if the visible editor content is clearly the current DEBO-owned handoff for the same mission and has been preserved or superseded in the owning checkpoint. An unrelated user draft is a hard stop: preserve it and use an independent new composer/session only if authorized and actually available. Never silently delete or overwrite an unknown draft. A previously completed send may be reused only if inputs and acceptance remain unchanged.
+
+Keep each packet as small as a successful observed task allows. Record actual input size and truncation/errors; do not invent a universal safe character limit. If content exceeds a demonstrated bound, split it into separately scoped verified tasks without silently discarding context. The default route is existing no-new-spend connected tools or scoped public/synthetic browser work; where quota, permissions or price are unknown, mark UNKNOWN, never infer zero cost. No paid fallback or account rotation. Batch independent reads modestly, but serialize writes and preserve a sequential fallback.
+
+These are source instructions, not proof that a browser has been controlled, that any model was invoked, that a draft was protected in a real session, or that the skill is installed in the currently active ChatGPT host.
