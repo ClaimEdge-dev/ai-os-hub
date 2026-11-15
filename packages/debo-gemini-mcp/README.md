@@ -27,3 +27,11 @@ No npm install is needed. No network calls occur. Test command reports exact num
 8. Only after private Site approval and installation, run one real synthetic end-to-end request and a separate fresh ChatGPT thread receipt readback.
 
 Do not merge, publicly deploy or activate paid provider calls based only on this pilot.
+
+## Interactions API mapping (isolated offline adapter)
+
+New `src/interactions_mapper.mjs` uses `validateInput` from PR #81 to build a **synthetic-only**, stateless Google Gemini Interactions API request with `store: false`, `background: false`, no tool configuration and no `previous_interaction_id`. It uses Google's documented `response_format` with a minimal JSON object schema; response parsing rechecks key names, types and length, rejects unexpected tool calls, and does not save model thoughts. A valid `store:false` request is **not** a blanket zero-retention guarantee outside the Interaction resource.
+
+`test/interactions_mapper.test.mjs` adds 18 no-network tests (36 total with existing pilot). There is **no** `@google/genai` dependency or API call in this package yet. The unit does not modify `src/pilot.mjs` or fabricate real-token usage, spend or durable remote receipts. A real adapter must supply securely configured SDK/auth, approval, validated project-to-caller identity, network controls, provider accounting and distributed idempotency.
+
+Official docs: https://ai.google.dev/gemini-api/docs/interactions-overview and https://ai.google.dev/gemini-api/docs/structured-output
