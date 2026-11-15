@@ -1,0 +1,11 @@
+{
+  "name": "debo-05-task-editor-r127-review",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/test-editor.mjs"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0"
+  }
+}
