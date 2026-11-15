@@ -1,43 +1,125 @@
-# DEBO Gemini MCP policy / idempotency pilot
+# DEBO Gemini bridge — synthetic MCP prototype
 
-**Status:** ISOLATED LOCAL FIXTURE PILOT ONLY. This does NOT install MCP, call Gemini, consume API credits, deploy a Site, or connect ChatGPT to an external AI. All input data must be synthetic.
+**R4 checkpoint: BUILT / TESTED OFFLINE / DRAFT / DEPLOYMENT HOLD.**
 
-This is a narrow, dependency-free Node 20+ test pilot validating the reusable gates needed for the existing DEBO Multi-AI Router PR #75 and R19 helper PR #76. It intentionally does not replace the current R19 `debo.r19.capsule.v1` validator and does not claim its fixture receipts as canonical project evidence.
+This package contains a stateless JSON-RPC Worker candidate and the original
+policy/Interactions mapping fixtures. It has no outbound provider implementation.
+It is not hosted, installed, connected to Gemini, or approved for production.
 
-## Execute offline
+## Run locally
 
-`cd packages/debo-gemini-mcp && npm test`
+Use Node **22.13+** (native `node:sqlite` for tests); R4 was tested on Node 24.22.1.
+There are no third-party runtime or development dependencies.
 
-No npm install is needed. No network calls occur. Test command reports exact number of individually executed `node:test` tests.
+```sh
+npm ci --ignore-scripts --offline --no-audit --no-fund
+npm run build
+npm test
+```
 
-## Current proofs
+The build validates and copies four web-standard ESM modules to
+`dist/server/index.js` and its sibling modules, with a SHA-256 build manifest.
+It does not register a Site, provision storage, or generate deployment identity.
+The lockfile contains only this dependency-free package.
 
-- Project allowlist, token checks, read-only and zero-spend defaults, privacy restrictions, output key checking, endpoint host restrictions, per-project lookup isolation, idempotency-key payload conflict detection, single-machine lock serialization and checksum readback.
-- Receipt schema `debo.gemini.fixture_receipt.v1` is for test evidence only, **not** R19 canonical `debo.r19.capsule.v1`.
+## What the prototype does
 
-## Missing for a production remote MCP plugin (HOLD)
+- Implements `POST /mcp`: `server/discover`, `tools/list`, and `tools/call` using
+  the documented Sites MCP protocol version `2026-07-28`.
+- Exposes only `debo_gemini_execute` and `debo_get_receipt`. Execution accepts
+  `project_id`, `idempotency_key`, and one of two fixed `fixture_id` values.
+  Prompts, API keys, arbitrary payloads, caller tokens, schema overrides, paid
+  operations and provider URLs cannot be supplied through these tools.
+- Reuses the existing project/input policy via web-standard `src/contracts.mjs`;
+  existing Node caller/hash helpers remain in `src/policy.mjs`.
+- Requires explicitly configured synthetic mode, the Sites identity boundary,
+  and a server-owned caller-to-project ACL. Missing identity or scope fails closed.
+- Uses D1-style primary-consistent prepared statements with a unique
+  `(project_id, idempotency_key)` receipt key. Atomic insert never overwrites an
+  existing receipt. Readback verifies caller, project, fixture, full fixed output
+  contract and canonical-JSON hashes before returning a result.
+- Bounds request bytes and body/store deadlines, rejects unexpected routes,
+  cross-origin calls and extra argument fields, and redacts storage errors.
 
-1. Verify ChatGPT Sites runtime supports a deployed remote MCP transport; implement authenticated HTTP MCP tooling using supported SDK.
-2. Replace file locks/fixture disk storage with an approved private **durable transactional** per-project datastore that prevents parallel duplicate paid calls across instances, retries and restarts.
-3. Authenticate the caller at the remote transport/session layer and bind allowed project IDs to the caller. Do not place bearer secrets in tool arguments.
-4. Reconcile result with existing R19 `debo.r19.capsule.v1` and verified private project store. A typed hash is not evidence of a live result.
-5. Verify Gemini API model availability, billing status and real provider-side usage; keep paid calls disabled pending explicit approval.
-6. Validate full structured JSON Schema and response limits; use strict egress/tool restrictions and never trust model output as executable instructions.
-7. Run isolated integration, concurrency, cancellation, timeout, rate-limit, provider 401/403, error redaction and runtime-restart tests.
-8. Only after private Site approval and installation, run one real synthetic end-to-end request and a separate fresh ChatGPT thread receipt readback.
+Example tool arguments (synthetic data only):
 
-Do not merge, publicly deploy or activate paid provider calls based only on this pilot.
+```json
+{"project_id":"DEBO-CORE","idempotency_key":"synthetic-bridge-0001","fixture_id":"bridge-health-v1"}
+```
 
-## Interactions API mapping (isolated offline adapter)
+The tool name describes the future bridge role; its current executor only
+returns server-owned fixture data. `network_calls: 0` and `actual_cost_usd: 0`
+refer to that fixed synthetic execution, not to an unimplemented provider call.
 
-New `src/interactions_mapper.mjs` uses `validateInput` from PR #81 to build a **synthetic-only**, stateless Google Gemini Interactions API request with `store: false`, `background: false`, no tool configuration and no `previous_interaction_id`. It uses Google's documented `response_format` with a minimal JSON object schema; response parsing rechecks key names, types and length, rejects unexpected tool calls, and does not save model thoughts. A valid `store:false` request is **not** a blanket zero-retention guarantee outside the Interaction resource.
+## Exact acceptance boundary
 
-`test/interactions_mapper.test.mjs` adds 18 no-network tests (36 total with existing pilot). There is **no** `@google/genai` dependency or API call in this package yet. The unit does not modify `src/pilot.mjs` or fabricate real-token usage, spend or durable remote receipts. A real adapter must supply securely configured SDK/auth, approval, validated project-to-caller identity, network controls, provider accounting and distributed idempotency.
+| Requirement | Verified evidence | Still required |
+|---|---|---|
+| Transport | In-process Request/Response tests; Worker artifact builds | Real Sites protocol/tool discovery acceptance |
+| Authentication | Simulated transport headers plus server ACL tests | Verify owner-private Site policy and dispatch header provenance; bind actual Site-scoped caller ID |
+| Persistence | Actual SQLite SQL; 6 independent worker isolates produce one row; later worker reads/replays identical receipt | Approve and bind the private hosted store; verify D1 semantics, migration packaging and hosted restart/readback |
+| Validation | Closed tool input contracts; exact bounded server fixture outputs; tampering rejected even after output hashes are recomputed | Full future live-task/provider JSON Schema validation |
+| Provider | Offline Interactions mapper; outbound fetch disabled in a transport test; no provider SDK in Worker build | Model/version, credentials, quotas, billing approval, timeout/429/401/403/cancellation/usage tests |
+| Continuity | Synthetic receipt schema `debo.gemini.fixture_receipt.v1` only | Existing authorized R19 store integration and authenticated fresh-chat readback |
+| Release | Existing draft PR; generic source and synthetic tests only | Required independent review, current-head CI and owner release gates |
 
-Official docs: https://ai.google.dev/gemini-api/docs/interactions-overview and https://ai.google.dev/gemini-api/docs/structured-output
+The identity boundary flag is a configuration guard, **not** authentication by
+itself. Trust `oai-authenticated-user-id` only behind a verified Sites dispatch
+that authenticates the caller and protects identity headers. Do not expose this
+Worker directly or infer security from locally supplied headers. No bypass token,
+OAuth server, user ACL, Site permission, or production secret was created.
 
-## Endpoint policy cleanup (Interactions API)
+`migrations/0001_synthetic_receipts.sql` is a candidate schema applied only to
+temporary local test databases. Request handlers do not create tables. Hosted
+Sites migration metadata, DB binding and manifest must be prepared through the
+supported deployment workflow after the private destination is approved. No
+canonical R19 data belongs in this fixture table.
 
-The shared `validateEndpoint` helper now allows **only** the official HTTPS Gemini Interactions create URLs `https://generativelanguage.googleapis.com/v1/interactions` and `https://generativelanguage.googleapis.com/v1beta/interactions`. It rejects legacy `generateContent` paths, unrecognized routes, non-Google hosts, query strings (including API-key parameters), URL fragments, and embedded credentials. This is URL-policy validation only: it does **not** execute HTTP or verify an MCP transport. A future live adapter must enforce POST, use approved server-side credentials in headers, and prove tenant authorization, billing limits, and egress restrictions.
+Atomic fixture persistence does **not** establish exactly-once paid execution:
+there is no provider call here. A live adapter still needs durable pre-call
+ownership and uncertain-outcome reconciliation before any charge. A timed-out
+database request may still commit; retry only the identical request key. There
+are no automatic retries. Hashes detect consistency/corruption; they are not
+digital signatures or proof against a privileged database writer.
 
-Google primary REST references: https://ai.google.dev/api/interactions-api-v1 and https://ai.google.dev/api/interactions-api
+## Interactions endpoint policy
+
+Only these HTTPS create endpoints pass the existing URL policy:
+
+- `https://generativelanguage.googleapis.com/v1/interactions`
+- `https://generativelanguage.googleapis.com/v1beta/interactions`
+
+Legacy `generateContent`, unexpected paths, other domains, embedded credentials,
+queries and fragments are denied. URL validation does not execute HTTP. The
+offline mapper retains `store: false`, `background: false`, no provider tools or
+previous-interaction ID; these settings are not a universal data-retention claim.
+Its example model remains unverified for live availability and its response
+mapping requires live API-version verification before activation.
+
+## R4 verification and resume
+
+- Original R3 baseline reproduced: **39/39 individual tests pass**.
+- RED: new transport suite fails because `src/mcp_worker.mjs` does not exist.
+- GREEN: offline install, four-module build, and **68/68 individual tests pass**.
+- Covers ACL/auth failures, scope isolation, malformed/oversized requests,
+  unknown tools, argument injection, nonzero-spend rejection, missing/stalled
+  datastore, corrupted/recomputed-hash outputs, concurrency and worker restart.
+- Existing security workflow gains a Node 24 job to build/test this package;
+  its Python checks and permissions are preserved. Verify the final head's CI.
+
+**Next action:** review this exact source and resolve actual trusted caller
+binding plus the authorized hosted persistence/migration contract. Preserve
+deployment/merge/live-provider HOLD until those requirements and owner gates are
+satisfied. No independent review, fresh ChatGPT thread acceptance, Site/plugin
+installation, real-data transfer or provider request has been performed here.
+R3 source rollback: `0d0e53de3936f66f759f60c477c5b611d194234b`.
+
+## Primary references
+
+- [Sites-hosted MCP plugins](https://help.openai.com/en/articles/20001547-hosting-a-plugin-with-chatgpt-sites)
+- [D1 database/session API](https://developers.cloudflare.com/d1/worker-api/d1-database/)
+- [D1 prepared statements](https://developers.cloudflare.com/d1/worker-api/prepared-statements/)
+- [Gemini Interactions v1](https://ai.google.dev/api/interactions-api-v1)
+- [Gemini Interactions v1beta](https://ai.google.dev/api/interactions-api)
+
+These are interface references, not evidence of this prototype's hosted runtime.
