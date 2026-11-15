@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ClaimEdge-dev/ai-os-hub/blob/main/prompts/DEBO_HANDOFF_SCHEMA.json",
+  "title": "DEBO Research to Build Packet v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mission_id", "project_id", "research_date", "status", "source_checkpoint", "scope", "candidates", "selected_candidate_id", "implementation", "checks", "approval_gates", "return_location", "next_action"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "mission_id": {"type": "string", "minLength": 4, "maxLength": 128},
+    "project_id": {"enum": ["DEBO", "DWE", "JCT", "RRR", "MOR", "CE", "PLG", "BULLDOGS", "CWA", "BBS", "CREDIT", "SCHOOL", "HOUSING", "SETTLESURE"]},
+    "research_date": {"type": "string", "format": "date"},
+    "status": {"enum": ["PROPOSED", "SOURCE_VERIFIED", "BUILD_READY", "STAGED", "TESTED", "DEPLOYED", "BLOCKED"]},
+    "source_checkpoint": {"type": "object", "additionalProperties": false, "required": ["reference", "revision", "access_status"], "properties": {"reference": {"type": "string", "minLength": 1}, "revision": {"type": "string", "minLength": 1}, "access_status": {"enum": ["READ_VERIFIED", "NOT_ACCESSIBLE", "UNVERIFIED"]}}},
+    "scope": {"type": "string", "minLength": 10},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "current_branch_or_version": {"type": "string"},
+    "candidates": {"type": "array", "maxItems": 3, "items": {"$ref": "#/$defs/candidate"}},
+    "selected_candidate_id": {"type": ["string", "null"]},
+    "implementation": {"type": "object", "additionalProperties": false, "required": ["target_adapter", "steps", "files_or_modules", "acceptance_criteria", "rollback"], "properties": {"target_adapter": {"type": "string"}, "steps": {"type": "array", "items": {"type": "string"}}, "files_or_modules": {"type": "array", "items": {"type": "string"}}, "acceptance_criteria": {"type": "array", "items": {"type": "string"}}, "rollback": {"type": "string"}, "synthetic_fixture": {"type": "string"}}},
+    "checks": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["name", "status", "evidence"], "properties": {"name": {"type": "string"}, "status": {"enum": ["PASS", "FAIL", "NOT_RUN", "BLOCKED"]}, "evidence": {"type": "string"}}}},
+    "approval_gates": {"type": "array", "items": {"type": "string"}},
+    "return_location": {"type": "string", "minLength": 1},
+    "write_receipt": {"type": "object", "additionalProperties": false, "properties": {"status": {"enum": ["NOT_SENT", "NOT_SAVED", "SAVED_UNVERIFIED", "READBACK_VERIFIED"]}, "destination": {"type": "string"}, "readback_reference": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}},
+    "next_action": {"type": "string", "minLength": 8}
+  },
+  "$defs": {"candidate": {"type": "object", "additionalProperties": false, "required": ["candidate_id", "name", "existing_equivalent", "source_url", "version_or_commit", "license", "last_checked", "risk_review", "cost_review", "status", "scores", "rationale"], "properties": {"candidate_id": {"type": "string", "minLength": 1}, "name": {"type": "string"}, "existing_equivalent": {"type": "string"}, "source_url": {"type": "string", "format": "uri"}, "version_or_commit": {"type": "string"}, "license": {"type": "string"}, "last_checked": {"type": "string", "format": "date"}, "risk_review": {"type": "string"}, "cost_review": {"type": "string"}, "status": {"enum": ["PROPOSED", "SOURCE_VERIFIED", "BUILD_READY", "BLOCKED", "PARK"]}, "scores": {"type": "object", "additionalProperties": false, "required": ["impact", "reuse", "urgency", "effort", "risk", "cost"], "properties": {"impact": {"$ref": "#/$defs/one_to_five"}, "reuse": {"$ref": "#/$defs/one_to_five"}, "urgency": {"$ref": "#/$defs/one_to_five"}, "effort": {"$ref": "#/$defs/one_to_five"}, "risk": {"$ref": "#/$defs/one_to_five"}, "cost": {"$ref": "#/$defs/one_to_five"}}}, "rationale": {"type": "string", "minLength": 10}}},
+    "one_to_five": {"type": "integer", "minimum": 1, "maximum": 5}
+  }
+}

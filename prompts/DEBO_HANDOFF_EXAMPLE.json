@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "mission_id": "EXAMPLE-JCT-REVIEW-001",
+  "project_id": "JCT",
+  "research_date": "2026-11-02",
+  "status": "PROPOSED",
+  "source_checkpoint": {
+    "reference": "EXAMPLE ONLY: Latest authorized JCT private checkpoint required",
+    "revision": "UNKNOWN",
+    "access_status": "UNVERIFIED"
+  },
+  "scope": "Design a synthetic-only private JCT staff acceptance test without touching customer records.",
+  "constraints": ["No production data", "No customer messages", "John approval before live operational changes", "No new spend"],
+  "current_branch_or_version": "UNVERIFIED",
+  "candidates": [
+    {
+      "candidate_id": "JCT-SYNTHETIC-QA",
+      "name": "Extend existing internal JCT synthetic acceptance test",
+      "existing_equivalent": "Check existing JCT Factory and protected staff route first",
+      "source_url": "https://github.com/ClaimEdge-dev/ai-os-hub",
+      "version_or_commit": "UNVERIFIED",
+      "license": "Internal existing code; review third-party dependencies separately",
+      "last_checked": "2026-11-02",
+      "risk_review": "Example only; authentication, isolation and access remain unverified",
+      "cost_review": "No proposed additional purchase",
+      "status": "PROPOSED",
+      "scores": {"impact": 4, "reuse": 4, "urgency": 4, "effort": 2, "risk": 3, "cost": 1},
+      "rationale": "Illustrates the handoff format, not a validated current engineering recommendation."
+    }
+  ],
+  "selected_candidate_id": "JCT-SYNTHETIC-QA",
+  "implementation": {
+    "target_adapter": "JCT",
+    "steps": ["Recover current checked-out JCT source and authorized checkpoint", "Inspect owner-protected staff route without modifying authentication", "Design synthetic fixture and read-only test plan", "Run isolated tests after required authorization", "Save test receipt and rollback"],
+    "files_or_modules": ["Resolve actual JCT source paths before editing"],
+    "acceptance_criteria": ["Staff route requires correct authentication", "Synthetic records never hit production", "No customer send, invoice, or live deployment"],
+    "rollback": "Revert review branch; leave live site and data unchanged",
+    "synthetic_fixture": "EXAMPLE ONLY: fictitious request with non-identifying fields"
+  },
+  "checks": [{"name": "Current private JCT source and checkpoint", "status": "NOT_RUN", "evidence": "Example does not query production"}],
+  "approval_gates": ["Owner John approval before live functionality", "No production mutation"],
+  "return_location": "COPY_READY_EXAMPLE_NOT_SENT",
+  "write_receipt": {"status": "NOT_SENT", "destination": "", "readback_reference": ""},
+  "next_action": "Recover the currently authorized JCT branch and compare its existing acceptance tests."
+}
