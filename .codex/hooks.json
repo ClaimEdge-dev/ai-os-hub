@@ -1,0 +1,45 @@
+{
+  "description": "DEBO R153 optional project-local hooks. Review and trust in supported Codex runtime; never auto-approve elevated work.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact|fork",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/debo_codex_hook.py\" session-start",
+            "timeout": 12,
+            "statusMessage": "Recovering DEBO source context",
+            "additionalContextLimit": 5000
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/debo_codex_hook.py\" pre-tool-use",
+            "timeout": 8,
+            "statusMessage": "Checking DEBO high-impact holds"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/debo_codex_hook.py\" post-tool-use",
+            "timeout": 8,
+            "statusMessage": "Inspecting DEBO tool outcome"
+          }
+        ]
+      }
+    ]
+  }
+}
