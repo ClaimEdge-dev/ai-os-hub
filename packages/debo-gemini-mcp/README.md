@@ -1,6 +1,6 @@
 # DEBO Gemini bridge — private MCP and free web workflow
 
-**R8 checkpoint: PRIVATE MCP READBACK PASS / FREE WEB ROUND TRIP PASS / DRAFT.**
+**R10 checkpoint: PRIVATE MCP + FREE WEB ACCEPTED / CANDIDATE CLAIM STORAGE TESTED / LIVE API BLOCKED / DRAFT.**
 
 The owner-private synthetic Worker and saved receipt are hosted and its existing
 ChatGPT plugin has successfully returned the original receipt through an actual
@@ -21,6 +21,10 @@ route operated by ChatGPT's browser controls, distinct from the synthetic MCP
 executor. No sign-in, purchase or API key was used for that observed task.
 
 Gemini API activation, mainline merge and protected release remain **HOLD**.
+
+R10 adds a **staged, non-dispatching durable claim store** adapted after reviewing
+the owner's Gemini reference code. It is not a billing verifier or an activated
+provider integration; its candidate migration has not been applied remotely.
 Free website availability and quotas are provider-controlled; existing
 ChatGPT/Work usage still applies. The historical R4-R7 sections below describe
 their original source milestones; current operational evidence is recorded in
@@ -268,3 +272,55 @@ Transport references checked for this source:
 - https://ai.google.dev/api/interactions-api-v1
 - https://ai.google.dev/gemini-api/docs/api-key
 - https://ai.google.dev/gemini-api/docs/billing
+
+## Gemini reference review and durable claim storage (R10 — NOT LIVE)
+
+The supplied Gemini answer explicitly inspected no repository revision and ran
+no tests. It is a reference proposal, not an exact-source security audit or a
+drop-in patch. The useful pre-dispatch claim idea was adapted to this package;
+the duplicate transport and self-asserted billing gate were not adopted.
+
+| Reference issue | Applied treatment |
+|---|---|
+| JSON billing assertions, arbitrary attester, broad default model set and far-future expiry treated as financial proof | No `verifyZeroDollarPolicy` implementation was accepted. Actual owner/project/key/free-tier verification remains a separate blocked prerequisite. |
+| Caller-supplied authenticated flag and wildcard projects | Candidate store takes internal server context, rejects wildcard project scope and never exposes an MCP entry point. The context itself is not authentication proof. |
+| Request hash omits output schema and other dispatch settings | Ledger and HTTP primitive share one normalized request builder. Hash binds provider scope, project, endpoint, API revision and the complete effective body. |
+| Completed receipt replay is only `JSON.parse` | Replay verifies scope, schema, result contract, usage bounds, result checksum and receipt checksum. Hashes are consistency checks, not signatures against a privileged writer. |
+| Completion updates have no ownership token/state condition | Atomic insert grants one internal token. Completion and uncertain transitions compare that token, request hash, owner and CLAIMED state. Completed rows cannot be overwritten. |
+| Duplicate transport permits caller-selected endpoint, payload override of `store:false`, implicit global fetch and output parsing inconsistent with R9 | Existing tested transport retained; no second HTTP implementation. |
+| Expiring lease can race an old completion | No automatic expiry, reclaim or re-dispatch exists. Pending/crashed/uncertain operations remain blocked until separately reviewed reconciliation. |
+
+`src/durable_execution_gate.mjs` implements only storage ownership and candidate
+result persistence. `migrations/0002_execution_claims.sql` is a staged local-test
+schema in the same database, separate from the existing fixture table. It is
+not automatically run, packaged into the hosted Site or called by MCP handlers.
+
+The store requires a primary-consistent D1 session, atomic INSERT RETURNING and
+independent readback before granting a claim. It permanently binds a project
+key to its owner, provider scope and normalized request fingerprint. Pending
+or uncertain duplicates never receive another ownership token. Storage calls
+are bounded and errors are generic. Post-result persistence failures return an
+uncertain outcome; a lost acknowledgement cannot downgrade a committed receipt
+or permit another attempt.
+
+Receipts use the distinct candidate schema `debo.gemini.transport_receipt.v1`,
+not R19 or the fixed fixture schema. They record a checked transport result
+with `billing_verified:false` and never invent a dollar cost. No API credential,
+raw provider error or financial attestation is stored here. These components
+do not prove that a provider request happened or that requests are free.
+
+Acceptance uses actual temporary SQLite databases and independent worker
+isolates for competing claims and restart replay. It covers conflicting inputs,
+caller/project/provider-scope changes, stolen/wrong tokens, immutable completion,
+uncertain and stale claims, tampering even with recomputed checksums, invalid
+usage/billing claims, failed persistence, lost acknowledgement and fixture-table
+preservation. Every provider result is synthetic; no real provider is invoked.
+
+The integrated local suite passes **128/128** tests, including 21 new storage
+cases. The local build passes and still validates only the same four deployed
+Worker modules. Current-head GitHub CI evidence is tracked in PR #81.
+
+Before live wiring, the integration must supply verified server identity and
+financial authorization, dispatch only the exact claimed normalized request,
+durably reconcile uncertain outcomes, and pass live contract and release gates.
+No lease or environment attestation may silently authorize another call.

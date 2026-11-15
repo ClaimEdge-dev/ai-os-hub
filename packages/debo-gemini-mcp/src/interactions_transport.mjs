@@ -62,22 +62,40 @@ function reportedUsage(value) {
   return result;
 }
 
+// The ledger and transport must fingerprint/dispatch the same normalized wire
+// settings, including the output schema and controls, not just the input text.
+export function buildSyntheticTransportRequest(rawInput, options = {}) {
+  const endpoint = validateEndpoint(options.endpoint ?? 'https://generativelanguage.googleapis.com/v1/interactions').href;
+  const body = buildSyntheticInteractionRequest(rawInput, options.model);
+  body.stream = false;
+  body.service_tier = 'standard';
+  body.generation_config = { max_output_tokens: 1024, tool_choice: 'none' };
+  return { endpoint, api_revision: '2026-05-20', body };
+}
+
+export function validateSyntheticTransportResult(value, request) {
+  const fields = ['interaction_id', 'model', 'output', 'usage', 'provider_requests', 'billing_verified'];
+  try {
+    if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).length !== fields.length || fields.some(k => !Object.hasOwn(value, k)) || typeof value.interaction_id !== 'string' || !/^[A-Za-z0-9_.:-]{1,256}$/.test(value.interaction_id) || value.model !== request.body.model || value.provider_requests !== 1 || value.billing_verified !== false) fail('INVALID_EXECUTION_RESULT');
+    if (!value.usage || Object.keys(value.usage).some(k => !['total_input_tokens', 'total_output_tokens', 'total_tokens', 'total_thought_tokens'].includes(k))) fail('INVALID_EXECUTION_RESULT');
+    const output = parseSyntheticInteractionResult({ status: 'completed', output_text: JSON.stringify(value.output) }, request.body.response_format.schema.required);
+    return { interaction_id: value.interaction_id, model: value.model, output, usage: reportedUsage(value.usage), provider_requests: 1, billing_verified: false };
+  } catch { fail('INVALID_EXECUTION_RESULT'); }
+}
+
 export async function postSyntheticInteraction(rawInput, options = {}) {
-  let endpoint, body, expectedKeys, fetchImpl, apiKey, timeoutMs, maxResponseBytes, signal;
+  let request, endpoint, body, expectedKeys, fetchImpl, apiKey, timeoutMs, maxResponseBytes, signal;
   try {
     if (!options || typeof options !== 'object' || Array.isArray(options)) fail('TRANSPORT_UNCONFIGURED');
     ({ fetchImpl, apiKey, timeoutMs = 15_000, maxResponseBytes = 65_536, signal } = options);
     if (typeof fetchImpl !== 'function') fail('TRANSPORT_UNCONFIGURED');
-    endpoint = validateEndpoint(options.endpoint ?? 'https://generativelanguage.googleapis.com/v1/interactions').href;
     if (typeof apiKey !== 'string' || !/^[!-~]{16,512}$/.test(apiKey)) fail('CREDENTIAL_REQUIRED');
     if (!boundedInteger(timeoutMs, 10, 30_000) || !boundedInteger(maxResponseBytes, 1024, 131_072)) fail('TRANSPORT_LIMITS_INVALID');
     if (signal !== undefined && !(signal instanceof AbortSignal)) fail('TRANSPORT_LIMITS_INVALID');
     if (signal?.aborted) fail('REQUEST_CANCELLED');
-    body = buildSyntheticInteractionRequest(rawInput, options.model);
+    request = buildSyntheticTransportRequest(rawInput, options);
+    ({ endpoint, body } = request);
     expectedKeys = [...body.response_format.schema.required];
-    body.stream = false;
-    body.service_tier = 'standard';
-    body.generation_config = { max_output_tokens: 1024, tool_choice: 'none' };
   } catch (error) {
     throw new ProviderAttemptError(error instanceof PolicyError ? error.code : 'TRANSPORT_UNCONFIGURED', 'not_started');
   }
@@ -97,7 +115,7 @@ export async function postSyntheticInteraction(rawInput, options = {}) {
       const response = await fetchImpl(endpoint, {
         method: 'POST', redirect: 'error', credentials: 'omit', cache: 'no-store',
         signal: controller.signal,
-        headers: { 'content-type': 'application/json', 'x-goog-api-key': apiKey, 'Api-Revision': '2026-05-20' },
+        headers: { 'content-type': 'application/json', 'x-goog-api-key': apiKey, 'Api-Revision': request.api_revision },
         body: JSON.stringify(body)
       });
       if (!(response instanceof Response)) fail('PROVIDER_INVALID_RESPONSE');
@@ -113,7 +131,7 @@ export async function postSyntheticInteraction(rawInput, options = {}) {
       if (!interaction || typeof interaction !== 'object' || Array.isArray(interaction) || interaction.status !== 'completed' || typeof interaction.id !== 'string' || !/^[A-Za-z0-9_.:-]{1,256}$/.test(interaction.id) || (interaction.model !== undefined && interaction.model !== body.model) || (interaction.errors !== undefined && (!Array.isArray(interaction.errors) || interaction.errors.length))) fail('PROVIDER_INVALID_RESPONSE');
       if (!Array.isArray(interaction.steps) || interaction.steps.some(step => !step || !['user_input', 'model_output'].includes(step.type))) fail('PROVIDER_INVALID_RESPONSE');
       const output = parseSyntheticInteractionResult(interaction, expectedKeys);
-      return { interaction_id: interaction.id, model: body.model, output, usage: reportedUsage(interaction.usage), provider_requests: 1, billing_verified: false };
+      return validateSyntheticTransportResult({ interaction_id: interaction.id, model: body.model, output, usage: reportedUsage(interaction.usage), provider_requests: 1, billing_verified: false }, request);
     })();
     return await Promise.race([operation, deadline]);
   } catch (error) {
