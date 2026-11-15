@@ -13,10 +13,19 @@ export function assertCaller(provided, expected) {
   const b = createHash('sha256').update(expected).digest();
   if (!timingSafeEqual(a,b)) fail('AUTH_INVALID','Caller token invalid');
 }
+// Restrict future provider calls to documented Gemini Interactions create endpoints.
+// This checks the URL only: any future network adapter must enforce POST,
+// server-side API-key headers, outbound network policy and approved billing.
+const INTERACTIONS_PATHS = new Set(['/v1/interactions', '/v1beta/interactions']);
 export function validateEndpoint(candidate) {
+  if (typeof candidate !== 'string') fail('ENDPOINT_DENIED', 'Endpoint URL must be a string');
   let u;
-  try { u=new URL(candidate); } catch { fail('ENDPOINT_DENIED','Invalid URL'); }
-  if (u.protocol!=='https:' || u.hostname!=='generativelanguage.googleapis.com' || u.port || u.username || u.password || u.search || u.hash || !/^\/v1beta\/models\/[A-Za-z0-9._-]+:generateContent$/.test(u.pathname)) fail('ENDPOINT_DENIED','Non-allowlisted Gemini endpoint');
+  try { u = new URL(candidate); } catch { fail('ENDPOINT_DENIED', 'Invalid URL'); }
+  if (u.protocol !== 'https:' || u.hostname !== 'generativelanguage.googleapis.com' ||
+      u.port || u.username || u.password || u.search || u.hash ||
+      !INTERACTIONS_PATHS.has(u.pathname)) {
+    fail('ENDPOINT_DENIED', 'Only allowlisted Gemini Interactions endpoints are permitted');
+  }
   return u;
 }
 export function validateInput(raw) {
