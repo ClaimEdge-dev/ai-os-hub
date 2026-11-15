@@ -1,0 +1,17 @@
+{
+  "workflow_id": "debo_public_status_check",
+  "version": "1.0.0",
+  "entity_scope": "DEBO-CORE",
+  "mode": "read_only",
+  "target_url": "https://example.com/",
+  "timeout_ms": 5000,
+  "requires_write_token": false,
+  "allowed_extract_selectors": [
+    "title",
+    "h1"
+  ],
+  "allowed_path_prefixes": [
+    "/"
+  ],
+  "allow_query_params": false
+}
