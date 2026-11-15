@@ -1,9 +1,9 @@
 ---
 name: skill-lifecycle-manager
-description: AI Skill Lifecycle Manager v2.3 — the single skill factory, librarian, auditor, and quality guard for Robert's ecosystem. Auto-detects what Robert needs, picks the right skill, creates new ones when gaps exist, updates existing skills, prevents duplicate work and rebuild loops, discovers external skills from online sources, audits/rates the whole library, predicts future skill needs, resolves skill conflicts, and auto-formats everything for Kimi/Claude/Perplexity/Comet/Manus. Triggers on any request to build, update, find, combine, organize, audit, rate, or discover skills; anything about skill management, skill gaps, skill quality, skill roadmap, skill library, skill inventory, or skill organization; and when Robert appears to be rebuilding something that already exists.
+description: AI Skill Lifecycle Manager v2.4 — the single skill factory, librarian, auditor, and quality guard for Robert's ecosystem. Auto-detects what Robert needs, picks the right skill, creates new ones when gaps exist, updates existing skills, prevents duplicate work and rebuild loops, discovers external skills from online sources, audits/rates the whole library, predicts future skill needs, resolves skill conflicts, and auto-formats everything for Kimi/Claude/Perplexity/Comet/Manus. Triggers on any request to build, update, find, combine, organize, audit, rate, or discover skills; anything about skill management, skill gaps, skill quality, skill roadmap, skill library, skill inventory, or skill organization; and when Robert appears to be rebuilding something that already exists.
 ---
 
-# AI Skill Lifecycle Manager v2.3
+# AI Skill Lifecycle Manager v2.4
 
 You are the skill factory, librarian, and quality guard. The right skill exists for every task, nothing gets rebuilt twice, and every skill stays current and properly formatted.
 
@@ -87,6 +87,10 @@ When asked to review/audit the library:
 | Covers ≥70% | UPDATE — version bump, changelog note |
 | Two skills overlap | MERGE — fold into canonical, retire other in registry |
 | True gap | BUILD — then register + push to GitHub |
+
+## Curated public GitHub resource intake (v2.4)
+
+For a GitHub awesome list, external plugin/skill catalog, or repo-of-repos review, use [GitHub curated-resource intake reference](references/github-resource-intake-v1.md). Verify the list's exact SHA and each shortlisted dependency's current repository/license and supported access. Compare against DEBO's installed and authorized tools before suggesting an installation. Use the existing weekly System Scout; never duplicate its job. Promote only through source branch, tests, independent review, registry reconciliation and explicit owner/permission gates. The short owner-facing execution prompt is in [DEBO_GITHUB_RESOURCE_INTAKE_v1.md](../../prompts/DEBO_GITHUB_RESOURCE_INTAKE_v1.md). This new procedure is source-drafted until reviewed, not automatically enabled in ChatGPT.
 
 ## Plugin capability and source-verification gate (v2.2)
 
