@@ -1,0 +1,17 @@
+artifact_type,required,approval_required,notes
+brand-guidelines,yes,yes,logo palette fonts voice
+logo-master,yes,yes,source vector and exports
+letterhead,yes,yes,approved business identity
+email-signature,yes,yes,contact details verified
+business-card,yes,yes,print specifications
+proposal,yes,yes,scope and legal review
+estimate,yes,yes,pricing authority
+invoice,yes,yes,finance controls
+receipt,yes,yes,actual payment evidence
+field-report,yes,no,source and photo evidence
+photo-report,yes,no,metadata and captions
+social-post,yes,yes,public approval
+flyer,yes,yes,public approval
+presentation,yes,no,project status and sources
+intake-form,yes,yes,privacy and consent
+sop,yes,yes,operational ownership

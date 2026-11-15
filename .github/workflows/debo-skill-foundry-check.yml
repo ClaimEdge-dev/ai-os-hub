@@ -1,0 +1,21 @@
+name: DEBO Skill Foundry validation
+on:
+  pull_request:
+    paths:
+      - 'debo/skill-foundry/**'
+      - '.github/workflows/debo-skill-foundry-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate sample registry
+        run: python debo/skill-foundry/validate_registry.py debo/skill-foundry/registry.sample.json
+      - name: Run validator tests
+        run: cd debo/skill-foundry && python -m unittest -v test_validate_registry.py
