@@ -1,6 +1,6 @@
 # DEBO Gemini bridge — private MCP and free web workflow
 
-**R10 checkpoint: PRIVATE MCP + FREE WEB ACCEPTED / CANDIDATE CLAIM STORAGE TESTED / LIVE API BLOCKED / DRAFT.**
+**R14 checkpoint: PRIVATE MCP + FREE WEB ACCEPTED / STAGED EXECUTION FLOW TESTED / LIVE API BLOCKED / DRAFT.**
 
 The owner-private synthetic Worker and saved receipt are hosted and its existing
 ChatGPT plugin has successfully returned the original receipt through an actual
@@ -324,3 +324,52 @@ Before live wiring, the integration must supply verified server identity and
 financial authorization, dispatch only the exact claimed normalized request,
 durably reconcile uncertain outcomes, and pass live contract and release gates.
 No lease or environment attestation may silently authorize another call.
+
+## Staged claim-to-transport execution (R14 — NOT LIVE)
+
+`src/guarded_interaction.mjs` connects the existing candidate claim store to the
+existing bounded transport. `createStagedSyntheticExecutor` is disabled by
+default. It is server-internal and excluded from both deployed Worker entry
+points and the four-module deployment build. No MCP tool, runtime flag, key,
+remote migration or deployment was added.
+
+An explicitly configured server caller must supply its own reviewed
+`authorizeRequest` function, identity/project/provider context, D1 binding and
+transport dependencies. Authorization is checked before claiming and again
+immediately before dispatch. The callback receives a frozen request and its
+fingerprint, never the ownership token or credential. A strict `true` decision
+is accepted only as the trusted dependency's result; it does not prove that a
+test callback, environment flag or copied billing JSON has verified anything.
+The real server identity/financial verifier remains unimplemented and blocked.
+Do not expose this configuration through tool arguments.
+
+The flow snapshots inputs/configuration, requires durable ownership/readback
+before dispatch and compares the actual URL, revision, body and HTTP controls
+with the claimed normalized request. Concurrent/pending/uncertain keys never
+dispatch again. Completed duplicates return the checked original receipt.
+Authorization and storage are bounded. Cancellation is checked after
+asynchronous authorization so a late decision cannot start a provider call
+after the transport's deadline. A post-claim rejection or failure leaves a
+permanent barrier pending separately reviewed reconciliation; there is no
+automatic release, retry, lease expiry or manual reconciliation service here.
+
+The integrated suite passes **152/152** tests, including 24 new orchestration
+cases using actual temporary SQLite and injected synthetic HTTP responses.
+Checks cover durable-before-dispatch ordering, exact wire equality, concurrent
+duplicates, restart replay, scope/conflicting requests, caller mutation,
+authorization denial/revocation/deadlines, late responses, lost claim/completion
+acknowledgements, corrupted receipts and failed persistence. They make no
+provider requests and do not establish live D1/API/billing acceptance. Results
+retain `billing_verified:false` and never invent a dollar cost.
+
+Account-side evidence is tracked in the existing PR checkpoint: signed-in AI
+Studio showed all three existing projects as **Restricted / Free tier
+unavailable**. The owner-approved eligibility feedback was submitted and Google
+displayed **Thanks for your feedback!**; no support case or restored eligibility
+was issued. The API remains disabled. The prior free website workflow remains
+separate and subject to its actual host and provider usage limits.
+
+Remaining gates are a real server-side identity/financial verifier, an
+authorized non-billable provider contract check, reviewed remote migration and
+uncertain-outcome reconciliation, R19 acceptance, and release approval. No
+mainline merge or provider activation follows from offline test success.
