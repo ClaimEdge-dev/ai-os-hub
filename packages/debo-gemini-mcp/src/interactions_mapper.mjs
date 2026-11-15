@@ -1,6 +1,6 @@
 // Offline-only map/parse helpers for the Gemini Interactions API.
 // This module never imports the Gemini SDK or performs HTTP calls.
-import { validateInput, PolicyError } from './policy.mjs';
+import { validateInput, PolicyError } from './contracts.mjs';
 
 const MODEL_ALLOWLIST = new Set(['gemini-3.8-flash']); // Documentation example; revalidate availability before provider activation.
 const deny = (code, message) => { throw new PolicyError(code, message); };

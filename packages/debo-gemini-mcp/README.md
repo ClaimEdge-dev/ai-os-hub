@@ -9,6 +9,10 @@ tests locally and in GitHub CI. The existing receipt survived private
 redeployments unchanged. The MCP tools remain fixed synthetic fixtures, with no
 outbound Gemini API implementation.
 
+R9 adds an **unwired, offline-tested provider transport primitive**, not a live
+API connection; see the staged-client section below. It is excluded from the
+deployed Worker entry points and their build output.
+
 The existing private plugin also carries the browser-assisted workflow at
 `plugin/skills/debo-gemini-free-web/SKILL.md`. A real coding handoff through the
 free Gemini website completed; the returned URL validator passed **20/20** local
@@ -227,3 +231,40 @@ Do not claim automatic activation in every conversation, unlimited free usage,
 an API-backed service or a durable browser-result MCP receipt. Keep the fixture
 and browser result labels separate. Use the existing PR checkpoint for sanitized
 public completion evidence; do not create another record system.
+
+## Staged Interactions transport (R9 — NOT LIVE)
+
+`src/interactions_transport.mjs` adds a bounded single-request HTTP primitive for
+the existing explicitly synthetic mapper. Its caller must supply the HTTP
+implementation and credential explicitly; there is no implicit global fetch.
+The existing Worker entry points do not import it, and the deployment build
+does not include it. No new tool, secret, database migration, runtime setting
+or deployment is introduced by this source change.
+
+The candidate enforces approved HTTPS Interactions endpoints, header-only
+credentials, redirect rejection, stateless foreground requests, a 1024-output
+token cap, deadlines through response-body reading, response byte limits,
+strict completion/output checks, token-usage bounds and generic errors.
+Dispatched failures carry `outcome: unknown`; it never automatically retries.
+It returns `billing_verified: false` and never guesses a dollar cost from a
+successful HTTP response. The current example model remains account/quota
+unverified. `store: false` does not establish free-tier data-use restrictions.
+
+This primitive is **not a billing or authorization boundary**. Before a future
+caller may supply a real transport/key, the integration must verify the actual
+owner/project, free-tier eligibility and unlinked billing; acquire durable
+pre-call ownership; persist/reconcile uncertain outcomes; complete current-model
+live contract checks; and pass the existing release/security gates. Those
+controls are not supplied by a label, a caller boolean or this HTTP helper.
+Do not expose it through MCP or enable it just because these offline tests pass.
+
+R9 setup attempt: AI Studio redirected to Google account selection. The secure
+sign-in request returned `declined`; no signed-in project/free-tier readback,
+credential creation, terms acceptance, paid setup or provider request occurred.
+The existing free browser-assisted route remains available under its own usage
+limits. Automatic API integration remains BLOCKED, not complete.
+
+Transport references checked for this source:
+- https://ai.google.dev/api/interactions-api-v1
+- https://ai.google.dev/gemini-api/docs/api-key
+- https://ai.google.dev/gemini-api/docs/billing
