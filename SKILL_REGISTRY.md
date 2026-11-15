@@ -204,10 +204,10 @@ These GitHub skill source files exist at `main/skills/`. This table supplements 
 | Thread recovery and Resume Capsules | v2.1 | [thread-ops](skills/thread-ops/SKILL.md) | UNVERIFIED |
 | Skill lifecycle and conflict management | v2.1 | [skill-lifecycle-manager](skills/skill-lifecycle-manager/SKILL.md) | UNVERIFIED |
 | Cross-AI routing and handoff authority | v3.2 | [multi-ai-router](skills/multi-ai-router/SKILL.md) | UNVERIFIED |
-| Canonical DEBO portfolio orchestration | v3.0 | [robert-master-os](skills/robert-master-os/SKILL.md) | UNVERIFIED |
+| Canonical DEBO portfolio orchestration | v3.1 | [robert-master-os](skills/robert-master-os/SKILL.md) | UNVERIFIED |
 | Durable artifact routing and checkpoints | v2.0 | [universal-file-vault](skills/universal-file-vault/SKILL.md) | UNVERIFIED |
 | Workspace organization and continuity | v3.0 | [autonomous-ops-architect](skills/autonomous-ops-architect/SKILL.md) | UNVERIFIED |
-| ChatGPT project and conversation stewardship | v1.0 | [chatgpt-workspace-steward](skills/chatgpt-workspace-steward/SKILL.md) | UNVERIFIED |
+| ChatGPT project and conversation stewardship | v1.1 | [chatgpt-workspace-steward](skills/chatgpt-workspace-steward/SKILL.md) | UNVERIFIED |
 | Safe, low-risk internal build-ahead | v1.0 | [proactive-build-ahead](skills/proactive-build-ahead/SKILL.md) | UNVERIFIED |
 
 **Lifecycle reconciliation:** 17 earlier ACTIVE records now match the newer Notion DEPRECATED lifecycle label. Those entries remain in this catalog as historical records, not deletions. Seven have explicitly documented consolidation successors: `claimedge-session-memory`, `claimedge-vault-system`, and `claimedge-auto-deploy` → `universal-file-vault`; `claimedge-skill-forge` → `skill-lifecycle-manager`; `session-context-preserver` and `thread-audit-manager` → `thread-ops`; `credit-repair-orchestrator` → `credit-repair-master-orchestrator`. The other ten retain DEPRECATED without an assumed installed replacement. See [2026-11-03 reconciliation receipt](docs/DEBO_SKILL_RECONCILIATION_2026-11-03.md).

@@ -3,14 +3,20 @@ name: chatgpt-workspace-steward
 description: >
   Keeps Bobby's ChatGPT Projects, chats, files, project sources, Drive/Notion/GitHub mirrors,
   checkpoints, and archives organized. Use at session close, after major builds, during project
-  creation, or during ChatGPT cleanup. Never deletes valuable history without verification.
+  creation or instruction refresh, or during ChatGPT cleanup. Never deletes valuable history without verification.
 ---
 
-# ChatGPT Workspace Steward v1.0
+# ChatGPT Workspace Steward v1.1
 
 ## Mission
 
 Make ChatGPT Projects navigable without sacrificing recoverability.
+
+## Project instruction refresh
+
+Recover the existing project and relevant conversation before creating either. For a genuine new project, prepare tailored instructions covering goal, canonical sources, tools, privacy, approvals, tests and handoff. On return, compare current instructions with verified evidence and revise only outdated sections. Save through a supported authorized tool and read back the change; otherwise provide one ready-to-paste replacement and mark it NOT SAVED.
+
+Reuse the existing Thread Index and Resume Capsule. Keep the deeper queue internally and show only the top three next actions. Recommend ACTIVE, HANDOFF, MERGE-CANDIDATE or ARCHIVE-CANDIDATE as warranted; reconcile unique evidence and dependencies before proposing a merge or archive. Suggested UI changes are not completed actions.
 
 ## Canonical project pattern
 
