@@ -1,6 +1,6 @@
 # DEBO Gemini bridge — private MCP and free web workflow
 
-**R14 checkpoint: PRIVATE MCP + FREE WEB ACCEPTED / STAGED EXECUTION FLOW TESTED / LIVE API BLOCKED / DRAFT.**
+**R15 checkpoint: PRIVATE MCP + PRIOR FREE WEB ACCEPTED / QUEUED-DEADLINE FIX TESTED / LIVE API BLOCKED / DRAFT.**
 
 The owner-private synthetic Worker and saved receipt are hosted and its existing
 ChatGPT plugin has successfully returned the original receipt through an actual
@@ -373,3 +373,34 @@ Remaining gates are a real server-side identity/financial verifier, an
 authorized non-billable provider contract check, reviewed remote migration and
 uncertain-outcome reconciliation, R19 acceptance, and release approval. No
 mainline merge or provider activation follows from offline test success.
+
+## Queued deadline correction (R15 — offline)
+
+A new local regression exposed a timing gap in the staged executor: a
+synchronously slow authorization callback could resolve through the promise
+queue before an already-due timeout or cancellation callback ran. The old flow
+could clear its deadline and dispatch a simulated request in that gap. Three
+new regression cases failed against the R14 source for this reason.
+
+An affirmative authorization now yields one timer turn while keeping its
+deadline armed, records expiration explicitly and checks expiration/cancellation
+again before proceeding. Expired pre-claim authorization writes no row;
+post-claim cancellation leaves the existing uncertain barrier and sends no
+simulated HTTP request. No retry, lease reclaim or activation path was added.
+
+The focused flow suite passes **27/27** and the integrated package passes
+**155/155** locally. The unchanged build still contains four Worker modules.
+These are Node/local SQLite results, not hosted deadline or provider acceptance.
+Cloudflare's [timer documentation](https://developers.cloudflare.com/workers/runtime-apis/performance/)
+explains that deployed clocks advance at I/O boundaries; replacing this check
+with `Date.now()` or `performance.now()` would not establish a CPU-time limit.
+Hosted timer/cancellation behavior remains a release gate, and the trusted
+authorization implementation must avoid blocking work. No universal wall-time
+guarantee or deployed CPU measurement is claimed.
+
+The R15 free website review attempt reused the existing Gemini conversation
+and selected its available Flash-Lite mode. The page became unresponsive
+during prompt entry and remained so after one reload attempt. No Send action
+was issued and no review response was obtained. Delivery is unconfirmed; this
+local correction is not attributed to Gemini or treated as release approval.
+The Google API free-tier gate and all existing production holds remain in place.

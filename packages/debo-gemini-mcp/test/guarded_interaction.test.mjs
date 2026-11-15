@@ -15,6 +15,10 @@ function config(local, overrides = {}) {
 }
 const count = local => local.database.prepare('SELECT count(*) AS n FROM bridge_execution_claims').get().n;
 const state = local => local.database.prepare('SELECT state FROM bridge_execution_claims').get()?.state;
+// Deliberately occupy one short JS turn: a fulfilled promise can otherwise
+// outrun an already-due timer. This is a regression reproduction, not a delay
+// model for the deployed Workers clock or a performance benchmark.
+const blockTurn = ms => { const end = performance.now() + ms; while (performance.now() < end) {} };
 
 test('staged executor is disabled by default without accessing storage or transport', async () => {
   let touched = 0;
@@ -213,4 +217,22 @@ test('corrupted completed receipts cannot replay or trigger a replacement dispat
   local.database.prepare('UPDATE bridge_execution_claims SET receipt_json = ?').run('{broken');
   assert.deepEqual(await executor.execute(input), { status: 'BLOCKED', code: 'RECEIPT_INTEGRITY' });
   assert.equal(calls, 1); assert.equal(state(local), 'COMPLETED');
+});
+test('synchronously slow pre-claim authorization cannot cancel an already-due deadline', async t => {
+  const local = executionD1(); t.after(local.close); let calls = 0;
+  const executor = createStagedSyntheticExecutor(config(local, { authorizationDeadlineMs: 15, authorizeRequest: () => { blockTurn(40); return true; }, transportOptions: { apiKey: credential, fetchImpl: async () => { calls++; return response(interaction()); } } }));
+  assert.deepEqual(await executor.execute(input), { status: 'BLOCKED', code: 'AUTHORIZATION_DENIED' });
+  assert.equal(count(local), 0); assert.equal(calls, 0);
+});
+test('synchronously slow dispatch authorization cannot outrun a queued transport timeout', async t => {
+  const local = executionD1(); t.after(local.close); let calls = 0;
+  const executor = createStagedSyntheticExecutor(config(local, { authorizationDeadlineMs: 1000, authorizeRequest: details => { if (details.phase === 'before_dispatch') blockTurn(40); return true; }, transportOptions: { apiKey: credential, timeoutMs: 15, fetchImpl: async () => { calls++; return response(interaction()); } } }));
+  assert.deepEqual(await executor.execute(input), { status: 'UNCERTAIN', code: 'EXECUTION_UNCERTAIN' });
+  assert.equal(state(local), 'UNCERTAIN'); assert.equal(calls, 0);
+});
+test('queued cancellation runs before dispatch after synchronous authorization work', async t => {
+  const local = executionD1(); t.after(local.close); const controller = new AbortController(); let calls = 0;
+  const executor = createStagedSyntheticExecutor(config(local, { authorizeRequest: details => { if (details.phase === 'before_dispatch') { setTimeout(() => controller.abort(), 0); blockTurn(20); } return true; }, transportOptions: { apiKey: credential, signal: controller.signal, fetchImpl: async () => { calls++; return response(interaction()); } } }));
+  assert.deepEqual(await executor.execute(input), { status: 'UNCERTAIN', code: 'EXECUTION_UNCERTAIN' });
+  assert.equal(state(local), 'UNCERTAIN'); assert.equal(calls, 0);
 });

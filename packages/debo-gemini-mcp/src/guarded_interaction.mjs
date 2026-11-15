@@ -29,15 +29,21 @@ export function createStagedSyntheticExecutor(configuration = {}) {
 
   async function authorized(details, signal) {
     if (signal?.aborted) return false;
-    let timer, cancel;
+    let timer, cancel, expired = false;
     try {
       const stopped = new Promise(resolve => {
-        timer = setTimeout(() => resolve(false), authorizationDeadlineMs);
+        timer = setTimeout(() => { expired = true; resolve(false); }, authorizationDeadlineMs);
         cancel = () => resolve(false);
         signal?.addEventListener('abort', cancel, { once: true });
       });
       const decision = await Promise.race([Promise.resolve().then(() => authorizeRequest(details)), stopped]);
-      return decision === true && !signal?.aborted;
+      if (decision !== true) return false;
+      // A synchronous callback or promise chain can finish before an already-due
+      // timer gets a turn. Keep the deadline armed while yielding to timer work,
+      // then honor expiry/cancellation before claiming or invoking HTTP.
+      // Worker clocks do not measure CPU time; do not replace this with Date.now.
+      await new Promise(resolve => setTimeout(resolve, 0));
+      return !expired && !signal?.aborted;
     } catch { return false; }
     finally { clearTimeout(timer); signal?.removeEventListener('abort', cancel); }
   }
