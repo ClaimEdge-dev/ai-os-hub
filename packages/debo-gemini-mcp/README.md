@@ -123,3 +123,22 @@ R3 source rollback: `0d0e53de3936f66f759f60c477c5b611d194234b`.
 - [Gemini Interactions v1beta](https://ai.google.dev/api/interactions-api)
 
 These are interface references, not evidence of this prototype's hosted runtime.
+
+## Owner-private verification adapter (R5)
+
+`src/site_worker.mjs` adds an owner-private test page and an identity readback
+endpoint. The owner allowlist is a private runtime email value supplied from the
+actual Site owner record. Receipt ownership still uses the Site-scoped caller ID.
+The caller may access only `DEBO-CORE`; tools accept only fixed synthetic fixtures.
+`DEBO_ENABLE_LIVE_GEMINI` must explicitly equal `false`.
+
+The optional Site build uses `scripts/build-private-site.mjs` and requires the
+registered Site manifest plus build-only `esbuild@0.25.12` in that private Site's
+package. The core package remains dependency-free. Site schema generation uses
+the supported Drizzle workflow; do not apply schema DDL from a request handler.
+
+The expanded local suite passes **75/75** tests, including seven owner adapter
+tests. The browser test can check live identity, replay, scope, extra input and
+header-spoof rejection; those remote checks are not established by local tests.
+Private synthetic publication was specifically authorized by the owner. This
+does not authorize paid provider usage, mainline merge or live Gemini activation.
