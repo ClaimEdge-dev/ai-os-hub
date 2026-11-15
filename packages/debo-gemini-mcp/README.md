@@ -159,3 +159,24 @@ boundary with a non-JSON transport rejection and fails before the repair.
 After the repair, the actual shipped page script plus Worker and SQLite save
 and replay one receipt. The full local suite passes **79/79** tests. Live iPhone
 button acceptance still requires a fresh owner-session run after publication.
+
+## MCP client handshake repair (R7)
+
+The previous handler rejected the standard per-request `_meta` in discovery,
+tool listing and tool calls, and omitted MCP 2026-07-28 result/cache fields.
+Browser verification did not expose this because its internal requests omit
+protocol metadata. R7 accepts and validates protocol metadata without using it
+as caller identity or project authority; response envelopes include
+`resultType: complete`, server information, and private/zero-TTL discovery and
+tool-list cache hints. Unsupported versions and header/body mismatches fail.
+Metadata-free authenticated browser/internal requests remain compatible.
+
+Seven new wire-contract cases fail against the prior handler. After repair the
+full suite passes **87/87** individual tests. Missing transport identity still
+fails closed, metadata cannot widen project ACLs, and native receipt reads do
+not create another record. Republishing refreshes the existing Site-owned App;
+do not replace its identity, connection or sharing to repair registration.
+Hosted ChatGPT tool invocation remains a separate acceptance check.
+
+Primary wire reference:
+https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/schema/2026-07-28/schema.ts

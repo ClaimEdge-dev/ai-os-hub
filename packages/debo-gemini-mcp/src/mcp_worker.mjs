@@ -5,11 +5,34 @@ import { argumentSchema, validateArguments, createReceipt } from './synthetic_co
 import { D1FixtureStore } from './d1_store.mjs';
 
 const MAX_BODY_BYTES = 8192;
+const MCP_VERSION = '2026-07-28';
+const SERVER_INFO = { name: 'debo-gemini-private-bridge', version: '0.2.0' };
 const deny = (code, message) => { throw new PolicyError(code, message); };
 function json(body, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff', ...extraHeaders } });
 }
-const protocolError = (id, code, message, status = 200) => json({ jsonrpc: '2.0', id, error: { code, message } }, status);
+const protocolError = (id, code, message, status = 200, data) => json({ jsonrpc: '2.0', id, error: { code, message, ...(data === undefined ? {} : { data }) } }, status);
+const complete = result => ({ resultType: 'complete', _meta: { 'io.modelcontextprotocol/serverInfo': SERVER_INFO }, ...result });
+const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+function protocolMetadataError(body, request) {
+  const params = body.params ?? {};
+  const header = request.headers.get('mcp-protocol-version');
+  // Preserve the existing metadata-free authenticated browser/internal calls.
+  // Native MCP 2 callers provide standard per-request metadata, never identity.
+  if (!Object.hasOwn(params, '_meta')) {
+    if (header && header !== MCP_VERSION) return protocolError(body.id, -32022, 'Unsupported protocol version', 400, { supported: [MCP_VERSION], requested: header });
+    return null;
+  }
+  const meta = params._meta;
+  if (!record(meta)) return protocolError(body.id, -32602, 'Invalid request metadata', 400);
+  const version = meta['io.modelcontextprotocol/protocolVersion'];
+  if (typeof version !== 'string' || !version.length || version.length > 64 || !record(meta['io.modelcontextprotocol/clientCapabilities'])) return protocolError(body.id, -32602, 'Protocol version and client capabilities are required', 400);
+  if (header && header !== version) return protocolError(body.id, -32600, 'Protocol header and request metadata disagree', 400);
+  if (version !== MCP_VERSION) return protocolError(body.id, -32022, 'Unsupported protocol version', 400, { supported: [MCP_VERSION], requested: version });
+  const info = meta['io.modelcontextprotocol/clientInfo'];
+  if (info !== undefined && (!record(info) || typeof info.name !== 'string' || typeof info.version !== 'string')) return protocolError(body.id, -32602, 'Invalid client metadata', 400);
+  return null;
+}
 function authenticate(request, env) {
   // Identity headers are trustworthy ONLY behind the documented Sites dispatch.
   // These opt-in flags are configuration guards, not cryptographic attestation.
@@ -56,7 +79,7 @@ const tools = [
 ];
 async function callTool(params, identity, env) {
   try {
-    if (!params || Object.keys(params).length !== 2 || !Object.hasOwn(params, 'name') || !Object.hasOwn(params, 'arguments')) deny('BAD_REQUEST', 'Tool name and arguments are required');
+    if (!params || !Object.hasOwn(params, 'name') || !Object.hasOwn(params, 'arguments') || Object.keys(params).some(k => !['name', 'arguments', '_meta'].includes(k))) deny('BAD_REQUEST', 'Tool name and arguments are required');
     if (!['debo_gemini_execute', 'debo_get_receipt'].includes(params.name)) deny('TOOL_NOT_ALLOWED', 'Tool is not available');
     const execute = params.name === 'debo_gemini_execute';
     const args = validateArguments(params.arguments, execute);
@@ -85,13 +108,15 @@ export default {
     try { body = await boundedJson(request); }
     catch (error) { return protocolError(null, -32700, 'Invalid or oversized JSON request', error.code === 'BODY_LIMIT' ? 413 : 400); }
     if (!validEnvelope(body)) return protocolError(null, -32600, 'Invalid JSON-RPC request', 400);
+    const metadataError = protocolMetadataError(body, request);
+    if (metadataError) return metadataError;
     const params = body.params ?? {};
     let result;
     if (body.method === 'tools/call') result = await callTool(params, identity, env);
     else if (body.method === 'tools/list' || body.method === 'server/discover') {
-      if (Object.keys(params).length) return protocolError(body.id, -32602, 'Unexpected method parameters');
-      result = body.method === 'tools/list' ? { tools: structuredClone(tools) } : { supportedVersions: ['2026-07-28'], capabilities: { tools: {} } };
+      if (Object.keys(params).some(k => k !== '_meta')) return protocolError(body.id, -32602, 'Unexpected method parameters');
+      result = body.method === 'tools/list' ? { tools: structuredClone(tools), ttlMs: 0, cacheScope: 'private' } : { supportedVersions: [MCP_VERSION], capabilities: { tools: {} }, ttlMs: 0, cacheScope: 'private' };
     } else return protocolError(body.id, -32601, 'Method not found');
-    return json({ jsonrpc: '2.0', id: body.id, result });
+    return json({ jsonrpc: '2.0', id: body.id, result: complete(result) });
   }
 };

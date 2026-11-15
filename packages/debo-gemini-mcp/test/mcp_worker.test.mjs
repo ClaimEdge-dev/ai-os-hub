@@ -28,7 +28,12 @@ function isolatedRequest(path, tool, args) {
 test('MCP discovery advertises the supported Sites protocol', () => withDatabase(async (_, env) => {
   const response = await worker.fetch(rpcRequest('server/discover'), env);
   assert.equal(response.status, 200);
-  assert.deepEqual((await response.json()).result, { supportedVersions: ['2026-07-28'], capabilities: { tools: {} } });
+  const result = (await response.json()).result;
+  assert.deepEqual(result.supportedVersions, ['2026-07-28']);
+  assert.deepEqual(result.capabilities, { tools: {} });
+  assert.equal(result.resultType, 'complete');
+  assert.equal(result.cacheScope, 'private');
+  assert.equal(result.ttlMs, 0);
 }));
 test('MCP lists only execute and receipt tools with closed argument schemas', () => withDatabase(async (_, env) => {
   const response = await worker.fetch(rpcRequest('tools/list'), env);
