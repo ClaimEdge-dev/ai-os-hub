@@ -1,6 +1,6 @@
 // Local-only candidate for a Sites-dispatch-protected Worker. No HTTP listener,
 // provider SDK, outgoing HTTP operation, API key, or production R19 write exists.
-import { PolicyError } from './contracts.mjs';
+import { PolicyError, parseUnambiguousJson } from './contracts.mjs';
 import { argumentSchema, validateArguments, createReceipt } from './synthetic_contract.mjs';
 import { D1FixtureStore } from './d1_store.mjs';
 
@@ -67,7 +67,7 @@ async function boundedJson(request) {
   const bytes = new Uint8Array(length);
   let offset = 0;
   for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
-  try { return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)); }
+  try { return parseUnambiguousJson(new TextDecoder('utf-8', { fatal: true }).decode(bytes)); }
   catch { deny('BAD_JSON', 'Request must contain valid JSON'); }
 }
 function validEnvelope(body) {
