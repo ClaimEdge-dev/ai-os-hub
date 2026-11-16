@@ -59,6 +59,19 @@ test('MCP fails closed on missing or malformed project ACL', () => withDatabase(
     assert.equal((await execute(env)).response.status, 503);
   }
 }));
+test('MCP requires an explicit literal false for live-provider disablement', () => withDatabase(async (db, env) => {
+  for (const value of [undefined, '', 'FALSE', '0', false, null]) {
+    const modified = { ...env };
+    if (value === undefined) delete modified.DEBO_ENABLE_LIVE_GEMINI;
+    else modified.DEBO_ENABLE_LIVE_GEMINI = value;
+    const r = await execute(modified);
+    assert.equal(r.response.status, 503);
+    assert.equal(db.database.prepare('SELECT count(*) AS n FROM bridge_fixture_receipts').get().n, 0);
+  }
+  env.DEBO_ENABLE_LIVE_GEMINI = 'false';
+  assert.equal((await execute(env)).rpc.result.isError, false);
+}));
+
 test('MCP rejects live mode even when a live flag is configured', () => withDatabase(async (_, env) => {
   env.DEBO_ENABLE_LIVE_GEMINI = 'true';
   assert.equal((await execute(env)).response.status, 503);
