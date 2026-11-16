@@ -5,6 +5,7 @@
 import { PolicyError } from './contracts.mjs';
 import { KEY_PATTERN, PROJECT_PATTERN, canonicalJson, sha256 } from './synthetic_contract.mjs';
 import { buildSyntheticTransportRequest, validateSyntheticTransportResult } from './interactions_transport.mjs';
+import { parseUnambiguousJson } from './strict_output_json.mjs';
 
 const fail = (code, message = 'Candidate execution request rejected') => { throw new PolicyError(code, message); };
 const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/;
@@ -52,7 +53,7 @@ export class D1ExecutionGate {
     if (!row) fail('STORE_UNAVAILABLE', 'Candidate claim could not be read back');
     if (row.owner_id !== this.#context.principal || row.provider_scope !== this.#context.providerScope || row.request_sha256 !== op.request_sha256) fail('IDEMPOTENCY_CONFLICT');
     let request;
-    try { if (typeof row.request_json !== 'string' || utf8Bytes(row.request_json) > 48_000) throw Error(); request = JSON.parse(row.request_json); }
+    try { if (typeof row.request_json !== 'string' || utf8Bytes(row.request_json) > 48_000) throw Error(); request = parseUnambiguousJson(row.request_json, { maxChars: 48_000 }); }
     catch { fail('RECEIPT_INTEGRITY'); }
     if (row.project_id !== op.project_id || row.idempotency_key !== op.idempotency_key || canonicalJson(request) !== canonicalJson(op.request) || !uuid.test(row.owner_token) || !['CLAIMED', 'COMPLETED', 'UNCERTAIN'].includes(row.state) || !iso(row.created_at) || !iso(row.updated_at) || (row.state === 'COMPLETED' ? typeof row.receipt_json !== 'string' : row.receipt_json !== null)) fail('RECEIPT_INTEGRITY');
     return row;
@@ -60,7 +61,7 @@ export class D1ExecutionGate {
   async #receipt(row, op) {
     try {
       if (utf8Bytes(row.receipt_json) > 48_000) throw Error();
-      const receipt = JSON.parse(row.receipt_json);
+      const receipt = parseUnambiguousJson(row.receipt_json, { maxChars: 48_000 });
       const fields = ['schema', 'receipt_id', 'project_id', 'idempotency_key', 'caller_sha256', 'provider_scope', 'request_sha256', 'result', 'result_sha256', 'completed_at', 'receipt_sha256'];
       if (!receipt || Array.isArray(receipt) || Object.keys(receipt).length !== fields.length || fields.some(k => !Object.hasOwn(receipt, k)) || receipt.schema !== 'debo.gemini.transport_receipt.v1' || typeof receipt.receipt_id !== 'string' || !receipt.receipt_id.startsWith('TRANSPORT-') || !uuid.test(receipt.receipt_id.slice(10)) || receipt.project_id !== op.project_id || receipt.idempotency_key !== op.idempotency_key || receipt.caller_sha256 !== await sha256(this.#context.principal) || receipt.provider_scope !== this.#context.providerScope || receipt.request_sha256 !== op.request_sha256 || !iso(receipt.completed_at) || receipt.completed_at !== row.updated_at) throw Error();
       const result = validateSyntheticTransportResult(receipt.result, op.request);
