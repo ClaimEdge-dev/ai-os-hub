@@ -49,10 +49,10 @@ test('GB-118 malformed or not independently approved read tasks fail before any 
   assert.equal(calls,0);
 });
 test('GB-118 one source writer serializes the mutations, without swapping source order',async()=>{
-  const writer=createSerializedSourceWriter(),gate=deferred(),events=[];
-  const a=writer.write({source_id:'source-1',mutation_id:'write-1',run:async()=>{events.push('first-start');await gate.promise;events.push('first-end');return 1;}});
+  const writer=createSerializedSourceWriter(),gate=deferred(),started=deferred(),events=[];
+  const a=writer.write({source_id:'source-1',mutation_id:'write-1',run:async()=>{events.push('first-start');started.resolve();await gate.promise;events.push('first-end');return 1;}});
   const b=writer.write({source_id:'source-1',mutation_id:'write-2',run:async()=>{events.push('second');return 2;}});
-  await Promise.resolve();assert.deepEqual(events,['first-start']);
+  await started.promise;assert.deepEqual(events,['first-start']);
   gate.resolve();assert.deepEqual(await Promise.all([a,b]),[1,2]);
   assert.deepEqual(events,['first-start','first-end','second']);
 });
