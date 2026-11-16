@@ -157,6 +157,25 @@ test('post-dispatch persistence failure never permits another provider attempt',
   assert.equal((await executor.execute(input)).status, 'UNCERTAIN');
   assert.equal((await executor.execute(input)).status, 'UNCERTAIN'); assert.equal(calls, 1);
 });
+test('ambiguous provider envelopes persist uncertainty and cannot complete or redispatch', async t => {
+  const raw = JSON.stringify(interaction());
+  const bodies = [
+    raw.replace('"status":"completed"', '"status":"in_progress","status":"completed"'),
+    raw.replace('"steps":', '"steps":[{"type":"function_call"}],"steps":'),
+    raw.replace('"total_output_tokens":5', '"total_output_tokens":2048,"total_output_tokens":5')
+  ];
+  for (const body of bodies) {
+    const local = executionD1(); t.after(local.close); let calls = 0;
+    const executor = createStagedSyntheticExecutor(config(local, { transportOptions: { apiKey: credential, fetchImpl: async () => {
+      calls++; return new Response(body, { headers: { 'content-type': 'application/json' } });
+    } } }));
+    assert.deepEqual(await executor.execute(input), { status: 'UNCERTAIN', code: 'EXECUTION_UNCERTAIN' });
+    const stored = local.database.prepare('SELECT state, receipt_json FROM bridge_execution_claims').get();
+    assert.equal(stored.state, 'UNCERTAIN'); assert.equal(stored.receipt_json, null);
+    assert.deepEqual(await executor.execute(input), { status: 'UNCERTAIN', code: 'EXECUTION_UNCERTAIN' });
+    assert.equal(calls, 1);
+  }
+});
 test('lost completion acknowledgement is recovered by replay, not redispatch', async t => {
   const local = executionD1(); t.after(local.close); const session = local.binding.withSession('first-primary'); let calls = 0;
   const binding = { withSession: () => ({ prepare(sql) {

@@ -153,3 +153,34 @@ test('queued cancellation after a blocking fetch is honored before transport suc
   } })), e => e.code === 'REQUEST_CANCELLED' && e.outcome === 'unknown');
   assert.equal(calls, 1);
 });
+
+const ambiguousEnvelopes = [
+  ['duplicate status', raw => raw.replace('"status":"completed"', '"status":"in_progress","status":"completed"')],
+  ['duplicate steps hiding a tool call', raw => raw.replace('"steps":', '"steps":[{"type":"function_call"}],"steps":')],
+  ['duplicate usage hiding excess output', raw => raw.replace('"total_output_tokens":5', '"total_output_tokens":2048,"total_output_tokens":5')],
+  ['escaped-equivalent status keys', raw => raw.replace('"status":"completed"', '"sta\\u0074us":"in_progress","status":"completed"')]
+];
+for (const [label, change] of ambiguousEnvelopes) test(`provider envelope rejects ${label}`, async () => {
+  let calls = 0;
+  const raw = change(JSON.stringify(interaction()));
+  await assert.rejects(postSyntheticInteraction(input, options({ fetchImpl: async () => {
+    calls++; return new Response(raw, { headers: { 'content-type': 'application/json' } });
+  } })), e => e.code === 'PROVIDER_INVALID_RESPONSE' && e.outcome === 'unknown');
+  assert.equal(calls, 1);
+});
+test('provider envelope rejects malformed Unicode, excessive depth and decoded size', async () => {
+  const raw = JSON.stringify(interaction());
+  const bodies = [
+    raw.replace('"id":', '"metadata":"\\ud800","id":'),
+    raw.replace('"id":', '"metadata":' + '['.repeat(34) + '0' + ']'.repeat(34) + ',"id":'),
+    JSON.stringify({ ...interaction(), metadata: 'x'.repeat(48000) })
+  ];
+  for (const body of bodies) {
+    await assert.rejects(postSyntheticInteraction(input, options({ fetchImpl: async () => new Response(body, { headers: { 'content-type': 'application/json' } }) })), e => e.code === 'PROVIDER_INVALID_RESPONSE' && e.outcome === 'unknown');
+  }
+});
+test('provider envelope preserves valid supplementary Unicode and structured output', async () => {
+  const value = { ...interaction(), metadata: '健康 🧪', output_text: '{"finding":"健康 🧪"}' };
+  const result = await postSyntheticInteraction(input, options({ fetchImpl: async () => response(value) }));
+  assert.deepEqual(result.output, { finding: '健康 🧪' });
+});

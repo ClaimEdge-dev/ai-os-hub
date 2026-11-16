@@ -3,7 +3,7 @@
 // durable pre-call ownership or permission to activate a provider. Its future
 // caller must supply those separately reviewed server-side controls.
 // No implicit global fetch: the caller must explicitly provide its transport.
-import { PolicyError, validateEndpoint } from './contracts.mjs';
+import { PolicyError, validateEndpoint, parseUnambiguousJson } from './contracts.mjs';
 import { buildSyntheticInteractionRequest, parseSyntheticInteractionResult } from './interactions_mapper.mjs';
 
 export class ProviderAttemptError extends Error {
@@ -39,7 +39,10 @@ async function boundedResponseJson(response, signal, maxBytes) {
     const bytes = new Uint8Array(length);
     let offset = 0;
     for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
-    try { return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)); }
+    // Check the entire envelope before duplicate keys can discard status,
+    // tool steps or usage evidence. Retain the stream byte bound and the
+    // shared parser's 48,000-character, Unicode and nesting restrictions.
+    try { return parseUnambiguousJson(new TextDecoder('utf-8', { fatal: true }).decode(bytes), { maxChars: 48000 }); }
     catch { fail('PROVIDER_INVALID_RESPONSE'); }
   } finally {
     signal.removeEventListener('abort', cancel);
