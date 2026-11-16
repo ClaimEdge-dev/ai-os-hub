@@ -28,3 +28,23 @@ jobs:
               compile(pathlib.Path(file).read_bytes(), file, 'exec')
           print(f'Compiled {len(files)} tracked Python files')
           PY
+
+  synthetic-gemini-mcp:
+    name: Gemini MCP synthetic transport (no provider calls)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build and test isolated synthetic bridge
+        working-directory: packages/debo-gemini-mcp
+        env:
+          DEBO_ENABLE_LIVE_GEMINI: 'false'
+        run: |
+          npm ci --ignore-scripts --offline --no-audit --no-fund
+          npm run build
+          npm test
