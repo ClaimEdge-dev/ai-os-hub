@@ -1,4 +1,4 @@
-import { PolicyError, validateInput } from './contracts.mjs';
+import { PolicyError, validateInput, parseUnambiguousJson } from './contracts.mjs';
 
 export const FIXTURES = Object.freeze({
   'bridge-health-v1': Object.freeze({ finding: 'SYNTHETIC_HEALTH_OK', source: 'server_fixture_only' }),
@@ -64,7 +64,7 @@ export async function createReceipt(args, principal) {
 const receiptFields = ['schema', 'receipt_id', 'project_id', 'idempotency_key', 'fixture_id', 'caller_sha256', 'provider', 'status', 'input_sha256', 'output_sha256', 'output', 'network_calls', 'actual_cost_usd', 'executed_at', 'receipt_sha256'];
 export async function verifyReceipt(row, principal, args) {
   let receipt;
-  try { receipt = JSON.parse(row.receipt_json); } catch { deny('RECEIPT_INTEGRITY', 'Stored receipt is invalid'); }
+  try { receipt = parseUnambiguousJson(row.receipt_json, { maxChars: 48000 }); } catch { deny('RECEIPT_INTEGRITY', 'Stored receipt is invalid'); }
   if (!receipt || typeof receipt !== 'object' || Array.isArray(receipt) || Object.keys(receipt).length !== receiptFields.length || receiptFields.some(k => !Object.hasOwn(receipt, k))) deny('RECEIPT_INTEGRITY', 'Stored receipt has invalid fields');
   if (receipt.schema !== 'debo.gemini.fixture_receipt.v1' || receipt.project_id !== args.project_id || receipt.idempotency_key !== args.idempotency_key || row.owner_id !== principal || receipt.caller_sha256 !== await sha256(principal) || typeof receipt.fixture_id !== 'string' || !Object.hasOwn(FIXTURES, receipt.fixture_id) || receipt.provider !== 'synthetic_fixture_only' || receipt.status !== 'TESTED_OFFLINE' || receipt.network_calls !== 0 || receipt.actual_cost_usd !== 0 || typeof receipt.receipt_id !== 'string' || !/^FIXTURE-[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(receipt.receipt_id) || typeof receipt.executed_at !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(receipt.executed_at) || !Number.isFinite(Date.parse(receipt.executed_at))) deny('RECEIPT_INTEGRITY', 'Stored receipt has invalid scope or provenance');
   validateFixtureOutput(receipt.output, FIXTURES[receipt.fixture_id]);
