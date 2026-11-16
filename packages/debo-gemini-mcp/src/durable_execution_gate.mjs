@@ -10,6 +10,9 @@ const fail = (code, message = 'Candidate execution request rejected') => { throw
 const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/;
 const iso = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value) && Number.isFinite(Date.parse(value));
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
+// SQLite length(text) counts characters, not UTF-8 bytes. Bound serialized
+// storage envelopes explicitly before writing and again when reading.
+const utf8Bytes = text => new TextEncoder().encode(text).byteLength;
 
 export class D1ExecutionGate {
   #session;
@@ -39,7 +42,7 @@ export class D1ExecutionGate {
   async #operation(project, key, request) {
     this.#scope(project, key);
     const copied = structuredClone(request);
-    if (canonicalJson(copied).length > 48_000) fail('BAD_REQUEST');
+    if (utf8Bytes(canonicalJson(copied)) > 48_000) fail('BAD_REQUEST');
     return { project_id: project, idempotency_key: key, request: freeze(copied), request_sha256: await sha256({ project_id: project, provider_scope: this.#context.providerScope, request: copied }) };
   }
   #read(op) {
@@ -49,14 +52,14 @@ export class D1ExecutionGate {
     if (!row) fail('STORE_UNAVAILABLE', 'Candidate claim could not be read back');
     if (row.owner_id !== this.#context.principal || row.provider_scope !== this.#context.providerScope || row.request_sha256 !== op.request_sha256) fail('IDEMPOTENCY_CONFLICT');
     let request;
-    try { if (typeof row.request_json !== 'string' || row.request_json.length > 48_000) throw Error(); request = JSON.parse(row.request_json); }
+    try { if (typeof row.request_json !== 'string' || utf8Bytes(row.request_json) > 48_000) throw Error(); request = JSON.parse(row.request_json); }
     catch { fail('RECEIPT_INTEGRITY'); }
     if (row.project_id !== op.project_id || row.idempotency_key !== op.idempotency_key || canonicalJson(request) !== canonicalJson(op.request) || !uuid.test(row.owner_token) || !['CLAIMED', 'COMPLETED', 'UNCERTAIN'].includes(row.state) || !iso(row.created_at) || !iso(row.updated_at) || (row.state === 'COMPLETED' ? typeof row.receipt_json !== 'string' : row.receipt_json !== null)) fail('RECEIPT_INTEGRITY');
     return row;
   }
   async #receipt(row, op) {
     try {
-      if (row.receipt_json.length > 48_000) throw Error();
+      if (utf8Bytes(row.receipt_json) > 48_000) throw Error();
       const receipt = JSON.parse(row.receipt_json);
       const fields = ['schema', 'receipt_id', 'project_id', 'idempotency_key', 'caller_sha256', 'provider_scope', 'request_sha256', 'result', 'result_sha256', 'completed_at', 'receipt_sha256'];
       if (!receipt || Array.isArray(receipt) || Object.keys(receipt).length !== fields.length || fields.some(k => !Object.hasOwn(receipt, k)) || receipt.schema !== 'debo.gemini.transport_receipt.v1' || typeof receipt.receipt_id !== 'string' || !receipt.receipt_id.startsWith('TRANSPORT-') || !uuid.test(receipt.receipt_id.slice(10)) || receipt.project_id !== op.project_id || receipt.idempotency_key !== op.idempotency_key || receipt.caller_sha256 !== await sha256(this.#context.principal) || receipt.provider_scope !== this.#context.providerScope || receipt.request_sha256 !== op.request_sha256 || !iso(receipt.completed_at) || receipt.completed_at !== row.updated_at) throw Error();
@@ -106,9 +109,11 @@ export class D1ExecutionGate {
       const completed_at = new Date().toISOString();
       const unsigned = { schema: 'debo.gemini.transport_receipt.v1', receipt_id: `TRANSPORT-${crypto.randomUUID()}`, project_id: op.project_id, idempotency_key: op.idempotency_key, caller_sha256: await sha256(this.#context.principal), provider_scope: this.#context.providerScope, request_sha256: op.request_sha256, result, result_sha256: await sha256(result), completed_at };
       const receipt = { ...unsigned, receipt_sha256: await sha256(unsigned) };
+      const serializedReceipt = JSON.stringify(receipt);
+      if (utf8Bytes(serializedReceipt) > 48_000) fail('RECEIPT_LIMIT', 'Candidate receipt exceeds its UTF-8 byte limit');
       const updated = await this.#query(
         "UPDATE bridge_execution_claims SET state = 'COMPLETED', receipt_json = ?1, updated_at = ?2 WHERE project_id = ?3 AND idempotency_key = ?4 AND owner_id = ?5 AND request_sha256 = ?6 AND owner_token = ?7 AND state = 'CLAIMED' RETURNING owner_token",
-        [JSON.stringify(receipt), completed_at, op.project_id, op.idempotency_key, this.#context.principal, op.request_sha256, claim.owner_token]
+        [serializedReceipt, completed_at, op.project_id, op.idempotency_key, this.#context.principal, op.request_sha256, claim.owner_token]
       );
       if (updated?.owner_token !== claim.owner_token) fail('CLAIM_NOT_ACTIVE');
       return await this.#receipt(this.#checkRow(await this.#read(op), op), op);
