@@ -1,6 +1,7 @@
 // Offline-only map/parse helpers for the Gemini Interactions API.
 // This module never imports the Gemini SDK or performs HTTP calls.
 import { validateInput, PolicyError } from './contracts.mjs';
+import { parseUnambiguousJson } from './strict_output_json.mjs';
 
 const MODEL_ALLOWLIST = new Set(['gemini-3.8-flash']); // Documentation example; revalidate availability before provider activation.
 const deny = (code, message) => { throw new PolicyError(code, message); };
@@ -49,7 +50,7 @@ export function parseSyntheticInteractionResult(interaction, expectedKeys) {
   }
   if (typeof text !== 'string' || !text.length || text.length > 32000) deny('INVALID_OUTPUT', 'Missing or oversized output text');
   let result;
-  try { result = JSON.parse(text); } catch { deny('INVALID_OUTPUT', 'Result is not JSON'); }
+  try { result = parseUnambiguousJson(text); } catch { deny('INVALID_OUTPUT', 'Result is not unambiguous JSON'); }
   if (!result || Array.isArray(result) || typeof result !== 'object') deny('INVALID_OUTPUT', 'Output is not an object');
   if (Object.keys(result).length !== expectedKeys.length || expectedKeys.some(key => !Object.hasOwn(result, key))) deny('INVALID_OUTPUT', 'Response has unexpected or missing fields');
   if (Object.values(result).some(v => typeof v !== 'string' || v.length > 4000)) deny('INVALID_OUTPUT', 'Response field is not a bounded string');
