@@ -36,7 +36,7 @@ function protocolMetadataError(body, request) {
 function authenticate(request, env) {
   // Identity headers are trustworthy ONLY behind the documented Sites dispatch.
   // These opt-in flags are configuration guards, not cryptographic attestation.
-  if (env?.DEBO_BRIDGE_MODE !== 'synthetic_only' || env?.DEBO_IDENTITY_BOUNDARY !== 'sites_dispatch' || env?.DEBO_ENABLE_LIVE_GEMINI === 'true') deny('CONFIGURATION_REQUIRED', 'Only the synthetic Sites identity boundary may be configured');
+  if (env?.DEBO_BRIDGE_MODE !== 'synthetic_only' || env?.DEBO_IDENTITY_BOUNDARY !== 'sites_dispatch' || env?.DEBO_ENABLE_LIVE_GEMINI !== 'false') deny('CONFIGURATION_REQUIRED', 'Only the synthetic Sites identity boundary may be configured');
   let acl;
   try { acl = JSON.parse(env.DEBO_CALLER_PROJECT_ACL); } catch { deny('CONFIGURATION_REQUIRED', 'Server caller-to-project mapping is required'); }
   if (!acl || typeof acl !== 'object' || Array.isArray(acl) || Object.keys(acl).length === 0 || Object.entries(acl).some(([id, projects]) => !id.length || id.length > 256 || !Array.isArray(projects) || projects.length === 0 || projects.length > 14 || projects.some(p => typeof p !== 'string' || !/^[A-Z][A-Z0-9-]{1,63}$/.test(p)))) deny('CONFIGURATION_REQUIRED', 'Server caller-to-project mapping is invalid');
