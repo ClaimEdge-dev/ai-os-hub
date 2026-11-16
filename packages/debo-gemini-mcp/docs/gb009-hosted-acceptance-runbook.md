@@ -18,6 +18,40 @@ from a public GitHub file without owner-private target discovery and review.
    through a different owner/project, **STOP: TARGET_UNVERIFIED**. A public
    repository commit or successfully built bundle is not the deployed Site.
 
+## GB-013: verify real Sites identity contract before relying on it
+
+The official ChatGPT Sites documentation, consulted 2026-11-15,
+https://learn.chatgpt.com/docs/sites/data-and-connections,
+currently explicitly documents `oai-authenticated-user-email` and optional
+`oai-authenticated-user-full-name` as sign-in identity headers. The existing
+private `src/site_worker.mjs` and `src/mcp_worker.mjs` additionally require
+`oai-authenticated-user-id`. That ID header is NOT established by the cited
+public Sites text. Its absence from those pages does not prove the current
+private managed-host dispatcher omits it. Treat this as HOST PROVENANCE UNKNOWN,
+not a reason to remove owner-scoping or fabricate a fallback identifier.
+
+For the EXACT existing private Site, the authorized owner must use a supported
+authenticated host readback to verify all of the following before any release:
+- The host supplies a stable server-trusted caller ID and an authenticated email,
+  with spoofable client versions stripped or overwritten at the platform edge.
+- Verified caller identity binds to the exact DEBO-CORE owner, plugin, source
+  revision and D1 binding; client metadata cannot widen project scope.
+- The host's protected resource / issuer / audience enforcement is documented or
+  demonstrably equivalent for this Sites-managed identity mechanism. If separate
+  OAuth 2.1 resource-token verification is required by the actual host topology,
+  do not pretend platform headers are sufficient.
+- Compare same-session owner reads, a signed-out negative case, and an isolated
+  authorized other-caller negative case. Preserve private IDs/hashes off GitHub.
+- NO credential, source publish, or permission change is made to collect proof.
+
+Do not generate an SIWC bypass token to perform these identity tests: the
+official Sites guide says bypass requests have NO signed-in visitor identity
+headers, and creating a bypass token would rotate an existing token. The
+existing owner-authenticated plugin receipt read is only synthetic data proof,
+not proof of ID header provenance or deployed source revision.
+
+**Acceptance status: HOLD until supported private host evidence is read back.**
+
 ## Required approvals, separated
 
 - Existing private fixture receipt READ is allowed only at its current owner/
