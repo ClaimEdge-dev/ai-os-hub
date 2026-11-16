@@ -5,6 +5,7 @@
 import { PolicyError } from './contracts.mjs';
 import { canonicalJson, sha256 } from './synthetic_contract.mjs';
 import { D1ExecutionGate } from './durable_execution_gate.mjs';
+import { createNoRetryAttemptObserver } from './no_retry_attempt_observer.mjs';
 import { buildSyntheticTransportRequest, postSyntheticInteraction } from './interactions_transport.mjs';
 
 const freeze = value => { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };
@@ -17,9 +18,9 @@ const transportFields = new Set(['endpoint', 'model', 'apiKey', 'fetchImpl', 'ti
 
 export function createStagedSyntheticExecutor(configuration = {}) {
   if (configuration?.enabled !== true) return Object.freeze({ execute: async () => blocked('PROVIDER_DISABLED') });
-  const { binding, authorizeRequest, authorizationDeadlineMs = 1500 } = configuration;
+  const { binding, authorizeRequest, authorizationDeadlineMs = 1500, recordAttemptEvidence } = configuration;
   const supplied = configuration.transportOptions;
-  if (typeof authorizeRequest !== 'function' || !supplied || typeof supplied !== 'object' || Array.isArray(supplied) || Object.keys(supplied).some(k => !transportFields.has(k)) || !integer(authorizationDeadlineMs, 10, 30_000)) rejectConfiguration();
+  if (typeof authorizeRequest !== 'function' || !supplied || typeof supplied !== 'object' || Array.isArray(supplied) || Object.keys(supplied).some(k => !transportFields.has(k)) || !integer(authorizationDeadlineMs, 10, 30_000) || (recordAttemptEvidence !== undefined && typeof recordAttemptEvidence !== 'function')) rejectConfiguration();
   const options = Object.freeze({ timeoutMs: 15_000, maxResponseBytes: 65_536, ...supplied });
   if (typeof options.fetchImpl !== 'function' || typeof options.apiKey !== 'string' || !/^[!-~]{16,512}$/.test(options.apiKey) || !integer(options.timeoutMs, 10, 30_000) || !integer(options.maxResponseBytes, 1024, 131_072) || (options.signal !== undefined && !(options.signal instanceof AbortSignal))) rejectConfiguration();
   let context;
@@ -48,6 +49,17 @@ export function createStagedSyntheticExecutor(configuration = {}) {
     finally { clearTimeout(timer); signal?.removeEventListener('abort', cancel); }
   }
 
+  // Diagnostics are strictly best effort. They cannot control authorization,
+  // persistence, transport, replay, or result shape. The observation contains
+  // no credential, raw source, owner token, project ID, or receipt.
+  function recordObservation(trace) {
+    if (typeof recordAttemptEvidence !== 'function') return;
+    try {
+      const result = recordAttemptEvidence(trace.observeFailure());
+      if (result && typeof result.then === 'function') void Promise.resolve(result).catch(() => {});
+    } catch { /* Diagnostic failures must not change durable barriers. */ }
+  }
+
   return Object.freeze({
     async execute(rawInput) {
       let input, request, details;
@@ -60,15 +72,23 @@ export function createStagedSyntheticExecutor(configuration = {}) {
       } catch { return blocked('REQUEST_REJECTED'); }
 
       if (!await authorized(freeze({ ...details, phase: 'before_claim' }), options.signal)) return blocked('AUTHORIZATION_DENIED');
+      const trace = createNoRetryAttemptObserver();
       let acquired;
       try { acquired = await gate.claim(input, options); }
       catch (error) {
         if (error instanceof PolicyError && ['IDEMPOTENCY_CONFLICT', 'RECEIPT_INTEGRITY'].includes(error.code)) return blocked(error.code);
         // A timed-out insert might have committed. Never dispatch without proof.
+        trace.observeClaimUnknown();
+        recordObservation(trace);
         return uncertain();
       }
       if (acquired.status === 'COMPLETED') return { status: 'COMPLETED', replayed: true, receipt: acquired.receipt };
-      if (acquired.status !== 'CLAIMED') return uncertain();
+      if (acquired.status !== 'CLAIMED') {
+        trace.observeClaimUnknown();
+        recordObservation(trace);
+        return uncertain();
+      }
+      trace.observeClaimAcknowledged();
       const { claim } = acquired;
       let invoked = false;
       try {
@@ -80,6 +100,7 @@ export function createStagedSyntheticExecutor(configuration = {}) {
           if (!await authorized(freeze({ ...details, phase: 'before_dispatch' }), init.signal) || init.signal.aborted) throw Error('Dispatch authorization unavailable');
           // The deadline can fire during authorization. Recheck cancellation
           // before the only call to the explicitly injected HTTP dependency.
+          trace.observeProviderEntry();
           return options.fetchImpl(url, init);
         };
         const result = await postSyntheticInteraction(input, { ...options, fetchImpl: fetchClaimed });
@@ -87,6 +108,7 @@ export function createStagedSyntheticExecutor(configuration = {}) {
         return { status: 'COMPLETED', replayed: false, receipt };
       } catch {
         try { await gate.markUncertain(claim); } catch { /* CLAIMED or COMPLETED still blocks redispatch. */ }
+        recordObservation(trace);
         return uncertain();
       }
     }
