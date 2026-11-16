@@ -24,6 +24,7 @@ export function testEnvironment(binding, caller = 'synthetic-owner') {
     DB: binding,
     DEBO_BRIDGE_MODE: 'synthetic_only',
     DEBO_IDENTITY_BOUNDARY: 'sites_dispatch',
+    DEBO_ENABLE_LIVE_GEMINI: 'false',
     DEBO_CALLER_PROJECT_ACL: JSON.stringify({ [caller]: ['DEBO-CORE'] })
   };
 }
