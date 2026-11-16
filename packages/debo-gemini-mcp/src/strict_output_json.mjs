@@ -14,8 +14,9 @@ function validUnicode(value) {
   }
 }
 
-export function parseUnambiguousJson(text) {
-  if (typeof text !== 'string' || text.length === 0 || text.length > 32000) throw Error('bounded JSON string required');
+export function parseUnambiguousJson(text, { maxChars = 32000 } = {}) {
+  if (!Number.isSafeInteger(maxChars) || maxChars < 1 || maxChars > 48000 ||
+      typeof text !== 'string' || text.length === 0 || text.length > maxChars) throw Error('bounded JSON string required');
   // First require valid JSON syntax. The scanner then checks extra restrictions
   // that vanilla JSON.parse does not enforce.
   const decoded = JSON.parse(text);
