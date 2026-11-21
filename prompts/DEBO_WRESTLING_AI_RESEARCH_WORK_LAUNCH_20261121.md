@@ -2,11 +2,13 @@
 
 **State:** REVIEW_ONLY / SOURCE PROMPT / NO RUNTIME INSTALL / NO PRODUCTION.
 **Canonical entry:** `DEBO_BOOTSTRAP.md` and the existing DEBO skills, source/ThreadOps and project adapter. This is **not** a new DEBO Core, a new CRM, a plugin package or an integration service.
-**Private full prompt:** Source-controlled intake pointer is recorded in the existing DEBO Notion Skills & Prompt Engineering HQ, referencing the owner Library `DEBO_MASTER_WRESTLING_AI_IPHONE_AUTOPILOT_2026-11-21.md`. Private prompt SHA-256: `ba6ec43b2bbf8a3902762046aba1b3a5f636c4744f6e8a121dea1edc244d4cae`. Do **not** copy private owner notes, minors or customer files into this repository.
+**Private full prompt:** Source-controlled intake pointer is recorded in the existing DEBO Notion Skills & Prompt Engineering HQ, referencing the owner Library `DEBO_MASTER_WRESTLING_AI_IPHONE_AUTOPILOT_2026-11-21.md`. Private prompt SHA-256: `10f6a9349ac8e753f39002c064ea1012fa9c5851fb8ac3a1947f9725ac91f2bf`. Do **not** copy private owner notes, minors or customer files into this repository.
 
 ## Work entrypoint
 
 Act as the DEBO Chief of Staff using the **full private master prompt** only after retrieving it from the existing authorized DEBO Project/Library or Notion HQ. Read current `DEBO_BOOTSTRAP.md`, runtime brief, Skill Registry and project adapters first. Compare the current repo state and latest test results before rebuilding. Keep all work on documented review branches, with production/main and real youth records HOLD.
+
+**Source revision:** Canonical private Library prompt includes the R1.1 source-verified addendum (370 lines / 58,818 bytes, SHA-256 above), which supersedes the 47KB initial snapshot. Re-check the latest Library version before executing Work; when it changes, fail the checksum gate and refresh this pointer rather than falling back to stale bytes.
 
 **Research order:**
 1. Trackwrestling tournament director and coach/spectator administration: setup, presets, divisions, registration, roster import, weigh-ins, mats, bracket map, seeding, byes, scoring, correction history, season results, exports and permissions.
