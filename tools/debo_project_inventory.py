@@ -57,16 +57,33 @@ def _entry(path, status, size=None, sha256=None):
 
 def _directory_entries(root, include_generated):
     entries = []
-    for parent, dirs, files in os.walk(root, topdown=True, followlinks=False):
+    total_hashed = 0
+
+    def record(row):
+        if len(entries) >= MAX_ENTRIES:
+            raise ValueError("too many entries; inventory a smaller scope")
+        entries.append(row)
+
+    def unreadable_dir(error):
+        # os.walk normally ignores scandir failures. Never report full coverage
+        # if a root/subdirectory was inaccessible.
+        try:
+            rel = Path(error.filename).relative_to(root).as_posix()
+        except (TypeError, ValueError):
+            rel = "[unreadable directory]"
+        record(_entry(rel, "UNREADABLE_DIRECTORY"))
+
+    for parent, dirs, files in os.walk(root, topdown=True, followlinks=False,
+                                       onerror=unreadable_dir):
         relative = Path(parent).relative_to(root)
         retained = []
         for dirname in sorted(dirs):
             rel = (relative / dirname).as_posix()
             target = Path(parent) / dirname
             if target.is_symlink():
-                entries.append(_entry(rel, "SKIPPED_SYMLINK"))
+                record(_entry(rel, "SKIPPED_SYMLINK"))
             elif not include_generated and dirname in GENERATED_DIRS:
-                entries.append(_entry(rel, "SKIPPED_GENERATED_DIRECTORY"))
+                record(_entry(rel, "SKIPPED_GENERATED_DIRECTORY"))
             else:
                 retained.append(dirname)
         dirs[:] = retained
@@ -74,27 +91,28 @@ def _directory_entries(root, include_generated):
             path = Path(parent) / filename
             rel = (relative / filename).as_posix()
             if path.is_symlink():
-                entries.append(_entry(rel, "SKIPPED_SYMLINK"))
+                record(_entry(rel, "SKIPPED_SYMLINK"))
                 continue
             try:
                 size = path.stat().st_size
                 if not path.is_file():
-                    entries.append(_entry(rel, "SKIPPED_NONREGULAR"))
+                    record(_entry(rel, "SKIPPED_NONREGULAR"))
                 elif size > MAX_FILE_BYTES:
-                    entries.append(_entry(rel, "SKIPPED_OVERSIZE", size))
+                    record(_entry(rel, "SKIPPED_OVERSIZE", size))
+                elif total_hashed + size > MAX_TOTAL_BYTES:
+                    record(_entry(rel, "SKIPPED_TOTAL_LIMIT", size))
                 else:
                     flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
                     fd = os.open(path, flags)
                     with os.fdopen(fd, "rb") as stream:
                         if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
-                            entries.append(_entry(rel, "SKIPPED_NONREGULAR"))
+                            record(_entry(rel, "SKIPPED_NONREGULAR"))
                         else:
                             digest, actual = _digest(stream)
-                            entries.append(_entry(rel, "HASHED", actual, digest))
+                            total_hashed += actual
+                            record(_entry(rel, "HASHED", actual, digest))
             except (OSError, ValueError):
-                entries.append(_entry(rel, "UNREADABLE"))
-        if len(entries) > MAX_ENTRIES:
-            raise ValueError("too many entries; inventory a smaller scope")
+                record(_entry(rel, "UNREADABLE"))
     return entries
 
 
