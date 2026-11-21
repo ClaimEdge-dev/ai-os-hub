@@ -7,7 +7,7 @@ description: >
   naming/icon/color standards, connector hygiene, or whole-ecosystem organization.
 ---
 
-# Autonomous Ops Architect v3.0
+# Autonomous Ops Architect v3.1-rc1 (review branch)
 
 ## Mission
 
@@ -162,6 +162,19 @@ Check project instructions, sources, colors/icons, thread names, canonical links
 
 ### Phase 6 — Checkpoint
 Update DEBO Project Registry + Resume Capsule + change log.
+
+## Project Rescue evidence adapter (v3.1 review candidate)
+
+When asked to "DEBO RECOVER PROJECT", inventory and reconcile the **existing** project before suggesting a new structure. This extends the cleanup workflow, not a new master skill or registry.
+
+1. Resolve the owning company, its existing Project Brain, GitHub repo, Drive root, Notion command center, latest checkpoint and approval gates. Record which sources were actually accessible.
+2. For an authorized local directory or ordinary ZIP, use the read-only tools/debo_project_inventory.py with an explicit --project-id and --private-report outside the source tree. See docs/DEBO_UNIVERSAL_WEBSITE_AND_PROJECT_RECOVERY.md. It hashes accessible bytes, flags exact duplicates and possible filename collisions, and never extracts, renames, moves, deletes, executes or uploads files.
+3. Reuse the existing private-export recovery candidate in PR #64 for incomplete ChatGPT exports and the existing Library duplicate-review candidate in PR #68 for Library evidence. Do not copy their code into this utility or assume unmerged review code is live.
+4. Reconcile canonical source using stable provider IDs, hashes, owner decisions, commit ancestry and test/deployment receipts. Filename recency, a matching title or a historical ACTIVE label is not enough.
+5. Produce a dry-run filing plan with old/new path or ID, privacy boundary, unique evidence, link impact, rollback and owner approval gate. Do not bulk move, archive, rename, or delete by default.
+6. File one verified project-scoped delta in existing records; never put private filenames/hashes or customer/youth data in this public repository.
+
+**Evidence boundary:** a local manifest is not a Google Drive, Notion, GitHub, ChatGPT Library or full account audit. An unreadable source is UNKNOWN, not empty. Record actual execution/test receipts separately from source presence and runtime installation.
 
 ## Context / usage efficiency
 
