@@ -94,6 +94,41 @@ class ProjectInventoryTests(unittest.TestCase):
                 main([str(root), "--project-id", "TEST",
                       "--private-report", str(root / "report.json")])
 
+    def test_local_total_hash_budget_is_fail_closed(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "a.bin").write_bytes(b"aaa")
+            (root / "b.bin").write_bytes(b"bbb")
+            with patch("debo_project_inventory.MAX_TOTAL_BYTES", 4):
+                result = inventory(root, "TEST")
+            self.assertEqual(result["summary"]["hashed"], 1)
+            self.assertEqual(result["summary"]["coverage"], "PARTIAL")
+            self.assertEqual(result["entries"][1]["status"], "SKIPPED_TOTAL_LIMIT")
+
+    def test_unreadable_directory_is_recorded(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            def denied_walk(base, **kwargs):
+                kwargs["onerror"](PermissionError(13, "Access denied", str(root / "private")))
+                return iter(())
+            with patch("debo_project_inventory.os.walk", side_effect=denied_walk):
+                result = inventory(root, "TEST")
+            self.assertEqual(result["summary"]["coverage"], "PARTIAL")
+            self.assertEqual(result["entries"][0]["status"], "UNREADABLE_DIRECTORY")
+            self.assertEqual(result["entries"][0]["path"], "private")
+
+    def test_entry_limit_applies_before_hashing_all_files(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for name in ("a", "b", "c"):
+                (root / name).write_text(name, encoding="utf-8")
+            with patch("debo_project_inventory.MAX_ENTRIES", 2):
+                with self.assertRaisesRegex(ValueError, "too many entries"):
+                    inventory(root, "TEST")
+
     def test_symlink_not_followed(self):
         if not hasattr(os, "symlink"):
             self.skipTest("symlinks unavailable")
