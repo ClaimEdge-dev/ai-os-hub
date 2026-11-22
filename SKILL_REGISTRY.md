@@ -213,3 +213,46 @@ These GitHub skill source files exist at `main/skills/`. This table supplements 
 **Lifecycle reconciliation:** 17 earlier ACTIVE records now match the newer Notion DEPRECATED lifecycle label. Those entries remain in this catalog as historical records, not deletions. Seven have explicitly documented consolidation successors: `claimedge-session-memory`, `claimedge-vault-system`, and `claimedge-auto-deploy` → `universal-file-vault`; `claimedge-skill-forge` → `skill-lifecycle-manager`; `session-context-preserver` and `thread-audit-manager` → `thread-ops`; `credit-repair-orchestrator` → `credit-repair-master-orchestrator`. The other ten retain DEPRECATED without an assumed installed replacement. See [2026-11-03 reconciliation receipt](docs/DEBO_SKILL_RECONCILIATION_2026-11-03.md).
 
 **Coverage boundary:** 72 historical catalog entries ≠ all currently present SKILL.md files. The GitHub main tree inspection found 84 SKILL.md source files across root, nested, project-local, and plugin folders (19 direct root skills, 5 nested skills, 51 JCT, 8 RRR, 1 plugin). That is file presence only, not 84 distinct operating integrations. Kimi source provenance for all files and Kimi runtime install receipts remain UNVERIFIED.
+
+---
+
+## ChatGPT external capability packs — 2026-11-22
+
+### Build Web Data Visualization (one reusable external pack; 18 specialist skills)
+
+| Field | Verified registration |
+|---|---|
+| Capability ID | `external/chatgpt/build-web-data-visualization` |
+| Owner/router | Existing [skill-lifecycle-manager](skills/skill-lifecycle-manager/SKILL.md), with existing DEBO Core; **not** a new DEBO skill or brain |
+| Provider/source | ChatGPT installed plugin skill catalog, `skills://plugins/build-web-data-visualization/` |
+| Trigger | Charts, operational dashboards, timelines/Gantt, UML/architecture, maps, visual reporting, React/Next.js/TypeScript chart engineering, testing or accessible mobile visualizations |
+| Installation evidence | **18/18 skill guides exposed and individually readable** in the authorized ChatGPT conversation on 2026-11-22; no new installation requested or performed; not proof of standalone plugin installation, account connection, or execution in other AIs |
+| Functional evidence | **Skill documentation read test PASS**; representative code-build, chart render, live feed, export, and deployment tests **NOT RUN** |
+| Status | **EXPOSED / SKILLS READABLE / ROUTING REGISTERED**; workflow TESTED, DEPLOYED, LIVE **UNVERIFIED** |
+| Budget, privacy and permissions | No new spend or access grants. Respect DEBO tenant isolation, youth privacy and approval gates; do not send private records into unrelated tools or deploy live dashboards without approval |
+| Fallback | Existing Data visualization/report/dashboard skills, Python static charts or approved repo-native chart stack; preserve the current app architecture |
+
+**Routing:** Invoke `data-visualization` as the pack router, then only the specialist skills appropriate to the chart/data shape. Reuse existing app code and chart dependencies before adding libraries. For dashboards and interactive pages require evidence labels, mobile/touch keyboard support, accessible labeling, stale/empty/error states and a focused validation pass. Do not create 18 duplicate copies in DEBO or claim a runtime hook exists.
+
+**Available specialist skill names (18, each located at `skills://plugins/build-web-data-visualization/<name>/skill.md`):**
+
+1. `accessibility-and-inclusive-visualization`
+2. `canvas2d-data-visualization`
+3. `d3-data-visualization`
+4. `dashboards-and-real-time-visualization`
+5. `data-visualization`
+6. `gantt-chart-visualization`
+7. `geospatial-and-cartographic-visualization`
+8. `grammar-of-graphics-and-declarative-visualization`
+9. `node-link-and-diagram-layout`
+10. `react-and-nextjs-data-visualization`
+11. `reports-pdfs-and-slide-automation`
+12. `scrollytelling-and-parallax-data-visualization`
+13. `statistical-and-uncertainty-visualization`
+14. `testing-data-visualizations`
+15. `threejs-data-visualization`
+16. `typescript-data-visualization-engineering`
+17. `uml-and-software-architecture-visualization`
+18. `visualization-strategy-and-critique`
+
+**Project routing, without cross-tenant data transfer:** DEBO dashboards → project status, dependencies and timelines; Celtic Elite/WrestlingOS → approved synthetic or permissioned athlete/tournament insights; other business projects → each authorized CRM/ops metrics. These are suggested use cases, not implemented features. **Lifecycle:** existing skill-lifecycle-manager governs choice → pilot → QA → review → promote; existing Skill Registry and tool selection register remain authoritative. This section is a **supplementary capability registration**, so the historical 72-row catalog and source status counts above remain unchanged.
