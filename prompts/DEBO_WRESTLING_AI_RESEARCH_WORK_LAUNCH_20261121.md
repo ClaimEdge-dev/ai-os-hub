@@ -42,3 +42,10 @@ Act as the DEBO Chief of Staff using the **full private master prompt** only aft
 - Work and Codex: https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex
 
 **Acceptance:** Private full prompt checksum must match before claiming its content was loaded. Research and output may proceed with this short launcher alone, but report reduced coverage. No runtime/deploy/installation claims without separate evidence.
+\n## 2026-11-22 Public Results + iPhone Prompt Upgrade (Source Addendum)
+
+- Public Track/Flo result collection: route to existing `skills/wrestling-extraction-suite/SKILL.md`, reference `skills/wrestling-extraction-suite/references/public-track-evidence-v1.md`. Use official viewer and authorized exports first; do not silently activate bulk scraping, user accounts or published athlete records.
+- Mobile writing: route to the EXISTING intent decoder and mobile-capture routines, and `skills/skill-lifecycle-manager/references/iphone-prompt-upgrade-2026-11-22.md`. User-initiated Shortcuts Use Model/Apple Writing Tools, not universal keyboard access.
+- The tested *local* code/demo lives in a separate private owner package; public repository addenda intentionally contain no athlete source records, identity numbers, access tokens or private notes.
+- Status: `SOURCE_REVIEW`; do not imply runtime installation, automatic updates, production merge, or use of paid scraping services. Reuse the existing weekly System Scout instead of scheduling a duplicate feature monitor.
+
