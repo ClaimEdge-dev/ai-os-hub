@@ -7,12 +7,23 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 from datetime import datetime, timezone
 
 from debo_r19_continuity import validate_capsule, canonical_bytes, resume_summary
 
 SCHEMA = "debo.r19.continuity_plan.v1"
+PUBLIC_PROJECT_IDS = frozenset({"DEBO", "CE", "JCT", "DWE", "RRR", "MOR", "PLG", "CWA", "BULLDOGS", "BBS", "CREDIT", "SCHOOL", "HOUSING", "SETTLESURE"})
+
+
+def _safe_project_label(project_id):
+    name = project_id.upper()
+    return name if name in PUBLIC_PROJECT_IDS else "SCOPE-" + hashlib.sha256(project_id.encode()).hexdigest()[:12]
+
+
+def _safe_task_label(task_id):
+    return task_id if re.fullmatch(r"DEBO-TASK-[a-f0-9]{20}", task_id) else "DEBO-TASK-" + hashlib.sha256(task_id.encode()).hexdigest()[:20]
 
 
 def _observed_utc(value):
@@ -70,12 +81,12 @@ def build_plan(capsules, now=None):
 
     # Never surface raw objectives, checkpoint text, source refs, or private data.
     # A memory record candidate is abstract metadata, NOT permission to write.
-    safe = {'project_id': deduped[-1]['project_id'], 'task_id': task,
+    safe = {'project_id': _safe_project_label(deduped[-1]['project_id']), 'task_id': _safe_task_label(task),
             'reported_status': deduped[-1]['status'], 'conflict': conflict,
             'freshness': freshness}
     return {
         'schema': SCHEMA, 'mode': 'DRY_RUN', 'writes': 0,
-        'project_id': safe['project_id'], 'task_id': task,
+        'project_id': safe['project_id'], 'task_id': safe['task_id'],
         'resume': {'decision': decision, 'reported_status': safe['reported_status'],
                    'source_verification': 'REQUIRED', 'evidence_assurance': resume['evidence_assurance'],
                    'repeated_stall': resume['repeated_stall'], 'freshness': freshness},
