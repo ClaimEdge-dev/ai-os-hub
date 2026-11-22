@@ -86,6 +86,20 @@ class GuardTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'requires test_receipt'):
             build_plan([c], now=NOW)
 
+    def test_out_of_order_checkpoints_fail_closed(self):
+        early = example(when='2026-11-22T18:00:00+00:00')
+        late = example(when='2026-11-22T19:00:00+00:00')
+        with self.assertRaisesRegex(ValueError, 'out-of-order'):
+            build_plan([late, early], now=NOW)
+
+    def test_equal_utc_instants_with_different_offsets_detect_conflict(self):
+        a = example(when='2026-11-22T10:00:00+00:00')
+        b = example(when='2026-11-22T04:00:00-06:00')
+        b['checkpoint'] = 'Different synthetic checkpoint'
+        plan = build_plan([a, b], now=NOW)
+        self.assertTrue(plan['conflicts']['detected'])
+        self.assertEqual(plan['resume']['decision'], 'HOLD_CONFLICT')
+
 
 if __name__ == '__main__':
     unittest.main()
