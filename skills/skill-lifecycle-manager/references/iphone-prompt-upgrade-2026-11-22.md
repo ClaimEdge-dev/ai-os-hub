@@ -16,4 +16,4 @@ Official iOS/desktop guides:
 ## Acceptance
 Verify source revision and registry ID first; use a fictional dictated input to test preservation of goal/names/budget; verify user-selected copy; negative test for any hidden send/capture; document iPhone setup and model permission separately. No automatic registry promotion or active installation claim.
 
-**State:** DOCUMENTATION / LOCAL DEMO TESTED; iPhone installation requires owner action.
+**State:** DOCUMENTATION / LOCAL DEMO TESTED; not installed on iPhone. iPhone installation requires owner action.
