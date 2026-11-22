@@ -37,6 +37,14 @@ One skill for the whole thread lifecycle: audit → decide → name → hand off
 - Watch for rebuild loops: if the user starts redoing finished work, show the existing deliverable.
 - Error quarantine: mark disputed/unverified data UNVERIFIED so it never silently becomes "fact" in a later thread.
 
+## DEBO R19 Continuity Engine v1.0 — existing handoff extension
+
+- At substantial completion or a verified task-state change, recover the project-owned Resume Capsule, authenticated source revision and approval boundary. Use tools/debo_r19_continuity_guard.py to flag exact duplicate checkpoints, same-revision structural conflicts, stale reports and accidental cross-project/task mixing.
+- For an approved PRIVATE destination, reuse tools/debo_r19_continuity.py checkpoint (atomic and readback-verified); do not auto-create another store, duplicate register or cron task. If the owning destination or write authorization is absent, report CHECKPOINT PREPARED / SAVE BLOCKED, not SAVED.
+- Cortex may receive only minimal approved, non-sensitive settled metadata after a separate authorized write and subsequent provider readback. Never export raw private capsule content; cross-AI syncing remains unverified.
+- The public DEBO source-health feed proves source version/health only, not live project status. Do not mark releases or dashboard editors LIVE from a local dry run.
+- Reuse current multi-ai-router and work-credit-governor; default ZERO ADDITIONAL SPEND. See docs/DEBO_R19_CONTINUITY_ADAPTER.md for acceptance and rollback.
+
 ## Absorbed Lineage
 
 | Retired skill | What was folded in |

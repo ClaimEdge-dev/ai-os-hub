@@ -11,6 +11,7 @@ AVAILABLE = described/offered; EXPOSED = actions in this conversation; INSTALLED
 | Retrieve DEBO code, version history, tests | GitHub connector | Canonical committed evidence | Local audited copy | Connected and read/write proven Oct 20, CI PASS not established |
 | Find/edit current project documents | Google Drive connector | Existing master indexes, Docs and Sheets | ChatGPT Library for local files | Multiple Google accounts; select correct business owner before writes |
 | Recover previous ChatGPT project/files | Personal context + Files | Find existing decisions before recreation | User-supplied source | Retrieval coverage incomplete; not omniscient |
+| Recall settled, non-sensitive DEBO decisions | Cortex Semantic Memory (optional) | Verified ChatGPT save/search/fetch of scoped checkpoint | Existing canonical GitHub/project sources + Resume Capsule | ChatGPT workflow-tested 2026-11-22; other AI clients NOT verified; no automatic sync or sensitive uploads |
 | Generate private working report | Local artifact tools (Python, DOCX/PDF/Sheets skills) | Readable controlled artifact with tests | Drive-native file | User must choose authorized sharing destination |
 | Long, multi-app browser work | ChatGPT Work when present | Navigate and verify real workflow | Focused connector calls | Work mode availability and quotas require account check |
 | Project code/change/test | GitHub + appropriate coding runtime | Reviewable diff and reproducible tests | Local test sandbox | Merge/production release gate |

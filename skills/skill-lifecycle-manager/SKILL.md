@@ -1,9 +1,9 @@
 ---
 name: skill-lifecycle-manager
-description: AI Skill Lifecycle Manager v2.3 — the single skill factory, librarian, auditor, and quality guard for Robert's ecosystem. Auto-detects what Robert needs, picks the right skill, creates new ones when gaps exist, updates existing skills, prevents duplicate work and rebuild loops, discovers external skills from online sources, audits/rates the whole library, predicts future skill needs, resolves skill conflicts, and auto-formats everything for Kimi/Claude/Perplexity/Comet/Manus. Triggers on any request to build, update, find, combine, organize, audit, rate, or discover skills; anything about skill management, skill gaps, skill quality, skill roadmap, skill library, skill inventory, or skill organization; and when Robert appears to be rebuilding something that already exists.
+description: AI Skill Lifecycle Manager v2.4 — the single skill factory, librarian, auditor, and quality guard for Robert's ecosystem. Auto-detects what Robert needs, picks the right skill, creates new ones when gaps exist, updates existing skills, prevents duplicate work and rebuild loops, discovers external skills from online sources, audits/rates the whole library, predicts future skill needs, resolves skill conflicts, and auto-formats everything for Kimi/Claude/Perplexity/Comet/Manus. Triggers on any request to build, update, find, combine, organize, audit, rate, or discover skills; anything about skill management, skill gaps, skill quality, skill roadmap, skill library, skill inventory, or skill organization; and when Robert appears to be rebuilding something that already exists.
 ---
 
-# AI Skill Lifecycle Manager v2.3
+# AI Skill Lifecycle Manager v2.4
 
 You are the skill factory, librarian, and quality guard. The right skill exists for every task, nothing gets rebuilt twice, and every skill stays current and properly formatted.
 
@@ -114,6 +114,15 @@ https://agentskills.io/specification .
 - Default canonical delta behavior, project-scoped IDs, Notion dedupe controls and historical source hashes must remain unchanged. Never auto-fix or rewrite legacy files solely because a metadata review identified a concern.
 - SOURCE_PRESENT, FRONTMATTER_PASS, TESTED, INSTALLED and LIVE are distinct states. This helper never authenticates a plugin or activates a skill. Record review codes and exact source revisions, test fixtures, owner decisions and rollback before promotion.
 - Negative cases: missing/unclosed header, bad name, wrong directory, oversize or missing description, missing body, ambiguous YAML. Preserve original source without destructive edits.
+
+## Optional Cortex Semantic Memory bridge (v2.4)
+
+- **Use an existing capability, not a new skill or database.** Cortex is a supplementary non-sensitive memory adapter for settled DEBO decisions and verified checkpoints. GitHub source, authorized project records, the Notion Skill Registry and the existing Resume Capsule remain authoritative.
+- **Read:** When past personal project context materially affects an answer and is not already available, perform a narrow Cortex search, then fetch relevant IDs; independently verify current project state from canonical evidence. Missing results do not prove memory absence.
+- **Write:** Only authorized, settled and non-sensitive facts; deduplicate, minimize text, label evidence status and scope. Treat `queued` as not saved. Verify the provider's write outcome and search/fetch readback before claiming a complete test.
+- **Block:** No credentials, payment/government identifiers, health or other special-category data, client confidential information, youth/guardian/athlete records, or unauthorized tenant transfers. No bulk imports or automatic cross-AI synchronization. External AI access requires its own authenticated, scoped read test.
+- **Status:** ChatGPT Cortex write → accepted → indexed search → fetch was verified on 2026-11-22. Private DEBO ChatGPT plugin `debo-core-chatgpt` v0.3.3 contains a matching Cortex adapter. Other AI platforms, live cross-provider continuity, and routine automatic memory sync remain **NOT VERIFIED / DISABLED**.
+- **Acceptance / rollback:** See [Cortex memory bridge](references/cortex-memory.md). Test duplicate-prevention, sensitive-input denial without transmitting the content, queued-vs-saved truth and source precedence. Stop adapter use for rollback; deletion of an individual Cortex memory requires explicit user confirmation.
 
 ## Absorbed Lineage
 

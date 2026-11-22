@@ -359,3 +359,11 @@ Use the external AI only when its material advantage exceeds the handoff cost.
 8. Preserve a concise receipt: \`tool, operation, allowed, reason_codes, source/checkpoint, test_status, next_safe_action\`. Keep \`AUTHORIZED\`, \`TESTED\`, \`INSTALLED\` and \`LIVE\` distinct. If source data may be stale, recheck before any action.
 
 **Test contract:** \`tests/test_debo_connector_preflight.py\` covers public reads, private identity/tenant/scope failures, no-cost versus metered browser runs, unapproved external contact, sensitive data transfers, and permission escalation. Test fixtures are synthetic. Runtime acceptance still requires actual authorized connector readback. This router's output must never be called a real credential or OAuth token validation.
+
+
+## R19 continuity + Cortex fallback (governed, optional)
+
+- DEBO / ChatGPT and the authorized canonical project source remain the primary recovery route. Use the existing R19 offline capsule validator and tools/debo_r19_continuity_guard.py to plan low-cost, source-scoped continuity before introducing another service.
+- For approved settled non-sensitive decisions, Cortex is an optional memory adapter; it never overrides GitHub, project records, explicit owners or authenticated evidence. Its ChatGPT write/search/fetch test does not establish a Claude, Gemini, Grok or other provider connection.
+- Route approved private checkpoint writes through existing R19 + ThreadOps, the existing dashboard as a view only, and existing work-credit-governor for ZERO ADDITIONAL SPEND. Never publish private capsule contents or treat the public Core feed as live operational data.
+- Second-AI continuity remains NOT VERIFIED until a separately authenticated client retrieves the same test record and its own record can be fetched back through ChatGPT. No new runner, memory registry, account or paid API by default.
