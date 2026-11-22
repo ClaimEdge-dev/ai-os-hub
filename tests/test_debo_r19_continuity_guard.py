@@ -71,6 +71,16 @@ class GuardTests(unittest.TestCase):
         self.assertEqual(x['checkpoint']['automatic_runtime_runner'], 'NOT_CONFIGURED')
         self.assertFalse(x['dashboard']['private_task_data'])
 
+    def test_custom_identifiers_are_pseudonymized(self):
+        c = example('PRIVATE_PROJ_NAME_9876')
+        c['task_id'] = 'SECRET_TASK_REFERENCE_9876'
+        out = build_plan([c], now=NOW)
+        blob = json.dumps(out)
+        self.assertNotIn('PRIVATE_PROJ_NAME_9876', blob)
+        self.assertNotIn('SECRET_TASK_REFERENCE_9876', blob)
+        self.assertTrue(out['project_id'].startswith('SCOPE-'))
+        self.assertTrue(out['task_id'].startswith('DEBO-TASK-'))
+
     def test_invalid_proof_fails_closed(self):
         c = example(); c['status'] = 'TESTED'; c['evidence'] = []
         with self.assertRaisesRegex(ValueError, 'requires test_receipt'):
