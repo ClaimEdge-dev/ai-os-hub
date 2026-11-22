@@ -89,3 +89,32 @@ Neither the merge nor the test overrides the private project source policy, JCT 
 **Ingestion and status gate:** Resolve exact owning tenant/project and authentic source identity. Keep evidence links in their approved private location. Deduplicate only stable IDs/hashes in the same ownership scope; same-name and same-size are candidates, not exact copies. On source conflict, preserve both, prefer the latest verified authorized source, and hold irreconcilable material changes. Convert a verified accepted handoff into the **existing** `debo.r19.capsule.v1` only through its validator and existing approved private destination; follow duplicate-safe readback and evidence/status requirements. A typed citation alone is not authenticated proof. No automatic writeback, cross-platform sync, schedule, memory installation or LIVE assertion without separate connector and runtime receipts.
 
 **Acceptance:** Existing R19 regression tests continue passing; Library-first order, no-destructive-cleanup default, tenant isolation, unverified-coverage behavior, conflict hold, and no-false-LIVE status are tested; exact-head CI and any existing independent security review pass before promotion. A GitHub merge is **SOURCE MERGED**, not an external runtime activation.
+
+
+## 2026-11-22 | Continuity Engine 1.0 — R19 extension (review candidate)
+
+**Implementation:** Existing R19 Python capsule validator/writer remains the only writer. New read-only tool tools/debo_r19_continuity_guard.py is a planning guard, NOT another memory store or task engine. Its synthetic tests are in tests/test_debo_r19_continuity_guard.py; existing Bootstrap Integrity runs test_debo*.py. The guard is offline: no API keys, new database, network calls or API charges.
+
+Example for project-owned private files (never commit real capsules):
+
+    python tools/debo_r19_continuity_guard.py --input /approved/private/path/capsule-v1.json
+    # Multiple --input values must be from one task lineage in oldest-first order.
+    python tools/debo_r19_continuity.py checkpoint --input /approved/private/path/capsule-v1.json --output /approved/private/path/next-version.json
+
+| Upgrade | Existing component | Deliverable | Limit |
+| --- | --- | --- | --- |
+| 1. Continuity recovery | R19 + existing Resume Capsule | Source-first read-only plan | Not a live ChatGPT cold-start |
+| 2. Cross-AI bridge | Cortex plugin v0.3.3 + PR #85 | Same-account two-way acceptance contract | Second client not connected/tested |
+| 3. Checkpoint capture | Existing R19 checkpoint + ThreadOps | Explicit approved private write/readback | No unattended event runner |
+| 4. Memory conflicts | R19 guard | Same-revision conflict HOLD | Structural, not semantic contradiction |
+| 5. Project awareness | Existing profiles + R19 fingerprints | Mixed-project/task comparison rejected | No real private data imported |
+| 6. Execution dashboard | Existing DEBO-05 UI + Core source feed | NOW/MONEY/BLOCKED/DONE metadata contract | No live editor claim |
+| 7. Agent routing | Existing multi-ai-router | Canonical-first, optional Cortex read | External AI access unverified |
+| 8. Self-diagnostic QA | Existing Bootstrap Integrity + tests | Privacy, stale state, duplicate and conflict checks | Synthetic/offline only |
+| 9. Cost governor | Existing work-credit-governor | Zero additional spend planner and no API calls | No quota/balance inferred |
+
+**Privacy:** No objective, checkpoint text, source evidence references, customer details, private financials, credentials, government IDs or youth/guardian data appear in planner output. Cortex metadata is a candidate only; the offline guard sets external_write_permitted=false. Private file data must not enter the public GitHub repository or dashboard feed.
+
+**Conflict/freshness:** Identical capsule bytes are deduplicated. Same source_revision or identical observation timestamp with conflicting states triggers HOLD_CONFLICT for review; not proof that one historical state is false. Missing/future timestamps are UNKNOWN; evidence reports older than seven days are REVERIFY. Typed proof references remain unauthenticated. Exactly one project and one task lineage per call.
+
+**Execution and rollback:** During an authorized active session, ThreadOps can use this read-only guard before creating a new approved private checkpoint with the existing R19 command. No bulk sync, hidden scheduling, cross-provider authentication or production deployment is created. Use the existing public dashboard only for source health, not private status. Cross-AI continuity stays HOLD until an independently authenticated second client completes both-direction reads. Roll back by leaving the review branch unmerged; the guard changes no account or storage.
