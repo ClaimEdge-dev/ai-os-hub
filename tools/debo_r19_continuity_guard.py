@@ -55,6 +55,12 @@ def build_plan(capsules, now=None):
         if digest not in hashes:
             hashes.add(digest)
             deduped.append(c)
+    # A caller may supply an incorrect order; never let an older observation masquerade
+    # as the latest source when timestamps are known. Unknown times retain UNKNOWN.
+    known_times = [_observed_utc(c.get('as_of_utc')) for c in deduped]
+    for earlier, later in zip(known_times, known_times[1:]):
+        if earlier is not None and later is not None and later < earlier:
+            raise ValueError('out-of-order checkpoint timestamps; verify canonical source order')
     resume = resume_summary(deduped)
 
     # Repeated revisions with mutually incompatible reported states need review.
@@ -62,9 +68,9 @@ def build_plan(capsules, now=None):
     conflict = False
     for c in deduped:
         revision = c.get('source_revision')
-        observed = c.get('as_of_utc')
+        observed = _observed_utc(c.get('as_of_utc'))
         key = ('revision', revision) if isinstance(revision, str) and revision.strip() else (
-            ('observed', observed) if _observed_utc(observed) else None)
+            ('observed', observed.isoformat()) if observed else None)
         if key is None:
             continue
         state = (c['status'], c['checkpoint'])
