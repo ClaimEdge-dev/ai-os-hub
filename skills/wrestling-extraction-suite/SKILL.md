@@ -53,6 +53,10 @@ Platform-specific navigation paths live in the platform notes below.
 - **USA Wrestling Membership**: membership portal; requires login.
 - **TheMat.com / NUWAY Combat**: public brackets; verify event names against flyers.
 
+## 2026-11 Public Match-Source Intake Extension
+
+Read [references/public-track-evidence-v1.md](references/public-track-evidence-v1.md) for provider access restrictions, source provenance, duplicate/bye/forfeit review, approved public-page exports, and the no-scraping-without-permission gate. Publicly visible match data is not automatically permission for bulk automated republication. Existing verification, youth-data and deployment gates still apply. This is a source-level adapter, not an installed crawler.
+
 ## Standing Rules
 
 - Never fabricate. A missing result is data too — report NOT FOUND.
