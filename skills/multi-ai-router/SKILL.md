@@ -367,3 +367,8 @@ Use the external AI only when its material advantage exceeds the handoff cost.
 - For approved settled non-sensitive decisions, Cortex is an optional memory adapter; it never overrides GitHub, project records, explicit owners or authenticated evidence. Its ChatGPT write/search/fetch test does not establish a Claude, Gemini, Grok or other provider connection.
 - Route approved private checkpoint writes through existing R19 + ThreadOps, the existing dashboard as a view only, and existing work-credit-governor for ZERO ADDITIONAL SPEND. Never publish private capsule contents or treat the public Core feed as live operational data.
 - Second-AI continuity remains NOT VERIFIED until a separately authenticated client retrieves the same test record and its own record can be fetched back through ChatGPT. No new runner, memory registry, account or paid API by default.
+
+
+## Universal AI model/version routing
+
+Before any external-AI prompt or delegation, invoke the focused `ai-model-version-router` skill at `skills/ai-model-version-router/SKILL.md`. Recommend the exact provider, selectable model/version, and operating mode; explain why, give one backup, verify access, and produce the complete tailored prompt. Recognize Bobby's existing Perplexity Pro subscription; use standard versions only and never assume Max/premium access. Check the live Perplexity selector because availability may vary by mode. For simple work, state `USE CURRENT MODEL — NO SWITCH NEEDED.` Preserve all existing router rules and approval boundaries.
