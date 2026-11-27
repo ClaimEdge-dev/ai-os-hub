@@ -1,0 +1,16 @@
+import { readFile, mkdir, copyFile, writeFile } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
+import { build } from 'esbuild';
+const root = fileURLToPath(new URL('../', import.meta.url));
+const manifest = JSON.parse(await readFile(new URL('../.openai/hosting.json', import.meta.url), 'utf8'));
+if (typeof manifest.project_id !== 'string' || !manifest.project_id.length || manifest.d1 !== 'DB' || !manifest.capabilities?.includes('mcp') || manifest.static) throw new Error('Registered Worker Site, DB and MCP are required');
+const built = spawnSync(process.execPath, [fileURLToPath(new URL('./build.mjs', import.meta.url))], { cwd: root, stdio: 'inherit' });
+if (built.status !== 0) throw new Error('Core build failed');
+await build({ entryPoints: [fileURLToPath(new URL('../src/site_worker.mjs', import.meta.url))], outfile: fileURLToPath(new URL('../dist/server/index.js', import.meta.url)), bundle: true, format: 'esm', platform: 'browser', target: 'es2022', sourcemap: false });
+const bytes = await readFile(new URL('../dist/server/index.js', import.meta.url));
+await writeFile(new URL('../dist/build-manifest.json', import.meta.url), JSON.stringify({status:'BUILT_SYNTHETIC_PRIVATE_SITE',entrypoint:'server/index.js',sha256:createHash('sha256').update(bytes).digest('hex')},null,2)+'\n');
+await mkdir(new URL('../dist/.openai/', import.meta.url), { recursive: true });
+await copyFile(new URL('../.openai/hosting.json', import.meta.url), new URL('../dist/.openai/hosting.json', import.meta.url));
+console.log('Built owner-private verification Site; provider disabled by runtime guard.');

@@ -1,0 +1,10 @@
+{
+  "name": "@debo/gemini-mcp-policy-pilot",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.13.0" },
+  "scripts": {"build": "node scripts/build.mjs", "test": "node --test test/*.test.mjs"},
+  "description": "Offline-tested synthetic MCP Worker candidate; NOT a deployed or live Gemini connection",
+  "dependencies": {}
+}
